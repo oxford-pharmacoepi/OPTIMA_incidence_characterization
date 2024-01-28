@@ -6,7 +6,11 @@ renv:restore()
 
 # load r packages
 library(CirceR)
+library(CDMConnector)
+library(PatientProfiles)
+library(CohortSurvival)
 library(IncidencePrevalence)
+library(cli)
 library(here)
 library(DBI)
 library(dbplyr)
@@ -15,12 +19,8 @@ library(readr)
 library(log4r)
 library(tidyr)
 library(stringr)
-library(CDMConnector)
-library(PatientProfiles)
 library(ggplot2)
 library(broom)
-library(survival)
-library(bshazard)
 library(SqlRender)
 library(tictoc)
 library(RPostgres)
@@ -82,20 +82,15 @@ cdm <- CDMConnector::cdm_from_con(con = db,
                                                    "prefix" = table_stem),
                                   cdm_name = db.name)
 
-# to check whether the DBI connection is correct, 
-# running the next line should give you a count of your person table
-cdm$person %>% 
-  tally()
-
-# Set study details -----
-# must be start of year so 1st jan 2007, 1st jan 2013 CANNOT BE MID YEAR
-studyStartDate <- "2000-01-01" 
-# study end data
-studyEndDate <- "2022-12-31"
+# # to check whether the DBI connection is correct, 
+# # running the next line should give you a count of your person table
+# cdm$person %>% 
+#   tally()
 
 # Run the study ------
-#source(here("RunStudy.R"))
-# after the study is run you should have a zip folder in your output folder to share
+run_incidence <- TRUE
+run_survival <- TRUE
+source(here("RunStudy.R"))
 
 # disconnect from the database (only do this after you have run all analysis)
 #dbDisconnect(db)

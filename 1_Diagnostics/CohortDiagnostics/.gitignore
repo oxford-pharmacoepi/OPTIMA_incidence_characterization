@@ -1,0 +1,11 @@
+.RProj/*
+.Rhistory
+CodeToRun_local.R
+Results/*
+!Results/README.md
+.Rproj.user/*
+postgresql-42.2.18.jar
+Results 01_05/*
+Results prev2/*
+.Rproj.user
+.Rprofile

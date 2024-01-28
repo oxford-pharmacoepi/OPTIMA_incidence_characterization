@@ -1,0 +1,13 @@
+name: p2-c1-001-multiplemyelomacohortdiagnostics
+title: P2-C1-001-MultipleMyelomaCohortDiagnostics
+username: e.burn@darwin-eu.org
+account: e.burn@darwin-eu.org
+server: data-dev.darwin-eu.org
+hostUrl: https://data-dev.darwin-eu.org/__api__
+appId: 26
+bundleId: 106
+url: https://data-dev.darwin-eu.org/content/b1886f72-949c-40df-b47c-1d99d88c6d97/
+when: 1692610072.53472
+lastSyncTime: 1692610072.53473
+asMultiple: FALSE
+asStatic: FALSE
