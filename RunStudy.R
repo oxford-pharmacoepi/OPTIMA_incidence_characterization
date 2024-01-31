@@ -3,18 +3,18 @@ if (!file.exists(output.folder)){
   dir.create(output.folder, recursive = TRUE)}
 
 # get cdm snapshot
-cli::cli_text("- Getting cdm snapshot")
+cli::cli_alert_info("- Getting cdm snapshot")
 write_csv(snapshot(cdm), here("Results", paste0(db.name,
   "/cdm_snapshot_", cdmName(cdm), ".csv"
 )))
 
 # Cohort generation ----
-cli::cli_text("- Cohort generation")
+cli::cli_alert_info("- Cohort generation")
 source(here("2_Study", "1_InstantiateCohorts","InstantiateStudyCohorts.R"))
 
 # incidence ----
 if(isTRUE(run_incidence)){
-  cli::cli_text("- Running incidence")
+  cli::cli_alert_info("- Running incidence")
   tryCatch({
     source(here("2_Study", "2_Analysis", "incidence.R"))
   }, error = function(e) {
@@ -25,7 +25,7 @@ if(isTRUE(run_incidence)){
 
 # survival analysis ----
 if(isTRUE(run_survival)){
-  cli::cli_text("- Running survival analysis")
+  cli::cli_alert_info("- Running survival analysis")
   tryCatch({
     source(here("2_Study", "2_Analysis", "survival.R"))
   }, error = function(e) {
@@ -35,7 +35,7 @@ if(isTRUE(run_survival)){
 }
 
 # characterisation analysis -----
-  cli::cli_text("- Running characterisation")
+cli::cli_alert_info("- Running characterisation")
   tryCatch({
     source(here("2_Study", "2_Analysis", "characterisation.R"))
   }, error = function(e) {

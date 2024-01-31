@@ -1,7 +1,7 @@
 # code for getting denominator and estimating incidence below
 
 #get denominator ------
-cli::cli_text("- Getting denominator")
+cli::cli_alert_info("- Getting denominator")
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator" ,
@@ -19,10 +19,10 @@ cdm <- generateDenominatorCohortSet(
   daysPriorObservation = 365,
   overwrite = TRUE
 )
-cli::cli_text("- Got denominator")
+cli::cli_alert_info("- Got denominator")
 
 # Estimate incidence -------
-cli::cli_text("- Getting incidence")
+cli::cli_alert_info("- Getting incidence")
 
 inc <- estimateIncidence(
   cdm = cdm,
@@ -39,11 +39,11 @@ inc <- estimateIncidence(
 )
 
 # Export the results -----
-cli::cli_text("- Getting incidence attrition")
+cli::cli_alert_info("- Getting incidence attrition")
 write.csv(IncidencePrevalence::incidenceAttrition(inc), here::here(paste0(output.folder,"/", db.name, "_incidence_attrition.csv")), row.names = FALSE)
 
-cli::cli_text("- Getting incidence settings")
+cli::cli_alert_info("- Getting incidence settings")
 write.csv(IncidencePrevalence::incidenceSet(inc), here::here(paste0(output.folder,"/", db.name, "_incidence_settings.csv")), row.names = FALSE)
 
-cli::cli_text("- Getting incidence results")
+cli::cli_alert_info("- Getting incidence results")
 write.csv(inc, here::here(paste0(output.folder,"/", db.name, "_incidence_estimates.csv")), row.names = FALSE)
