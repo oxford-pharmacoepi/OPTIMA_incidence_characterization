@@ -90,6 +90,7 @@ cdm <- CDMConnector::cdm_from_con(con = db,
 # Run the study ------
 run_incidence <- TRUE
 run_survival <- TRUE
+
 source(here("RunStudy.R"))
 
 # disconnect from the database (only do this after you have run all analysis)
