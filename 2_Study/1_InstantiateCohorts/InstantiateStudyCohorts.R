@@ -1,10 +1,9 @@
 # instantiate cancer cohorts
-info(logger, "- getting cancer definitions")
-
+cli::cli_text("- Getting cancer definitions")
 
 # get concept sets from cohorts----
 cancer_concepts <- CodelistGenerator::codesFromCohort(
-  path = here::here("1_InstantiateCohorts", "Cohorts" ) ,
+  path = here::here("2_Study", "1_InstantiateCohorts", "Cohorts" ) ,
   cdm = cdm,
   withConceptDetails = FALSE)
 
@@ -19,23 +18,5 @@ cdm <- CDMConnector::generateConceptCohortSet(
   end = "observation_period_end_date",
   overwrite = TRUE )
 
-
-
-if(priorhistory == TRUE){
-  
-  # add in prior history
-  cdm$outcome <- cdm$outcome %>% 
-    PatientProfiles::addPriorObservation(
-      cdm = cdm,
-      indexDate = "cohort_start_date")
-  
-  #for those with prior history remove those with less than 365 days of prior history
-  cdm$outcome <- cdm$outcome %>% 
-    filter(prior_observation >= 365) %>% 
-    select(-c(prior_observation))
-  
-}
-
-
-info(logger, "- got cancer cohorts")
+cli::cli_text("- Got cancer cohorts")
 

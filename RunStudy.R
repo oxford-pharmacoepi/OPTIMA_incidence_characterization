@@ -2,42 +2,53 @@
 if (!file.exists(output.folder)){
   dir.create(output.folder, recursive = TRUE)}
 
-# instantiate study cohorts ----
-info(logger, 'INSTANTIATING STUDY COHORTS')
+# get cdm snapshot
+cli::cli_text("- Getting cdm snapshot")
+write_csv(snapshot(cdm), here("Results", paste0(db.name,
+  "/cdm_snapshot_", cdmName(cdm), ".csv"
+)))
+
+# Cohort generation ----
+cli::cli_text("- Cohort generation")
 source(here("2_Study", "1_InstantiateCohorts","InstantiateStudyCohorts.R"))
-info(logger, 'GOT STUDY COHORTS')
 
-# Run incidence rate analysis ----
-info(logger, 'RUNNING INCIDENCE RATE ANALYSIS')
-source(here("2_Study", "2_Analysis","IncidenceAnalysis1.R"))
-info(logger, 'INCIDENCE RATE ANALYSIS RAN')
+# incidence ----
+if(isTRUE(run_incidence)){
+  cli::cli_text("- Running incidence")
+  tryCatch({
+    source(here("2_Study", "2_Analysis", "incidence.R"))
+  }, error = function(e) {
+    writeLines(as.character(e),
+               here("Results", "error_incidence.txt"))
+  })
+}
 
-# Run cohort characterisation analysis ----
-info(logger, 'RUNNING COHORT CHARACTERISATION ANALYSIS')
-source(here("2_Study","2_Analysis","CohortCharacteristics3.R"))
-info(logger, 'COHORT CHARACTERISATION ANALYSIS RAN')
+# survival analysis ----
+if(isTRUE(run_survival)){
+  cli::cli_text("- Running survival analysis")
+  tryCatch({
+    source(here("2_Study", "2_Analysis", "survival.R"))
+  }, error = function(e) {
+    writeLines(as.character(e),
+               here("Results", "error_survival.txt"))
+  })
+}
 
-# Run survival analysis -----
-info(logger, 'RUNNING SURVIVAL ANALYSIS')
-source(here("2_Study", "2_Analysis","SurvivalAnalysis1.R"))
-info(logger, 'SURVIVAL ANALYSIS RAN')
+# characterisation analysis -----
+  cli::cli_text("- Running characterisation")
+  tryCatch({
+    source(here("2_Study", "2_Analysis", "characterisation.R"))
+  }, error = function(e) {
+    writeLines(as.character(e),
+               here("Results", "error_characterisation.txt"))
+  })
 
-# snapshot
-readr::write_csv(snapshot(cdm), paste0(here::here(output.folder),"/", cdm_name(cdm), "_snapshot_cdm.csv"))
-
-# cohort attrition for survival
-
-# get study outputs
-
-# save results
-
-# zip results
-
-
+# zip results ----
+# zip all results
+zip(zipfile = file.path(here("Results",
+                             paste0("Results_", db_name, ".zip"))),
+    files = list.files(here("Results"), full.names = TRUE, recursive = TRUE))
 
 print("Done!")
-print("-- If all has worked, there should now be zip folders with the incidence and survival results in the output folder to share")
+print("-- If all has worked, there should now be a zip folder with your results in the Results folder to share")
 print("-- Thank you for running the study! :)")
-Sys.time()
-Sys.time()-start
-readLines(log_file)

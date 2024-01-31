@@ -88,6 +88,7 @@ cdm <- CDMConnector::cdm_from_con(con = db,
 #   tally()
 
 # Run the study ------
+priorhistory <- TRUE
 run_incidence <- TRUE
 run_survival <- TRUE
 
