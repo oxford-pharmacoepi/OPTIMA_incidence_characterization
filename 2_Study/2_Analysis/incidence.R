@@ -1,7 +1,7 @@
 # code for getting denominator and estimating incidence below
-cli::cli_text("- Getting denominator")
 
 #get denominator ------
+cli::cli_text("- Getting denominator")
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator" ,
@@ -19,7 +19,6 @@ cdm <- generateDenominatorCohortSet(
   daysPriorObservation = 365,
   overwrite = TRUE
 )
-
 cli::cli_text("- Got denominator")
 
 # Estimate incidence -------
