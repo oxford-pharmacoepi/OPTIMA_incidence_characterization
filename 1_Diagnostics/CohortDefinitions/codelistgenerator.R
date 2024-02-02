@@ -1,27 +1,87 @@
+# Manage project dependencies ------
+# the following will prompt you to install the various packages used in the study
+# install.packages("renv")
+# renv::activate()
+renv::restore()
+
 # packages ---
 library(Capr)
 library(here)
 library(DBI)
 library(CDMConnector)
 library(dplyr)
+library(CodelistGenerator)
 
 # db with vocab ----
-server_dbi<-"cdm_iqvia_pharmetrics_plus_202203"
-user<-Sys.getenv("DB_USER")
-password<- Sys.getenv("DB_PASSWORD")
-port<-Sys.getenv("DB_PORT")
-host<-"163.1.65.51"
+server_dbi <- Sys.getenv("DB_SERVER_cdm_ukbiobank_202003_dbi") #ukb
+#server_dbi <- Sys.getenv("DB_SERVER_cdm_gold_202207_dbi") #GOLD
+user       <- Sys.getenv("DB_USER")
+password   <- Sys.getenv("DB_PASSWORD")
+port       <- Sys.getenv("DB_PORT")
+host       <- Sys.getenv("DB_HOST")
 
-db <- dbConnect(RPostgres::Postgres(),
-                dbname = server_dbi,
-                port = port,
-                host = host,
-                user = user,
-                password = password)
+# connect
+db <- DBI::dbConnect(RPostgres::Postgres(),
+                     dbname = server_dbi,
+                     port = port,
+                     host = host,
+                     user = user,
+                     password = password)
 
 cdm <- cdmFromCon(con = db,
                   cdmSchema = "public",
                   writeSchema = "results")
+
+# check patient numbers
+# cdm$person %>%
+#   tally()
+
+# check vocab version
+# getVocabVersion(cdm = cdm)
+
+
+getConceptClassId(cdm,
+                  standardConcept = "Standard",
+                  domain = "Conditions")
+
+# [1] "Clinical Finding"  "Context-dependent" "HCPCS Modifier"    "ICDO Condition"
+# [5] "Procedure"
+
+# all lung cancer together
+lungcancer_codes <- getCandidateCodes(
+  cdm = cdm,
+  keywords = "malignant neoplasm of lung",
+  exclude = c("melanoma", "lymphoma", "secondary") ,
+  domains = "Condition"
+)
+
+#ICDO3
+# get potential orphan codes for lung cancer
+# orphan_codes1 <- findOrphanCodes(x = list("lung_cancer" = lungcancer_codes$concept_id),
+#                                 cdm = cdm,
+#                                 domains = "Condition",
+#                                 standardConcept = "Standard",
+#                                 searchInSynonyms = FALSE,
+#                                 searchNonStandard = FALSE,
+#                                 includeDescendants = TRUE,
+#                                 includeAncestor = FALSE)
+
+# small cell lung cancer
+smallcell_lungcancer_codes <- getCandidateCodes(
+  cdm = cdm,
+  keywords = "Small cell carcinoma of lung",
+  exclude = c("melanoma", "Non-small", "secondary") ,
+  domains = "Condition"
+)
+
+
+# Non-small cell lung cancer
+nonsmallcell_lungcancer_codes <- getCandidateCodes(
+  cdm = cdm,
+  keywords = c("Non-small cell lung cancer" ),
+  exclude = c("melanoma", "lymphoma", "secondary") ,
+  domains = "Condition"
+)
 
 # Multiple myeloma -----
 # original concepts ----
