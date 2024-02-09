@@ -32,6 +32,7 @@ cdm <- cdmFromCon(con = db,
                   cdmSchema = "public",
                   writeSchema = "results")
 
+
 # check patient numbers
 # cdm$person %>%
 #   tally()
@@ -55,16 +56,14 @@ lungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-#ICDO3
-# get potential orphan codes for lung cancer
-# orphan_codes1 <- findOrphanCodes(x = list("lung_cancer" = lungcancer_codes$concept_id),
-#                                 cdm = cdm,
-#                                 domains = "Condition",
-#                                 standardConcept = "Standard",
-#                                 searchInSynonyms = FALSE,
-#                                 searchNonStandard = FALSE,
-#                                 includeDescendants = TRUE,
-#                                 includeAncestor = FALSE)
+# condition and observation
+lungcancer_codes_cond_obs <- getCandidateCodes(
+  cdm = cdm,
+  keywords = "malignant neoplasm of lung",
+  exclude = c("melanoma", "lymphoma", "secondary") ,
+  domains = c("Condition", "Observation")
+)
+
 
 # small cell lung cancer
 smallcell_lungcancer_codes <- getCandidateCodes(
@@ -74,6 +73,13 @@ smallcell_lungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
+# small cell lung cancer condition + observation
+smallcell_lungcancer_codes_condition_obs <- getCandidateCodes(
+  cdm = cdm,
+  keywords = "Small cell carcinoma of lung",
+  exclude = c("melanoma", "Non-small", "secondary") ,
+  domains = c("Condition", "Observation")
+)
 
 # Non-small cell lung cancer
 nonsmallcell_lungcancer_codes <- getCandidateCodes(
@@ -83,33 +89,41 @@ nonsmallcell_lungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
+
+nonsmallcell_lungcancer_codes_cond_obs <- getCandidateCodes(
+  cdm = cdm,
+  keywords = c("Non-small cell lung cancer" ),
+  exclude = c("melanoma", "lymphoma", "secondary") ,
+  domains = c("Condition", "Observation")
+)
+
 # Multiple myeloma -----
 # original concepts ----
-mm_narrow_concepts <- c(
-  4258135, 4094548, 4111355, 4111356, 4112310,
-  4259972, 4188299, 4197600, 4082464, 4210177,
-  437233, 436059, 4214660, 4019477, 4079684,
-  4137510, 133154, 4028859, 760936, 133158,
-  4190641, 4190642, 4163558, 4024874, 4216139,
-  4300702, 764229, 4184985
-)
-mm_broad_concepts <- c(
-  4224628, 4258135, 4043447, 4094548, 46270015,
-  37209514, 4111355, 4111356, 4112310, 4259972,
-  4188299, 4197600, 4082464, 37016161, 437233,
-  4210177, 436059, 4214660, 4019477, 4137433,
-  4043713, 4079684, 42538151, 4137510, 133154,
-  4028859, 760936, 133158, 4190641, 4190642,
-  4163558, 4216139, 4024874, 4300702, 764229,
-  4184985, 4145040
-)
+# mm_narrow_concepts <- c(
+#   4258135, 4094548, 4111355, 4111356, 4112310,
+#   4259972, 4188299, 4197600, 4082464, 4210177,
+#   437233, 436059, 4214660, 4019477, 4079684,
+#   4137510, 133154, 4028859, 760936, 133158,
+#   4190641, 4190642, 4163558, 4024874, 4216139,
+#   4300702, 764229, 4184985
+# )
+# mm_broad_concepts <- c(
+#   4224628, 4258135, 4043447, 4094548, 46270015,
+#   37209514, 4111355, 4111356, 4112310, 4259972,
+#   4188299, 4197600, 4082464, 37016161, 437233,
+#   4210177, 436059, 4214660, 4019477, 4137433,
+#   4043713, 4079684, 42538151, 4137510, 133154,
+#   4028859, 760936, 133158, 4190641, 4190642,
+#   4163558, 4216139, 4024874, 4300702, 764229,
+#   4184985, 4145040
+# )
 
 # add ICDO3 concepts ----
 mm_icdo3_mappings <- cdm$concept_relationship %>%
   inner_join(cdm$concept %>%
                filter(vocabulary_id == "ICDO3")  %>%
-               filter(substr(concept_code, 1L, 4L) %in%
-                        c("9731", "9732", "9733", "9734")) ,
+               filter(substr(concept_code, 8L, 10L) %in%
+                        c("C34")) ,
              by = c("concept_id_1"= "concept_id")) %>%
   filter(relationship_id == 'Maps to') %>%
   select(concept_id_2) %>%
@@ -119,6 +133,22 @@ mm_icdo3_mappings <- cdm$concept_relationship %>%
               filter(vocabulary_id == "ICDO3"),
             by = "concept_id") %>%
   collect()
+
+mm_icdo3_mappings1 <- cdm$concept_relationship %>%
+  inner_join(cdm$concept %>%
+               filter(vocabulary_id == "ICDO3")  %>%
+               filter(substr(concept_code, 1L, 10L) %in%
+                        c("8041/3-C34")) ,
+             by = c("concept_id_1"= "concept_id")) %>%
+  filter(relationship_id == 'Maps to') %>%
+  select(concept_id_2) %>%
+  rename("concept_id" = "concept_id_2") %>%
+  distinct() %>%
+  inner_join(cdm$concept %>%
+               filter(vocabulary_id == "ICDO3"),
+             by = "concept_id") %>%
+  collect()
+
 
 # add to previous concept ids (which were snomed only)
 mm_narrow_concepts <- c(mm_narrow_concepts, mm_icdo3_mappings$concept_id)
