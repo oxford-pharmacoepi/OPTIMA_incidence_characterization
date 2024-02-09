@@ -5,10 +5,25 @@ if (!file.exists(output.folder)){
 # get cdm snapshot
 cli::cli_alert_info("- Getting cdm snapshot")
 write_csv(snapshot(cdm), here("Results", paste0(db.name,
-  "/cdm_snapshot_", cdmName(cdm), ".csv"
+  "/", cdmName(cdm), "_cdm_snapshot_.csv"
 )))
 
 # Cohort generation ----
+# if you have already instantiated cohorts you can get them back
+instantiatedCohorts <- FALSE
+
+if (instantiatedCohorts == TRUE) {
+  
+  cdm <- CDMConnector::cdm_from_con(con = db, 
+                                    cdm_schema = cdm_database_schema,
+                                    write_schema = c("schema" = results_database_schema, 
+                                                     "prefix" = table_stem),
+                                    cdm_name = db.name, 
+                                    cohort_tables = c(
+                                      "outcome") )
+ 
+}
+
 cli::cli_alert_info("- Cohort generation")
 source(here("2_Study", "1_InstantiateCohorts","InstantiateStudyCohorts.R"))
 
