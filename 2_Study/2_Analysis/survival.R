@@ -18,6 +18,22 @@ cdm$outcome <- cdm$outcome %>%
                               )
                           ))
 
+# add diagnosis year 
+cdm$outcome <-cdm$outcome %>% 
+  mutate(year = year(cohort_start_date)) %>% 
+  
+# create diagnosis age band groups
+cdm$outcome <- cdm$outcome %>% 
+  mutate(age_band = cut(year, breaks = c(2003, 2008, 2013, 2018, 2023), 
+                        labels = c("2003-2007", "2008-2012", "2013-2017", "2018-2022"),
+                        include.lowest = TRUE))
+
+# add in exclusion criteria
+
+# remove people with any history of cancer
+
+# remove any people with cancer and death on same date
+
 
 if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   # generate death cohort ----
@@ -36,14 +52,24 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                       targetCohortTable = "outcome",
                                       outcomeCohortTable = "cancer_death",
                                       strata = list(c("sex"),
-                                                    c("age_group")),
+                                                    c("age_group")
+                                                    
+                                                    
+                                                    ),
                                       minCellCount = 5)
   
 
+  cli::cli_alert_info("Exporting survival attrition")
+  write_csv(surv, here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_attrition.csv"
+  )))
+  
   # export survival ----
   cli::cli_alert_info("Exporting survival results")
   write_csv(surv, here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_estimates.csv"
             )))
+  
+  
+
 
   
 }

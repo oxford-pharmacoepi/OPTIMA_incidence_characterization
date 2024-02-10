@@ -34,8 +34,8 @@ inc <- estimateIncidence(
   repeatedEvents = FALSE,
   completeDatabaseIntervals = TRUE,
   minCellCount = 5,
-  temporary = TRUE,
-  returnParticipants = FALSE
+  temporary = FALSE,
+  returnParticipants = TRUE
 )
 
 # Export the results -----
