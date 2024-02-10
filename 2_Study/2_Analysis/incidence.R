@@ -29,7 +29,7 @@ inc <- estimateIncidence(
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   denominatorCohortId = NULL,
-  interval = c("years"),
+  interval = c("years", "overall"),
   outcomeWashout = Inf,
   repeatedEvents = FALSE,
   completeDatabaseIntervals = TRUE,
