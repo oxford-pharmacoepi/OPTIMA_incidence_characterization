@@ -38,6 +38,7 @@ codelistExclusion <- list(unique(Reduce(union_all, c(cancer_concepts, codelistEx
 #rename list of concepts
 names(codelistExclusion) <- "anymalignancy"
 
+# instaniate the exclusion cohort
 cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm,
                                               conceptSet = codelistExclusion,
                                               name = "exclusion",
@@ -88,9 +89,11 @@ cdm$outcome <- cdm$outcome %>%
             death_date
             ))
 
+# update the attrition
 # cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
 #                                                    reason="Exclude patients with death date same as cancer diagnosis date" )
 
+#subset the cdm with final study population
 cdm <- cdmSubsetCohort(cdm, cohortTable = "outcome")
 
 if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
@@ -132,9 +135,5 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   write_csv(survivalSummary(surv), here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_summary.csv"
   ))) 
 
-  
-  
 
-
-  
 }

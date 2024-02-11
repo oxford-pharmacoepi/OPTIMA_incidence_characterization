@@ -7,8 +7,7 @@ summaryDemographics <- cdm$outcome %>%
                     c(60,69),
                     c(70,79),
                     c(80,150)),
-    tableIntersect = list(),
-    minCellCount = 5
+    tableIntersect = list()
   )
 
 write_csv(summaryDemographics, here("Results", paste0(db.name, "/", cdmName(cdm), "_summaryDemographics.csv"
@@ -65,31 +64,6 @@ write_csv(summaryMedications %>%
             suppressCounts(minCellCount = 5),
           here("Results", paste0(
             "summaryMedications_", cdmName(cdm), ".csv"
-          )))
-
-# treatments --------
-cli::cli_alert_info("Summarising treatments")
-summaryTreatments <- cdm$mm_cohort %>%
-  filter(cohort_definition_id == mm_f_cohort_id) %>%
-  summariseCharacteristics(
-    strata =  list(c("age_group"),
-                   c("sex")),
-    tableIntersect = list(),
-    cohortIntersect = list("Treatments" = list(
-      targetCohortTable = "mm_cohort_treatments",
-      value = "flag",
-      window = list(c(1, 30),
-                    c(1, 90),
-                    c(1, 365))
-    )
-    ),
-    minCellCount = 5
-  )
-
-write_csv(summaryTreatments %>%
-            suppressCounts(minCellCount = 5),
-          here("Results", paste0(
-            "summaryTreatments_", cdmName(cdm), ".csv"
           )))
 
 # large scale --------
