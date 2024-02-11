@@ -127,6 +127,6 @@ summaryMedications <- cdm$outcome %>%
 
 write_csv(summaryMedications %>%
             suppressCounts(minCellCount = 5),
-          here("Results", paste0(
-            "summaryMedications_", cdmName(cdm), ".csv"
+          here("Results", paste0(cdmName(cdm),
+            "_summaryMedications.csv"
           )))
