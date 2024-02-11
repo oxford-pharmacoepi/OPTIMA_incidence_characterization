@@ -24,12 +24,28 @@ cli::cli_alert_info("- Got denominator")
 # Estimate incidence -------
 cli::cli_alert_info("- Getting incidence")
 
+# incidence
 inc <- estimateIncidence(
   cdm = cdm,
   denominatorTable = "denominator",
   outcomeTable = "outcome",
   denominatorCohortId = NULL,
   interval = c("years", "overall"),
+  outcomeWashout = Inf,
+  repeatedEvents = FALSE,
+  completeDatabaseIntervals = TRUE,
+  minCellCount = 5,
+  temporary = TRUE,
+  returnParticipants = FALSE
+)
+
+#overall plus getting participants for survival analysis
+inc_overall <- estimateIncidence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  denominatorCohortId = NULL,
+  interval = c("overall"),
   outcomeWashout = Inf,
   repeatedEvents = FALSE,
   completeDatabaseIntervals = TRUE,
