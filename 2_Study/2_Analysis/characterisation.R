@@ -70,7 +70,7 @@ summaryObesity <- cdm$outcome %>%
                   c("diag_yr_gp", "sex")),
     tableIntersect = list(),
     cohortIntersect = list("Obesity_charybdis" = list(
-      targetCohortTable = "conditions",
+      targetCohortTable = "obesity",
       value = "flag",
       window = list(c(-999999, -1) ,
                     c(-999999, -366),
