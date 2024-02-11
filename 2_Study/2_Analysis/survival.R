@@ -1,12 +1,8 @@
 # KM survival analysis ---
 cli::cli_alert_info("- Getting survival")
 
-#subset the cdm
-cdm <- cdmSubsetCohort(cdm, cohortTable = "outcome")
-
 # get participants from incidence analysis
-cdm$analysis <- cdm$outcome %>% 
-  dplyr::compute()
+# tbc
 
 # add sex and age to cohorts ----
 cli::cli_alert_info("Add demographics to cohort")
@@ -84,13 +80,15 @@ cdm$outcome <- cdm$outcome %>%
 #update the attrition
 # cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
 #                                                    reason="Exclude patients where death occurs outside of observation end date" )
-#45723
 
 # remove those with date of death and cancer diagnosis on same date
 cdm$outcome <- cdm$outcome %>% 
-  dplyr::filter(is.na(death_date) | death_date != cohort_start_date)
+  dplyr::filter(is.na(death_date) | death_date != cohort_start_date) %>% 
+  select(-c(observation_period_end_date,
+            death_date
+            ))
 
-# cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$analysis,
+# cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
 #                                                    reason="Exclude patients with death date same as cancer diagnosis date" )
 
 cdm <- cdmSubsetCohort(cdm, cohortTable = "outcome")
@@ -109,7 +107,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                       censorOnCohortExit = TRUE ,
                                       censorOnDate = NULL ,
                                       eventGap = c(365) ,
-                                      estimateGap = c(365) ,
+                                      estimateGap = c(30) ,
                                       targetCohortTable = "outcome",
                                       outcomeCohortTable = "cancer_death",
                                       strata = list(c("sex"),
@@ -124,10 +122,16 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   # write_csv(attrition(surv), here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_attrition.csv"
   # )))
   
-  # export survival ----
+  # export survival estimates ----
   cli::cli_alert_info("Exporting survival results")
   write_csv(surv, here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_estimates.csv"
             )))
+  
+  # export survival esummary ----
+  cli::cli_alert_info("Exporting survival summary")
+  write_csv(survivalSummary(surv), here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_summary.csv"
+  ))) 
+
   
   
 
