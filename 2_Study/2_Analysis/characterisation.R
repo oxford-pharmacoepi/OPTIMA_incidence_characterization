@@ -2,11 +2,11 @@
 cli::cli_alert_info("Summarising demographics")
 summaryDemographics <- cdm$outcome %>%
   summariseCharacteristics(
-    ageGroup = list(c(18,49),
-                    c(50,59),
-                    c(60,69),
-                    c(70,79),
-                    c(80,150)),
+    strata = list(c("sex"),
+                  c("age_group"),
+                  c("age_group", "sex"),
+                  c("diag_yr_gp"),
+                  c("diag_yr_gp", "sex")),
     tableIntersect = list()
   )
 
@@ -14,41 +14,105 @@ write_csv(summaryDemographics, here("Results", paste0(db.name, "/", cdmName(cdm)
 )))
 
 # comorbidities --------
+cli::cli_alert_info("Instantiating comorbidities")
+
+codelistConditions <- CodelistGenerator::codesFromConceptSet(here("2_Study", "1_InstantiateCohorts", "Conditions"), cdm)
+
+cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm, 
+                                              conceptSet = codelistConditions,
+                                              name = "conditions",
+                                              overwrite = TRUE)
+
+
 cli::cli_alert_info("Summarising comorbidities")
-summaryComorbidity <- cdm$mm_cohort %>%
-  filter(cohort_definition_id == mm_p_cohort_id) %>%
+summaryComorbidity <- cdm$outcome %>%
   summariseCharacteristics(
-    strata =  list(c("age_group"),
-                   c("sex")),
+    strata = list(c("sex"),
+                  c("age_group"),
+                  c("age_group", "sex"),
+                  c("diag_yr_gp"),
+                  c("diag_yr_gp", "sex")),
     tableIntersect = list(),
     cohortIntersect = list("Comorbidities" = list(
-      targetCohortTable = "mm_cohort_cond",
+      targetCohortTable = "conditions",
       value = "flag",
-      window = list(c(-999999, -366),
+      window = list(c(-999999, -1) ,
+                   c(-999999, -366),
                     c(-365, -31),
                     c(-30, -1),
                     c(0, 0))
     )
-    ),
-    minCellCount = 5
+    )
   )
+
+# instantiate obesity using diagnosis and measurements
+cli::cli_alert_info("Instantiating obesity using diagnosis and measurements")
+
+obesity_cohorts <- CDMConnector::readCohortSet(here::here(
+  "2_Study" ,
+  "1_InstantiateCohorts",
+  "Obesity" 
+))
+
+cdm <- CDMConnector::generateCohortSet(cdm = cdm, 
+                                       cohortSet = obesity_cohorts, 
+                                       name = "obesity",
+                                       computeAttrition = TRUE,
+                                       overwrite = TRUE)
+
+cli::cli_alert_info("Summarising obesity")
+summaryObesity <- cdm$outcome %>%
+  summariseCharacteristics(
+    strata = list(c("sex"),
+                  c("age_group"),
+                  c("age_group", "sex"),
+                  c("diag_yr_gp"),
+                  c("diag_yr_gp", "sex")),
+    tableIntersect = list(),
+    cohortIntersect = list("Obesity_charybdis" = list(
+      targetCohortTable = "conditions",
+      value = "flag",
+      window = list(c(-999999, -1) ,
+                    c(-999999, -366),
+                    c(-365, -31),
+                    c(-30, -1),
+                    c(0, 0))
+    )
+    )
+  )
+
+
+summaryComorbidity <- bind_rows(summaryComorbidity,
+                                summaryObesity)
+
 write_csv(summaryComorbidity %>%
-            suppressCounts(minCellCount = 5), here("Results", paste0(
-              "summaryComorbidity_", cdmName(cdm), ".csv"
+            suppressCounts(minCellCount = 5), here("Results", paste0(cdmName(cdm),
+              "_summaryComorbidity.csv"
             )))
 
 
 # medications -----
 cli::cli_alert_info("Summarising medications")
-summaryMedications <- cdm$mm_cohort %>%
-  filter(cohort_definition_id == mm_p_cohort_id) %>%
+
+# instantiate medications
+codelistMedications <- CodelistGenerator::codesFromConceptSet(here("2_Study" ,"1_InstantiateCohorts", "Medications"), cdm)
+
+cdm <- DrugUtilisation::generateDrugUtilisationCohortSet(cdm = cdm, 
+                                                         conceptSet = codelistMedications, 
+                                                         name = "medications")
+
+
+summaryMedications <- cdm$outcome %>%
   summariseCharacteristics(
-    strata =  list(c("age_group"),
-                   c("sex")),
+    strata = list(c("sex"),
+                  c("age_group"),
+                  c("age_group", "sex"),
+                  c("diag_yr_gp"),
+                  c("diag_yr_gp", "sex")),
     tableIntersect = list(),
     cohortIntersect = list(
       "Medications" = list(
-        targetCohortTable = "mm_cohort_meds",
+        targetCohortTable = "medications",
         value = "flag",
         window = list(c(-365, -1),
                       c(-365, -31),
@@ -60,43 +124,9 @@ summaryMedications <- cdm$mm_cohort %>%
       )),
     minCellCount = 5
   )
+
 write_csv(summaryMedications %>%
             suppressCounts(minCellCount = 5),
           here("Results", paste0(
             "summaryMedications_", cdmName(cdm), ".csv"
           )))
-
-# large scale --------
-cli::cli_alert_info("Running large scale characterisation")
-ls_condition_occurrence <- cdm$mm_cohort %>%
-  filter(cohort_definition_id == mm_p_cohort_id) %>%
-  PatientProfiles::summariseLargeScaleCharacteristics(
-    strata =  list(c("age_group"),
-                   c("sex")),
-    window = list(c(-999999, -366),
-                  c(-365, -31),
-                  c(-30, -1),
-                  c(0, 0)),
-    episodeInWindow = "condition_occurrence")
-ls_drug_exposure <- cdm$mm_cohort %>%
-  filter(cohort_definition_id == mm_p_cohort_id) %>%
-  PatientProfiles::summariseLargeScaleCharacteristics(
-    strata =  list(c("age_group"),
-                   c("sex")),
-    window = list(c(-365, -1),
-                  c(-365, -31),
-                  c(-30, -1),
-                  c(0, 0),
-                  c(1, 30),
-                  c(1, 90),
-                  c(1, 365)),
-    episodeInWindow = "drug_exposure")
-
-ls_characteristics <- ls_condition_occurrence %>%
-  bind_rows(ls_drug_exposure)
-
-write_csv(ls_characteristics, here("Results", paste0(
-  "ls_characteristics_", cdmName(cdm), ".csv"
-)))
-
-
