@@ -1,5 +1,8 @@
 # demographics ----
 cli::cli_alert_info("Summarising demographics")
+
+suppressWarnings(
+
 summaryDemographics <- cdm$outcome %>%
   summariseCharacteristics(
     strata = list(c("sex"),
@@ -9,6 +12,8 @@ summaryDemographics <- cdm$outcome %>%
                   c("diag_yr_gp", "sex")),
     tableIntersect = list()
   )
+
+)
 
 write_csv(summaryDemographics, here("Results", paste0(db_name, "/", cdmName(cdm), "_summaryDemographics.csv"
 )))
@@ -25,6 +30,9 @@ cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm,
 
 
 cli::cli_alert_info("Summarising comorbidities")
+
+suppressWarnings(
+  
 summaryComorbidity <- cdm$outcome %>%
   summariseCharacteristics(
     strata = list(c("sex"),
@@ -45,6 +53,8 @@ summaryComorbidity <- cdm$outcome %>%
     )
   )
 
+)
+
 # instantiate obesity using diagnosis and measurements
 cli::cli_alert_info("Instantiating obesity using diagnosis and measurements")
 
@@ -61,6 +71,9 @@ cdm <- CDMConnector::generateCohortSet(cdm = cdm,
                                        overwrite = TRUE)
 
 cli::cli_alert_info("Summarising obesity")
+
+suppressWarnings(
+
 summaryObesity <- cdm$outcome %>%
   summariseCharacteristics(
     strata = list(c("sex"),
@@ -80,7 +93,7 @@ summaryObesity <- cdm$outcome %>%
     )
     )
   )
-
+)
 
 summaryComorbidity <- bind_rows(summaryComorbidity,
                                 summaryObesity)
@@ -101,6 +114,8 @@ cdm <- DrugUtilisation::generateDrugUtilisationCohortSet(cdm = cdm,
                                                          conceptSet = codelistMedications, 
                                                          name = "medications")
 
+
+suppressWarnings(
 
 summaryMedications <- cdm$outcome %>%
   summariseCharacteristics(
@@ -124,6 +139,8 @@ summaryMedications <- cdm$outcome %>%
       )),
     minCellCount = 5
   )
+
+)
 
 write_csv(summaryMedications %>%
             suppressCounts(minCellCount = 5),

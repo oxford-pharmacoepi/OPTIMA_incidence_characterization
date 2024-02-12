@@ -215,6 +215,8 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
   # estimate survival ----
   cli::cli_alert_info("Estimating survival")
+  
+  suppressWarnings(
   surv <- estimateSingleEventSurvival(cdm = cdm,
                                       followUpDays = 1826,
                                       censorOnCohortExit = TRUE ,
@@ -229,6 +231,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                     c("diag_yr_gp"),
                                                     c("diag_yr_gp", "sex")),
                                       minCellCount = 5)
+  )
   
 
   cli::cli_alert_info("Exporting survival attrition")
