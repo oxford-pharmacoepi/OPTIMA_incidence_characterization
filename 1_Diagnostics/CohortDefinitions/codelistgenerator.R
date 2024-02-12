@@ -28,22 +28,21 @@ db <- DBI::dbConnect(RPostgres::Postgres(),
                      user = user,
                      password = password)
 
-cdm <- cdmFromCon(con = db,
+cdm <- CDMConnector::cdmFromCon(con = db,
                   cdmSchema = "public",
                   writeSchema = "results")
 
 
 # check patient numbers
-# cdm$person %>%
-#   tally()
+cdm$person %>%
+  tally()
 
 # check vocab version
 # getVocabVersion(cdm = cdm)
 
 
 getConceptClassId(cdm,
-                  standardConcept = "Standard",
-                  domain = "Conditions")
+                  standardConcept = "Standard")
 
 # [1] "Clinical Finding"  "Context-dependent" "HCPCS Modifier"    "ICDO Condition"
 # [5] "Procedure"
