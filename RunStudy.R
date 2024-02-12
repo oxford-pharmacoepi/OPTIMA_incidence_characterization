@@ -79,7 +79,7 @@ cli::cli_alert_info("- Running characterisation")
 # zip all results
 zip(zipfile = file.path(here("Results",
                              paste0("Results_", db_name, ".zip"))),
-    files = list.files(here("Results"), full.names = TRUE, recursive = TRUE))
+    files = list.files(here("Results", db_name), full.names = TRUE, recursive = TRUE))
 
 print("Done!")
 print("-- If all has worked, there should now be a zip folder with your results in the Results folder to share")
