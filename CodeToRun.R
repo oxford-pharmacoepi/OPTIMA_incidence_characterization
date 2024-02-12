@@ -87,10 +87,17 @@ cdm <- CDMConnector::cdm_from_con(con = db,
 # cdm$person %>% 
 #   tally()
 
-# Run the study ------
+# Study settings --- if you dont want 365 days of prior history as a exclusion
+# set this to FALSE. If you leave as TRUE the study will only include people with
+# 365 days of prior history.
 priorhistory <- TRUE
+
+# Run the study ------
+# For some data partners they may not have be able to run certain studies i.e. a cancer registry
+# will not have a background denominator population therefore run_incidence will be set to FALSE
 run_incidence <- TRUE
 run_survival <- TRUE
+run_characterisation <- TRUE
 
 source(here("RunStudy.R"))
 
