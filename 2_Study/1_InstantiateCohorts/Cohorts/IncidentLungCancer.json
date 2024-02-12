@@ -2,7 +2,7 @@
   "ConceptSets": [
     {
       "id": 0,
-      "name": "Lung",
+      "name": "lung",
       "expression": {
         "items": [
           {

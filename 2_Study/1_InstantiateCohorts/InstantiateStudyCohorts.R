@@ -18,5 +18,5 @@ cdm <- CDMConnector::generateConceptCohortSet(
   end = "observation_period_end_date",
   overwrite = TRUE )
 
-cli::cli_alert_success("Got cancer cohorts")
+cli::cli_alert_success("- Got cancer definitions")
 

@@ -32,6 +32,7 @@ if (instantiatedCohorts == TRUE) {
 
 cli::cli_alert_info("- Cohort generation")
 source(here("2_Study", "1_InstantiateCohorts","InstantiateStudyCohorts.R"))
+cli::cli_alert_success("- Cohorts generated")
 
 # incidence ----
 if(isTRUE(run_incidence)){
@@ -82,7 +83,7 @@ zip(zipfile = file.path(here("Results", db_name,
                              paste0("Results_", db_name, ".zip"))),
     files = list.files(here("Results", db_name), full.names = TRUE, recursive = TRUE))
 
-cli::cli_alert_success("Study Done!")
-cli::cli_alert_success("If all has worked, there should now be a zip folder with your results in the Results folder to share")
-cli::cli_alert_success("Thank you for running the study! :)")
+cli::cli_alert_success("- Study Done!")
+cli::cli_alert_success("- If all has worked, there should now be a zip folder with your results in the Results folder to share")
+cli::cli_alert_success("- Thank you for running the study! :)")
 
