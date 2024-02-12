@@ -186,9 +186,14 @@
     },
     "IncidencePrevalence": {
       "Package": "IncidencePrevalence",
-      "Version": "0.6.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
+      "Version": "0.6.2",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "IncidencePrevalence",
+      "RemoteUsername": "darwin-eu-dev",
+      "RemoteRef": "omopgenerics",
+      "RemoteSha": "23a4651861ac361b09e7c9bab3c83ca6328f0b3f",
       "Requirements": [
         "CDMConnector",
         "DBI",
@@ -211,7 +216,7 @@
         "tidyselect",
         "zip"
       ],
-      "Hash": "2057477e7f5807f87fc69c185e6406ef"
+      "Hash": "724f3a2263b7d39fa49befeadd6a2f67"
     },
     "KernSmooth": {
       "Package": "KernSmooth",
