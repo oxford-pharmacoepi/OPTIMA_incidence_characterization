@@ -2,7 +2,8 @@
 cli::cli_alert_info("- Getting survival")
 
 # get participants from incidence analysis
-# tbc
+# 
+participants(result = inc, analysisId = 1)
 
 # add sex and age to cohorts ----
 cli::cli_alert_info("Add demographics to cohort")
