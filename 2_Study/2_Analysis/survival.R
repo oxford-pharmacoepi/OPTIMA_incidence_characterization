@@ -1,9 +1,8 @@
 # KM survival analysis ---
 cli::cli_alert_info("- Getting survival")
 
-# get participants from incidence analysis
-# 
-participants(result = inc, analysisId = 1)
+# get participants from incidence analysis to feed into survival analysis
+# participants(result = inc, analysisId = 1)
 
 # add sex and age to cohorts ----
 cli::cli_alert_info("Add demographics to cohort")
