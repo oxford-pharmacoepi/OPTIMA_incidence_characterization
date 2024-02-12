@@ -29,13 +29,13 @@ library(DrugUtilisation)
 
 # database metadata and connection details -----
 # The name/ acronym for the database
-db.name<-"..."
+db_name<-"..."
 
 # Set output folder location -----
 # the path to a folder where the results from this analysis will be saved
 # to set the location within the project with folder called "output, we can use: here("output")
 # but this file path could be set to somewhere else
-output.folder <- here("Results", db.name)
+output_folder <- here("Results", db.name)
 
 # Specify databaseConnector connection details -----
 # database connection details
