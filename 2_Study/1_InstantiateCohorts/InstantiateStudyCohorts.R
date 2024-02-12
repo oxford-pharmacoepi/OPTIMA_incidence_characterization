@@ -1,5 +1,5 @@
 # instantiate cancer cohorts
-cli::cli_text("- Getting cancer definitions")
+cli::cli_alert_info("- Getting cancer definitions")
 
 # get concept sets from cohorts----
 cancer_concepts <- CodelistGenerator::codesFromCohort(
@@ -18,5 +18,5 @@ cdm <- CDMConnector::generateConceptCohortSet(
   end = "observation_period_end_date",
   overwrite = TRUE )
 
-cli::cli_text("- Got cancer cohorts")
+cli::cli_alert_success("Got cancer cohorts")
 

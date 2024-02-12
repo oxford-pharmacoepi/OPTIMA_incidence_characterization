@@ -76,3 +76,5 @@ write.csv(IncidencePrevalence::incidenceSet(inc), here::here("Results", paste0(d
 
 cli::cli_alert_info("- Getting incidence results")
 write.csv(inc, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
+
+cli::cli_alert_success("Incidence Analysis Complete")

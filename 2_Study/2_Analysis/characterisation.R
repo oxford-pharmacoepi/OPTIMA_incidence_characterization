@@ -130,3 +130,6 @@ write_csv(summaryMedications %>%
           here("Results", paste0(cdmName(cdm),
             "_summaryMedications.csv"
           )))
+
+
+cli::cli_alert_success("Characterisation Analysis Complete")
