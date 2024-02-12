@@ -80,7 +80,7 @@ cdm <- CDMConnector::cdm_from_con(con = db,
                                   cdm_schema = cdm_database_schema,
                                   write_schema = c("schema" = results_database_schema,
                                                    "prefix" = table_stem),
-                                  cdm_name = db.name)
+                                  cdm_name = db_name)
 
 # # to check whether the DBI connection is correct, 
 # # running the next line should give you a count of your person table
