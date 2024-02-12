@@ -1,5 +1,5 @@
 # demographics ----
-cli::cli_alert_info("Summarising demographics")
+cli::cli_alert_info("Summarising Demographics")
 
 suppressWarnings(
 
@@ -17,6 +17,8 @@ summaryDemographics <- cdm$outcome %>%
 
 write_csv(summaryDemographics, here("Results", paste0(db_name, "/", cdmName(cdm), "_summaryDemographics.csv"
 )))
+
+cli::cli_alert_success("Summarising Demographics Complete")
 
 # comorbidities --------
 cli::cli_alert_info("Instantiating comorbidities")
@@ -55,57 +57,16 @@ summaryComorbidity <- cdm$outcome %>%
 
 )
 
-# instantiate obesity using diagnosis and measurements
-cli::cli_alert_info("Instantiating obesity using diagnosis and measurements")
-
-obesity_cohorts <- CDMConnector::readCohortSet(here::here(
-  "2_Study" ,
-  "1_InstantiateCohorts",
-  "Obesity" 
-))
-
-cdm <- CDMConnector::generateCohortSet(cdm = cdm, 
-                                       cohortSet = obesity_cohorts, 
-                                       name = "obesity",
-                                       computeAttrition = TRUE,
-                                       overwrite = TRUE)
-
-cli::cli_alert_info("Summarising obesity")
-
-suppressWarnings(
-
-summaryObesity <- cdm$outcome %>%
-  summariseCharacteristics(
-    strata = list(c("sex"),
-                  c("age_group"),
-                  c("age_group", "sex"),
-                  c("diag_yr_gp"),
-                  c("diag_yr_gp", "sex")),
-    tableIntersect = list(),
-    cohortIntersect = list("Obesity_charybdis" = list(
-      targetCohortTable = "obesity",
-      value = "flag",
-      window = list(c(-999999, -1) ,
-                    c(-999999, -366),
-                    c(-365, -31),
-                    c(-30, -1),
-                    c(0, 0))
-    )
-    )
-  )
-)
-
-summaryComorbidity <- bind_rows(summaryComorbidity,
-                                summaryObesity)
 
 write_csv(summaryComorbidity %>%
             suppressCounts(minCellCount = 5), here("Results", paste0(cdmName(cdm),
               "_summaryComorbidity.csv"
             )))
 
+cli::cli_alert_success("Summarising Comorbidities Complete")
 
 # medications -----
-cli::cli_alert_info("Summarising medications")
+cli::cli_alert_info("Summarising Medications")
 
 # instantiate medications
 codelistMedications <- CodelistGenerator::codesFromConceptSet(here("2_Study" ,"1_InstantiateCohorts", "Medications"), cdm)
@@ -148,5 +109,6 @@ write_csv(summaryMedications %>%
             "_summaryMedications.csv"
           )))
 
+cli::cli_alert_success("Summarising Medications Complete")
 
 cli::cli_alert_success("Characterisation Analysis Complete")
