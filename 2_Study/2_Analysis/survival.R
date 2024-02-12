@@ -58,10 +58,10 @@ cdm$outcome <- cdm$outcome %>%
 cdm$outcome <- cdm$outcome %>%
   dplyr::filter(anymalignancy_minf_to_m1 != 1)
 
-#update the attrition
-# cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
-#                                                    reason="Exclude patients with any prior history of maglinancy (ex skin cancer)" )
-
+# make outcome a perm table and update the attrition
+cdm$outcome <- cdm$outcome |> 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
+  recordCohortAttrition(reason="Exclude patients with any prior history of maglinancy (ex skin cancer)")
 
 #remove people with date of death outside of their observation period end
 cdm$outcome <- cdm$outcome %>% 
@@ -75,12 +75,14 @@ cdm$outcome <- cdm$outcome %>%
                    by = c("subject_id"= "person_id")) %>%
   dplyr::compute()
 
+
 cdm$outcome <- cdm$outcome %>% 
   filter(is.na(death_date) | death_date <= observation_period_end_date)
 
 #update the attrition
-# cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
-#                                                    reason="Exclude patients where death occurs outside of observation end date" )
+cdm$outcome <- cdm$outcome |> 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
+  CDMConnector::recordCohortAttrition(reason="Exclude patients where death occurs outside of observation end date" )
 
 # remove those with date of death and cancer diagnosis on same date
 cdm$outcome <- cdm$outcome %>% 
@@ -90,8 +92,9 @@ cdm$outcome <- cdm$outcome %>%
             ))
 
 # update the attrition
-# cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
-#                                                    reason="Exclude patients with death date same as cancer diagnosis date" )
+cdm$outcome <- cdm$outcome |> 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
+ CDMConnector::recordCohortAttrition(reason="Exclude patients with death date same as cancer diagnosis date" )
 
 #subset the cdm with final study population
 cdm <- cdmSubsetCohort(cdm, cohortTable = "outcome")
@@ -121,9 +124,9 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                       minCellCount = 5)
   
 
-  # cli::cli_alert_info("Exporting survival attrition")
-  # write_csv(attrition(surv), here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_attrition.csv"
-  # )))
+  cli::cli_alert_info("Exporting survival attrition")
+  write_csv(attrition(cdm$outcome), here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_attrition.csv"
+  )))
   
   # export survival estimates ----
   cli::cli_alert_info("Exporting survival results")
