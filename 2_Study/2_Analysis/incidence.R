@@ -19,7 +19,7 @@ cdm <- generateDenominatorCohortSet(
   daysPriorObservation = 365,
   overwrite = TRUE
 )
-cli::cli_alert_info("- Got denominator")
+cli::cli_alert_success("- Got denominator")
 
 # Estimate incidence -------
 cli::cli_alert_info("- Getting incidence")
