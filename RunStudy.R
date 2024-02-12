@@ -1,10 +1,16 @@
+# Set output folder location -----
+# the path to a folder where the results from this analysis will be saved
+# to set the location within the project with folder called "output, we can use: here("output")
+# but this file path could be set to somewhere else
+output_folder <- here("Results", db_name)
+
 # output files ---- 
-if (!file.exists(output.folder)){
-  dir.create(output.folder, recursive = TRUE)}
+if (!file.exists(output_folder)){
+  dir.create(output_folder, recursive = TRUE)}
 
 # get cdm snapshot
 cli::cli_alert_info("- Getting cdm snapshot")
-write_csv(snapshot(cdm), here("Results", paste0(db.name,
+write_csv(snapshot(cdm), here("Results", paste0(db_name,
   "/", cdmName(cdm), "_cdm_snapshot_.csv"
 )))
 
@@ -18,7 +24,7 @@ if (instantiatedCohorts == TRUE) {
                                     cdm_schema = cdm_database_schema,
                                     write_schema = c("schema" = results_database_schema, 
                                                      "prefix" = table_stem),
-                                    cdm_name = db.name, 
+                                    cdm_name = db_name, 
                                     cohort_tables = c(
                                       "outcome") )
  
@@ -34,9 +40,13 @@ if(isTRUE(run_incidence)){
     source(here("2_Study", "2_Analysis", "incidence.R"))
   }, error = function(e) {
     writeLines(as.character(e),
-               here("Results", "error_incidence.txt"))
+               here("Results", paste0(db_name,
+                                      "/", cdmName(cdm),
+                    
+                    "error_incidence.txt")))
   })
 }
+
 
 # survival analysis ----
 if(isTRUE(run_survival)){
@@ -45,7 +55,9 @@ if(isTRUE(run_survival)){
     source(here("2_Study", "2_Analysis", "survival.R"))
   }, error = function(e) {
     writeLines(as.character(e),
-               here("Results", "error_survival.txt"))
+               here("Results", paste0(db_name,
+                                      "/", cdmName(cdm),
+                    "error_survival.txt")))
   })
 }
 
@@ -56,14 +68,17 @@ cli::cli_alert_info("- Running characterisation")
     source(here("2_Study", "2_Analysis", "characterisation.R"))
   }, error = function(e) {
     writeLines(as.character(e),
-               here("Results", "error_characterisation.txt"))
+               here("Results", paste0(db_name,
+                                      "/", cdmName(cdm),
+                    
+                    "error_characterisation.txt")))
   })
 }
 
 # zip results ----
 # zip all results
 zip(zipfile = file.path(here("Results",
-                             paste0("Results_", db.name, ".zip"))),
+                             paste0("Results_", db_name, ".zip"))),
     files = list.files(here("Results"), full.names = TRUE, recursive = TRUE))
 
 print("Done!")

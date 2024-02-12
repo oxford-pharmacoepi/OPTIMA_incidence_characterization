@@ -10,7 +10,7 @@ summaryDemographics <- cdm$outcome %>%
     tableIntersect = list()
   )
 
-write_csv(summaryDemographics, here("Results", paste0(db.name, "/", cdmName(cdm), "_summaryDemographics.csv"
+write_csv(summaryDemographics, here("Results", paste0(db_name, "/", cdmName(cdm), "_summaryDemographics.csv"
 )))
 
 # comorbidities --------

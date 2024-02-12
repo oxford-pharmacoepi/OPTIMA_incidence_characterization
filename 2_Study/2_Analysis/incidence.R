@@ -69,12 +69,12 @@ inc_overall_parts <- estimateIncidence(
 
 # Export the results -----
 cli::cli_alert_info("- Getting incidence attrition")
-write.csv(IncidencePrevalence::incidenceAttrition(inc), here::here(paste0(output.folder,"/", db.name, "_incidence_attrition.csv")), row.names = FALSE)
+write.csv(IncidencePrevalence::incidenceAttrition(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_attrition.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting incidence settings")
-write.csv(IncidencePrevalence::incidenceSet(inc), here::here(paste0(output.folder,"/", db.name, "_incidence_settings.csv")), row.names = FALSE)
+write.csv(IncidencePrevalence::incidenceSet(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting incidence results")
-write.csv(inc, here::here(paste0(output.folder,"/", db.name, "_incidence_estimates.csv")), row.names = FALSE)
+write.csv(inc, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
 
 

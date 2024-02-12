@@ -144,17 +144,17 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
 
   cli::cli_alert_info("Exporting survival attrition")
-  write_csv(attrition(cdm$outcome), here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_attrition.csv"
+  write_csv(attrition(cdm$outcome), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_attrition.csv"
   )))
   
   # export survival estimates ----
   cli::cli_alert_info("Exporting survival results")
-  write_csv(surv, here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_estimates.csv"
+  write_csv(surv, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_estimates.csv"
             )))
   
   # export survival esummary ----
   cli::cli_alert_info("Exporting survival summary")
-  write_csv(survivalSummary(surv), here("Results", paste0(db.name, "/", cdmName(cdm), "_survival_summary.csv"
+  write_csv(survivalSummary(surv), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_summary.csv"
   ))) 
 
 
