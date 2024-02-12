@@ -193,7 +193,7 @@
       "RemoteRepo": "IncidencePrevalence",
       "RemoteUsername": "darwin-eu-dev",
       "RemoteRef": "omopgenerics",
-      "RemoteSha": "23a4651861ac361b09e7c9bab3c83ca6328f0b3f",
+      "RemoteSha": "b13fbef4e195ad3d1678289ab8e5c166a961a98a",
       "Requirements": [
         "CDMConnector",
         "DBI",
@@ -216,7 +216,7 @@
         "tidyselect",
         "zip"
       ],
-      "Hash": "724f3a2263b7d39fa49befeadd6a2f67"
+      "Hash": "7044d91f03191526e8dd74c8ec09657a"
     },
     "KernSmooth": {
       "Package": "KernSmooth",

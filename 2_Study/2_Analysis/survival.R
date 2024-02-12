@@ -1,9 +1,28 @@
 # KM survival analysis ---
-cli::cli_alert_info("- Getting survival")
 
+cli::cli_alert_info("- Getting participants for survival")
+  
+if(isTRUE(run_incidence)){
 # get participants from incidence analysis to feed into survival analysis
-# participants(result = inc, analysisId = 1)
+cdm$outcome_participants <- participants(inc_overall_parts, 1) %>% 
+  select("subject_id", "outcome_start_date") %>% 
+  filter(!is.na(outcome_start_date)) %>% 
+  rename("cohort_start_date" = "outcome_start_date") %>% 
+  compute(name = "outcome_participants")
 
+# filter out participants not present in this and record in attrition
+cdm$outcome <- cdm$outcome %>% 
+  dplyr::right_join(cdm$outcome_participants %>%
+                      select("subject_id") %>% 
+                      distinct(),
+                    by = c("subject_id")) %>%
+  dplyr::compute()
+
+cdm$outcome <- cdm$outcome |> 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
+  recordCohortAttrition(reason="Excluding cases from excluded from incidence analysis")
+
+} else {
 # add sex and age to cohorts ----
 cli::cli_alert_info("Add demographics to cohort")
 cdm$outcome <- cdm$outcome %>% 
@@ -25,9 +44,6 @@ cdm$outcome <- cdm$outcome %>%
   mutate(diag_yr_gp = cut(year, breaks = c(2000, 2003, 2008, 2013, 2018, 2023), 
                         labels = c("2000-2002" ,"2003-2007", "2008-2012", "2013-2017", "2018-2022"),
                         include.lowest = TRUE))
-
-cdm$outcome <- cdm$outcome %>% 
-  filter(!is.na(diag_yr_gp))
 
 # add in exclusion criteria
 # remove people with any history of cancer
@@ -96,6 +112,9 @@ cdm$outcome <- cdm$outcome |>
   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
  CDMConnector::recordCohortAttrition(reason="Exclude patients with death date same as cancer diagnosis date" )
 
+}
+  
+
 #subset the cdm with final study population
 cdm <- cdmSubsetCohort(cdm, cohortTable = "outcome")
 
@@ -140,3 +159,5 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
 
 
 }
+
+

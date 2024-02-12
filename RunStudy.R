@@ -50,6 +50,7 @@ if(isTRUE(run_survival)){
 }
 
 # characterisation analysis -----
+if(isTRUE(run_characterisation)){
 cli::cli_alert_info("- Running characterisation")
   tryCatch({
     source(here("2_Study", "2_Analysis", "characterisation.R"))
@@ -57,6 +58,7 @@ cli::cli_alert_info("- Running characterisation")
     writeLines(as.character(e),
                here("Results", "error_characterisation.txt"))
   })
+}
 
 # zip results ----
 # zip all results

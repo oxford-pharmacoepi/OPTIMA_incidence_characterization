@@ -55,6 +55,14 @@ lungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
+# add more exclusion criteria's
+lungcancer_codes1 <- getCandidateCodes(
+  cdm = cdm,
+  keywords = "malignant neoplasm of lung",
+  exclude = c("melanoma", "lymphoma", "sarcoma", "secondary") ,
+  domains = "Condition"
+)
+
 # condition and observation
 lungcancer_codes_cond_obs <- getCandidateCodes(
   cdm = cdm,

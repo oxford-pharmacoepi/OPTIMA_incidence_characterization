@@ -24,32 +24,45 @@ cli::cli_alert_info("- Got denominator")
 # Estimate incidence -------
 cli::cli_alert_info("- Getting incidence")
 
-# incidence
-# inc <- estimateIncidence(
-#   cdm = cdm,
-#   denominatorTable = "denominator",
-#   outcomeTable = "outcome",
-#   denominatorCohortId = NULL,
-#   interval = c("years", "overall"),
-#   outcomeWashout = Inf,
-#   repeatedEvents = FALSE,
-#   completeDatabaseIntervals = TRUE,
-#   minCellCount = 5,
-#   temporary = TRUE,
-#   returnParticipants = FALSE
-# )
-
-#overall plus getting participants for survival analysis
-inc_overall <- estimateIncidence(
+#incidence
+inc <- estimateIncidence(
   cdm = cdm,
   denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  denominatorCohortId = NULL,
+  interval = c("years", "overall"),
+  outcomeWashout = Inf,
+  repeatedEvents = FALSE,
+  completeDatabaseIntervals = TRUE,
+  minCellCount = 5,
+  temporary = TRUE,
+  returnParticipants = FALSE
+)
+
+
+cli::cli_alert_info("- Getting participants from incidence")
+#getting participants for survival analysis
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm,
+  name = "denominator_parts" ,
+  cohortDateRange = c(as.Date("2000-01-01"), as.Date("2022-01-01")),
+  ageGroup =list(
+    c(18, 150)),
+  sex = c("Both"),
+  daysPriorObservation = 365,
+  overwrite = TRUE
+)
+
+inc_overall_parts <- estimateIncidence(
+  cdm = cdm,
+  denominatorTable = "denominator_parts",
   outcomeTable = "outcome",
   denominatorCohortId = NULL,
   interval = c("overall"),
   outcomeWashout = Inf,
   repeatedEvents = FALSE,
   completeDatabaseIntervals = TRUE,
-  minCellCount = 5,
+  minCellCount = 0,
   temporary = FALSE,
   returnParticipants = TRUE
 )
@@ -63,3 +76,5 @@ write.csv(IncidencePrevalence::incidenceSet(inc), here::here(paste0(output.folde
 
 cli::cli_alert_info("- Getting incidence results")
 write.csv(inc, here::here(paste0(output.folder,"/", db.name, "_incidence_estimates.csv")), row.names = FALSE)
+
+
