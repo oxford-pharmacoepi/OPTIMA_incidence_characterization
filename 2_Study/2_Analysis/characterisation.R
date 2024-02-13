@@ -15,8 +15,10 @@ summaryDemographics <- cdm$outcome %>%
 
 )
 
-write_csv(summaryDemographics, here("Results", paste0(db_name, "/", cdmName(cdm), "_summaryDemographics.csv"
-)))
+write_csv(summaryDemographics %>%
+            omopgenerics::suppress(minCellCount = 5), here("Results", paste0(cdmName(cdm),
+                                                                             "_summary_demographics.csv"
+            )))
 
 cli::cli_alert_success("Summarising Demographics Complete")
 
@@ -59,8 +61,8 @@ summaryComorbidity <- cdm$outcome %>%
 
 
 write_csv(summaryComorbidity %>%
-            suppressCounts(minCellCount = 5), here("Results", paste0(cdmName(cdm),
-              "_summaryComorbidity.csv"
+            omopgenerics::suppress(minCellCount = 5), here("Results", paste0(cdmName(cdm),
+              "_summary_comorbidity.csv"
             )))
 
 cli::cli_alert_success("Summarising Comorbidities Complete")
@@ -104,9 +106,9 @@ summaryMedications <- cdm$outcome %>%
 )
 
 write_csv(summaryMedications %>%
-            suppressCounts(minCellCount = 5),
+            omopgenerics::suppress(minCellCount = 5),
           here("Results", paste0(cdmName(cdm),
-            "_summaryMedications.csv"
+            "_summary_medications.csv"
           )))
 
 cli::cli_alert_success("Summarising Medications Complete")

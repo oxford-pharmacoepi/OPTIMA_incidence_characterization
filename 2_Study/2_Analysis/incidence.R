@@ -34,7 +34,7 @@ inc <- estimateIncidence(
   outcomeWashout = Inf,
   repeatedEvents = FALSE,
   completeDatabaseIntervals = TRUE,
-  minCellCount = 5,
+  minCellCount = 0,
   temporary = TRUE,
   returnParticipants = FALSE
 )
