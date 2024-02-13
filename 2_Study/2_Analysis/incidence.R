@@ -87,15 +87,16 @@ ESP13_updated <- ESP13 %>%
   add_row(Agegroup = "50 to 59", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '50-54'| Agegroup == '55-59']))) %>% 
   add_row(Agegroup = "60 to 69", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '60-64'| Agegroup == '65-69']))) %>% 
   add_row(Agegroup = "70 to 79", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '70-74'| Agegroup == '75-79']))) %>% 
-  add_row(Agegroup = "80 +", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '80-84'| Agegroup == '85-89'|Agegroup == '90+']))) %>% 
+  add_row(Agegroup = "80 to 150", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '80-84'| Agegroup == '85-89'|Agegroup == '90+']))) %>% 
   filter(Agegroup == "18 to 49" | Agegroup == "50 to 59" | Agegroup == "60 to 69" |
            Agegroup == "70 to 79" |
-           Agegroup == "80 +" ) 
+           Agegroup == "80 to 150" ) 
 
 #rename ESP column to pop (needs to be pop otherwise will not work)
 ESP13_updated <- ESP13_updated %>% 
   rename(pop = ESP2013,
          denominator_age_group = Agegroup)
+
 
 #create a loop for each cancer phenotype
 agestandardizedinc <- list()
@@ -105,7 +106,6 @@ inc_std <- inc %>%
   filter(denominator_age_group != "18 to 150",
          denominator_sex == "Both",
          analysis_interval == "years") %>% 
-  #rename(Agegroup = denominator_age_group) %>% 
   mutate(age_standard = "crude") %>% 
   select(c(
     incidence_start_date,            
@@ -186,10 +186,10 @@ WSP2000_2025_updated <- WSP2000_2025 %>%
   add_row(Agegroup = "50 to 59", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '50-54'| Agegroup == '55-59']))) %>% 
   add_row(Agegroup = "60 to 69", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '60-64'| Agegroup == '65-69']))) %>% 
   add_row(Agegroup = "70 to 79", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '70-74'| Agegroup == '75-79']))) %>% 
-  add_row(Agegroup = "80 +", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '80-84'| Agegroup == '85-89'|Agegroup == '90+']))) %>% 
+  add_row(Agegroup = "80 to 150", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '80-84'| Agegroup == '85-89'|Agegroup == '90+']))) %>% 
   filter(Agegroup == "18 to 49" | Agegroup == "50 to 59" | Agegroup == "60 to 69" |
            Agegroup == "70 to 79" |
-           Agegroup == "80 +" ) 
+           Agegroup == "80 to 150" ) 
 
 #rename WSP column to pop (needs to be pop otherwise will not work)
 WSP2000_2025_updated <- WSP2000_2025_updated %>% 
@@ -275,7 +275,7 @@ cli::cli_alert_info("- Getting incidence attrition")
 write.csv(IncidencePrevalence::incidenceAttrition(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_attrition.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting incidence settings")
-write.csv(IncidencePrevalence::incidenceSet(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")), row.names = FALSE)
+write.csv(settings(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting incidence results")
 #write.csv(IncidencePrevalence:::obscureCounts(inc1, minCellCount = 5), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
