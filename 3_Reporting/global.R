@@ -99,7 +99,7 @@ incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
 incidence_estimates_files <-results[stringr::str_detect(results, "incidence_estimates")]
 if(length(incidence_estimates_files > 0)){
   
-incidence_estimates_files <-results[!(stringr::str_detect(incidence_estimates_files, "age_std_"))]
+incidence_estimates_files <-incidence_estimates_files[!(stringr::str_detect(incidence_estimates_files, "age_std_"))]
 
 incidence_estimates <- list()
 
@@ -171,7 +171,7 @@ survival_attrition <- dplyr::bind_rows(survival_attrition)
 
 # survival summaries ------
 survival_median_files <- results[stringr::str_detect(results, ".csv")]
-survival_median_files <- results[stringr::str_detect(results, "median_survival")]
+survival_median_files <- results[stringr::str_detect(results, "survival_summary")]
 survival_median_table <- list()
 for(i in seq_along(survival_median_files)){
   survival_median_table[[i]]<-readr::read_csv(survival_median_files[[i]],
