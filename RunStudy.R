@@ -64,7 +64,7 @@ if(isTRUE(run_survival)){
 
 # characterisation analysis -----
 if(isTRUE(run_characterisation)){
-cli::cli_alert_info("- Running characterisation")
+cli::cli_alert_info("- Running Characterisation")
   tryCatch({
     source(here("2_Study", "2_Analysis", "characterisation.R"))
   }, error = function(e) {
@@ -88,4 +88,3 @@ zip::zip(
 cli::cli_alert_success("- Study Done!")
 cli::cli_alert_success("- If all has worked, there should now be a zip folder with your results in the Results folder to share")
 cli::cli_alert_success("- Thank you for running the study! :)")
-

@@ -23,7 +23,7 @@ write_csv(summaryDemographics %>%
 cli::cli_alert_success("Summarising Demographics Complete")
 
 # comorbidities --------
-cli::cli_alert_info("Instantiating comorbidities")
+cli::cli_alert_info("Instantiating Comorbidities")
 
 codelistConditions <- CodelistGenerator::codesFromConceptSet(here("2_Study", "1_InstantiateCohorts", "Conditions"), cdm)
 
@@ -33,7 +33,7 @@ cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm,
                                               overwrite = TRUE)
 
 
-cli::cli_alert_info("Summarising comorbidities")
+cli::cli_alert_info("Summarising Comorbidities")
 
 suppressWarnings(
   
