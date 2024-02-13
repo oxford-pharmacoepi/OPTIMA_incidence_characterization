@@ -282,6 +282,6 @@ cli::cli_alert_info("- Getting incidence results")
 write.csv(inc, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting age standardized incidence results")
-write.csv(agestandardized_results, here::here("Results", paste0(db_name, "/", cdmName(cdm), "age_std_incidence_estimates.csv")), row.names = FALSE)
+write.csv(agestandardized_results, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_age_std_incidence_estimates.csv")), row.names = FALSE)
 
 cli::cli_alert_success("Incidence Analysis Complete")
