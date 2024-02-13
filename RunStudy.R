@@ -16,7 +16,7 @@ write_csv(snapshot(cdm), here("Results", paste0(db_name,
 
 # Cohort generation ----
 # if you have already instantiated cohorts you can get them back
-instantiatedCohorts <- FALSE
+instantiatedCohorts <- TRUE
 
 if (instantiatedCohorts == TRUE) {
   

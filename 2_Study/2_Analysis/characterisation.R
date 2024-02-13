@@ -5,11 +5,11 @@ suppressWarnings(
 
 summaryDemographics <- cdm$outcome %>%
   summariseCharacteristics(
-    strata = list(c("sex"),
-                  c("age_group"),
-                  c("age_group", "sex"),
-                  c("diag_yr_gp"),
-                  c("diag_yr_gp", "sex")),
+    ageGroup = list( "18 to 49" = c(18, 49),
+                     "50 to 59" = c(50, 59),
+                     "60 to 69" = c(60, 69),
+                     "70 to 79" = c(70, 79),
+                     "80 +" = c(80, 150)),
     tableIntersect = list()
   )
 
