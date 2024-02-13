@@ -251,5 +251,3 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   cli::cli_alert_success("Survival Analysis Complete")
 
 }
-
-
