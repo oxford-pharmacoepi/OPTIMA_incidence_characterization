@@ -61,9 +61,7 @@ ui <- dashboardPage(
           text = "Comorbidities",
           tabName = "comorbidities"
         )
-        
-        
-      ),
+        ),
 
       
       menuItem(
@@ -93,7 +91,7 @@ ui <- dashboardPage(
         menuSubItem(
           text = "Attrition Figure",
           tabName = "inc_attrition_fig"
-        ),
+        )
         
       ),
       
@@ -121,7 +119,7 @@ ui <- dashboardPage(
         tabName = "cohort_attrition"
       ),
       menuSubItem(
-        text = "Attrition Figures",
+        text = "Attrition Figure",
         tabName = "cohort_attr_fig"
       )
     ),
@@ -168,23 +166,30 @@ ui <- dashboardPage(
       # background  ------
       tabItem(
         tabName = "background",
-        h3("The impact of the COVID-19 pandemic on short-term cancer survival in the United Kingdom: a cohort analysis"),
+        h3("Incidence and Survival of Lung Cancer: a multinational cohort study"),
         tags$h4(tags$strong("Please note, the results presented here should be considered as
                                                 preliminary and subject to change.")),
         
         tags$h5(
           tags$span("Background:", style = "font-weight: bold;"),
-          "The COVID-19 pandemic profoundly affected healthcare systems and patients. There is a pressing need to comprehend the collateral effects of the pandemic on non-communicable diseases. Here we examined the impact of the COVID-19 pandemic and its management on short-term cancer survival in the United Kingdom (UK). We hypothesised that short-term survival from nine cancers would be reduced during the pandemic, particularly cancers that benefit from screening and early detection (e.g., breast and colorectal cancer)."
+          "TBC"
         ),
 
         tags$h5(
           tags$span(" Methods:", style = "font-weight: bold;"),
-          "We report on a population-based cohort study using electronic health records from UK primary care Clinical Practice Research Datalink (CPRD) GOLD database. There were 12,259,744 eligible patients aged ≥18 years with ≥one year of prior history identified from January 2000 to December 2022. We estimated age-standardised incidence rates (IR) and short-term (one- and two-year) survival of several common cancers (breast, colorectal, head and neck, liver, lung, oesophagus, pancreatic, prostate, and stomach cancer) from 2000 to 2019 (in five-year strata) compared to 2020 to 2022 using the Kaplan-Meier method."
+          "TBC"
           
           ),
+        
+        tags$h5(
+          tags$span(" Results:", style = "font-weight: bold;"),
+          "TBC"
+          
+        ),
+        
         tags$h5(
           tags$span("Funding:" , style = "font-weight: bold;"),
-                "This research was partially funded by the European Health Data and Evidence Network (EHDEN) (grant number 806968), the Optimal treatment for patients with solid tumours in Europe through Artificial Intelligence (OPTIMA) initiative (grant number 101034347), and the Oxford NIHR Biomedical Research Centre."
+                "This research was funded by Optimal treatment for patients with solid tumours in Europe through Artificial Intelligence (OPTIMA) initiative (grant number 101034347)."
         ),
         
         tags$h5("The results of this study are published in the following journal:"
@@ -194,8 +199,8 @@ ui <- dashboardPage(
         
         tags$h5("The analysis code used to generate these results can be found",
                 tags$a(href="https://github.com/oxford-pharmacoepi", "here"),
-                ".The cohort diagnostics including the clinical codelists for each of the 8 cancers can be found",
-                tags$a(href="https://dpa-pde-oxford.shinyapps.io/CancerExtrapolationDiagnostics/", "here")
+                ".The cohort diagnostics including the clinical codelists for lung cancer phenotypes can be found",
+                tags$a(href="https://github.com/oxford-pharmacoepi", "here")
                 
         ),
         
