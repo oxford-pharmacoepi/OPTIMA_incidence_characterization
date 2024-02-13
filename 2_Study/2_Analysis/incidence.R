@@ -94,19 +94,32 @@ ESP13_updated <- ESP13 %>%
 
 #rename ESP column to pop (needs to be pop otherwise will not work)
 ESP13_updated <- ESP13_updated %>% 
-  rename(pop = ESP2013)
+  rename(pop = ESP2013,
+         denominator_age_group = Agegroup)
 
 #create a loop for each cancer phenotype
 agestandardizedinc <- list()
 
 # filter out to only include rates
 inc_std <- inc %>% 
-  filter(denominator_age_group != "18 to 150") %>% 
-  filter(denominator_sex == "Both") %>% 
-  filter(analysis_interval == "years") %>% 
-  rename(Agegroup = denominator_age_group) %>% 
-  mutate(age_standard = "crude")
-  
+  filter(denominator_age_group != "18 to 150",
+         denominator_sex == "Both",
+         analysis_interval == "years") %>% 
+  #rename(Agegroup = denominator_age_group) %>% 
+  mutate(age_standard = "crude") %>% 
+  select(c(
+    incidence_start_date,            
+    n_events ,                       
+    person_years,                
+    incidence_100000_pys ,
+    incidence_100000_pys_95CI_lower,
+    incidence_100000_pys_95CI_upper,
+    outcome_cohort_name    ,            
+    cdm_name  ,                  
+    denominator_sex     ,                   
+    denominator_age_group  ,
+    age_standard ))
+
 
 for(i in 1:length(table(inc_std$outcome_cohort_name))){
   
@@ -133,9 +146,9 @@ for(i in 1:length(table(inc_std$outcome_cohort_name))){
 
 agestandardizedinc_final_esp <- bind_rows(agestandardizedinc) %>% 
   mutate(cdm_name = db_name) %>% 
-  rename(age_std_incidence_100000_pys = `Std Rate (per 1e+05)`,
-         age_std_incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
-         age_std_incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
+  rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
+         incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
+         incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
          incidence_start_date = Subgroup,
          person_years = Denominator ,
          n_events = Numerator ) %>% 
@@ -180,7 +193,8 @@ WSP2000_2025_updated <- WSP2000_2025 %>%
 
 #rename WSP column to pop (needs to be pop otherwise will not work)
 WSP2000_2025_updated <- WSP2000_2025_updated %>% 
-  rename(pop = WSP2000_2025)
+  rename(pop = WSP2000_2025,
+         denominator_age_group = Agegroup)
 
 #create a loop for each cancer phenotype
 agestandardizedinc_wsp <- list()
@@ -209,9 +223,9 @@ for(i in 1:length(table(inc_std$outcome_cohort_name))){
 }
 
 agestandardizedinc_wsp_final <- bind_rows(agestandardizedinc_wsp) %>% 
-  rename(age_std_incidence_100000_pys = `Std Rate (per 1e+05)`,
-         age_std_incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
-         age_std_incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
+  rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
+         incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
+         incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
          incidence_start_date = Subgroup,
          person_years = Denominator ,
          n_events = Numerator ) %>% 
@@ -228,6 +242,34 @@ agestandardizedinc_wsp_final <- bind_rows(agestandardizedinc_wsp) %>%
 cli::cli_alert_success("- Age standardization for incidence using world standard population completed")
 
 
+# bind the results from the age standardisation together with crude estimates
+
+inc_crude <- inc %>% 
+  filter(denominator_age_group == "18 to 150",
+         denominator_sex == "Both",
+         analysis_interval == "years") %>% 
+  mutate(age_standard = "crude") %>% 
+  select(c(
+    incidence_start_date,            
+    n_events ,                       
+    person_years,                
+    incidence_100000_pys ,
+    incidence_100000_pys_95CI_lower,
+    incidence_100000_pys_95CI_upper,
+    outcome_cohort_name    ,            
+    cdm_name  ,                  
+    denominator_sex     ,                   
+    denominator_age_group  ,
+    age_standard ))
+
+
+agestandardized_results <- bind_rows(
+  inc_crude,
+  agestandardizedinc_final_esp,
+  agestandardizedinc_wsp_final
+)
+
+
 # Export the results -----
 cli::cli_alert_info("- Getting incidence attrition")
 write.csv(IncidencePrevalence::incidenceAttrition(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_attrition.csv")), row.names = FALSE)
@@ -235,15 +277,11 @@ write.csv(IncidencePrevalence::incidenceAttrition(inc), here::here("Results", pa
 cli::cli_alert_info("- Getting incidence settings")
 write.csv(IncidencePrevalence::incidenceSet(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")), row.names = FALSE)
 
-# inc1 <- inc %>% 
-#   filter(!is.na(n_events)) %>% 
-#   filter(!is.na(n_persons))
-
 cli::cli_alert_info("- Getting incidence results")
 #write.csv(IncidencePrevalence:::obscureCounts(inc1, minCellCount = 5), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
 write.csv(inc, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting age standardized incidence results")
-write.csv(agestandardizedinc_final_esp, here::here("Results", paste0(db_name, "/", cdmName(cdm), "age_std_eur_incidence_estimates.csv")), row.names = FALSE)
+write.csv(agestandardized_results, here::here("Results", paste0(db_name, "/", cdmName(cdm), "age_std_incidence_estimates.csv")), row.names = FALSE)
 
 cli::cli_alert_success("Incidence Analysis Complete")
