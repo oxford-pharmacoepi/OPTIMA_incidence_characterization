@@ -41,41 +41,75 @@ server <-	function(input, output, session) {
     }
   )
   
-  
-  # patient_characteristics ----
-  get_patient_characteristics <- reactive({
+  # clinical codelists ----------------
+  get_codelists <- reactive({
     
     validate(
-      need(input$demographics_cohort_selector != "", "Please select a cohort")
+      need(input$codelist_cohort_selector != "", "Please select a cohort")
     )
     
     validate(
-      need(input$demographics_selector != "", "Please select a demographic")
+      need(input$codelist_vocab_selector != "", "Please select a vocab")
     )
     
-    patient_characteristics <- patient_characteristics %>% 
-      filter(strata_level %in% input$demographics_selector) %>% 
-      filter(group_level %in% input$demographics_cohort_selector) 
-     
+    table <- concepts_lists %>%
+      filter(Vocabulary %in% input$codelist_vocab_selector) %>%
+      filter(Cancer %in% input$codelist_cohort_selector)
     
-    patient_characteristics
+    table
+    
   })
   
   
-  output$gt_patient_characteristics  <- render_gt({
-    PatientProfiles::gtCharacteristics(get_patient_characteristics())
-  })  
+  output$tbl_codelists <- renderText(kable(get_codelists()) %>%
+                                       kable_styling("striped", full_width = F) )
   
   
-  output$gt_patient_characteristics_word <- downloadHandler(
+  output$gt_codelists_word <- downloadHandler(
     filename = function() {
-      "patient_characteristics.docx"
+      "concept_lists.docx"
     },
     content = function(file) {
-
-      gtsave(PatientProfiles::gtCharacteristics(get_patient_characteristics()), file)
+      x <- gt(get_codelists())
+      gtsave(x, file)
     }
   )
+  
+  
+  # patient_characteristics ----
+  # get_patient_characteristics <- reactive({
+  #   
+  #   validate(
+  #     need(input$demographics_cohort_selector != "", "Please select a cohort")
+  #   )
+  #   
+  #   validate(
+  #     need(input$demographics_selector != "", "Please select a demographic")
+  #   )
+  #   
+  #   patient_characteristics <- patient_characteristics %>% 
+  #     filter(strata_level %in% input$demographics_selector) %>% 
+  #     filter(group_level %in% input$demographics_cohort_selector) 
+  #    
+  #   
+  #   patient_characteristics
+  # })
+  # 
+  # 
+  # output$gt_patient_characteristics  <- render_gt({
+  #   PatientProfiles::gtCharacteristics(get_patient_characteristics())
+  # })  
+  # 
+  # 
+  # output$gt_patient_characteristics_word <- downloadHandler(
+  #   filename = function() {
+  #     "patient_characteristics.docx"
+  #   },
+  #   content = function(file) {
+  # 
+  #     gtsave(PatientProfiles::gtCharacteristics(get_patient_characteristics()), file)
+  #   }
+  # )
   
   
 
