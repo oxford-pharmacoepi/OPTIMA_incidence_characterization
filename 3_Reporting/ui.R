@@ -241,7 +241,7 @@ ui <- dashboardPage(
             inputId = "attrition_cohort_name_selector",
             label = "Study cohort",
             choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = "Breast",
+            selected = "Lung",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -290,7 +290,7 @@ ui <- dashboardPage(
             inputId = "demographics_selector",
             label = "Demographics",
             choices = unique(demo_characteristics$strata_level),
-            selected = "Overall",
+            selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -362,7 +362,7 @@ ui <- dashboardPage(
             inputId = "inc_estimates_cohort_selector",
             label = "Cancer",
             choices = unique(incidence_estimates$outcome_cohort_name),
-            selected = "Breast",
+            selected = "lung",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -374,7 +374,7 @@ ui <- dashboardPage(
             inputId = "inc_est_analysis_selector",
             label = "Analysis Interval",
             choices = unique(incidence_estimates$analysis_interval),
-            selected = "quarters",
+            selected = "years",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -399,7 +399,7 @@ ui <- dashboardPage(
             inputId = "inc_estimates_cohort_selector_std",
             label = "Cancer",
             choices = unique(incidence_estimates_std$outcome_cohort_name),
-            selected = "Breast",
+            selected = "lung",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -462,7 +462,7 @@ ui <- dashboardPage(
             inputId = "median_cohort_name_selector",
             label = "Study cohort",
             choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = "Breast",
+            selected = "lung",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -662,8 +662,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_database_selector",
             label = "Database",
-            choices = unique(incidence_estimates$Database),
-            selected = unique(incidence_estimates$Database),
+            choices = unique(incidence_estimates$cdm_name),
+            selected = unique(incidence_estimates$cdm_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -673,8 +673,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_cohort_name_selector",
             label = "Cancer",
-            choices = unique(incidence_estimates$Cancer),
-            selected = unique(incidence_estimates$Cancer),
+            choices = unique(incidence_estimates$outcome_cohort_name),
+            selected = unique(incidence_estimates$outcome_cohort_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -686,7 +686,7 @@ ui <- dashboardPage(
             inputId = "incidence_denominator_analysis_interval_selector",
             label = "Analysis Interval",
             choices = unique(incidence_estimates$analysis_interval),
-            selected = "quarters",
+            selected = "years",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = FALSE
           )
@@ -785,8 +785,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_database_selector_std",
             label = "Database",
-            choices = unique(incidence_estimates_std$Database),
-            selected = unique(incidence_estimates_std$Database),
+            choices = unique(incidence_estimates_std$cdm_name),
+            selected = unique(incidence_estimates_std$cdm_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = FALSE
           )
