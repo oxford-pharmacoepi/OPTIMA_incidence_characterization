@@ -79,9 +79,11 @@ cli::cli_alert_info("- Running characterisation")
 # zip results ----
 cli::cli_alert_info("- Zipping Results")
 # zip all results
-zip(zipfile = file.path(here("Results", db_name,
-                             paste0("Results_", db_name, ".zip"))),
-    files = list.files(here("Results", db_name), full.names = TRUE, recursive = TRUE))
+zip::zip(
+  zipfile = file.path(here("Results", db_name,
+                           paste0("Results_", db_name, ".zip"))),
+  files = list.files(here("Results", db_name)),
+  root = output_folder)
 
 cli::cli_alert_success("- Study Done!")
 cli::cli_alert_success("- If all has worked, there should now be a zip folder with your results in the Results folder to share")

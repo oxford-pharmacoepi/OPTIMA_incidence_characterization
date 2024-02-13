@@ -113,4 +113,5 @@ write_csv(summaryMedications %>%
 
 cli::cli_alert_success("Summarising Medications Complete")
 
+
 cli::cli_alert_success("Characterisation Analysis Complete")
