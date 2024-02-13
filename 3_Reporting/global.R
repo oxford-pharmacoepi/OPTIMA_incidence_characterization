@@ -20,15 +20,7 @@ library(plotly)
 library(ggalt)
 library(bslib)
 library(PatientProfiles)
-library(dsr)
 
-# 
-# packageurl <- "https://cran.r-project.org/src/contrib/Archive/dsr/dsr_0.2.2.tar.gz"
-# install.packages(packageurl, repos=NULL, type="source")
-# install.packages("devtools")
-# library(devtools)
-# packageurl <- 'http://cran.r-project.org/src/contrib/Archive/frailtypack/frailtypack_3.0.1.tar.gz'
-# install.packages(packageurl, repos=NULL, type="source")
 
 mytheme <- create_theme(
   adminlte_color(
