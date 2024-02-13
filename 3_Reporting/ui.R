@@ -796,8 +796,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_cohort_name_selector_std",
             label = "Cancer",
-            choices = unique(incidence_estimates_std$Cancer),
-            selected = unique(incidence_estimates_std$Cancer),
+            choices = unique(incidence_estimates_std$outcome_cohort_name),
+            selected = unique(incidence_estimates_std$outcome_cohort_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -808,8 +808,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_start_date_selector_std",
             label = "Incidence Start Date",
-            choices = as.character(unique(incidence_estimates_std$Subgroup)),
-            selected = as.character(unique(incidence_estimates_std$Subgroup)),
+            choices = as.character(unique(incidence_estimates_std$incidence_start_date)),
+            selected = as.character(unique(incidence_estimates_std$incidence_start_date)),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -819,8 +819,8 @@ ui <- dashboardPage(
         div(style="display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(inputId = "incidence_x_axis_std",
                         label = "X axis",
-                        choices = c("Subgroup"),
-                        selected = "Subgroup",
+                        choices = c("incidence_start_date"),
+                        selected = "incidence_start_date",
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
@@ -898,8 +898,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "survival_database_selector",
             label = "Database",
-            choices = unique(survival_estimates$Database),
-            selected = unique(survival_estimates$Database),
+            choices = unique(survival_estimates$cdm_name),
+            selected = unique(survival_estimates$cdm_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -909,8 +909,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "survival_cohort_name_selector",
             label = "Cancer",
-            choices = unique(survival_estimates$Cancer),
-            selected = unique(survival_estimates$Cancer),
+            choices = unique(survival_estimates$group_level),
+            selected = unique(survival_estimates$group_level),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )

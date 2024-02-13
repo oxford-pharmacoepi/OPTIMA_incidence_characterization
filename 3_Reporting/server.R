@@ -126,8 +126,8 @@ server <-	function(input, output, session) {
     
  
     table <- survival_risk_table %>%
-      filter(Cancer %in% input$risk_table_cohort_name_selector) %>%
-      filter(Database %in% input$risk_table_database_name_selector) 
+      filter(outcome_cohort_name %in% input$risk_table_cohort_name_selector) %>%
+      filter(cdm_name %in% input$risk_table_database_name_selector) 
     
     table
     
@@ -162,8 +162,8 @@ server <-	function(input, output, session) {
 
 
     table <- survival_median_table %>%
-      filter(Cancer %in% input$median_cohort_name_selector) %>%
-      filter(Database %in% input$median_database_name_selector)
+      filter(outcome_cohort_name %in% input$median_cohort_name_selector) %>%
+      filter(cdm_name %in% input$median_database_name_selector)
 
     table
 
@@ -198,17 +198,15 @@ server <-	function(input, output, session) {
     
     
     table <- incidence_estimates %>%
-      filter(Cancer %in% input$inc_estimates_cohort_selector) %>%
+      filter(outcome_cohort_name %in% input$inc_estimates_cohort_selector) %>%
       filter(analysis_interval %in% input$inc_est_analysis_selector) %>% 
-      relocate(Cancer) %>% 
+      relocate(outcome_cohort_name) %>% 
       select(-c(analysis_id,
                 outcome_cohort_id,
                 analysis_repeated_events,
                 analysis_min_cell_count,
                 denominator_target_cohort_name,
                 denominator_cohort_name,
-                denominator_age_group,
-                denominator_sex,
                 denominator_days_prior_observation,   
                 denominator_start_date,
                 denominator_end_date,
@@ -248,10 +246,9 @@ server <-	function(input, output, session) {
       need(input$inc_estimates_cohort_selector_std != "", "Please select a cohort")
     )
     
-    table <- agestandardizedinc_final %>%
-      filter(Cancer %in% input$inc_estimates_cohort_selector_std) %>%
-      relocate(Cancer) %>% 
-      rename("incidence_start_date" = "Subgroup")
+    table <- incidence_estimates_std %>%
+      filter(outcome_cohort_name %in% input$inc_estimates_cohort_selector_std) %>%
+      relocate(outcome_cohort_name) 
    
     
     table
@@ -292,9 +289,10 @@ server <-	function(input, output, session) {
     )
 
     
-    plot_data <- survival_estimates_whole %>%
-      filter(Database %in% input$survival_database_selector) %>%
-      filter(Cancer %in% input$survival_cohort_name_selector) 
+    plot_data <- survival_estimates %>%
+      filter(cdm_name %in% input$survival_database_selector) %>%
+      filter(group_level %in% input$survival_cohort_name_selector) %>% 
+      filter(estimate_name = "estimate")
     
     if (input$show_ci) {
       
@@ -302,7 +300,7 @@ server <-	function(input, output, session) {
         plot <- plot_data %>%
           unite("Group", c(all_of(input$surv_plot_group)), remove = FALSE, sep = "; ") %>%
           unite("facet_var", c(all_of(input$surv_plot_facet)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = time, y = est, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           geom_line() +
           geom_ribbon(aes(ymin = lcl, ymax = ucl, fill = Group, colour = Group), alpha = 0.3) +
@@ -326,7 +324,7 @@ server <-	function(input, output, session) {
       } else if (!is.null(input$surv_plot_group) && is.null(input$surv_plot_facet)) {
         plot <- plot_data %>%
           unite("Group", c(all_of(input$surv_plot_group)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = time, y = est, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           geom_line() +
           geom_ribbon(aes(ymin = lcl, ymax = ucl, fill = Group, colour = Group), alpha = 0.3) +
@@ -347,7 +345,7 @@ server <-	function(input, output, session) {
       } else if (is.null(input$surv_plot_group) && !is.null(input$surv_plot_facet)) {
         plot <- plot_data %>%
           unite("facet_var", c(all_of(input$surv_plot_facet)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = time, y = est, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           geom_line() +
           geom_ribbon(aes(ymin = lcl, ymax = ucl, fill = Group, colour = Group), alpha = 0.3) +
@@ -368,7 +366,7 @@ server <-	function(input, output, session) {
         
       } else {
         plot <- plot_data %>%
-          ggplot(aes(x = time, y = est, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           geom_line() +
           geom_ribbon(aes(ymin = lcl, ymax = ucl, fill = Group, colour = Group), alpha = 0.3) +
@@ -400,7 +398,7 @@ server <-	function(input, output, session) {
         plot <- plot_data %>%
           unite("Group", c(all_of(input$surv_plot_group)), remove = FALSE, sep = "; ") %>%
           unite("facet_var", c(all_of(input$surv_plot_facet)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = time, y = est, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           geom_line() +
           xlab("Time (Years)") +
@@ -422,7 +420,7 @@ server <-	function(input, output, session) {
       } else if (!is.null(input$surv_plot_group) && is.null(input$surv_plot_facet)) {
         plot <- plot_data %>%
           unite("Group", c(all_of(input$surv_plot_group)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = time, y = est, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           geom_line() +
           xlab("Time (Years)") +
@@ -442,7 +440,7 @@ server <-	function(input, output, session) {
       } else if (is.null(input$surv_plot_group) && !is.null(input$surv_plot_facet)) {
         plot <- plot_data %>%
           unite("facet_var", c(all_of(input$surv_plot_facet)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = time, y = est, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           geom_line() +
           xlab("Time (Years)") +
@@ -462,7 +460,7 @@ server <-	function(input, output, session) {
         
       } else {
         plot <- plot_data %>%
-          ggplot(aes(x = time, y = est, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           geom_line() +
           xlab("Time (Years)") +
@@ -567,9 +565,10 @@ server <-	function(input, output, session) {
     )
     
     
-    table <- survival_median_table_cy %>%
-      filter(Cancer %in% input$median_cohort_name_selectorcy) %>%
-      filter(Database %in% input$median_database_name_selectorcy) 
+    table <- survival_median_table %>%
+      filter(strata_name == diag_yr_gp) %>% 
+      filter(group_level %in% input$median_cohort_name_selectorcy) %>%
+      filter(cdm_name %in% input$median_database_name_selectorcy) 
     
     table
     
@@ -610,10 +609,11 @@ server <-	function(input, output, session) {
     )
 
 
-    plot_data <- survival_estimates_cy %>%
-      filter(Database %in% input$survival_database_selectorcy) %>%
-      filter(Cancer %in% input$survival_cohort_name_selectorcy) %>% 
-      filter(time <= 2.5000000000000)
+    plot_data <- survival_estimates %>%
+      filter(strata_name == diag_yr_gp) %>% 
+      filter(cdm_name %in% input$survival_database_selectorcy) %>%
+      filter(group_level %in% input$survival_cohort_name_selectorcy) %>% 
+      filter(estimate_name == "estimate")
 
     if (input$show_ci_cy) {
 
@@ -621,17 +621,17 @@ server <-	function(input, output, session) {
         plot <- plot_data %>%
           unite("Group", c(all_of(input$surv_plot_groupcy)), remove = FALSE, sep = "; ") %>%
           unite("facet_var", c(all_of(input$surv_plot_facetcy)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = time,
-                     y = est,
-                     group = CalendarYearGp,
-                     col = CalendarYearGp )) +
+          ggplot(aes(x = nrow(plot_data),
+                     y = estimate_value,
+                     group = strata_level,
+                     col = strata_level )) +
           scale_y_continuous( labels = label_percent() ) +
           scale_colour_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) + 
           scale_fill_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) +
           scale_linetype_manual(values = c("dotted","dashed", "dotdash", "twodash","solid", "longdash")) +
           geom_ribbon(aes(ymin = lcl, 
                           ymax = ucl, 
-                          fill = CalendarYearGp), alpha = .15, color = NA, show.legend = FALSE) +
+                          fill = strata_level), alpha = .15, color = NA, show.legend = FALSE) +
           labs(x = "Time (Years)",
                y = "Survival Probability",
                col = "Calendar Year Group",
@@ -650,26 +650,26 @@ server <-	function(input, output, session) {
                 legend.box.spacing = unit(0, "pt") ,
                 legend.key = element_rect(fill = "transparent", colour = "transparent"),
                 legend.position='bottom') +
-          geom_line(aes(linetype = CalendarYearGp),size = 0.85) +
+          geom_line(aes(linetype = strata_level),size = 0.85) +
           xlim(0, 2.5) +
-          facet_wrap(~ Cancer, scales = "free_y", ncol = 3)
+          facet_wrap(~ group_level, scales = "free_y", ncol = 3)
 
 
 
       } else if (!is.null(input$surv_plot_groupcy) && is.null(input$surv_plot_facetcy)) {
         plot <- plot_data %>%
           unite("Group", c(all_of(input$surv_plot_groupcy)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = time,
-                     y = est,
-                     group = CalendarYearGp,
-                     col = CalendarYearGp )) +
+          ggplot(aes(x = nrow(plot_data),
+                     y = estimate_value,
+                     group = strata_level,
+                     col = strata_level )) +
           scale_y_continuous( labels = label_percent() ) +
           scale_colour_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) + 
           scale_fill_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) +
           scale_linetype_manual(values = c("dotted","dashed", "dotdash", "twodash","solid", "longdash")) +
           geom_ribbon(aes(ymin = lcl, 
                           ymax = ucl, 
-                          fill = CalendarYearGp), alpha = .15, color = NA, show.legend = FALSE) +
+                          fill = strata_level), alpha = .15, color = NA, show.legend = FALSE) +
           labs(x = "Time (Years)",
                y = "Survival Probability",
                col = "Calendar Year Group",
@@ -688,24 +688,24 @@ server <-	function(input, output, session) {
                 legend.box.spacing = unit(0, "pt") ,
                 legend.key = element_rect(fill = "transparent", colour = "transparent"),
                 legend.position='bottom') +
-          geom_line(aes(linetype = CalendarYearGp),size = 0.85) +
+          geom_line(aes(linetype = strata_level),size = 0.85) +
           xlim(0, 2.5) +
-          facet_wrap(~ Cancer, scales = "free_y", ncol = 3)
+          facet_wrap(~ strata_level, scales = "free_y", ncol = 3)
 
       } else if (is.null(input$surv_plot_groupcy) && !is.null(input$surv_plot_facetcy)) {
         plot <- plot_data %>%
           unite("facet_var", c(all_of(input$surv_plot_facetcy)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = time,
-                     y = est,
-                     group = CalendarYearGp,
-                     col = CalendarYearGp )) +
+          ggplot(aes(x = nrow(plot_data),
+                     y = estimate_value,
+                     group = strata_level,
+                     col = strata_level )) +
           scale_y_continuous( labels = label_percent() ) +
           scale_colour_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) + 
           scale_fill_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) +
           scale_linetype_manual(values = c("dotted","dashed", "dotdash", "twodash","solid", "longdash")) +
           geom_ribbon(aes(ymin = lcl, 
                           ymax = ucl, 
-                          fill = CalendarYearGp), alpha = .15, color = NA, show.legend = FALSE) +
+                          fill = strata_level), alpha = .15, color = NA, show.legend = FALSE) +
           labs(x = "Time (Years)",
                y = "Survival Probability",
                col = "Calendar Year Group",
@@ -731,16 +731,15 @@ server <-	function(input, output, session) {
         plot <- plot_data %>%
           ggplot(aes(x = time,
                      y = est,
-                     group = CalendarYearGp,
-                     col = CalendarYearGp )) +
+                     group = strata_level,
+                     col = strata_level )) +
           scale_y_continuous( labels = label_percent() ) +
           scale_colour_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) + 
           scale_fill_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) +
-          #geom_line(aes(linetype = CalendarYearGp),size = 0.85) +
           scale_linetype_manual(values = c("dotted","dashed", "dotdash", "twodash","solid", "longdash")) +
           geom_ribbon(aes(ymin = lcl, 
                           ymax = ucl, 
-                          fill = CalendarYearGp), alpha = .15, color = NA, show.legend = FALSE) +
+                          fill = strata_level), alpha = .15, color = NA, show.legend = FALSE) +
           labs(x = "Time (Years)",
                y = "Survival Probability",
                col = "Calendar Year Group",
@@ -759,7 +758,7 @@ server <-	function(input, output, session) {
                 legend.box.spacing = unit(0, "pt") ,
                 legend.key = element_rect(fill = "transparent", colour = "transparent"),
                 legend.position='bottom') +
-          geom_line(aes(linetype = CalendarYearGp),size = 0.85) +
+          geom_line(aes(linetype = strata_level),size = 0.85) +
           xlim(0, 2.5) +
           facet_wrap(~ Cancer, scales = "free_y", ncol = 3)
 
@@ -779,8 +778,8 @@ server <-	function(input, output, session) {
           unite("facet_var", c(all_of(input$surv_plot_facetcy)), remove = FALSE, sep = "; ") %>%
           ggplot(aes(x = time,
                      y = est,
-                     group = CalendarYearGp,
-                     col = CalendarYearGp )) +
+                     group = strata_level,
+                     col = strata_level )) +
           scale_y_continuous( labels = label_percent() ) +
           scale_colour_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) + 
           scale_fill_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) +
@@ -803,7 +802,7 @@ server <-	function(input, output, session) {
                 legend.box.spacing = unit(0, "pt") ,
                 legend.key = element_rect(fill = "transparent", colour = "transparent"),
                 legend.position='bottom') +
-          geom_line(aes(linetype = CalendarYearGp),size = 0.85) +
+          geom_line(aes(linetype = strata_level),size = 0.85) +
           xlim(0, 2.5) +
           facet_wrap(~ Cancer, scales = "free_y", ncol = 3)
 
@@ -814,8 +813,8 @@ server <-	function(input, output, session) {
           unite("Group", c(all_of(input$surv_plot_groupcy)), remove = FALSE, sep = "; ") %>%
           ggplot(aes(x = time,
                      y = est,
-                     group = CalendarYearGp,
-                     col = CalendarYearGp )) +
+                     group = strata_level,
+                     col = strata_level )) +
           scale_y_continuous( labels = label_percent() ) +
           scale_colour_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) + 
           scale_fill_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) +
@@ -838,7 +837,7 @@ server <-	function(input, output, session) {
                 legend.box.spacing = unit(0, "pt") ,
                 legend.key = element_rect(fill = "transparent", colour = "transparent"),
                 legend.position='bottom') +
-          geom_line(aes(linetype = CalendarYearGp),size = 0.85) +
+          geom_line(aes(linetype = strata_level),size = 0.85) +
           xlim(0, 2.5) 
 
       } else if (is.null(input$surv_plot_groupcy) && !is.null(input$surv_plot_facetcy)) {
@@ -846,8 +845,8 @@ server <-	function(input, output, session) {
           unite("facet_var", c(all_of(input$surv_plot_facetcy)), remove = FALSE, sep = "; ") %>%
           ggplot(aes(x = time,
                      y = est,
-                     group = CalendarYearGp,
-                     col = CalendarYearGp )) +
+                     group = strata_level,
+                     col = strata_level )) +
           scale_y_continuous( labels = label_percent() ) +
           scale_colour_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) + 
           scale_fill_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) +
@@ -870,7 +869,7 @@ server <-	function(input, output, session) {
                 legend.box.spacing = unit(0, "pt") ,
                 legend.key = element_rect(fill = "transparent", colour = "transparent"),
                 legend.position='bottom') +
-          geom_line(aes(linetype = CalendarYearGp),size = 0.85) +
+          geom_line(aes(linetype = strata_level),size = 0.85) +
           xlim(0, 2.5) +
           facet_wrap(~ Cancer, scales = "free_y", ncol = 3)
 
@@ -878,8 +877,8 @@ server <-	function(input, output, session) {
         plot <- plot_data %>%
           ggplot(aes(x = time,
                      y = est,
-                     group = CalendarYearGp,
-                     col = CalendarYearGp )) +
+                     group = strata_level,
+                     col = strata_level )) +
           scale_y_continuous( labels = label_percent() ) +
           scale_colour_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) + 
           scale_fill_manual(values = c("black", "black", "black", "black", "#ED0000FF", "#FDAF91FF", "#AD002AFF", "grey")) +
@@ -902,7 +901,7 @@ server <-	function(input, output, session) {
                 legend.box.spacing = unit(0, "pt") ,
                 legend.key = element_rect(fill = "transparent", colour = "transparent"),
                 legend.position='bottom') +
-          geom_line(aes(linetype = CalendarYearGp),size = 0.85) +
+          geom_line(aes(linetype = strata_level),size = 0.85) +
           xlim(0, 2.5) 
 
       }
@@ -980,9 +979,9 @@ server <-	function(input, output, session) {
                   denominator_cohort_name,
                   denominator_cohort_id,
                   denominator_end_date)) %>%
-        filter(Database %in% input$incidence_database_selector)  %>%
+        filter(cdm_name %in% input$incidence_database_selector)  %>%
         filter(as.character(incidence_start_date) %in% input$incidence_start_date_selector)  %>%
-        filter(Cancer %in% input$incidence_cohort_name_selector)  %>%
+        filter(outcome_cohort_name %in% input$incidence_cohort_name_selector)  %>%
         filter(analysis_interval %in% input$incidence_denominator_analysis_interval_selector)
     
     
@@ -1239,10 +1238,10 @@ server <-	function(input, output, session) {
     )
     
   
-  plot_data <- agestandardizedinc_final %>%
-    filter(Database %in% input$incidence_database_selector_std)  %>%
-    filter(as.character(Subgroup) %in% input$incidence_start_date_selector_std)  %>%
-    filter(Cancer %in% input$incidence_cohort_name_selector_std)
+  plot_data <- incidence_estimates_std %>%
+    filter(cdm_name %in% input$incidence_database_selector_std)  %>%
+    filter(as.character(incidence_start_date) %in% input$incidence_start_date_selector_std)  %>%
+    filter(outcome_cohort_name %in% input$incidence_cohort_name_selector_std)
   
   
   if (input$show_error_bars_std) {
@@ -1251,11 +1250,12 @@ server <-	function(input, output, session) {
       plot <- plot_data %>%
         unite("Group", c(all_of(input$incidence_plot_group_std)), remove = FALSE, sep = "; ") %>%
         unite("facet_var_std", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y="Std_IR",
-                          ymin = "LCL_Std",
-                          ymax = "UCL_Std")) +
+        ggplot(aes_string(x=input$incidence_x_axis_std, 
+                          y = "incidence_100000_pys",
+                          ymin = "incidence_100000_pys_95CI_lower",
+                          ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(colour = "black")+
-        geom_ribbon(aes(ymin = LCL_Std, ymax = UCL_Std), 
+        geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                     alpha = 0.1, colour = "black") + 
         geom_line(color = "black", size = 0.25) +
         geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
@@ -1275,11 +1275,11 @@ server <-	function(input, output, session) {
     } else if (!is.null(input$incidence_plot_group_std) && is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
         unite("Group", c(all_of(input$incidence_plot_group_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y="Std_IR",
-                          ymin = "LCL_Std",
-                          ymax = "UCL_Std")) +
+        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+                          ymin = "incidence_100000_pys_95CI_lower",
+                          ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(colour = "black")+
-        geom_ribbon(aes(ymin = LCL_Std, ymax = UCL_Std), 
+        geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                     alpha = 0.1, colour = "black") + 
         geom_line(color = "black", size = 0.25) +
         geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
@@ -1297,11 +1297,11 @@ server <-	function(input, output, session) {
     } else if (is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
         unite("facet_var_std", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y="Std_IR",
-                          ymin = "LCL_Std",
-                          ymax = "UCL_Std")) +
+        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+                          ymin = "incidence_100000_pys_95CI_lower",
+                          ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(colour = "black")+
-        geom_ribbon(aes(ymin = LCL_Std, ymax = UCL_Std), 
+        geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                     alpha = 0.1, colour = "black") + 
         geom_line(color = "black", size = 0.25) +
         geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
@@ -1319,11 +1319,11 @@ server <-	function(input, output, session) {
       
     } else {
       plot <- plot_data %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y="Std_IR",
-                          ymin = "LCL_Std",
-                          ymax = "UCL_Std")) +
+        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+                          ymin = "incidence_100000_pys_95CI_lower",
+                          ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(colour = "black")+
-        geom_ribbon(aes(ymin = LCL_Std, ymax = UCL_Std), 
+        geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                     alpha = 0.1, colour = "black") + 
         geom_line(color = "black", size = 0.25) +
         geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
@@ -1358,9 +1358,9 @@ server <-	function(input, output, session) {
       plot <- plot_data %>%
         unite("Group", c(all_of(input$incidence_plot_group_std)), remove = FALSE, sep = "; ") %>%
         unite("facet_var_std", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y="Std_IR",
-                          ymin = "LCL_Std",
-                          ymax = "UCL_Std")) +
+        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+                          ymin = "incidence_100000_pys_95CI_lower",
+                          ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(position = position_dodge(width = 1)) +
         geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
@@ -1380,9 +1380,9 @@ server <-	function(input, output, session) {
     } else if (!is.null(input$incidence_plot_group_std) && is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
         unite("Group", c(all_of(input$incidence_plot_group_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y="Std_IR",
-                          ymin = "LCL_Std",
-                          ymax = "UCL_Std")) +
+        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+                          ymin = "incidence_100000_pys_95CI_lower",
+                          ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(aes(colour = "black"), size = 2, position = position_dodge(width = 1)) +
         geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
@@ -1401,9 +1401,9 @@ server <-	function(input, output, session) {
     } else if (is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
         unite("facet_var_std", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y="Std_IR",
-                          ymin = "LCL_Std",
-                          ymax = "UCL_Std")) +
+        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+                          ymin = "incidence_100000_pys_95CI_lower",
+                          ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(aes(colour = "black"), size = 2, position = position_dodge(width = 1)) +
         geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
@@ -1422,9 +1422,9 @@ server <-	function(input, output, session) {
       
     } else {
       plot <- plot_data %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y="Std_IR",
-                          ymin = "LCL_Std",
-                          ymax = "UCL_Std")) +
+        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+                          ymin = "incidence_100000_pys_95CI_lower",
+                          ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(aes(colour = "black"), size = 2, position = position_dodge(width = 1)) +
         geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
