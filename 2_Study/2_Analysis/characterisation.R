@@ -99,11 +99,12 @@ summaryMedications <- cdm$outcome %>%
                       c(1, 30),
                       c(1, 90),
                       c(1, 365))
-      )),
-    minCellCount = 5
+      ))
   )
 
 )
+
+
 
 write_csv(summaryMedications %>%
             omopgenerics::suppress(minCellCount = 5),

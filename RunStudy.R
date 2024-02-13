@@ -44,7 +44,7 @@ if(isTRUE(run_incidence)){
                here("Results", paste0(db_name,
                                       "/", cdmName(cdm),
                     
-                    "error_incidence.txt")))
+                    "_error_incidence.txt")))
   })
 }
 
@@ -58,7 +58,7 @@ if(isTRUE(run_survival)){
     writeLines(as.character(e),
                here("Results", paste0(db_name,
                                       "/", cdmName(cdm),
-                    "error_survival.txt")))
+                    "_error_survival.txt")))
   })
 }
 
@@ -72,7 +72,7 @@ cli::cli_alert_info("- Running Characterisation")
                here("Results", paste0(db_name,
                                       "/", cdmName(cdm),
                     
-                    "error_characterisation.txt")))
+                    "_error_characterisation.txt")))
   })
 }
 
