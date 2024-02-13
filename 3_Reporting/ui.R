@@ -33,15 +33,16 @@ ui <- dashboardPage(
         menuSubItem(
           text = "Cohort concepts",
           tabName = "cohort_concepts"
-        ),
-        menuSubItem(
-          text = "Cohort Attrition Table",
-          tabName = "cohort_attrition"
-        ),
-        menuSubItem(
-          text = "Cohort Attrition Figures",
-          tabName = "cohort_attr_fig"
         )
+        # ,
+        # menuSubItem(
+        #   text = "Cohort Attrition Table",
+        #   tabName = "cohort_attrition"
+        # ),
+        # menuSubItem(
+        #   text = "Cohort Attrition Figures",
+        #   tabName = "cohort_attr_fig"
+        # )
       ),
      
       menuItem(
@@ -86,9 +87,14 @@ ui <- dashboardPage(
           tabName = "inc_rates_std"
         ),
         menuSubItem(
-          text = "Attrition",
+          text = "Attrition Table",
           tabName = "inc_attrition"
-        )
+        ),
+        menuSubItem(
+          text = "Attrition Figure",
+          tabName = "inc_attrition_fig"
+        ),
+        
       ),
       
       
@@ -106,10 +112,19 @@ ui <- dashboardPage(
         ),
         
         menuSubItem(
-          text = "Survival summary",
+          text = "Survival Summary",
           tabName = "stats_results"
-        ) 
+        ) ,
+      
+      menuSubItem(
+        text = "Attrition Table",
+        tabName = "cohort_attrition"
       ),
+      menuSubItem(
+        text = "Attrition Figures",
+        tabName = "cohort_attr_fig"
+      )
+    ),
       
       menuItem(
         text = "Calendar Time Survival",
@@ -125,7 +140,7 @@ ui <- dashboardPage(
         ),
         
         menuSubItem(
-          text = "Survival stats",
+          text = "Survival Summary",
           tabName = "stats_resultscy"
         ) 
       ),
