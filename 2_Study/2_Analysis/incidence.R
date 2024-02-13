@@ -67,6 +67,11 @@ inc_overall_parts <- estimateIncidence(
   returnParticipants = TRUE
 )
 
+# age standardization by european 13 and world estimates
+
+
+
+
 # Export the results -----
 cli::cli_alert_info("- Getting incidence attrition")
 write.csv(IncidencePrevalence::incidenceAttrition(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_attrition.csv")), row.names = FALSE)
@@ -74,7 +79,9 @@ write.csv(IncidencePrevalence::incidenceAttrition(inc), here::here("Results", pa
 cli::cli_alert_info("- Getting incidence settings")
 write.csv(IncidencePrevalence::incidenceSet(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")), row.names = FALSE)
 
+
 cli::cli_alert_info("- Getting incidence results")
 write.csv(inc, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
+
 
 cli::cli_alert_success("Incidence Analysis Complete")
