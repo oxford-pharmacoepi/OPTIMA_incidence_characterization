@@ -193,12 +193,33 @@ for(i in seq_along(survival_median_files)){
 }
 survival_median_table <- dplyr::bind_rows(survival_median_table) %>% 
   mutate(estimate_value = as.character(estimate_value)) %>% 
+  filter(estimate_name == "number_records" |
+           estimate_name == "events" |
+           estimate_name == "median_survival" |
+         estimate_name == "median_survival_95CI_lower" |
+         estimate_name == "median_survival_95CI_higher" )  %>% 
   mutate(result_type = "summarised_characteristics") %>% 
   mutate(group_name = "cohort_name") %>% 
   mutate(strata_name = case_when(
     strata_name == "Overall" ~ "overall",
              TRUE ~ strata_name
-           ))
+           )) %>% 
+  mutate(strata_level = case_when(
+    strata_level == "Overall" ~ "overall",
+    TRUE ~ strata_level
+  )) %>% 
+  
+  mutate(estimate_type = case_when(
+    estimate_name == "number_records" ~ "integer",
+    estimate_name == "events" ~ "integer",
+    estimate_name == "median_survival" ~ "integer",
+    estimate_name == "median_survival_95CI_lower" ~ "integer",
+    estimate_name == "median_survival_95CI_higher" ~ "integer",
+    
+    
+    TRUE ~ estimate_type
+  )) 
+  
 
 }
 
