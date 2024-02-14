@@ -1288,36 +1288,24 @@ server <-	function(input, output, session) {
   
   
   get_incidence_plot_std <- reactive({
-    
-    validate(
-      need(input$incidence_cohort_name_selector_std != "", "Please select a cohort")
-    )
-    validate(
-      need(input$incidence_database_selector_std != "", "Please select a database")
-    )
-    
-    validate(
-      need(input$incidence_plot_group_std != "", "Please select a group to colour by")
-    )
-    
-    validate(
-      need(input$incidence_plot_facet_std != "", "Please select a group to facet by")
-    )
-    
-    
+  
     validate(need(input$incidence_cohort_name_selector_std != "", "Please select a cohort"))
     validate(need(input$incidence_database_selector_std != "", "Please select a database"))
     validate(need(input$incidence_sex_selector_std != "", "Please select sex"))
-    validate(need(input$incidence_age_selector_std != "", "Please select age group"))
     validate(need(input$incidence_plot_group_std != "", "Please select a group to colour by") )
     validate(need(input$incidence_plot_facet_std != "", "Please select a group to facet by"))
-    validate(need(input$incidence_start_date_selector != "", "Please select incidence dates"))
+    validate(need(input$incidence_start_date_selector_std != "", "Please select incidence dates"))
+    validate(need(input$incidence_std_method != "", "Please select incidence standardization method"))
     
   
   plot_data <- incidence_estimates_std %>%
+    filter(outcome_cohort_name %in% input$incidence_cohort_name_selector_std) %>% 
+    filter(age_standard %in% input$incidence_std_method) %>% 
     filter(cdm_name %in% input$incidence_database_selector_std)  %>%
     filter(as.character(incidence_start_date) %in% input$incidence_start_date_selector_std)  %>%
-    filter(outcome_cohort_name %in% input$incidence_cohort_name_selector_std)
+    filter(denominator_sex %in% input$incidence_sex_selector_std) 
+
+
   
   
   if (input$show_error_bars_std) {
@@ -1325,18 +1313,18 @@ server <-	function(input, output, session) {
     if (!is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
         unite("Group", c(all_of(input$incidence_plot_group_std)), remove = FALSE, sep = "; ") %>%
-        unite("facet_var_std", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, 
-                          y = "incidence_100000_pys",
+        unite("facet_var", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
+        ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
-                          ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(colour = "black")+
+                          ymax = "incidence_100000_pys_95CI_upper",
+                          group = "Group",
+                          colour = "Group", fill = "Group")) +
+        geom_point(position=position_dodge(width=1))+
         geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
-                    alpha = 0.1, colour = "black") + 
-        geom_line(color = "black", size = 0.25) +
-        geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
+                    alpha = 0.1) + 
+        geom_line(size = 0.25) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
-        facet_wrap(vars(facet_var_std),ncol = 3, scales = "free_y")+
+        facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
         scale_y_continuous(limits = c(0, NA)) +
         theme(axis.text.x = element_text(angle = 45, hjust=1),
               panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
@@ -1344,21 +1332,21 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              legend.position = 'none',
               text = element_text(size = 15))
       
       
     } else if (!is.null(input$incidence_plot_group_std) && is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
         unite("Group", c(all_of(input$incidence_plot_group_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+        ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
-                          ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(colour = "black")+
+                          ymax = "incidence_100000_pys_95CI_upper",
+                          group = "Group",
+                          colour = "Group", fill = "Group")) +
+        geom_point(position=position_dodge(width=1))+
         geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
-                    alpha = 0.1, colour = "black") + 
-        geom_line(color = "black", size = 0.25) +
-        geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
+                    alpha = 0.1) + 
+        geom_line(size = 0.25) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
         scale_y_continuous(limits = c(0, NA)) +
         theme(axis.text.x = element_text(angle = 45, hjust=1),
@@ -1367,22 +1355,22 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              legend.position = 'none',
               text = element_text(size = 15))
       
     } else if (is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
-        unite("facet_var_std", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+        unite("facet_var", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
+        ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
-                          ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(colour = "black")+
+                          ymax = "incidence_100000_pys_95CI_upper",
+                          group = "Group",
+                          colour = "Group", fill = "Group")) +
+        geom_point(position=position_dodge(width=1))+
         geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
-                    alpha = 0.1, colour = "black") + 
-        geom_line(color = "black", size = 0.25) +
-        geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
+                    alpha = 0.1) + 
+        geom_line(size = 0.25) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
-        facet_wrap(vars(facet_var_std),ncol = 3, scales = "free_y")+
+        facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
         scale_y_continuous(limits = c(0, NA)) +
         theme(axis.text.x = element_text(angle = 45, hjust=1),
               panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
@@ -1390,19 +1378,17 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              legend.position = 'none',
               text = element_text(size = 15))
       
     } else {
       plot <- plot_data %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+        ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
                           ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(colour = "black")+
+        geom_point(position=position_dodge(width=1))+
         geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
-                    alpha = 0.1, colour = "black") + 
-        geom_line(color = "black", size = 0.25) +
-        geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
+                    alpha = 0.1) + 
+        geom_line(size = 0.25) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
         scale_y_continuous(limits = c(0, NA)) +
         theme(axis.text.x = element_text(angle = 45, hjust=1),
@@ -1411,7 +1397,6 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              legend.position = 'none',
               text = element_text(size = 15))
       
     }
@@ -1434,7 +1419,7 @@ server <-	function(input, output, session) {
       plot <- plot_data %>%
         unite("Group", c(all_of(input$incidence_plot_group_std)), remove = FALSE, sep = "; ") %>%
         unite("facet_var_std", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+        ggplot(aes_string(x="incidence_start_date", y = "incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
                           ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(position = position_dodge(width = 1)) +
@@ -1456,7 +1441,7 @@ server <-	function(input, output, session) {
     } else if (!is.null(input$incidence_plot_group_std) && is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
         unite("Group", c(all_of(input$incidence_plot_group_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+        ggplot(aes_string(x="incidence_start_date", y = "incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
                           ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(aes(colour = "black"), size = 2, position = position_dodge(width = 1)) +
@@ -1477,7 +1462,7 @@ server <-	function(input, output, session) {
     } else if (is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
         unite("facet_var_std", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+        ggplot(aes_string(x="incidence_start_date", y = "incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
                           ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(aes(colour = "black"), size = 2, position = position_dodge(width = 1)) +
@@ -1498,7 +1483,7 @@ server <-	function(input, output, session) {
       
     } else {
       plot <- plot_data %>%
-        ggplot(aes_string(x=input$incidence_x_axis_std, y = "incidence_100000_pys",
+        ggplot(aes_string(x="incidence_start_date", y = "incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
                           ymax = "incidence_100000_pys_95CI_upper")) +
         geom_point(aes(colour = "black"), size = 2, position = position_dodge(width = 1)) +
@@ -1534,7 +1519,7 @@ server <-	function(input, output, session) {
   
 })
 
-output$incidencePlotstd <- renderPlot(
+output$incidencePlot_std <- renderPlot(
   get_incidence_plot_std()
 )
 
