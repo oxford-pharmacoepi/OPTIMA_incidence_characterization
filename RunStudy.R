@@ -28,11 +28,12 @@ if (instantiatedCohorts == TRUE) {
                                     cohort_tables = c(
                                       "outcome") )
  
-}
+} else {
 
 cli::cli_alert_info("- Cohort generation")
 source(here("2_Study", "1_InstantiateCohorts","InstantiateStudyCohorts.R"))
 cli::cli_alert_success("- Cohorts generated")
+}
 
 # incidence ----
 if(isTRUE(run_incidence)){
