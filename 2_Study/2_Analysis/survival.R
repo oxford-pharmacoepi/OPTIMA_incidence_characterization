@@ -38,10 +38,11 @@ cdm$outcome <- cdm$outcome %>%
   mutate(year = year(cohort_start_date))
 
 # create diagnosis age band groups
-cdm$outcome <- cdm$outcome %>% 
-  mutate(diag_yr_gp = cut(year, breaks = c(2000, 2003, 2008, 2013, 2018, 2023), 
-                          labels = c("2000-2004" ,"2005-2009", "2010-2014", "2015-2019", "2020-2022"),
-                          include.lowest = TRUE))
+cdm$outcome <- mutate(cdm$outcome, 
+                      diag_yr_gp = cut(year, 
+                                       breaks = c(2000, 2005, 2010, 2015, 2020, 2025), 
+                                       labels = c("2000-2004", "2005-2009", "2010-2014", "2015-2019", "2020-2022"),
+                                       include.lowest = TRUE))
 
 # add in exclusion criteria
 # remove people with any history of cancer
@@ -128,10 +129,11 @@ cdm$outcome <- cdm$outcome %>%
   mutate(year = year(cohort_start_date))
   
 # create diagnosis age band groups
-cdm$outcome <- cdm$outcome %>% 
-  mutate(diag_yr_gp = cut(year, breaks = c(2000, 2003, 2008, 2013, 2018, 2023), 
-                        labels = c("2000-2002" ,"2003-2007", "2008-2012", "2013-2017", "2018-2022"),
-                        include.lowest = TRUE))
+cdm$outcome <- mutate(cdm$outcome, 
+                      diag_yr_gp = cut(year, 
+                                       breaks = c(2000, 2005, 2010, 2015, 2020, 2025), 
+                                       labels = c("2000-2004", "2005-2009", "2010-2014", "2015-2019", "2020-2022"),
+                                       include.lowest = TRUE))
 
 # add in exclusion criteria
 # remove people with any history of cancer
@@ -156,7 +158,6 @@ cdm$outcome <- cdm$outcome %>%
     targetEndDate = "cohort_end_date",
     window = list(c(-Inf, -1))
   )
-
 
 # remove those with any a prior malignancy (apart from skin cancer in prior history)
 cdm$outcome <- cdm$outcome %>%
@@ -202,7 +203,6 @@ cdm$outcome <- cdm$outcome |>
 
 }
   
-
 #subset the cdm with final study population
 cdm <- cdmSubsetCohort(cdm, cohortTable = "outcome")
 
@@ -218,10 +218,10 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
   suppressWarnings(
   surv <- estimateSingleEventSurvival(cdm = cdm,
-                                      followUpDays = 1826,
+                                      followUpDays = 1827,
                                       censorOnCohortExit = TRUE ,
                                       censorOnDate = NULL ,
-                                      eventGap = c(365) ,
+                                      eventGap = c(30) ,
                                       estimateGap = c(30) ,
                                       targetCohortTable = "outcome",
                                       outcomeCohortTable = "cancer_death",
@@ -230,7 +230,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                     c("age_group", "sex"),
                                                     c("diag_yr_gp"),
                                                     c("diag_yr_gp", "sex")),
-                                      minCellCount = 5)
+                                      minCellCount = 0)
   )
   
 
