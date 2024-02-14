@@ -31,9 +31,14 @@ ui <- dashboardPage(
         tabName = "cohorts",
         icon = shiny::icon("person"),
         menuSubItem(
-          text = "Cohort concepts",
+          text = "Cohort Concepts",
           tabName = "cohort_concepts"
+        ),
+        menuSubItem(
+          text = "Clinical Cohort Descriptions",
+          tabName = "cohort_description"
         )
+
         # ,
         # menuSubItem(
         #   text = "Cohort Attrition Table",
@@ -234,6 +239,14 @@ ui <- dashboardPage(
       ) ,
       
       tabItem(
+        tags$h5("Below is the clinical description of the phenotypes used in this study:"),
+        tabName = "cohort_description",
+        tags$h5("TBC") ,
+        tags$hr(),
+
+      ) ,
+      
+      tabItem(
         tabName = "inc_attrition",
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
@@ -297,17 +310,97 @@ ui <- dashboardPage(
         ),
         
        # tags$hr(),
-        gt_output("gt_patient_characteristics") %>% 
+        gt_output("gt_demo_characteristics") %>% 
           withSpinner() ,
         
 
         div(style="display:inline-block",
             downloadButton(
-              outputId = "gt_patient_characteristics_word",
+              outputId = "gt_demo_characteristics_word",
               label = "Download table as word"
             ),
             style="display:inline-block; float:right")
 
+      ) ,
+      
+      tabItem(
+        tabName = "comorbidities",
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "comorb_cohort_selector",
+            label = "Cancer",
+            choices = unique(comorb_characteristics$group_level),
+            selected = unique(comorb_characteristics$group_level),
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "comorb_selector",
+            label = "Demographics",
+            choices = unique(comorb_characteristics$strata_level),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        # tags$hr(),
+        gt_output("gt_comorb_characteristics") %>% 
+          withSpinner() ,
+        
+        
+        div(style="display:inline-block",
+            downloadButton(
+              outputId = "gt_comorb_characteristics_word",
+              label = "Download table as word"
+            ),
+            style="display:inline-block; float:right")
+        
+      ) ,
+      
+      tabItem(
+        tabName = "medications",
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "med_cohort_selector",
+            label = "Cancer",
+            choices = unique(med_characteristics$group_level),
+            selected = unique(med_characteristics$group_level),
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "med_selector",
+            label = "Demographics",
+            choices = unique(med_characteristics$strata_level),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        # tags$hr(),
+        gt_output("gt_med_characteristics") %>% 
+          withSpinner() ,
+        
+        
+        div(style="display:inline-block",
+            downloadButton(
+              outputId = "gt_med_characteristics_word",
+              label = "Download table as word"
+            ),
+            style="display:inline-block; float:right")
+        
       ) ,
       
       
@@ -704,24 +797,37 @@ ui <- dashboardPage(
           )
         ),
         
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "incidence_sex_selector",
+            label = "Sex",
+            choices = unique(incidence_estimates$denominator_sex),
+            selected = "Both",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
         
-        div(style="display: inline-block;vertical-align:top; width: 150px;",
-            pickerInput(inputId = "incidence_x_axis",
-                        label = "X axis",
-                        choices = c("incidence_start_date"),
-                        selected = "incidence_start_date",
-                        options = list(
-                          `actions-box` = TRUE,
-                          size = 10,
-                          `selected-text-format` = "count > 3"),
-                        multiple = FALSE,)
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "incidence_age_selector",
+            label = "Age Group",
+            choices = unique(incidence_estimates$denominator_age_group),
+            selected = "18 to 150",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
         ),
         
         div(style="display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(inputId = "incidence_plot_facet",
                         label = "Facet by",
-                        choices = c("Cancer"),
-                        selected = c("Cancer"),
+                        choices = c("outcome_cohort_name", 
+                                    "denominator_sex",
+                                    "denominator_age_group"),
+                        selected = c("outcome_cohort_name"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
@@ -732,8 +838,11 @@ ui <- dashboardPage(
         div(style="display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(inputId = "incidence_plot_group",
                         label = "Colour by",
-                        choices = c("Cancer"),
-                        selected = c("Cancer"),
+                        choices = c("outcome_cohort_name", 
+                                    "denominator_sex",
+                                    "denominator_age_group"
+                                    ),
+                        selected = c("outcome_cohort_name"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
@@ -742,6 +851,8 @@ ui <- dashboardPage(
             
             
         ),
+        
+        
         
         div(
           style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
@@ -778,6 +889,117 @@ ui <- dashboardPage(
         
       ),
       
+      # tabItem(
+      #   tabName = "inc_plots_std",
+      #   div(
+      #     style = "display: inline-block;vertical-align:top; width: 150px;",
+      #     pickerInput(
+      #       inputId = "incidence_database_selector_std",
+      #       label = "Database",
+      #       choices = unique(incidence_estimates_std$cdm_name),
+      #       selected = unique(incidence_estimates_std$cdm_name),
+      #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+      #       multiple = FALSE
+      #     )
+      #   ),
+      #   div(
+      #     style = "display: inline-block;vertical-align:top; width: 150px;",
+      #     pickerInput(
+      #       inputId = "incidence_cohort_name_selector_std",
+      #       label = "Cancer",
+      #       choices = unique(incidence_estimates_std$outcome_cohort_name),
+      #       selected = unique(incidence_estimates_std$outcome_cohort_name),
+      #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+      #       multiple = TRUE
+      #     )
+      #   ),
+      #   
+      #   div(
+      #     style = "display: inline-block;vertical-align:top; width: 150px;",
+      #     pickerInput(
+      #       inputId = "incidence_start_date_selector_std",
+      #       label = "Incidence Start Date",
+      #       choices = as.character(unique(incidence_estimates_std$incidence_start_date)),
+      #       selected = as.character(unique(incidence_estimates_std$incidence_start_date)),
+      #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+      #       multiple = TRUE
+      #     )
+      #   ),
+      #   
+      #   
+      #   div(style="display: inline-block;vertical-align:top; width: 150px;",
+      #       pickerInput(inputId = "incidence_x_axis_std",
+      #                   label = "X axis",
+      #                   choices = c("incidence_start_date"),
+      #                   selected = "incidence_start_date",
+      #                   options = list(
+      #                     `actions-box` = TRUE,
+      #                     size = 10,
+      #                     `selected-text-format` = "count > 3"),
+      #                   multiple = FALSE,)
+      #   ),
+      #   
+      #   div(style="display: inline-block;vertical-align:top; width: 150px;",
+      #       pickerInput(inputId = "incidence_plot_facet_std",
+      #                   label = "Facet by",
+      #                   choices = c("Cancer"),
+      #                   selected = c("Cancer"),
+      #                   options = list(
+      #                     `actions-box` = TRUE,
+      #                     size = 10,
+      #                     `selected-text-format` = "count > 3"),
+      #                   multiple = TRUE,)
+      #   ),
+      #   
+      #   div(style="display: inline-block;vertical-align:top; width: 150px;",
+      #       pickerInput(inputId = "incidence_plot_group_std",
+      #                   label = "Colour by",
+      #                   choices = c("Cancer"),
+      #                   selected = c("Cancer"),
+      #                   options = list(
+      #                     `actions-box` = TRUE,
+      #                     size = 10,
+      #                     `selected-text-format` = "count > 3"),
+      #                   multiple = TRUE,)
+      #       
+      #       
+      #   ),
+      #   
+      #   div(
+      #     style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
+      #     checkboxInput("show_error_bars_std", "Show Ribbons", value = TRUE)
+      #   ),
+      #   
+      #   div(
+      #     style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
+      #     plotOutput("incidencePlotstd",
+      #                height = "800px"
+      #     ) %>%
+      #       withSpinner(),
+      #     h4("Download Figure"),
+      #     div("Height:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+      #     div(
+      #       style = "display: inline-block;",
+      #       textInput("incidence_download_heightstd", "", 30, width = "50px")
+      #     ),
+      #     div("cm", style = "display: inline-block; margin-right: 25px;"),
+      #     div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+      #     div(
+      #       style = "display: inline-block;",
+      #       textInput("incidence_download_widthstd", "", 35, width = "50px")
+      #     ),
+      #     div("cm", style = "display: inline-block; margin-right: 25px;"),
+      #     div("dpi:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+      #     div(
+      #       style = "display: inline-block; margin-right:",
+      #       textInput("incidence_download_dpistd", "", 600, width = "50px")
+      #     ),
+      #     downloadButton("incidence_download_plotstd", "Download plot")
+      #   )
+      #   
+      #   
+      # ),
+      
       tabItem(
         tabName = "inc_plots_std",
         div(
@@ -788,7 +1010,7 @@ ui <- dashboardPage(
             choices = unique(incidence_estimates_std$cdm_name),
             selected = unique(incidence_estimates_std$cdm_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = FALSE
+            multiple = TRUE
           )
         ),
         div(
@@ -815,24 +1037,25 @@ ui <- dashboardPage(
           )
         ),
         
-        
-        div(style="display: inline-block;vertical-align:top; width: 150px;",
-            pickerInput(inputId = "incidence_x_axis_std",
-                        label = "X axis",
-                        choices = c("incidence_start_date"),
-                        selected = "incidence_start_date",
-                        options = list(
-                          `actions-box` = TRUE,
-                          size = 10,
-                          `selected-text-format` = "count > 3"),
-                        multiple = FALSE,)
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "incidence_sex_selector_std",
+            label = "Sex",
+            choices = unique(incidence_estimates$denominator_sex),
+            selected = "Both",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
         ),
+
         
         div(style="display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(inputId = "incidence_plot_facet_std",
                         label = "Facet by",
-                        choices = c("Cancer"),
-                        selected = c("Cancer"),
+                        choices = c("outcome_cohort_name", 
+                                    "denominator_sex"),
+                        selected = c("outcome_cohort_name"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
@@ -843,8 +1066,11 @@ ui <- dashboardPage(
         div(style="display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(inputId = "incidence_plot_group_std",
                         label = "Colour by",
-                        choices = c("Cancer"),
-                        selected = c("Cancer"),
+                        choices = c("outcome_cohort_name", 
+                                    "denominator_sex",
+                                    "denominator_age_group"
+                        ),
+                        selected = c("outcome_cohort_name"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
@@ -854,14 +1080,16 @@ ui <- dashboardPage(
             
         ),
         
+        
+        
         div(
           style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
-          checkboxInput("show_error_bars_std", "Show Ribbons", value = TRUE)
+          checkboxInput("show_error_barsstd", "Show Ribbons", value = TRUE)
         ),
         
         div(
           style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
-          plotOutput("incidencePlotstd",
+          plotOutput("incidencePlot_std",
                      height = "800px"
           ) %>%
             withSpinner(),
