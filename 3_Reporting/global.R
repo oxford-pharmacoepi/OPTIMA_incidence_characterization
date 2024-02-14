@@ -93,13 +93,16 @@ results <- list.files(
   include.dirs = TRUE
 )
 
+# concept code lists -----
+concepts_lists <- read_csv(here::here("www", "concept_list.csv"), show_col_types = FALSE) %>% 
+  filter(Cancer == "Lung")
 
 # incidence estimates not standardized -----
 incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
 incidence_estimates_files <-results[stringr::str_detect(results, "incidence_estimates")]
 if(length(incidence_estimates_files > 0)){
   
-incidence_estimates_files <-results[!(stringr::str_detect(incidence_estimates_files, "age_std_"))]
+incidence_estimates_files <-incidence_estimates_files[!(stringr::str_detect(incidence_estimates_files, "age_std_"))]
 
 incidence_estimates <- list()
 
@@ -147,7 +150,6 @@ incidence_settings <- dplyr::bind_rows(incidence_settings)
 # survival estimates -------
 survival_estimates_files <- results[stringr::str_detect(results, ".csv")]
 survival_estimates_files <- results[stringr::str_detect(results, "survival_estimates")]
-
 if(length(survival_estimates_files > 0)){
 
 survival_estimates <- list()
@@ -171,7 +173,7 @@ survival_attrition <- dplyr::bind_rows(survival_attrition)
 
 # survival summaries ------
 survival_median_files <- results[stringr::str_detect(results, ".csv")]
-survival_median_files <- results[stringr::str_detect(results, "median_survival")]
+survival_median_files <- results[stringr::str_detect(results, "survival_summary")]
 survival_median_table <- list()
 for(i in seq_along(survival_median_files)){
   survival_median_table[[i]]<-readr::read_csv(survival_median_files[[i]],
@@ -180,7 +182,6 @@ for(i in seq_along(survival_median_files)){
 survival_median_table <- dplyr::bind_rows(survival_median_table)
 
 }
-
 
 
 # table one demographics------
@@ -208,7 +209,7 @@ med_characteristics <- dplyr::bind_rows(tableone_med)
 
 # table one comorbidities ------
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
-tableone_comorb_files <- results[stringr::str_detect(results, "comorbidities")]
+tableone_comorb_files <- results[stringr::str_detect(results, "comorbidity")]
 tableone_comorb <- list()
 for(i in seq_along(tableone_comorb_files)){
   tableone_comorb[[i]] <- readr::read_csv(tableone_comorb_files[[i]],
