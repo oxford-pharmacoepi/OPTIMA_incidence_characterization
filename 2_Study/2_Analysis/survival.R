@@ -235,9 +235,15 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
 
   cli::cli_alert_info("Exporting survival attrition")
-  write_csv(attrition(cdm$outcome), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_attrition.csv"
+  write_csv(attrition(cdm$outcome) %>% 
+              mutate(cdm_name = db_name) %>% 
+              dplyr::inner_join(settings(cdm$outcome) %>%   
+                                  select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
+              rename(outcome_cohort_name = cohort_name)
+            , here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_attrition.csv"
   )))
   
+
   # export survival estimates ----
   cli::cli_alert_info("Exporting survival results")
   write_csv(surv, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_estimates.csv"
