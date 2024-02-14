@@ -188,39 +188,39 @@ server <-	function(input, output, session) {
    
 
   # surv risk table --------
-  get_risk_table <- reactive({
-    
-    
-    validate(
-      need(input$risk_table_cohort_name_selector != "", "Please select a cohort")
-    )
-    validate(
-      need(input$risk_table_database_name_selector != "", "Please select a database")
-    )
-    
- 
-    table <- survival_risk_table %>%
-      filter(outcome_cohort_name %in% input$risk_table_cohort_name_selector) %>%
-      filter(cdm_name %in% input$risk_table_database_name_selector) 
-    
-    table
-    
-  })
-  
-  
-  output$dt_risk_table <- renderText(kable(get_risk_table()) %>%
-                                       kable_styling("striped", full_width = F) )
-  
-  
-  output$gt_risk_table_word <- downloadHandler(
-    filename = function() {
-      "risk_table.docx"
-    },
-    content = function(file) {
-      x <- gt(get_risk_table())
-      gtsave(x, file)
-    }
-  )  
+  # get_risk_table <- reactive({
+  #   
+  #   
+  #   validate(
+  #     need(input$risk_table_cohort_name_selector != "", "Please select a cohort")
+  #   )
+  #   validate(
+  #     need(input$risk_table_database_name_selector != "", "Please select a database")
+  #   )
+  #   
+  # 
+  #   table <- survival_risk_table %>%
+  #     filter(outcome_cohort_name %in% input$risk_table_cohort_name_selector) %>%
+  #     filter(cdm_name %in% input$risk_table_database_name_selector) 
+  #   
+  #   table
+  #   
+  # })
+  # 
+  # 
+  # output$dt_risk_table <- renderText(kable(get_risk_table()) %>%
+  #                                      kable_styling("striped", full_width = F) )
+  # 
+  # 
+  # output$gt_risk_table_word <- downloadHandler(
+  #   filename = function() {
+  #     "risk_table.docx"
+  #   },
+  #   content = function(file) {
+  #     x <- gt(get_risk_table())
+  #     gtsave(x, file)
+  #   }
+  # )  
   
   
   # surv stats --------
@@ -236,7 +236,7 @@ server <-	function(input, output, session) {
 
 
     table <- survival_median_table %>%
-      filter(outcome_cohort_name %in% input$median_cohort_name_selector) %>%
+      filter(group_level %in% input$median_cohort_name_selector) %>%
       filter(cdm_name %in% input$median_database_name_selector)
 
     table
@@ -244,17 +244,19 @@ server <-	function(input, output, session) {
   })
 
 
-  output$dt_median_table <- renderText(kable(get_surv_stats_table()) %>%
-                                       kable_styling("striped", full_width = F) )
 
-
-  output$gt_median_table_word <- downloadHandler(
+  output$gt_surv_stats  <- render_gt({
+    PatientProfiles::formatCharacteristics(get_surv_stats_table())
+  })
+  
+  
+  output$gt_surv_stat_word <- downloadHandler(
     filename = function() {
-      "survival_statistics.docx"
+      "summary_survival_statistics.docx"
     },
     content = function(file) {
-      x <- gt(get_surv_stats_table())
-      gtsave(x, file)
+      
+      gtsave(PatientProfiles::formatCharacteristics(get_surv_stats_table()), file)
     }
   )
   
@@ -1530,6 +1532,85 @@ output$incidence_download_plot_std <- downloadHandler(
   }
 )
   
+
+# attrition --------
+get_attrition <- reactive({
+  
+  validate(
+    need(input$attrition_cohort_name_selector != "", "Please select a cohort")
+  )
+  
+  validate(
+    need(input$attrition_database_name_selector != "", "Please select a database")
+  )
+  
+  table <- survival_attrition %>%
+    filter(outcome_cohort_name %in% input$attrition_cohort_name_selector) %>%
+    filter(cdm_name %in% input$attrition_database_name_selector) 
+  
+  table
+  
+})
+
+
+get_attrition1 <- reactive({
+  
+  validate(
+    need(input$attrition_cohort_name_selector1 != "", "Please select a cohort")
+  )
+  
+  validate(
+    need(input$attrition_database_name_selector1 != "", "Please select a database")
+  )
+  
+  
+  table <- survival_attrition %>%
+    filter(outcome_cohort_name %in% input$attrition_cohort_name_selector1) %>%
+    filter(cdm_name %in% input$attrition_database_name_selector1) 
+  
+  table
+  
+})
+
+output$attrition_diagram <- renderGrViz({
+  table <- get_attrition1()
+  validate(need(nrow(table) > 0, "No results for selected inputs"))
+  render_graph(attritionChart(table))
+})
+
+output$cohort_attrition_download_figure <- downloadHandler(
+  filename = function() {
+    paste0(
+      "cohort_attrition_", input$attrition_database_name_selector1, "_", 
+      input$attrition_cohort_name_selector1, ".png"
+    )
+  },
+  content = function(file) {
+    table <- get_attrition1()
+    export_graph(
+      graph = attritionChart(table),
+      file_name = file,
+      file_type = "png",
+      width = input$attrition_download_width |> as.numeric()
+    )
+  }
+)
+
+
+output$dt_attrition <- renderText(kable(get_attrition()) %>%
+                                    kable_styling("striped", full_width = F) )
+
+
+output$gt_attrition_word <- downloadHandler(
+  filename = function() {
+    "cohort_attrition.docx"
+  },
+  content = function(file) {
+    x <- gt(get_attrition())
+    gtsave(x, file)
+  }
+)
+
   
    
 }

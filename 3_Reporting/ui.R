@@ -526,7 +526,7 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "median_cohort_name_selector",
             label = "Study cohort",
-            choices = unique(incidence_attrition$outcome_cohort_name),
+            choices = unique(survival_median_table$group_level),
             selected = "lung",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -538,18 +538,20 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "median_database_name_selector",
             label = "Database",
-            choices = unique(incidence_attrition$cdm_name),
-            selected = unique(incidence_attrition$cdm_name),
+            choices = unique(survival_median_table$cdm_name),
+            selected = unique(survival_median_table$cdm_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
+  
         
-        htmlOutput('dt_median_table'),
+        gt_output("gt_surv_stats") %>% 
+          withSpinner() ,
         
         div(style="display:inline-block",
             downloadButton(
-              outputId = "gt_median_table_word",
+              outputId = "gt_surv_stat_word",
               label = "Download table as word"
             ), 
             style="display:inline-block; float:right")
@@ -827,6 +829,87 @@ ui <- dashboardPage(
           downloadButton("incidence_download_plotstd", "Download plot")
         )
         
+        
+      ),
+      
+      
+      tabItem(
+        tabName = "cohort_attr_fig",
+        tags$h5("Attrition Diagrams for study populations:"),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_database_name_selector1",
+            label = "Database",
+            choices = unique(survival_attrition$cdm_name),
+            selected = unique(survival_attrition$cdm_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = FALSE
+          )
+        ),
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_cohort_name_selector1",
+            label = "Cancer",
+            choices = unique(survival_attrition$outcome_cohort_name),
+            selected = "lung",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = FALSE
+          )
+        ),
+        
+        
+        div(
+          style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
+          grVizOutput("attrition_diagram", width = "400px", height = "100%") %>%
+            withSpinner(),
+          h4("Download Figure"),
+          div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+          div(
+            style = "display: inline-block;",
+            textInput("attrition_download_width", "", 600, width = "50px")
+          ),
+          div("pixels", style = "display: inline-block; margin-right: 25px;"),
+          downloadButton("cohort_attrition_download_figure", "Download plot")
+        )
+        
+      ),
+      
+      tabItem(
+        tags$h5("The cohort attrition showing how the final study populations were obtained are presented below:"),
+        tabName = "cohort_attrition",
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_database_name_selector",
+            label = "Database",
+            choices = unique(survival_attrition$cdm_name),
+            selected = unique(survival_attrition$cdm_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_cohort_name_selector",
+            label = "Study cohort",
+            choices = unique(survival_attrition$outcome_cohort_name),
+            selected = "lung",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        htmlOutput('dt_attrition'),
+        
+        div(style="display:inline-block",
+            downloadButton(
+              outputId = "gt_attrition_word",
+              label = "Download table as word"
+            ), 
+            style="display:inline-block; float:right")
         
       ),
       
