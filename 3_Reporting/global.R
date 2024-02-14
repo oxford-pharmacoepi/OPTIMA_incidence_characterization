@@ -20,6 +20,9 @@ library(plotly)
 library(ggalt)
 library(bslib)
 library(PatientProfiles)
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
 
 
 mytheme <- create_theme(
@@ -157,7 +160,16 @@ for(i in seq_along(survival_estimates_files)){
   survival_estimates[[i]]<-readr::read_csv(survival_estimates_files[[i]],
                                            show_col_types = FALSE)
 }
-survival_estimates <- dplyr::bind_rows(survival_estimates)
+survival_estimates <- dplyr::bind_rows(survival_estimates) %>% 
+  CohortSurvival::splitNameLevel(
+    name = "additional_name",
+    level = "additional_level",
+    keep = FALSE,
+    overall = FALSE) %>% 
+  mutate(time = as.numeric(time)) %>% 
+  pivot_wider(names_from = estimate_name, values_from = estimate_value) %>% 
+  filter(estimate_type == "Survival probability")
+
 
 # survival attrition ------
 survival_attrition_files <- results[stringr::str_detect(results, ".csv")]
@@ -179,7 +191,14 @@ for(i in seq_along(survival_median_files)){
   survival_median_table[[i]]<-readr::read_csv(survival_median_files[[i]],
                                               show_col_types = FALSE)  
 }
-survival_median_table <- dplyr::bind_rows(survival_median_table)
+survival_median_table <- dplyr::bind_rows(survival_median_table) %>% 
+  mutate(estimate_value = as.character(estimate_value)) %>% 
+  mutate(result_type = "summarised_characteristics") %>% 
+  mutate(group_name = "cohort_name") %>% 
+  mutate(strata_name = case_when(
+    strata_name == "Overall" ~ "overall",
+             TRUE ~ strata_name
+           ))
 
 }
 
@@ -236,20 +255,133 @@ comorb_characteristics <- dplyr::bind_rows(tableone_comorb)
 
 # cdm snapshot ------
 snapshot_files <- results[stringr::str_detect(results, ".csv")]
-snapshot_files <- results[stringr::str_detect(results, "snapshot")]
+snapshot_files <- results[stringr::str_detect(results, "cdm_snapshot")]
 snapshotcdm <- list()
 for(i in seq_along(snapshot_files)){
   snapshotcdm[[i]] <- readr::read_csv(snapshot_files[[i]],
-                                      show_col_types = FALSE)
+                                      show_col_types = FALSE) %>% 
+    mutate_all(as.character)
+  
 }
-
 snapshotcdm <- bind_rows(snapshotcdm) %>% 
   select("cdm_name", "person_count", "observation_period_count" ,
-         "vocabulary_version") %>% 
+         "vocabulary_version", "cdm_version", "cdm_description",) %>% 
   mutate(person_count = nice.num.count(person_count), 
          observation_period_count = nice.num.count(observation_period_count)) %>% 
   dplyr::mutate(cdm_name = replace(cdm_name, cdm_name == "CPRD_GOLD", "CPRD GOLD")) %>% 
   rename("Database name" = "cdm_name",
          "Persons in the database" = "person_count",
          "Number of observation periods" = "observation_period_count",
-         "OMOP CDM vocabulary version" = "vocabulary_version") 
+         "OMOP CDM vocabulary version" = "vocabulary_version",
+         "Database CDM Version" = "cdm_version",
+         "Database Description" = "cdm_description" ) 
+
+# attrition functions ----
+attritionChart <- function(x) {
+  formatNum <- function(col) {
+    col <- round(as.numeric(col))
+    if_else(
+      !is.na(col),
+      gsub(" ", "", format(as.integer(col), big.mark=",")),
+      as.character(col)
+    )
+  }
+  
+  xn <- x %>%
+    arrange(reason_id) %>%
+    mutate(
+      number_subjects = formatNum(number_subjects),
+      number_records = formatNum(number_records),
+      excluded_subjects = formatNum(excluded_subjects),
+      excluded_records = formatNum(excluded_records),
+      label = paste0(
+        "N subjects = ", number_subjects, "\nN records = ", number_records
+      )
+    )
+  if (nrow(xn) == 1) {
+    xn <- xn %>%
+      mutate(label = paste0("Qualifying events", "\n", label)) %>%
+      select(label)
+  } else {
+    att <- xn %>%
+      filter(reason_id > min(reason_id)) %>%
+      mutate(
+        label = paste0(
+          "N subjects = ", excluded_subjects, "\nN records = ", excluded_records
+        )
+      ) %>%
+      select(reason, label)
+    xn <- xn %>%
+      mutate(
+        label = if_else(
+          reason_id == min(reason_id),
+          paste0("Initial events", "\n", label),
+          if_else(
+            reason_id == max(reason_id),
+            paste0("Final events", "\n", label),
+            label
+          )
+        )
+      ) %>%
+      select(label)
+  }
+  n <- nrow(x)
+  xg <- create_graph()
+  
+  for (k in seq_len(n)) {
+    xg <- xg %>%
+      add_node(
+        label = xn$label[k],
+        node_aes = node_aes(
+          shape = "box",
+          x = 1,
+          width = 1.4,
+          y = n + 1 - k + ifelse(k == 1, 0.1, 0) + ifelse(k == n, -0.1, 0),
+          height = ifelse(k == 1 | k == n, 0.6, 0.4),
+          fontsize = 10, fontcolor = "black", penwidth = ifelse(k == 1 | k == n, 2, 1), color = "black"
+        )
+      )
+    if (k > 1) {
+      xg <- xg %>%
+        add_edge(from = k - 1, to = k, edge_aes = edge_aes(color = "black"))
+    }
+  }
+  salt <- function(x) {
+    s <- 50
+    x <- strsplit(x = x, split = " ") |> unlist()
+    nn <- (nchar(x) + c(0, rep(1, length(x)-1))) |> cumsum()
+    id <- which(nn > s)
+    if (length(id) > 0) {
+      id <- id[1] - 1
+      x <- paste0(paste0(x[1:id], collapse = " "), "\n", paste0(x[-(1:id)], collapse = " "))
+    } else {
+      x <- paste0(x, collapse = " ")
+    }
+    return(x)
+  }
+  if (n > 1) {
+    for (k in seq_len(nrow(att))) {
+      res <- att$reason[k]
+      res <- salt(res)
+      xg <- xg %>%
+        add_node(
+          label = att$label[k],
+          node_aes = node_aes(
+            shape = "box", x = 3.5, width = 1.2, y = n + 0.5 - k, height = 0.4,
+            fontsize = 8, fillcolor = "grey", fontcolor = "black", color = "black"
+          )
+        ) %>%
+        add_node(
+          label = res,
+          node_aes = node_aes(
+            shape = "box", x = 1, width = 3.2, y = n + 0.5 - k, height = 0.35, fillcolor = "white", color = "black", fontcolor = "back"
+          )
+        ) %>%
+        add_edge(
+          from = 2*k + n, to = 2*k + n -1, edge_aes = edge_aes(color = "black")
+        )
+    }
+  }
+  
+  return(xg)
+}
