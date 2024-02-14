@@ -157,7 +157,16 @@ for(i in seq_along(survival_estimates_files)){
   survival_estimates[[i]]<-readr::read_csv(survival_estimates_files[[i]],
                                            show_col_types = FALSE)
 }
-survival_estimates <- dplyr::bind_rows(survival_estimates)
+survival_estimates <- dplyr::bind_rows(survival_estimates) %>% 
+  CohortSurvival::splitNameLevel(
+    name = "additional_name",
+    level = "additional_level",
+    keep = FALSE,
+    overall = FALSE) %>% 
+  mutate(time = as.numeric(time)) %>% 
+  pivot_wider(names_from = estimate_name, values_from = estimate_value) %>% 
+  filter(estimate_type == "Survival probability")
+
 
 # survival attrition ------
 survival_attrition_files <- results[stringr::str_detect(results, ".csv")]
@@ -236,20 +245,24 @@ comorb_characteristics <- dplyr::bind_rows(tableone_comorb)
 
 # cdm snapshot ------
 snapshot_files <- results[stringr::str_detect(results, ".csv")]
-snapshot_files <- results[stringr::str_detect(results, "snapshot")]
+snapshot_files <- results[stringr::str_detect(results, "cdm_snapshot")]
 snapshotcdm <- list()
 for(i in seq_along(snapshot_files)){
   snapshotcdm[[i]] <- readr::read_csv(snapshot_files[[i]],
-                                      show_col_types = FALSE)
+                                      show_col_types = FALSE) %>% 
+    mutate_all(as.character)
+  
 }
-
 snapshotcdm <- bind_rows(snapshotcdm) %>% 
   select("cdm_name", "person_count", "observation_period_count" ,
-         "vocabulary_version") %>% 
+         "vocabulary_version", "cdm_version", "cdm_description",) %>% 
   mutate(person_count = nice.num.count(person_count), 
          observation_period_count = nice.num.count(observation_period_count)) %>% 
   dplyr::mutate(cdm_name = replace(cdm_name, cdm_name == "CPRD_GOLD", "CPRD GOLD")) %>% 
   rename("Database name" = "cdm_name",
          "Persons in the database" = "person_count",
          "Number of observation periods" = "observation_period_count",
-         "OMOP CDM vocabulary version" = "vocabulary_version") 
+         "OMOP CDM vocabulary version" = "vocabulary_version",
+         "Database CDM Version" = "cdm_version",
+         "Database Description" = "cdm_description" ) 
+

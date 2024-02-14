@@ -347,118 +347,113 @@ server <-	function(input, output, session) {
   # survival plots -------
   get_surv_plot <- reactive({
     
-    validate(
-      need(input$survival_cohort_name_selector != "", "Please select a cohort")
-    )
-    validate(
-      need(input$survival_database_selector != "", "Please select a database")
-    )
-    
-    validate(
-      need(input$surv_plot_group != "", "Please select a group to colour by")
-    )
-    
-    validate(
-      need(input$surv_plot_facet != "", "Please select a group to facet by")
+    validate(need(input$survival_cohort_name_selector != "", "Please select a cohort") )
+    validate(need(input$survival_database_selector != "", "Please select a database"))
+    validate(need(input$survival_demo_selector != "", "Please select a demographic"))
+    validate(need(input$surv_plot_group != "", "Please select a group to colour by"))
+    validate(need(input$surv_plot_facet != "", "Please select a group to facet by")
     )
 
     
     plot_data <- survival_estimates %>%
       filter(cdm_name %in% input$survival_database_selector) %>%
       filter(group_level %in% input$survival_cohort_name_selector) %>% 
-      filter(estimate_name = "estimate")
+      filter(strata_level %in% input$survival_demo_selector) 
     
     if (input$show_ci) {
       
       if (!is.null(input$surv_plot_group) && !is.null(input$surv_plot_facet)) {
         
         plot <- plot_data %>%
-        unite("Group", c(all_of(input$surv_plot_group)), remove = FALSE, sep = "; ") %>%
-        unite("facet_var", c(all_of(input$surv_plot_facet)), remove = FALSE, sep = "; ") %>% 
-        ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
-                          ymin = "incidence_100000_pys_95CI_lower",
-                          ymax = "incidence_100000_pys_95CI_upper",
-                          group="Group",
-                          colour="Group", fill = "Group")) +
-          geom_point(position=position_dodge(width=1))+
-          geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
-                      alpha = 0.1) + 
+          unite("Group", c(all_of(input$surv_plot_group)), remove = FALSE, sep = "; ") %>%
+          unite("facet_var", c(all_of(input$surv_plot_facet)), remove = FALSE, sep = "; ") %>%
+          ggplot(aes(x = as.numeric(time)/365.25, y = estimate,
+                     ymin = estimate_95CI_lower, 
+                     ymax = estimate_95CI_upper, 
+                     group = Group, colour = Group, fill = Group)) +
+          scale_y_continuous( labels = label_percent() ) +
+          xlab("Time (Years)") +
+          ylab("Survival Function (%)") +
+          geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
+                      alpha = 0.1) +
           geom_line(size = 0.25) +
-          labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
-          facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
-          scale_y_continuous(limits = c(0, NA)) +
-          theme(axis.text.x = element_text(angle = 45, hjust=1),
-                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6) ,
-                panel.background = element_blank() ,
-                axis.line = element_line(colour = "black", size = 0.6) ,
-                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15))
+          facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")+
+          theme(
+            panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+            strip.background = element_rect(color = "black", size = 0.6) ,
+            panel.background = element_blank() ,
+            axis.line = element_line(colour = "black", size = 0.6) ,
+            panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+            text = element_text(size = 15))
         
         
         
       } else if (!is.null(input$surv_plot_group) && is.null(input$surv_plot_facet)) {
+        
         plot <- plot_data %>%
           unite("Group", c(all_of(input$surv_plot_group)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = as.numeric(time)/365.25, y = estimate,
+                     ymin = estimate_95CI_lower, 
+                     ymax = estimate_95CI_upper, 
+                     group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
-          geom_line() +
-          geom_ribbon(aes(ymin = lcl, ymax = ucl, fill = Group, colour = Group), alpha = 0.3) +
           xlab("Time (Years)") +
           ylab("Survival Function (%)") +
-          theme(panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6) ,
-                panel.background = element_blank() ,
-                panel.spacing.x = unit(0.05, "cm") ,
-                panel.spacing.y = unit(0.1, "cm") ,
-                axis.text = element_text(size = 15) ,
-                axis.title = element_text(size = 15) ,
-                legend.text = element_text(size= 15),
-                legend.title = element_text(size= 15),
-                axis.line = element_line(colour = "black", size = 0.6) ,
-                panel.grid.major = element_line(color = "darkgray", size = 0.2, linetype = "dashed"))
+          geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
+                      alpha = 0.1) +
+          geom_line(size = 0.25) +
+          theme(
+            panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+            strip.background = element_rect(color = "black", size = 0.6) ,
+            panel.background = element_blank() ,
+            axis.line = element_line(colour = "black", size = 0.6) ,
+            panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+            text = element_text(size = 15))
+        
         
       } else if (is.null(input$surv_plot_group) && !is.null(input$surv_plot_facet)) {
+        
         plot <- plot_data %>%
           unite("facet_var", c(all_of(input$surv_plot_facet)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = as.numeric(time)/365.25, y = estimate,
+                     ymin = estimate_95CI_lower, 
+                     ymax = estimate_95CI_upper)) +
           scale_y_continuous( labels = label_percent() ) +
-          geom_line() +
-          geom_ribbon(aes(ymin = lcl, ymax = ucl, fill = Group, colour = Group), alpha = 0.3) +
           xlab("Time (Years)") +
           ylab("Survival Function (%)") +
-          facet_wrap(vars(facet_var), ncol = 3, scales = "free_y") +
-          theme(panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6) ,
-                panel.background = element_blank() ,
-                panel.spacing.x = unit(0.05, "cm") ,
-                panel.spacing.y = unit(0.1, "cm") ,
-                axis.text = element_text(size = 15) ,
-                axis.title = element_text(size = 15) ,
-                legend.text = element_text(size= 15),
-                legend.title = element_text(size= 15),
-                axis.line = element_line(colour = "black", size = 0.6) ,
-                panel.grid.major = element_line(color = "darkgray", size = 0.2, linetype = "dashed"))
+          geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
+                      alpha = 0.1) +
+          geom_line(size = 0.25) +
+          facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")+
+          theme(
+            panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+            strip.background = element_rect(color = "black", size = 0.6) ,
+            panel.background = element_blank() ,
+            axis.line = element_line(colour = "black", size = 0.6) ,
+            panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+            text = element_text(size = 15))
+        
         
       } else {
-        plot <- plot_data %>%
-          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
-          scale_y_continuous( labels = label_percent() ) +
-          geom_line() +
-          geom_ribbon(aes(ymin = lcl, ymax = ucl, fill = Group, colour = Group), alpha = 0.3) +
-          xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
-          theme(panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6) ,
-                panel.background = element_blank() ,
-                panel.spacing.x = unit(0.05, "cm") ,
-                panel.spacing.y = unit(0.1, "cm") ,
-                axis.text = element_text(size = 15) ,
-                axis.title = element_text(size = 15) ,
-                legend.text = element_text(size= 15),
-                legend.title = element_text(size= 15),
-                axis.line = element_line(colour = "black", size = 0.6) ,
-                panel.grid.major = element_line(color = "darkgray", size = 0.2, linetype = "dashed")) 
+          plot <- plot_data %>%
+            ggplot(aes(x = as.numeric(time)/365.25, y = estimate,
+                       ymin = estimate_95CI_lower, 
+                       ymax = estimate_95CI_upper, 
+                       group = Group, colour = Group, fill = Group)) +
+            scale_y_continuous( labels = label_percent() ) +
+            xlab("Time (Years)") +
+            ylab("Survival Function (%)") +
+            geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
+                        alpha = 0.1) +
+            geom_line(size = 0.25) +
+            theme(
+              panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+              strip.background = element_rect(color = "black", size = 0.6) ,
+              panel.background = element_blank() ,
+              axis.line = element_line(colour = "black", size = 0.6) ,
+              panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+              text = element_text(size = 15))
+          
         
       }
       
@@ -471,97 +466,97 @@ server <-	function(input, output, session) {
     } else {
       
       if (!is.null(input$surv_plot_group) && !is.null(input$surv_plot_facet)) {
+        
         plot <- plot_data %>%
           unite("Group", c(all_of(input$surv_plot_group)), remove = FALSE, sep = "; ") %>%
           unite("facet_var", c(all_of(input$surv_plot_facet)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = as.numeric(time)/365.25, y = estimate,
+                     ymin = estimate_95CI_lower, 
+                     ymax = estimate_95CI_upper, 
+                     group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
-          geom_line() +
           xlab("Time (Years)") +
           ylab("Survival Function (%)") +
-          facet_wrap(vars(facet_var), ncol = 3, scales = "free_y") +
-          theme(panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6) ,
-                panel.background = element_blank() ,
-                panel.spacing.x = unit(0.05, "cm") ,
-                panel.spacing.y = unit(0.1, "cm") ,
-                axis.text = element_text(size = 15) ,
-                axis.title = element_text(size = 15) ,
-                legend.text = element_text(size= 15),
-                legend.title = element_text(size= 15),
-                axis.line = element_line(colour = "black", size = 0.6) ,
-                panel.grid.major = element_line(color = "darkgray", size = 0.2, linetype = "dashed"))
-
+          geom_line(size = 0.25) +
+          facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")+
+          theme(
+            panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+            strip.background = element_rect(color = "black", size = 0.6) ,
+            panel.background = element_blank() ,
+            axis.line = element_line(colour = "black", size = 0.6) ,
+            panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+            text = element_text(size = 15))
+        
+        
         
       } else if (!is.null(input$surv_plot_group) && is.null(input$surv_plot_facet)) {
+        
         plot <- plot_data %>%
           unite("Group", c(all_of(input$surv_plot_group)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = as.numeric(time)/365.25, y = estimate,
+                     ymin = estimate_95CI_lower, 
+                     ymax = estimate_95CI_upper, 
+                     group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
-          geom_line() +
           xlab("Time (Years)") +
           ylab("Survival Function (%)") +
-          theme(panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6) ,
-                panel.background = element_blank() ,
-                panel.spacing.x = unit(0.05, "cm") ,
-                panel.spacing.y = unit(0.1, "cm") ,
-                axis.text = element_text(size = 15) ,
-                axis.title = element_text(size = 15) ,
-                legend.text = element_text(size= 15),
-                legend.title = element_text(size= 15),
-                axis.line = element_line(colour = "black", size = 0.6) ,
-                panel.grid.major = element_line(color = "darkgray", size = 0.2, linetype = "dashed"))
+          geom_line(size = 0.25) +
+          theme(
+            panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+            strip.background = element_rect(color = "black", size = 0.6) ,
+            panel.background = element_blank() ,
+            axis.line = element_line(colour = "black", size = 0.6) ,
+            panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+            text = element_text(size = 15))
+        
         
       } else if (is.null(input$surv_plot_group) && !is.null(input$surv_plot_facet)) {
+        
         plot <- plot_data %>%
           unite("facet_var", c(all_of(input$surv_plot_facet)), remove = FALSE, sep = "; ") %>%
-          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = as.numeric(time)/365.25, y = estimate,
+                     ymin = estimate_95CI_lower, 
+                     ymax = estimate_95CI_upper)) +
           scale_y_continuous( labels = label_percent() ) +
-          geom_line() +
           xlab("Time (Years)") +
           ylab("Survival Function (%)") +
-          facet_wrap(vars(facet_var), ncol = 3, scales = "free_y") +
-          theme(panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6) ,
-                panel.background = element_blank() ,
-                panel.spacing.x = unit(0.05, "cm") ,
-                panel.spacing.y = unit(0.1, "cm") ,
-                axis.text = element_text(size = 15) ,
-                axis.title = element_text(size = 15) ,
-                legend.text = element_text(size= 15),
-                legend.title = element_text(size= 15),
-                axis.line = element_line(colour = "black", size = 0.6) ,
-                panel.grid.major = element_line(color = "darkgray", size = 0.2, linetype = "dashed"))
+          geom_line(size = 0.25) +
+          facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")+
+          theme(
+            panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+            strip.background = element_rect(color = "black", size = 0.6) ,
+            panel.background = element_blank() ,
+            axis.line = element_line(colour = "black", size = 0.6) ,
+            panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+            text = element_text(size = 15))
+        
         
       } else {
         plot <- plot_data %>%
-          ggplot(aes(x = nrow(plot_data), y = estimate_value, ymin = lcl, ymax = ucl, group = Group, colour = Group, fill = Group)) +
+          ggplot(aes(x = as.numeric(time)/365.25, y = estimate,
+                     ymin = estimate_95CI_lower, 
+                     ymax = estimate_95CI_upper, 
+                     group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
-          geom_line() +
           xlab("Time (Years)") +
           ylab("Survival Function (%)") +
-          theme(panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6) ,
-                panel.background = element_blank() ,
-                panel.spacing.x = unit(0.05, "cm") ,
-                panel.spacing.y = unit(0.1, "cm") ,
-                axis.text = element_text(size = 15) ,
-                axis.title = element_text(size = 15) ,
-                legend.text = element_text(size= 15),
-                legend.title = element_text(size= 15),
-                axis.line = element_line(colour = "black", size = 0.6) ,
-                panel.grid.major = element_line(color = "darkgray", size = 0.2, linetype = "dashed")) 
+          geom_line(size = 0.25) +
+          theme(
+            panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+            strip.background = element_rect(color = "black", size = 0.6) ,
+            panel.background = element_blank() ,
+            axis.line = element_line(colour = "black", size = 0.6) ,
+            panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+            text = element_text(size = 15))
+        
         
       }
       
       # Move scale_y_continuous outside of ggplot
       plot <- plot  +
         theme(strip.text = element_text(size = 15, face = "bold"))
-
       
-      plot      
-      
+      plot 
       
     }
     
@@ -1418,86 +1413,82 @@ server <-	function(input, output, session) {
     if (!is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
         unite("Group", c(all_of(input$incidence_plot_group_std)), remove = FALSE, sep = "; ") %>%
-        unite("facet_var_std", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x="incidence_start_date", y = "incidence_100000_pys",
+        unite("facet_var", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
+        ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
-                          ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(position = position_dodge(width = 1)) +
-        geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
-        labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
-        scale_y_continuous(limits = c(0, NA)) +
+                          ymax = "incidence_100000_pys_95CI_upper",
+                          group = "Group",
+                          colour = "Group", fill = "Group")) +
+        geom_point(position=position_dodge(width=1))+
         geom_errorbar(width = 0, position = position_dodge(width = 1)) +
-        scale_color_manual(values = "black") +  # Set the color of points and error bars
-        theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
+        facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
+        scale_y_continuous(limits = c(0, NA)) +
+        theme(axis.text.x = element_text(angle = 45, hjust=1),
               panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-              strip.background = element_rect(color = "black", size = 0.6),
-              panel.background = element_blank(),
-              axis.line = element_line(colour = "black", size = 0.6),
+              strip.background = element_rect(color = "black", size = 0.6) ,
+              panel.background = element_blank() ,
+              axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              legend.position = 'none',
-              text = element_text(size = 15)) +
-        facet_wrap(vars(facet_var_std), ncol = 3, scales = "free_y")
+              text = element_text(size = 15))
+      
       
     } else if (!is.null(input$incidence_plot_group_std) && is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
         unite("Group", c(all_of(input$incidence_plot_group_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x="incidence_start_date", y = "incidence_100000_pys",
+        ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
-                          ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(aes(colour = "black"), size = 2, position = position_dodge(width = 1)) +
-        geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
+                          ymax = "incidence_100000_pys_95CI_upper",
+                          group = "Group",
+                          colour = "Group", fill = "Group")) +
+        geom_point(position=position_dodge(width=1))+
+        geom_errorbar(width = 0, position = position_dodge(width = 1)) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
         scale_y_continuous(limits = c(0, NA)) +
-        geom_errorbar(aes(colour = "black"), width = 0, position = position_dodge(width = 1)) +
-        theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        theme(axis.text.x = element_text(angle = 45, hjust=1),
               panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-              strip.background = element_rect(color = "black", size = 0.6),
-              panel.background = element_blank(),
-              axis.line = element_line(colour = "black", size = 0.6),
+              strip.background = element_rect(color = "black", size = 0.6) ,
+              panel.background = element_blank() ,
+              axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              legend.position = 'none',
-              text = element_text(size = 15)) 
+              text = element_text(size = 15))
       
       
     } else if (is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
-        unite("facet_var_std", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
-        ggplot(aes_string(x="incidence_start_date", y = "incidence_100000_pys",
+        unite("facet_var", c(all_of(input$incidence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
+        ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
                           ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(aes(colour = "black"), size = 2, position = position_dodge(width = 1)) +
-        geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
+        geom_point(position=position_dodge(width=1))+
+        geom_errorbar(width = 0, position = position_dodge(width = 1)) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
+        facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
         scale_y_continuous(limits = c(0, NA)) +
-        geom_errorbar(aes(colour = "black"), width = 0, position = position_dodge(width = 1)) +
-        theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        theme(axis.text.x = element_text(angle = 45, hjust=1),
               panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-              strip.background = element_rect(color = "black", size = 0.6),
-              panel.background = element_blank(),
-              axis.line = element_line(colour = "black", size = 0.6),
+              strip.background = element_rect(color = "black", size = 0.6) ,
+              panel.background = element_blank() ,
+              axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              legend.position = 'none',
-              text = element_text(size = 15)) +
-        facet_wrap(vars(facet_var_std), ncol = 3, scales = "free_y")
+              text = element_text(size = 15))
       
       
     } else {
       plot <- plot_data %>%
-        ggplot(aes_string(x="incidence_start_date", y = "incidence_100000_pys",
+        ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
                           ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(aes(colour = "black"), size = 2, position = position_dodge(width = 1)) +
-        geom_vline(xintercept = as.numeric(as.Date("2020-03-23")), linetype="solid", colour = "#ED0000FF", size = 1) +
+        geom_point(position=position_dodge(width=1))+
+        geom_errorbar(width = 0, position = position_dodge(width = 1)) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
         scale_y_continuous(limits = c(0, NA)) +
-        geom_errorbar(aes(colour = "black"), width = 0, position = position_dodge(width = 1)) +
-        theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        theme(axis.text.x = element_text(angle = 45, hjust=1),
               panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-              strip.background = element_rect(color = "black", size = 0.6),
-              panel.background = element_blank(),
-              axis.line = element_line(colour = "black", size = 0.6),
+              strip.background = element_rect(color = "black", size = 0.6) ,
+              panel.background = element_blank() ,
+              axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              legend.position = 'none',
               text = element_text(size = 15))
       
       
