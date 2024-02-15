@@ -224,43 +224,45 @@ server <-	function(input, output, session) {
   
   
   # surv stats --------
-  get_surv_stats_table <- reactive({
+  # get_surv_stats_table <- reactive({
+  # 
+  # 
+  #   validate(
+  #     need(input$median_cohort_name_selector != "", "Please select a cohort")
+  #   )
+  #   validate(
+  #     need(input$median_database_name_selector != "", "Please select a database")
+  #   )
+  #   
+  #   validate(
+  #     need(input$median_demo_selector != "", "Please select a demographic")
+  #   )
+  # 
+  # 
+  #   table <- survival_median_table %>%
+  #     filter(group_level %in% input$median_cohort_name_selector) %>%
+  #     filter(cdm_name %in% input$median_database_name_selector) %>% 
+  #     filter(strata_level %in% input$median_demo_selector)
+  # 
+  #   table
+  # 
+  # })
+  # 
+  # output$dt_surv_stat <- renderText(kable(get_surv_stats_table()) %>%
+  #                                         kable_styling("striped", full_width = F) )
+  # 
+  # 
+  # output$dt_surv_stat_word <- downloadHandler(
+  #   filename = function() {
+  #     "summary_survival_statistics.docx"
+  #   },
+  #   content = function(file) {
+  #     x <- gt(get_surv_stats_table())
+  #     gtsave(x, file)
+  #   }
+  # )
 
 
-    validate(
-      need(input$median_cohort_name_selector != "", "Please select a cohort")
-    )
-    validate(
-      need(input$median_database_name_selector != "", "Please select a database")
-    )
-
-
-    table <- survival_median_table %>%
-      filter(group_level %in% input$median_cohort_name_selector) %>%
-      filter(cdm_name %in% input$median_database_name_selector)
-
-    table
-
-  })
-
-
-
-  output$gt_surv_stats  <- render_gt({
-    PatientProfiles::formatCharacteristics(get_surv_stats_table())
-  })
-  
-  
-  output$gt_surv_stat_word <- downloadHandler(
-    filename = function() {
-      "summary_survival_statistics.docx"
-    },
-    content = function(file) {
-      
-      gtsave(PatientProfiles::formatCharacteristics(get_surv_stats_table()), file)
-    }
-  )
-  
-  
   
   get_inc_estimates_table <- reactive({
     
@@ -1221,5 +1223,47 @@ output$gt_attrition_word <- downloadHandler(
 )
 
   
+
+
+
+# clinical codelists ----------------
+get_surv_summary <- reactive({
+  
+  validate(need(input$median_cohort_name_selector != "", "Please select a cohort"))
+  validate(need(input$median_database_name_selector != "", "Please select a database"))
+  validate(need(input$median_demo_selector != "", "Please select a database"))
+  
+  table <- survival_median_table %>%
+    filter(group_level %in% input$median_cohort_name_selector) %>%
+    filter(cdm_name %in% input$median_database_name_selector) %>% 
+    filter(strata_level %in% input$median_demo_selector) 
+  
+  table
+  
+})
+
+
+output$dt_surv_stats <- renderText(kable(get_surv_summary()) %>%
+                                     kable_styling("striped", full_width = F) )
+
+
+output$dt_surv_stat_word <- downloadHandler(
+  filename = function() {
+    "survival_summary.docx"
+  },
+  content = function(file) {
+    x <- gt(get_surv_summary())
+    gtsave(x, file)
+  }
+)
+
+
+
+
+
+
+
+
+
    
 }

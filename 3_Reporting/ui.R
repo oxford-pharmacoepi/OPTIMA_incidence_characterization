@@ -520,6 +520,7 @@ ui <- dashboardPage(
       
       
       tabItem(
+      
         tabName = "stats_results",
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
@@ -528,6 +529,18 @@ ui <- dashboardPage(
             label = "Study cohort",
             choices = unique(survival_median_table$group_level),
             selected = "lung",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "median_demo_selector",
+            label = "Demographics",
+            choices = unique(survival_median_table$strata_level),
+            selected = unique(survival_median_table$strata_level)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -545,20 +558,17 @@ ui <- dashboardPage(
           )
         ),
   
-        
-        gt_output("gt_surv_stats") %>% 
-          withSpinner() ,
+        htmlOutput("dt_surv_stats"),
         
         div(style="display:inline-block",
             downloadButton(
-              outputId = "gt_surv_stat_word",
+              outputId = "dt_surv_stat_word",
               label = "Download table as word"
             ), 
             style="display:inline-block; float:right")
         
       ),   
       
-
   
       tabItem(
         tabName = "inc_plots",
