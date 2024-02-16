@@ -268,7 +268,7 @@ agestandardized_results <- bind_rows(
 
 # Export the results -----
 cli::cli_alert_info("- Getting incidence attrition")
-write.csv(IncidencePrevalence::incidenceAttrition(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_attrition.csv")), row.names = FALSE)
+write.csv(attrition(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_attrition.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting incidence settings")
 write.csv(settings(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")), row.names = FALSE)
