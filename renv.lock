@@ -66,7 +66,7 @@
     },
     "CodelistGenerator": {
       "Package": "CodelistGenerator",
-      "Version": "2.2.1",
+      "Version": "2.2.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -90,7 +90,7 @@
         "tidyselect",
         "vctrs"
       ],
-      "Hash": "bf07863bd47b273c9b61733acd889c1a"
+      "Hash": "2b6f2f1febe25a104fa977c978feb359"
     },
     "CohortSurvival": {
       "Package": "CohortSurvival",
@@ -186,14 +186,9 @@
     },
     "IncidencePrevalence": {
       "Package": "IncidencePrevalence",
-      "Version": "0.6.2",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "IncidencePrevalence",
-      "RemoteUsername": "darwin-eu-dev",
-      "RemoteRef": "omopgenerics",
-      "RemoteSha": "6815040e005ac36f3a95fe517c224a0d9fccde60",
+      "Version": "0.7.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "CDMConnector",
         "DBI",
@@ -204,6 +199,7 @@
         "dplyr",
         "ggplot2",
         "glue",
+        "lifecycle",
         "lubridate",
         "magrittr",
         "omopgenerics",
@@ -216,7 +212,7 @@
         "tidyselect",
         "zip"
       ],
-      "Hash": "7a55bd9dc301952e68dc353861cf7c0c"
+      "Hash": "cf30b6c4be4dd1ad76d43bb776573c15"
     },
     "KernSmooth": {
       "Package": "KernSmooth",
@@ -381,7 +377,7 @@
     },
     "V8": {
       "Package": "V8",
-      "Version": "4.4.1",
+      "Version": "4.4.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -390,7 +386,7 @@
         "jsonlite",
         "utils"
       ],
-      "Hash": "435359b59b8a9b8f9235135da471ea3c"
+      "Hash": "ca98390ad1cef2a5a609597b49d3d042"
     },
     "anytime": {
       "Package": "anytime",
@@ -2273,7 +2269,7 @@
     },
     "survival": {
       "Package": "survival",
-      "Version": "3.5-7",
+      "Version": "3.5-8",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2285,7 +2281,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "b8e943d262c3da0b0febd3e04517c197"
+      "Hash": "184d7799bca4ba8c3be72ea396f4b9a3"
     },
     "svglite": {
       "Package": "svglite",
