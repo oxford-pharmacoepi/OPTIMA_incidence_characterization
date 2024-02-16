@@ -16,8 +16,7 @@ cdm <- generateDenominatorCohortSet(
     c(80, 150)
   ),
   sex = c("Male", "Female", "Both"),
-  daysPriorObservation = 365,
-  overwrite = TRUE
+  daysPriorObservation = 365
 )
 cli::cli_alert_success("- Got denominator")
 
@@ -35,7 +34,6 @@ inc <- estimateIncidence(
   repeatedEvents = FALSE,
   completeDatabaseIntervals = TRUE,
   minCellCount = 0,
-  temporary = TRUE,
   returnParticipants = FALSE
 )
 
@@ -49,8 +47,7 @@ cdm <- generateDenominatorCohortSet(
   ageGroup =list(
     c(18, 150)),
   sex = c("Both"),
-  daysPriorObservation = 365,
-  overwrite = TRUE
+  daysPriorObservation = 365
 )
 
 inc_overall_parts <- estimateIncidence(
@@ -63,7 +60,6 @@ inc_overall_parts <- estimateIncidence(
   repeatedEvents = FALSE,
   completeDatabaseIntervals = TRUE,
   minCellCount = 0,
-  temporary = FALSE,
   returnParticipants = TRUE
 )
 
@@ -106,7 +102,7 @@ inc_std <- inc %>%
   filter(denominator_age_group != "18 to 150",
          denominator_sex == "Both",
          analysis_interval == "years") %>% 
-  mutate(age_standard = "crude") %>% 
+  mutate(age_standard = "Crude") %>% 
   select(c(
     incidence_start_date,            
     n_events ,                       
@@ -248,7 +244,7 @@ inc_crude <- inc %>%
   filter(denominator_age_group == "18 to 150",
          denominator_sex == "Both",
          analysis_interval == "years") %>% 
-  mutate(age_standard = "crude") %>% 
+  mutate(age_standard = "Crude") %>% 
   select(c(
     incidence_start_date,            
     n_events ,                       
@@ -278,7 +274,7 @@ cli::cli_alert_info("- Getting incidence settings")
 write.csv(settings(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting incidence results")
-#write.csv(IncidencePrevalence:::obscureCounts(inc1, minCellCount = 5), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
+#write.csv(IncidencePrevalence::obscureCounts(inc1, minCellCount = 5), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
 write.csv(inc, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting age standardized incidence results")
