@@ -274,7 +274,6 @@ cli::cli_alert_info("- Getting incidence settings")
 write.csv(settings(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting incidence results")
-#write.csv(IncidencePrevalence::obscureCounts(inc1, minCellCount = 5), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
 write.csv(inc, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
 
 cli::cli_alert_info("- Getting age standardized incidence results")
