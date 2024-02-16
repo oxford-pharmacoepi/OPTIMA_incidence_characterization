@@ -218,7 +218,15 @@ survival_median_table <- dplyr::bind_rows(survival_median_table) %>%
     
     
     TRUE ~ estimate_type
-  )) 
+  )) %>% 
+  pivot_wider(names_from = estimate_name, values_from = estimate_value) %>% 
+  select(c("cdm_name",
+           "group_level",
+           "strata_level",
+           "median_survival"       ,
+           "median_survival_95CI_lower" ,
+           "median_survival_95CI_higher"
+           ))
   
 
 }
