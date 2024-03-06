@@ -78,13 +78,8 @@
     "CodelistGenerator": {
       "Package": "CodelistGenerator",
       "Version": "2.2.2",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "CodelistGenerator",
-      "RemoteUsername": "darwin-eu-dev",
-      "RemoteRef": "exclusion",
-      "RemoteSha": "dde402b09cd0470061f663ef3a77d45685fc79d4",
+      "Source": "Repository",
+      "Repository": "CRAN",
       "Requirements": [
         "CDMConnector",
         "DBI",
@@ -106,7 +101,7 @@
         "tidyselect",
         "vctrs"
       ],
-      "Hash": "0d6fa533da2b5afc8ce31848b1f6e254"
+      "Hash": "2b6f2f1febe25a104fa977c978feb359"
     },
     "DBI": {
       "Package": "DBI",
@@ -1245,29 +1240,15 @@
       ],
       "Hash": "76c9e04c712a05848ae7a23d2f170a40"
     },
-    "remotes": {
-      "Package": "remotes",
-      "Version": "2.4.2.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "methods",
-        "stats",
-        "tools",
-        "utils"
-      ],
-      "Hash": "63d15047eb239f95160112bcadc4fcb9"
-    },
     "renv": {
       "Package": "renv",
-      "Version": "1.0.3",
+      "Version": "1.0.5",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "utils"
       ],
-      "Hash": "41b847654f567341725473431dd0d5ab"
+      "Hash": "32c3f93e8360f667ca5863272ec8ba6a"
     },
     "rlang": {
       "Package": "rlang",
