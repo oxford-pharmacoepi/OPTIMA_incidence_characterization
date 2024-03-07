@@ -4,9 +4,6 @@
 # renv::activate()
 renv::restore()
 
-# install.packages("remotes")
-# remotes::install_github("darwin-eu-dev/CodelistGenerator@exclusion")
-
 # packages ---
 library(Capr)
 library(here)
@@ -30,11 +27,6 @@ db <- DBI::dbConnect(RPostgres::Postgres(),
                      host = host,
                      user = user,
                      password = password)
-
-# cdm <- CDMConnector::cdmFromCon(con = db,
-#                   cdmSchema = "public",
-#                   writeSchema = "results")
-
 
 # Set database details -----
 # The name of the schema that contains the OMOP CDM with patient-level data
@@ -71,7 +63,6 @@ cdm$person %>%
 
 # check vocab version
 # getVocabVersion(cdm = cdm)
-
 
 # getConceptClassId(cdm,
 #                   standardConcept = "Standard")
@@ -223,14 +214,14 @@ nonsmallcell_lungcancer_codes <- getCandidateCodes(
 )
 
 
-nonsmallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("nsc_lung_cancer" = nonsmallcell_lungcancer_codes$concept_id),
-                                                           cdm = cdm,
-                                                           domains = "Condition",
-                                                           standardConcept = "Standard",
-                                                           searchInSynonyms = FALSE,
-                                                           searchNonStandard = FALSE,
-                                                           includeDescendants = TRUE,
-                                                           includeAncestor = TRUE)
+# nonsmallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("nsc_lung_cancer" = nonsmallcell_lungcancer_codes$concept_id),
+#                                                            cdm = cdm,
+#                                                            domains = "Condition",
+#                                                            standardConcept = "Standard",
+#                                                            searchInSynonyms = FALSE,
+#                                                            searchNonStandard = FALSE,
+#                                                            includeDescendants = TRUE,
+#                                                            includeAncestor = TRUE)
 
 
 
@@ -276,14 +267,14 @@ stage1_nsclungcancer_codes <- getCandidateCodes(
 )
 
 
-nsclc_stage1_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage1_nsclungcancer_codes$concept_id),
-                                                              cdm = cdm,
-                                                              domains = "Condition",
-                                                              standardConcept = "Standard",
-                                                              searchInSynonyms = FALSE,
-                                                              searchNonStandard = FALSE,
-                                                              includeDescendants = TRUE,
-                                                              includeAncestor = TRUE)
+# nsclc_stage1_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage1_nsclungcancer_codes$concept_id),
+#                                                               cdm = cdm,
+#                                                               domains = "Condition",
+#                                                               standardConcept = "Standard",
+#                                                               searchInSynonyms = FALSE,
+#                                                               searchNonStandard = FALSE,
+#                                                               includeDescendants = TRUE,
+#                                                               includeAncestor = TRUE)
 
 
 #staging codes 2 NSCLC
@@ -326,14 +317,14 @@ stage2_nsclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-nsclc_stage2_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage2_nsclungcancer_codes$concept_id),
-                                             cdm = cdm,
-                                             domains = "Condition",
-                                             standardConcept = "Standard",
-                                             searchInSynonyms = FALSE,
-                                             searchNonStandard = FALSE,
-                                             includeDescendants = TRUE,
-                                             includeAncestor = TRUE)
+# nsclc_stage2_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage2_nsclungcancer_codes$concept_id),
+#                                              cdm = cdm,
+#                                              domains = "Condition",
+#                                              standardConcept = "Standard",
+#                                              searchInSynonyms = FALSE,
+#                                              searchNonStandard = FALSE,
+#                                              includeDescendants = TRUE,
+#                                              includeAncestor = TRUE)
 
 
 
@@ -377,14 +368,14 @@ stage3_nsclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-nsclc_stage3_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage3_nsclungcancer_codes$concept_id),
-                                             cdm = cdm,
-                                             domains = "Condition",
-                                             standardConcept = "Standard",
-                                             searchInSynonyms = FALSE,
-                                             searchNonStandard = FALSE,
-                                             includeDescendants = TRUE,
-                                             includeAncestor = TRUE)
+# nsclc_stage3_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage3_nsclungcancer_codes$concept_id),
+#                                              cdm = cdm,
+#                                              domains = "Condition",
+#                                              standardConcept = "Standard",
+#                                              searchInSynonyms = FALSE,
+#                                              searchNonStandard = FALSE,
+#                                              includeDescendants = TRUE,
+#                                              includeAncestor = TRUE)
 
 
 
@@ -429,14 +420,14 @@ stage4_nsclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-nsclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_nsclungcancer_codes$concept_id),
-                                             cdm = cdm,
-                                             domains = "Condition",
-                                             standardConcept = "Standard",
-                                             searchInSynonyms = FALSE,
-                                             searchNonStandard = FALSE,
-                                             includeDescendants = TRUE,
-                                             includeAncestor = TRUE)
+# nsclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_nsclungcancer_codes$concept_id),
+#                                              cdm = cdm,
+#                                              domains = "Condition",
+#                                              standardConcept = "Standard",
+#                                              searchInSynonyms = FALSE,
+#                                              searchNonStandard = FALSE,
+#                                              includeDescendants = TRUE,
+#                                              includeAncestor = TRUE)
 
 
 
@@ -475,14 +466,14 @@ stage1_sclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-sclc_stage1_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage1_sclungcancer_codes$concept_id),
-                                             cdm = cdm,
-                                             domains = "Condition",
-                                             standardConcept = "Standard",
-                                             searchInSynonyms = FALSE,
-                                             searchNonStandard = FALSE,
-                                             includeDescendants = TRUE,
-                                             includeAncestor = TRUE)
+# sclc_stage1_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage1_sclungcancer_codes$concept_id),
+#                                              cdm = cdm,
+#                                              domains = "Condition",
+#                                              standardConcept = "Standard",
+#                                              searchInSynonyms = FALSE,
+#                                              searchNonStandard = FALSE,
+#                                              includeDescendants = TRUE,
+#                                              includeAncestor = TRUE)
 
 
 
@@ -520,14 +511,14 @@ stage2_sclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-sclc_stage2_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage2_sclungcancer_codes$concept_id),
-                                            cdm = cdm,
-                                            domains = "Condition",
-                                            standardConcept = "Standard",
-                                            searchInSynonyms = FALSE,
-                                            searchNonStandard = FALSE,
-                                            includeDescendants = TRUE,
-                                            includeAncestor = TRUE)
+# sclc_stage2_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage2_sclungcancer_codes$concept_id),
+#                                             cdm = cdm,
+#                                             domains = "Condition",
+#                                             standardConcept = "Standard",
+#                                             searchInSynonyms = FALSE,
+#                                             searchNonStandard = FALSE,
+#                                             includeDescendants = TRUE,
+#                                             includeAncestor = TRUE)
 
 
 #staging codes 3 SCLC
@@ -564,14 +555,14 @@ stage3_sclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-sclc_stage3_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage3_sclungcancer_codes$concept_id),
-                                            cdm = cdm,
-                                            domains = "Condition",
-                                            standardConcept = "Standard",
-                                            searchInSynonyms = FALSE,
-                                            searchNonStandard = FALSE,
-                                            includeDescendants = TRUE,
-                                            includeAncestor = TRUE)
+# sclc_stage3_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage3_sclungcancer_codes$concept_id),
+#                                             cdm = cdm,
+#                                             domains = "Condition",
+#                                             standardConcept = "Standard",
+#                                             searchInSynonyms = FALSE,
+#                                             searchNonStandard = FALSE,
+#                                             includeDescendants = TRUE,
+#                                             includeAncestor = TRUE)
 
 
 
@@ -609,14 +600,19 @@ stage4_sclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-sclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_sclungcancer_codes$concept_id),
-                                            cdm = cdm,
-                                            domains = "Condition",
-                                            standardConcept = "Standard",
-                                            searchInSynonyms = FALSE,
-                                            searchNonStandard = FALSE,
-                                            includeDescendants = TRUE,
-                                            includeAncestor = TRUE)
+# sclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_sclungcancer_codes$concept_id),
+#                                             cdm = cdm,
+#                                             domains = "Condition",
+#                                             standardConcept = "Standard",
+#                                             searchInSynonyms = FALSE,
+#                                             searchNonStandard = FALSE,
+#                                             includeDescendants = TRUE,
+#                                             includeAncestor = TRUE)
+
+
+
+
+
 
 
 # Multiple myeloma -----
