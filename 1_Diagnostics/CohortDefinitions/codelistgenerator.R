@@ -466,14 +466,14 @@ stage1_sclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-# sclc_stage1_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage1_sclungcancer_codes$concept_id),
-#                                              cdm = cdm,
-#                                              domains = "Condition",
-#                                              standardConcept = "Standard",
-#                                              searchInSynonyms = FALSE,
-#                                              searchNonStandard = FALSE,
-#                                              includeDescendants = TRUE,
-#                                              includeAncestor = TRUE)
+sclc_stage1_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage1_sclungcancer_codes$concept_id),
+                                             cdm = cdm,
+                                             domains = "Condition",
+                                             standardConcept = "Standard",
+                                             searchInSynonyms = FALSE,
+                                             searchNonStandard = FALSE,
+                                             includeDescendants = TRUE,
+                                             includeAncestor = TRUE)
 
 
 
@@ -511,14 +511,14 @@ stage2_sclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-# sclc_stage2_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage2_sclungcancer_codes$concept_id),
-#                                             cdm = cdm,
-#                                             domains = "Condition",
-#                                             standardConcept = "Standard",
-#                                             searchInSynonyms = FALSE,
-#                                             searchNonStandard = FALSE,
-#                                             includeDescendants = TRUE,
-#                                             includeAncestor = TRUE)
+sclc_stage2_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage2_sclungcancer_codes$concept_id),
+                                            cdm = cdm,
+                                            domains = "Condition",
+                                            standardConcept = "Standard",
+                                            searchInSynonyms = FALSE,
+                                            searchNonStandard = FALSE,
+                                            includeDescendants = TRUE,
+                                            includeAncestor = TRUE)
 
 
 #staging codes 3 SCLC
@@ -555,14 +555,14 @@ stage3_sclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-# sclc_stage3_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage3_sclungcancer_codes$concept_id),
-#                                             cdm = cdm,
-#                                             domains = "Condition",
-#                                             standardConcept = "Standard",
-#                                             searchInSynonyms = FALSE,
-#                                             searchNonStandard = FALSE,
-#                                             includeDescendants = TRUE,
-#                                             includeAncestor = TRUE)
+sclc_stage3_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage3_sclungcancer_codes$concept_id),
+                                            cdm = cdm,
+                                            domains = "Condition",
+                                            standardConcept = "Standard",
+                                            searchInSynonyms = FALSE,
+                                            searchNonStandard = FALSE,
+                                            includeDescendants = TRUE,
+                                            includeAncestor = TRUE)
 
 
 
@@ -600,74 +600,19 @@ stage4_sclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-# sclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_sclungcancer_codes$concept_id),
-#                                             cdm = cdm,
-#                                             domains = "Condition",
-#                                             standardConcept = "Standard",
-#                                             searchInSynonyms = FALSE,
-#                                             searchNonStandard = FALSE,
-#                                             includeDescendants = TRUE,
-#                                             includeAncestor = TRUE)
+sclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_sclungcancer_codes$concept_id),
+                                            cdm = cdm,
+                                            domains = "Condition",
+                                            standardConcept = "Standard",
+                                            searchInSynonyms = FALSE,
+                                            searchNonStandard = FALSE,
+                                            includeDescendants = TRUE,
+                                            includeAncestor = TRUE)
 
 
 
 
 
-
-
-# Multiple myeloma -----
-# original concepts ----
-# mm_narrow_concepts <- c(
-#   4258135, 4094548, 4111355, 4111356, 4112310,
-#   4259972, 4188299, 4197600, 4082464, 4210177,
-#   437233, 436059, 4214660, 4019477, 4079684,
-#   4137510, 133154, 4028859, 760936, 133158,
-#   4190641, 4190642, 4163558, 4024874, 4216139,
-#   4300702, 764229, 4184985
-# )
-# mm_broad_concepts <- c(
-#   4224628, 4258135, 4043447, 4094548, 46270015,
-#   37209514, 4111355, 4111356, 4112310, 4259972,
-#   4188299, 4197600, 4082464, 37016161, 437233,
-#   4210177, 436059, 4214660, 4019477, 4137433,
-#   4043713, 4079684, 42538151, 4137510, 133154,
-#   4028859, 760936, 133158, 4190641, 4190642,
-#   4163558, 4216139, 4024874, 4300702, 764229,
-#   4184985, 4145040
-# )
-
-# add ICDO3 concepts ----
-# mm_icdo3_mappings <- cdm$concept_relationship %>%
-#   inner_join(cdm$concept %>%
-#                filter(vocabulary_id == "ICDO3")  %>%
-#                filter(substr(concept_code, 8L, 10L) %in%
-#                         c("C34")) ,
-#              by = c("concept_id_1"= "concept_id")) %>%
-#   filter(relationship_id == 'Maps to') %>%
-#   select(concept_id_2) %>%
-#   rename("concept_id" = "concept_id_2") %>%
-#   distinct() %>%
-#   inner_join(cdm$concept %>%
-#               filter(vocabulary_id == "ICDO3"),
-#             by = "concept_id") %>%
-#   collect()
-#
-# mm_icdo3_mappings1 <- cdm$concept_relationship %>%
-#   inner_join(cdm$concept %>%
-#                filter(vocabulary_id == "ICDO3")  %>%
-#                filter(substr(concept_code, 1L, 10L) %in%
-#                         c("8041/3-C34")) ,
-#              by = c("concept_id_1"= "concept_id")) %>%
-#   filter(relationship_id == 'Maps to') %>%
-#   select(concept_id_2) %>%
-#   rename("concept_id" = "concept_id_2") %>%
-#   distinct() %>%
-#   inner_join(cdm$concept %>%
-#                filter(vocabulary_id == "ICDO3"),
-#              by = "concept_id") %>%
-#   collect()
-#
-#
 # # add to previous concept ids (which were snomed only)
 # mm_narrow_concepts <- c(mm_narrow_concepts, mm_icdo3_mappings$concept_id)
 # mm_broad_concepts <- c(mm_broad_concepts, mm_icdo3_mappings$concept_id)
