@@ -1,24 +1,27 @@
 # # code for estimating prevalence below
 
+if(isFALSE(run_prevalence)){
 # #get denominator ------
-# cli::cli_alert_info("- Getting denominator")
-# cdm <- generateDenominatorCohortSet(
-#   cdm = cdm,
-#   name = "denominator" ,
-#   cohortDateRange = c(as.Date("2002-12-31"), as.Date("2022-12-31")),
-#   requirementInteractions = TRUE,
-#   ageGroup =list(
-#     c(18, 150),
-#     c(18, 49),
-#     c(50, 59),
-#     c(60, 69),
-#     c(70, 79),
-#     c(80, 150)
-#   ),
-#   sex = c("Male", "Female", "Both"),
-#   daysPriorObservation = 365
-# )
-# cli::cli_alert_success("- Got denominator")
+cli::cli_alert_info("- Getting denominator")
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm,
+  name = "denominator" ,
+  cohortDateRange = c(as.Date("2002-12-31"), as.Date("2022-12-31")),
+  requirementInteractions = TRUE,
+  ageGroup =list(
+    c(18, 150),
+    c(18, 49),
+    c(50, 59),
+    c(60, 69),
+    c(70, 79),
+    c(80, 150)
+  ),
+  sex = c("Male", "Female", "Both"),
+  daysPriorObservation = 365
+)
+cli::cli_alert_success("- Got denominator")
+  
+}
 
 # Estimate total prevalence -------
 cli::cli_alert_info("- Getting prevalence")
