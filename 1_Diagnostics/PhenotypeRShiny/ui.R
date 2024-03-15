@@ -77,8 +77,7 @@ ui <- dashboardPage(
         tabName = "cdm_snapshot",
         h4("Information about the databases."),
       selectors(data$cdm_snapshot, "cdm_snapshot", c("cdm_name")),
-      downloadButton("cdm_snapshot_tidy_download_word", "Download word"),
-      downloadButton("cdm_snapshot_tidy_download_csv", "Download csv"),
+      #downloadButton("cdm_snapshot_tidy", "Download csv"),
       DTOutput("cdm_snapshot_tidy") %>% withSpinner()
       ),
       # cohort definition ------

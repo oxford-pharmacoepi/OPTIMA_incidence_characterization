@@ -46,6 +46,23 @@ server <- function(input, output, session) {
       options = list(scrollX = TRUE, scrollCollapse = TRUE)
     )
   })
+  
+  
+  # snapshot
+  output$cdm_snapshot_tidy <- renderDataTable({
+    datatable(data$cdm_snapshot,
+              rownames= FALSE,
+              extensions = 'Buttons',
+              options = list(lengthChange = FALSE,
+                             dom = 'tB',
+                             pageLength = 100000000,
+                             buttons = list(list(extend = "csv", 
+                                                 text = "Download results as csv",
+                                                 filename = "cdm_snapshot"))
+              ))
+  })
+  
+  
   # Orphan counts ----
   getOrphanCount <- reactive({
     filterData(data$orphan_counts, "orphan", input) %>% 
