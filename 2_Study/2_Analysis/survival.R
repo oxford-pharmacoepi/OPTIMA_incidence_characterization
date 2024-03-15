@@ -130,10 +130,10 @@ cdm$outcome <- cdm$outcome %>%
   
 # create diagnosis age band groups
 cdm$outcome <- mutate(cdm$outcome, 
-                      diag_yr_gp = cut(year, 
-                                       breaks = c(2000, 2005, 2010, 2015, 2020, 2022), 
-                                       labels = c("2000-2004", "2005-2009", "2010-2014", "2015-2019", "2020-2021"),
-                                       include.lowest = TRUE))
+                      diag_yr_gp1 = cut(year,
+                                        breaks = c(2002, 2006, 2010, 2014, 2018, 2022), 
+                                        labels = c("2003-2006", "2007-2010", "2011-2014", "2015-2018", "2019-2022"),
+                                        include.lowest = TRUE))
 
 # add in exclusion criteria
 # remove people with any history of cancer
@@ -220,9 +220,9 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   surv <- estimateSingleEventSurvival(cdm = cdm,
                                       followUpDays = 1827,
                                       censorOnCohortExit = TRUE ,
-                                      censorOnDate = NULL ,
-                                      eventGap = c(30) ,
-                                      estimateGap = c(30) ,
+                                      censorOnDate = as.Date("2022-12-31") ,
+                                      eventGap = c(5) ,
+                                      estimateGap = c(5) ,
                                       targetCohortTable = "outcome",
                                       outcomeCohortTable = "cancer_death",
                                       strata = list(c("sex"),
@@ -230,7 +230,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                     c("age_group", "sex"),
                                                     c("diag_yr_gp"),
                                                     c("diag_yr_gp", "sex")),
-                                      minCellCount = 0)
+                                      minCellCount = 5)
   )
   
 
