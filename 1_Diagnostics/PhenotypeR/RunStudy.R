@@ -435,7 +435,7 @@ if (input$runIncidence ) {
     outcomeWashout = Inf,
     completeDatabaseIntervals = FALSE,
     minCellCount = 0 ) 
-  write_csv(output$incidence |> IncidencePrevalence:::obscureCounts(), here("Results", paste0(
+  write_csv(output$incidence |> IncidencePrevalence:::obscureCounts(), here("Results", db_name, paste0(
     "incidence_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
   
