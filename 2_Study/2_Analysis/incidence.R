@@ -5,7 +5,7 @@ cli::cli_alert_info("- Getting denominator")
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator" ,
-  cohortDateRange = c(as.Date("2000-01-01"), as.Date("2023-01-01")),
+  cohortDateRange = c(as.Date("2002-12-31"), as.Date("2022-12-31")),
   requirementInteractions = TRUE,
   ageGroup =list(
     c(18, 150),
@@ -43,7 +43,7 @@ cli::cli_alert_info("- Getting participants from incidence")
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator_parts" ,
-  cohortDateRange = c(as.Date("2000-01-01"), as.Date("2023-01-01")),
+  cohortDateRange = c(as.Date("2002-12-31"), as.Date("2022-12-31")),
   ageGroup =list(
     c(18, 150)),
   sex = c("Both"),
@@ -250,6 +250,47 @@ agestandardizedinc_final_esp <- bind_rows(agestandardizedinc) %>%
     `95% UCL (Crude)`)) %>% 
   mutate(age_standard = "European Standard Population")
 
+
+agestandardizedinc_final_espf <- bind_rows(agestandardizedincf) %>% 
+  mutate(cdm_name = db_name) %>% 
+  rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
+         incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
+         incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
+         incidence_start_date = Subgroup,
+         person_years = Denominator ,
+         n_events = Numerator ) %>% 
+  mutate(denominator_sex = "Female",
+         denominator_age_group = "18 to 150",
+         cdm_name = db_name ) %>% 
+  as_tibble() %>% 
+  select(!c(
+    `Crude Rate (per 1e+05)`,
+    `95% LCL (Crude)`,
+    `95% UCL (Crude)`)) %>% 
+  mutate(age_standard = "European Standard Population")
+
+agestandardizedinc_final_espm <- bind_rows(agestandardizedincm) %>% 
+  mutate(cdm_name = db_name) %>% 
+  rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
+         incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
+         incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
+         incidence_start_date = Subgroup,
+         person_years = Denominator ,
+         n_events = Numerator ) %>% 
+  mutate(denominator_sex = "Male",
+         denominator_age_group = "18 to 150",
+         cdm_name = db_name ) %>% 
+  as_tibble() %>% 
+  select(!c(
+    `Crude Rate (per 1e+05)`,
+    `95% LCL (Crude)`,
+    `95% UCL (Crude)`)) %>% 
+  mutate(age_standard = "European Standard Population")
+
+agestandardizedinc_final_esp <- bind_rows(agestandardizedinc_final_esp,
+                                          agestandardizedinc_final_espf,
+                                          agestandardizedinc_final_espm)
+
 cli::cli_alert_info("- Age standardization for incidence using european standard population completed")
 
 
@@ -338,7 +379,6 @@ for(i in 1:length(table(inc_std_F$outcome_cohort_name))){
   
 }
 
-
 # males
 agestandardizedinc_wspm <- list()
 
@@ -366,9 +406,6 @@ for(i in 1:length(table(inc_std_M$outcome_cohort_name))){
 }
 
 
-
-
-
 agestandardizedinc_wsp_final <- bind_rows(agestandardizedinc_wsp) %>% 
   rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
          incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
@@ -386,6 +423,46 @@ agestandardizedinc_wsp_final <- bind_rows(agestandardizedinc_wsp) %>%
     `95% UCL (Crude)`))  %>% 
   mutate(age_standard = "World Standard Population")
 
+agestandardizedinc_wsp_finalf <- bind_rows(agestandardizedinc_wspf) %>% 
+  rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
+         incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
+         incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
+         incidence_start_date = Subgroup,
+         person_years = Denominator ,
+         n_events = Numerator ) %>% 
+  mutate(denominator_sex = "Female",
+         denominator_age_group = "18 to 150",
+         cdm_name = db_name ) %>% 
+  as_tibble() %>% 
+  select(!c(
+    `Crude Rate (per 1e+05)`,
+    `95% LCL (Crude)`,
+    `95% UCL (Crude)`))  %>% 
+  mutate(age_standard = "World Standard Population")
+
+agestandardizedinc_wsp_finalm <- bind_rows(agestandardizedinc_wspm) %>% 
+  rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
+         incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
+         incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
+         incidence_start_date = Subgroup,
+         person_years = Denominator ,
+         n_events = Numerator ) %>% 
+  mutate(denominator_sex = "Male",
+         denominator_age_group = "18 to 150",
+         cdm_name = db_name ) %>% 
+  as_tibble() %>% 
+  select(!c(
+    `Crude Rate (per 1e+05)`,
+    `95% LCL (Crude)`,
+    `95% UCL (Crude)`))  %>% 
+  mutate(age_standard = "World Standard Population")
+
+
+agestandardizedinc_wsp_final <- bind_rows(agestandardizedinc_wsp_final,
+                                          agestandardizedinc_wsp_finalf,
+                                          agestandardizedinc_wsp_finalm)
+
+
 cli::cli_alert_success("- Age standardization for incidence using world standard population completed")
 
 
@@ -393,7 +470,6 @@ cli::cli_alert_success("- Age standardization for incidence using world standard
 
 inc_crude <- inc %>% 
   filter(denominator_age_group == "18 to 150",
-         denominator_sex == "Both",
          analysis_interval == "years") %>% 
   mutate(age_standard = "Crude") %>% 
   select(c(
