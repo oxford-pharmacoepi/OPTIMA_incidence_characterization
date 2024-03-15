@@ -35,7 +35,6 @@ total_prevalence <- estimatePeriodPrevalence(
   completeDatabaseIntervals = TRUE,
   fullContribution = FALSE,
   strata = list(),
-  includeOverallStrata = TRUE,
   minCellCount = 0,
   returnParticipants = FALSE
 )
