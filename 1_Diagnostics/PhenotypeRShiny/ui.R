@@ -346,7 +346,7 @@ ui <- dashboardPage(
       # large_scale_characterisation ----
       tabItem(
         tabName = "large_scale_characterisation",
-        selectors(data$lsc_table, "lsc", c("cdm_name", "cohort_name", "table_name", "window")),
+        selectors(data$lsc_table, "lsc", c("cdm_name", "cohort_name", "window")),
         tabsetPanel(
           type = "tabs",
           tabPanel(
@@ -374,7 +374,7 @@ ui <- dashboardPage(
             "Plot",
             h4(),
             plotSelectors("plsc_facet", 
-                          c("cohort_name", "cdm_name", "table_name", "window"),
+                          c("cohort_name", "cdm_name", "window"),
                           type = "facet_by"),
             plotlyOutput('lsc_plot', height = "800px") %>% withSpinner()
           )
