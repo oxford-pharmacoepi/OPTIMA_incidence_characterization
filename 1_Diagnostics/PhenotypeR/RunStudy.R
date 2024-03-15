@@ -8,7 +8,7 @@ input <- list(
   runMatchedSampleLSC = T,            #### run matched LSC
   runIncidence = T,                   #### run Incidence
   runPrevalence = T,                  #### run Prevalence
-  sampleIncidencePrevalence = NULL, #### Sample for Incidence Prevalence (NULL if all cdm)
+  sampleIncidencePrevalence = 1000000, #### Sample for Incidence Prevalence (NULL if all cdm)
   cdmName = db_name,
   exportResultsRData=T
 )
