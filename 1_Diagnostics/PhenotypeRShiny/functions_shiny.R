@@ -78,7 +78,7 @@ lscToSummarisedResult <- function(lsc) {
     mutate(
       "result_type" = "lsc",
       "package_name" = "PatientProfiles",
-      "package_version" = "0.5.2",
+      "package_version" = "0.6.2",
       "variable_name" = variable,
       "estimate_name" = estimate_type,
       "estimate_type" = if_else(
@@ -89,9 +89,9 @@ lscToSummarisedResult <- function(lsc) {
       "strata_name" = tolower(strata_name),
       "strata_level" = tolower(strata_level)
     ) %>%
-    uniteAdditional(
-      cols = c("table_name", "type", "concept")
-    ) %>%
+    # uniteAdditional(
+    #   cols = c("table_name", "type", "concept")
+    # ) %>%
     select(
       "cdm_name", "result_type", "package_name", "package_version",
       "group_name", "group_level", "strata_name", "strata_level",

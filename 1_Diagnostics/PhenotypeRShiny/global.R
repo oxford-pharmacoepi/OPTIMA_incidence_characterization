@@ -1,6 +1,6 @@
 # Renv
-# renv::activate()
-# renv::restore()
+#renv::activate()
+renv::restore()
 # .rs.restartR()
 
 # Libraries

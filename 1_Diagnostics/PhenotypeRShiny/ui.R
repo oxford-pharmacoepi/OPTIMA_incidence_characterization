@@ -7,10 +7,10 @@ ui <- dashboardPage(
         text = "Background",
         tabName = "background"
       ),
-      # menuItem(
-      #   text = "Databases",
-      #   tabName = "cdm_snapshot"
-      # ),
+      menuItem(
+        text = "Databases",
+        tabName = "cdm_snapshot"
+      ),
       menuItem(
         text = "Cohorts",
         tabName = "cohorts"
@@ -52,7 +52,7 @@ ui <- dashboardPage(
         tabName = "incidence"
       ),
       menuItem(
-        text = "Large sclae characterisation",
+        text = "Large scale characterisation",
         tabName = "large_scale_characterisation"
       ),
       menuItem(
@@ -72,15 +72,15 @@ ui <- dashboardPage(
         h3("PhenotypeR"),
         h5("https://github.com/oxford-pharmacoepi/phenotypeR_project"),
       ),
-      # cdm snapshot ------
-      # tabItem(
-      #   tabName = "cdm_snapshot",
-      #   h4("Information about the databases."),
-        # selectors(cdmSnapshot, "cdm_snapshot", c("cdm_name")),
-        # downloadButton("cdm_snapshot_tidy_download_word", "Download word"),
-        # downloadButton("cdm_snapshot_tidy_download_csv", "Download csv"),
-        # DTOutput("cdm_snapshot_tidy") %>% withSpinner()
-      # ),
+      #cdm snapshot ------
+      tabItem(
+        tabName = "cdm_snapshot",
+        h4("Information about the databases."),
+      selectors(data$cdm_snapshot, "cdm_snapshot", c("cdm_name")),
+      downloadButton("cdm_snapshot_tidy_download_word", "Download word"),
+      downloadButton("cdm_snapshot_tidy_download_csv", "Download csv"),
+      DTOutput("cdm_snapshot_tidy") %>% withSpinner()
+      ),
       # cohort definition ------
       tabItem(
         tabName = "cohorts",
@@ -355,12 +355,12 @@ ui <- dashboardPage(
             pickerInput(
               inputId = "select_lsc_columns",
               label = "Columns to display",
-              choices = c("Cdm name", "Cohort name", "Table name", "Concept", "Concept name",
-                          "Window", "Matched count", "Matched percentage", "Sample count", 
-                          "Sample percentage", "Difference count", "Difference percentage"),
-              selected = c("Cdm name", "Cohort name", "Table name", "Concept", "Concept name",
-                           "Window", "Matched count", "Matched percentage", "Sample count", 
-                           "Sample percentage", "Difference count", "Difference percentage"),
+              choices = c("Cdm name", "Cohort name", "Concept name",
+                          "Window", "Matched numeric", "Matched percentage", "Sample numeric", 
+                          "Sample percentage", "Difference numeric", "Difference percentage"),
+              selected = c("Cdm name", "Cohort name", "Concept name",
+                           "Window", "Matched numeric", "Matched percentage", "Sample numeric", 
+                           "Sample percentage", "Difference numeric", "Difference percentage"),
               options = list(
                 `actions-box` = TRUE,
                 size = 10,

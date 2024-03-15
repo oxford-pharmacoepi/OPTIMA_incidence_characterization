@@ -75,7 +75,13 @@ server <- function(input, output, session) {
     )
   })
   # Overlap ----
+
   getOverlapTable <- reactive({
+    
+    validate(
+      need(data$cohort_overlap, "No cohort overlap carried out", "No cohort overlap carried out")
+    )
+    
     filterData(data$cohort_overlap, "overlap", input) %>% 
       mutate(
         total_counts = subject_counts_x + subject_counts_y,
@@ -342,6 +348,7 @@ server <- function(input, output, session) {
   })
   # LSC  ----
   output$lsc_table <- renderDataTable({
+
     filterData(data$lsc_table, "lsc", input) %>% 
       niceColumnNames() %>% 
       select(input$select_lsc_columns)

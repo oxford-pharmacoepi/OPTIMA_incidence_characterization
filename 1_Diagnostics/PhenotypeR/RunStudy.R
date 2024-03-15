@@ -1,7 +1,7 @@
 # settings ------
 input <- list(
   runGenerateCohort = T,              #### Generate cohort or use preloaded cohorts
-  runCalculateOverlap = T,            #### Calculate Overlap
+  runCalculateOverlap = F,            #### Calculate Overlap
   runCountCodes = T,                  #### run orphan codes and count codes
   runIndexEvents = T,                 #### run index events
   runProfiling = T,                   #### run age and time in database characterisation
@@ -34,7 +34,7 @@ cohorts_name <- "cancer_"
 # To export output 
 result_names <- c("cohort_definitions", "cohort_count", "code_counts", "cohort_overlap", 
                   "age_distribution", "time_distribution", "prevalence", "incidence", 
-                  "index_events", "lsc_sample", "lsc_matched", "lsc_difference", "log")
+                  "index_events", "lsc_sample", "lsc_matched", "lsc_difference", "log", "cdm_snapshot")
 output <- data <- vector("list", length(result_names)) |> setNames(result_names)
 
 
@@ -53,7 +53,6 @@ if (input$runCountCodes){
 }
 
 toc(log = TRUE)
-
 
 
 # Connect to database using CDMConnector ########
@@ -80,14 +79,15 @@ cdm <- cdm_from_con(con = db,
 toc(log = TRUE)
 
 
-
-
 # Get cdm snapshot -----
 tic(msg = "Getting cdm snapshot")
-cdm_snapshot <- snapshot(cdm)
-write_csv(cdm_snapshot, here("Results", paste0(
+output$cdm_snapshot <- snapshot(cdm)
+write_csv(output$cdm_snapshot, here("Results", paste0(
   "cdm_snapshot_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
 )))
+
+
+  
 toc(log = TRUE)
 
 # Step 1: Get cohorts and generate them ------
@@ -109,9 +109,6 @@ toc(log = TRUE)
 
 tic(msg = "Cohort counts, attrition")
 
-# cohort_count <- cohort_count(cdm[[cohorts_name]])
-# cohort_attrition <- attrition(cdm[[cohorts_name]])
-# cohort_set_cdm <- cohort_set(cdm[[cohorts_name]])
 output$cohort_count <- cohort_count(cdm[[cohorts_name]]) %>% 
   left_join(settings(cdm[[cohorts_name]])) %>% 
   mutate(cdm_name = input$cdmName)
@@ -120,7 +117,6 @@ write_csv(output$cohort_count, here("Results", paste0(
 )))
 
 toc(log = TRUE)
-
 
 
 # Step 2: Cohort Overlap (Subjects) ###############
@@ -171,8 +167,6 @@ toc(log = TRUE)
 
 #### Test orphans with codelistgen
 # orphans <- CodelistGenerator::findOrphanCodes(code_list, cdm)
-
-
 
 tic(msg = "Orphan codes + markdown readable text for only first cohort")
 
@@ -485,7 +479,6 @@ write_csv(output$log, here("Results", paste0(
 )))
 
 
-
 # zip Results -----
 # zip all Results -----
 cli::cli_text("- Zipping Results ({Sys.time()})")
@@ -496,7 +489,7 @@ files_to_zip <- files_to_zip[str_detect(files_to_zip,
                                         ".csv")]
 
 zip::zip(zipfile = file.path(paste0(
-  here("Results"), "/Results_", study_prefix,"_", db_name, ".zip"
+  here("Results"), "/Results_", study_prefix, db_name, ".zip"
 )),
 files = files_to_zip,
 root = here("Results"))
@@ -516,7 +509,7 @@ if (input$exportResultsRData) {
   analyses_performed <-  paste(analyses_performed , collapse = "_")
   
   save(input, output, 
-       file = here(paste0("Results/", input$cdmName, "_", cohorts_name,"_", analyses_performed, "_" ,format(Sys.time(), "%Y_%m_%d") , ".RData")))
+       file = here(paste0("Results/", input$cdmName, "_", cohorts_name, analyses_performed, "_" ,format(Sys.time(), "%Y_%m_%d") , ".RData")))
 }
 
 

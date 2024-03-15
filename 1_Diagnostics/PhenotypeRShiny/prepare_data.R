@@ -3,7 +3,7 @@
 result_names <- c("cohort_definitions", "cohort_count", "code_counts", "cohort_overlap", 
                   "age_distribution", "time_distribution", "prevalence", "incidence", 
                   "index_events", "lsc_sample", "lsc_matched", "lsc_difference", "log",
-                  "snapshot")
+                  "cdm_snapshot")
 
 # Result files
 result_files <- list.files(path = here(dataFolder), pattern = ".RData")
@@ -105,30 +105,33 @@ data$time_distribution <- tibble(covariate = c("age", "prior_observation", "futu
       select(-name)
   ) %>%
   select(cdm_name, cohort_name, sex, covariate, estimate_type, estimate_value)
+
+
+
 # LSC
-# data$lsc_table <- data$lsc_matched %>% 
-#   mutate(
-#     estimate_type = paste0("matched_", estimate_type),
-#     estimate = as.numeric(estimate)
-#   ) %>% 
-#   pivot_wider(names_from = estimate_type, values_from = estimate) %>% 
-#   left_join(
-#     data$lsc_sample %>% 
-#       mutate(
-#         estimate_type = paste0("sample_", estimate_type),
-#         estimate = as.numeric(estimate)
-#       ) %>% 
-#       pivot_wider(names_from = estimate_type, values_from = estimate)) %>% 
-#   mutate(
-#     difference_count = (sample_count - matched_count)/matched_count,
-#     difference_percentage = (sample_percentage - matched_percentage)/matched_percentage
-#   ) %>% 
-#   select(
-#     cdm_name, cohort_name = group_level, table_name, concept, concept_name = variable, 
-#     window = variable_level, matched_count, matched_percentage, sample_count, sample_percentage, 
-#     difference_count, difference_percentage
-#   )
-#   
+data$lsc_table <- data$lsc_matched %>%
+  mutate(
+    estimate_type = paste0("matched_", estimate_type),
+    estimate = as.numeric(estimate_value)
+  ) %>%
+  pivot_wider(names_from = estimate_type, values_from = estimate) %>%
+  left_join(
+    data$lsc_sample %>%
+      mutate(
+        estimate_type = paste0("sample_", estimate_type),
+        estimate = as.numeric(estimate_value)
+      ) %>%
+      pivot_wider(names_from = estimate_type, values_from = estimate)) %>%
+  mutate(
+    difference_numeric = (sample_numeric - matched_numeric)/matched_numeric,
+    difference_percentage = (sample_percentage - matched_percentage)/matched_percentage
+  ) %>%
+  select(
+    cdm_name, cohort_name = group_level, concept_name = variable_name,
+    window = variable_level, matched_numeric, matched_percentage, sample_numeric, sample_percentage,
+    difference_numeric, difference_percentage
+  )
+
 # Shiny theme ----
 DUtheme <- create_theme(
   adminlte_color(
