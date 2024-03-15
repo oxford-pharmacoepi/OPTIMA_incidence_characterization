@@ -27,7 +27,7 @@ cli::cli_alert_success("- Got denominator")
 cli::cli_alert_info("- Getting prevalence")
 
 # total prevalence
-total_prevalence <- estimatePeriodPrevalence(
+prev <- estimatePeriodPrevalence(
   cdm,
   denominatorTable = "denominator",
   outcomeTable = "outcome",
