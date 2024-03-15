@@ -509,7 +509,7 @@ if (input$exportResultsRData) {
   analyses_performed <-  paste(analyses_performed , collapse = "_")
   
   save(input, output, 
-       file = here(paste0("Results/", input$cdmName, "_", cohorts_name, analyses_performed, "_" ,format(Sys.time(), "%Y_%m_%d") , ".RData")))
+       file = here(paste0("Results/", db_name, "/", input$cdmName, "_", cohorts_name, analyses_performed, "_" ,format(Sys.time(), "%Y_%m_%d") , ".RData")))
 }
 
 
