@@ -66,7 +66,7 @@
     },
     "CodelistGenerator": {
       "Package": "CodelistGenerator",
-      "Version": "2.2.2",
+      "Version": "2.2.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -90,7 +90,7 @@
         "tidyselect",
         "vctrs"
       ],
-      "Hash": "2b6f2f1febe25a104fa977c978feb359"
+      "Hash": "cc4a1269780cdf216ea59c6ffcf69573"
     },
     "CohortSurvival": {
       "Package": "CohortSurvival",
@@ -158,7 +158,7 @@
     },
     "DrugUtilisation": {
       "Package": "DrugUtilisation",
-      "Version": "0.5.0",
+      "Version": "0.5.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -182,11 +182,11 @@
         "tidyr",
         "visOmopResults"
       ],
-      "Hash": "5d7fff3c4f7511211958ec6a3d526c65"
+      "Hash": "533544a74b34eaef3add3e9d7ecaeb7a"
     },
     "IncidencePrevalence": {
       "Package": "IncidencePrevalence",
-      "Version": "0.7.0",
+      "Version": "0.7.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -212,7 +212,7 @@
         "tidyselect",
         "zip"
       ],
-      "Hash": "cf30b6c4be4dd1ad76d43bb776573c15"
+      "Hash": "62820c1d0fab4a16e87efe668b5ff78d"
     },
     "KernSmooth": {
       "Package": "KernSmooth",
@@ -259,7 +259,7 @@
     },
     "PatientProfiles": {
       "Package": "PatientProfiles",
-      "Version": "0.6.0",
+      "Version": "0.6.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -278,7 +278,7 @@
         "tidyr",
         "visOmopResults"
       ],
-      "Hash": "0797686ef3ca5d9b01f1b52817fc6778"
+      "Hash": "7c1be55f4e4bc31aa42f93b43545d628"
     },
     "R6": {
       "Package": "R6",
@@ -1625,7 +1625,7 @@
     },
     "omopgenerics": {
       "Package": "omopgenerics",
-      "Version": "0.0.2",
+      "Version": "0.1.2",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1634,13 +1634,13 @@
         "dbplyr",
         "dplyr",
         "glue",
+        "methods",
         "rlang",
         "snakecase",
         "stringr",
-        "tidyr",
-        "tidyselect"
+        "tidyr"
       ],
-      "Hash": "aaaeee1e72dee45660ab0e66c6c87624"
+      "Hash": "aeb784921664c5948d11e9a803b61d31"
     },
     "openssl": {
       "Package": "openssl",

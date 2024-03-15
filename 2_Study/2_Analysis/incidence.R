@@ -5,7 +5,7 @@ cli::cli_alert_info("- Getting denominator")
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator" ,
-  cohortDateRange = c(as.Date("2000-01-01"), as.Date("2022-01-01")),
+  cohortDateRange = c(as.Date("2000-01-01"), as.Date("2023-01-01")),
   requirementInteractions = TRUE,
   ageGroup =list(
     c(18, 150),
@@ -43,7 +43,7 @@ cli::cli_alert_info("- Getting participants from incidence")
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator_parts" ,
-  cohortDateRange = c(as.Date("2000-01-01"), as.Date("2022-01-01")),
+  cohortDateRange = c(as.Date("2000-01-01"), as.Date("2023-01-01")),
   ageGroup =list(
     c(18, 150)),
   sex = c("Both"),
@@ -113,10 +113,53 @@ inc_std <- inc %>%
     outcome_cohort_name    ,            
     cdm_name  ,                  
     denominator_sex     ,                   
-    denominator_age_group  ,
+    denominator_age_group ,
+    age_standard ))
+
+#create a loop for each cancer phenotype
+agestandardizedincf <- list()
+
+inc_std_F <- inc %>% 
+  filter(denominator_age_group != "18 to 150",
+         denominator_sex == "Female",
+         analysis_interval == "years") %>% 
+  mutate(age_standard = "Crude") %>% 
+  select(c(
+    incidence_start_date,            
+    n_events ,                       
+    person_years,                
+    incidence_100000_pys ,
+    incidence_100000_pys_95CI_lower,
+    incidence_100000_pys_95CI_upper,
+    outcome_cohort_name    ,            
+    cdm_name  ,                  
+    denominator_sex     ,                   
+    denominator_age_group ,
     age_standard ))
 
 
+#create a loop for each cancer phenotype
+agestandardizedincm <- list()
+
+inc_std_M <- inc %>% 
+  filter(denominator_age_group != "18 to 150",
+         denominator_sex == "Male",
+         analysis_interval == "years") %>% 
+  mutate(age_standard = "Crude") %>% 
+  select(c(
+    incidence_start_date,            
+    n_events ,                       
+    person_years,                
+    incidence_100000_pys ,
+    incidence_100000_pys_95CI_lower,
+    incidence_100000_pys_95CI_upper,
+    outcome_cohort_name    ,            
+    cdm_name  ,                  
+    denominator_sex     ,                   
+    denominator_age_group ,
+    age_standard ))
+
+# overall population
 for(i in 1:length(table(inc_std$outcome_cohort_name))){
   
   incidence_estimates_i <- inc_std %>%
@@ -139,6 +182,55 @@ for(i in 1:length(table(inc_std$outcome_cohort_name))){
   cli::cli_alert_info(paste0("- european age standardization for ", names(table(inc_std$outcome_cohort_name)[i]), " complete"))
   
 }
+
+# females
+for(i in 1:length(table(inc_std_F$outcome_cohort_name))){
+  
+  incidence_estimates_i <- inc_std_F %>%
+    filter(outcome_cohort_name == names(table(inc_std_M$outcome_cohort_name)[i]))
+  
+  agestandardizedincf[[i]] <- dsr::dsr(
+    data = incidence_estimates_i,  # specify object containing number of deaths per stratum
+    event = n_events,       # column containing number of deaths per stratum 
+    fu = person_years , # column containing number of population per stratum person years
+    subgroup = incidence_start_date,   
+    refdata = ESP13_updated, # reference population data frame, with column called pop
+    method = "gamma",      # method to calculate 95% CI
+    sig = 0.95,            # significance level
+    mp = 100000,           # we want rates per 100.000 population
+    decimals = 2) 
+  
+  agestandardizedincf[[i]] <- agestandardizedincf[[i]] %>% 
+    mutate(outcome_cohort_name = names(table(inc_std_F$outcome_cohort_name)[i])) 
+  
+  cli::cli_alert_info(paste0("- european age standardization for ", names(table(inc_std_F$outcome_cohort_name)[i]), " FEMALES complete"))
+  
+}
+
+# males
+for(i in 1:length(table(inc_std_M$outcome_cohort_name))){
+  
+  incidence_estimates_i <- inc_std_M %>%
+    filter(outcome_cohort_name == names(table(inc_std_M$outcome_cohort_name)[i]))
+  
+  agestandardizedincm[[i]] <- dsr::dsr(
+    data = incidence_estimates_i,  # specify object containing number of deaths per stratum
+    event = n_events,       # column containing number of deaths per stratum 
+    fu = person_years , # column containing number of population per stratum person years
+    subgroup = incidence_start_date,   
+    refdata = ESP13_updated, # reference population data frame, with column called pop
+    method = "gamma",      # method to calculate 95% CI
+    sig = 0.95,            # significance level
+    mp = 100000,           # we want rates per 100.000 population
+    decimals = 2) 
+  
+  agestandardizedincm[[i]] <- agestandardizedincm[[i]] %>% 
+    mutate(outcome_cohort_name = names(table(inc_std_M$outcome_cohort_name)[i])) 
+  
+  cli::cli_alert_info(paste0("- european age standardization for ", names(table(inc_std_M$outcome_cohort_name)[i]), " MALES complete"))
+  
+}
+
 
 agestandardizedinc_final_esp <- bind_rows(agestandardizedinc) %>% 
   mutate(cdm_name = db_name) %>% 
@@ -195,6 +287,7 @@ WSP2000_2025_updated <- WSP2000_2025_updated %>%
 #create a loop for each cancer phenotype
 agestandardizedinc_wsp <- list()
 
+# overall
 for(i in 1:length(table(inc_std$outcome_cohort_name))){
   
   incidence_estimates_i <- inc_std %>%
@@ -217,6 +310,64 @@ for(i in 1:length(table(inc_std$outcome_cohort_name))){
   cli::cli_alert_info(paste0("- world age standardization for ", names(table(inc_std$outcome_cohort_name)[i]), " complete"))
   
 }
+
+# females
+#create a loop for each cancer phenotype
+agestandardizedinc_wspf <- list()
+
+for(i in 1:length(table(inc_std_F$outcome_cohort_name))){
+  
+  incidence_estimates_i <- inc_std_F %>%
+    filter(outcome_cohort_name == names(table(inc_std_F$outcome_cohort_name)[i]))
+  
+  agestandardizedinc_wspf[[i]] <- dsr::dsr(
+    data = incidence_estimates_i,  # specify object containing number of deaths per stratum
+    event = n_events,       # column containing number of deaths per stratum 
+    fu = person_years , # column containing number of population per stratum person years
+    subgroup = incidence_start_date,   
+    refdata = WSP2000_2025_updated, # reference population data frame, with column called pop
+    method = "gamma",      # method to calculate 95% CI
+    sig = 0.95,            # significance level
+    mp = 100000,           # we want rates per 100.000 population
+    decimals = 2) 
+  
+  agestandardizedinc_wspf[[i]] <- agestandardizedinc_wspf[[i]] %>% 
+    mutate(outcome_cohort_name = names(table(inc_std_F$outcome_cohort_name)[i])) 
+  
+  cli::cli_alert_info(paste0("- world age standardization for ", names(table(inc_std_F$outcome_cohort_name)[i]), " FEMALES complete"))
+  
+}
+
+
+# males
+agestandardizedinc_wspm <- list()
+
+for(i in 1:length(table(inc_std_M$outcome_cohort_name))){
+  
+  incidence_estimates_i <- inc_std_M %>%
+    filter(outcome_cohort_name == names(table(inc_std_M$outcome_cohort_name)[i]))
+  
+  agestandardizedinc_wspm[[i]] <- dsr::dsr(
+    data = incidence_estimates_i,  # specify object containing number of deaths per stratum
+    event = n_events,       # column containing number of deaths per stratum 
+    fu = person_years , # column containing number of population per stratum person years
+    subgroup = incidence_start_date,   
+    refdata = WSP2000_2025_updated, # reference population data frame, with column called pop
+    method = "gamma",      # method to calculate 95% CI
+    sig = 0.95,            # significance level
+    mp = 100000,           # we want rates per 100.000 population
+    decimals = 2) 
+  
+  agestandardizedinc_wspm[[i]] <- agestandardizedinc_wspm[[i]] %>% 
+    mutate(outcome_cohort_name = names(table(inc_std_M$outcome_cohort_name)[i])) 
+  
+  cli::cli_alert_info(paste0("- world age standardization for ", names(table(inc_std_M$outcome_cohort_name)[i]), " MALES complete"))
+  
+}
+
+
+
+
 
 agestandardizedinc_wsp_final <- bind_rows(agestandardizedinc_wsp) %>% 
   rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
