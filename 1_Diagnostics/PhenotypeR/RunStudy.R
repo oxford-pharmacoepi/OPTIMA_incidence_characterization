@@ -15,8 +15,8 @@ input <- list(
 
 # make sure you have the results folder
 #Create folder for the results
-if (!file.exists(here::here("Results"))){
-  dir.create(here::here("Results"), recursive = TRUE)}
+if (!file.exists(here::here("Results", db_name))){
+  dir.create(here::here("Results" , db_name), recursive = TRUE)}
 
 
 # Log start ------
@@ -82,7 +82,7 @@ toc(log = TRUE)
 # Get cdm snapshot -----
 tic(msg = "Getting cdm snapshot")
 output$cdm_snapshot <- snapshot(cdm)
-write_csv(output$cdm_snapshot, here("Results", paste0(
+write_csv(output$cdm_snapshot, here("Results", db_name, paste0(
   "cdm_snapshot_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
 )))
 
@@ -112,7 +112,7 @@ tic(msg = "Cohort counts, attrition")
 output$cohort_count <- cohort_count(cdm[[cohorts_name]]) %>% 
   left_join(settings(cdm[[cohorts_name]])) %>% 
   mutate(cdm_name = input$cdmName)
-write_csv(output$cohort_count, here("Results", paste0(
+write_csv(output$cohort_count, here("Results", db_name, paste0(
   "cohort_count_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
 )))
 
@@ -149,7 +149,7 @@ output$cohort_overlap <- tryCatch({
   mutate(intersect_count = if_else(intersect_count > 0 & intersect_count < 5, NA, intersect_count))
 }, error = function(e) {})
 
-tryCatch({  write_csv(output$cohort_overlap, here("Results", paste0(
+tryCatch({  write_csv(output$cohort_overlap, here("Results",db_name, paste0(
   "cohort_overlap_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
 ))) }, error = function(e) {})
 }
@@ -246,15 +246,15 @@ for (n in  row_number(cohort_set_res) ) {
 
 # save Results
 output$code_counts  <- code_counts %>% mutate(cdm_name = input$cdmName)
-write_csv(output$code_counts, here("Results", paste0(
+write_csv(output$code_counts, here("Results",db_name, paste0(
   "code_counts_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
 )))
 output$index_events <- index_events %>% mutate(cdm_name = input$cdmName)
-write_csv(output$index_events, here("Results", paste0(
+write_csv(output$index_events, here("Results",db_name, paste0(
   "index_events_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
 )))
 output$cohort_definitions <- cohort_set_res %>% mutate(cdm_name = input$cdmName)
-write_csv(output$cohort_definitions, here("Results", paste0(
+write_csv(output$cohort_definitions, here("Results", db_name, paste0(
   "cohort_definitions_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
 )))
 
@@ -286,11 +286,11 @@ if (input$runProfiling) {
   rm(Patient_profiles)
   
   output$age_distribution <- Age_distribution %>% mutate(cdm_name = input$cdmName) |> mutate(n = if_else(n > 0 & n < 5, NA, n))
-  write_csv(output$age_distribution, here("Results", paste0(
+  write_csv(output$age_distribution, here("Results",db_name, paste0(
     "age_distribution_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
   output$time_distribution <- Time_distribution %>% mutate(cdm_name = input$cdmName)
-  write_csv(output$time_distribution, here("Results", paste0(
+  write_csv(output$time_distribution, here("Results",db_name, paste0(
     "time_distribution_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
 }
@@ -344,7 +344,7 @@ if (input$runMatchedSampleLSC) {
     minimumFrequency = 0.0005
   )
   output$lsc_matched <- large_scale_char_matched %>% mutate(cdm_name = input$cdmName)
-  write_csv(output$lsc_matched, here("Results", paste0(
+  write_csv(output$lsc_matched, here("Results",db_name, paste0(
     "lsc_matched_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
 }
@@ -365,7 +365,7 @@ if (input$runMatchedSampleLSC) {
     minimumFrequency = 0.0005
   )
   output$lsc_sample <- large_scale_char_sample %>% mutate(cdm_name = input$cdmName)
-  write_csv(output$lsc_sample, here("Results", paste0(
+  write_csv(output$lsc_sample, here("Results",db_name, paste0(
     "lsc_sample_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
 }
@@ -390,7 +390,7 @@ if (input$runMatchedSampleLSC) {
   # rm(matched_cohort)
   
   output$lsc_difference <- difference %>% mutate(cdm_name = input$cdmName)
-  write_csv(output$lsc_difference, here("Results", paste0(
+  write_csv(output$lsc_difference, here("Results",db_name, paste0(
     "lsc_difference_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
 }
@@ -456,7 +456,7 @@ if (input$runPrevalence ) {
     fullContribution = FALSE,
     minCellCount = 5
   )
-  write_csv(output$prevalence, here("Results", paste0(
+  write_csv(output$prevalence, here("Results",db_name, paste0(
     "prevalence_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
 }
@@ -474,7 +474,7 @@ tic.log(format = TRUE)
 tic_log <- tic.log(format = TRUE)
 
 output$log <- tibble(cdm_name = input$cdmName, log = paste0(tic_log %>%  unlist(), collapse = "\n"))
-write_csv(output$log, here("Results", paste0(
+write_csv(output$log, here("Results", db_name, paste0(
   "log_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
 )))
 
@@ -482,14 +482,14 @@ write_csv(output$log, here("Results", paste0(
 # zip Results -----
 # zip all Results -----
 cli::cli_text("- Zipping Results ({Sys.time()})")
-files_to_zip <- list.files(here("Results"))
+files_to_zip <- list.files(here("Results", db_name))
 files_to_zip <- files_to_zip[str_detect(files_to_zip,
                                         db_name)]
 files_to_zip <- files_to_zip[str_detect(files_to_zip,
                                         ".csv")]
 
 zip::zip(zipfile = file.path(paste0(
-  here("Results"), "/Results_", study_prefix, db_name, ".zip"
+  here("Results", db_name), "/Results_", study_prefix, db_name, ".zip"
 )),
 files = files_to_zip,
 root = here("Results"))
