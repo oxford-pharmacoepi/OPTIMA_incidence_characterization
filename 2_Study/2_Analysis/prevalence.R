@@ -1,6 +1,9 @@
 # # code for estimating prevalence below
 
-if(isFALSE(run_prevalence)){
+if(isTRUE(run_prevalence)){
+  
+# if user has not run incidence the denominator will need to be run
+  if(isFALSE(run_incidence)){
 # #get denominator ------
 cli::cli_alert_info("- Getting denominator")
 cdm <- generateDenominatorCohortSet(
@@ -21,7 +24,15 @@ cdm <- generateDenominatorCohortSet(
 )
 cli::cli_alert_success("- Got denominator")
   
+  }
+  
+# instanstiate cohorts for partial prevalence  
+  
 }
+
+
+
+
 
 # Estimate total prevalence -------
 cli::cli_alert_info("- Getting prevalence")
