@@ -41,7 +41,7 @@ results_database_schema <- "results"
 
 # database metadata and connection details -----
 # The name/ acronym for the database
-db_name<-"GOLD"
+db_name<-"UKB"
 
 # Name of outcome table in the result table where the outcome cohorts will be stored
 # Note, if there is an existing table in your results schema with the same names
