@@ -77,7 +77,7 @@
     },
     "CodelistGenerator": {
       "Package": "CodelistGenerator",
-      "Version": "2.2.2",
+      "Version": "2.2.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -101,7 +101,7 @@
         "tidyselect",
         "vctrs"
       ],
-      "Hash": "2b6f2f1febe25a104fa977c978feb359"
+      "Hash": "cc4a1269780cdf216ea59c6ffcf69573"
     },
     "DBI": {
       "Package": "DBI",
