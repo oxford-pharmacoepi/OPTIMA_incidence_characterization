@@ -1,5 +1,6 @@
 # code for getting denominator and estimating incidence below
 
+if(isTRUE(run_incidence)){
 #get denominator ------
 cli::cli_alert_info("- Getting denominator")
 cdm <- generateDenominatorCohortSet(
@@ -507,3 +508,6 @@ cli::cli_alert_info("- Getting age standardized incidence results")
 write.csv(agestandardized_results, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_age_std_incidence_estimates.csv")), row.names = FALSE)
 
 cli::cli_alert_success("Incidence Analysis Complete")
+
+
+}
