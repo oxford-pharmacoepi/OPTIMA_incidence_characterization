@@ -106,18 +106,18 @@ lungcancer_codes <- getCandidateCodes(
 )
 
 
-#trying out orphan codes for small cell lung cancer
-# lungcancer_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = lungcancer_codes$concept_id),
-#                                 cdm = cdm,
-#                                 domains = "Condition",
-#                                 standardConcept = "Standard",
-#                                 searchInSynonyms = FALSE,
-#                                 searchNonStandard = FALSE,
-#                                 includeDescendants = TRUE,
-#                                 includeAncestor = TRUE)
+#trying out orphan codes for lung cancer
+lungcancer_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = lungcancer_codes$concept_id),
+                                cdm = cdm,
+                                domains = "Condition",
+                                standardConcept = "Standard",
+                                searchInSynonyms = FALSE,
+                                searchNonStandard = FALSE,
+                                includeDescendants = TRUE,
+                                includeAncestor = TRUE)
 
 # get the counts from codes used in the database from achilles
-#asdfhg <- achillesCodeUse(list(lc = lungcancer_codes$concept_id), cdm, countBy = c("person"), minCellCount = 0)
+#test <- achillesCodeUse(list(lc = lungcancer_codes$concept_id), cdm, countBy = c("person"), minCellCount = 0)
 
 
 # small cell lung cancer
@@ -155,14 +155,14 @@ smallcell_lungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-# smallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("sc_lung_cancer" = smallcell_lungcancer_codes$concept_id),
-#                                            cdm = cdm,
-#                                            domains = "Condition",
-#                                            standardConcept = "Standard",
-#                                            searchInSynonyms = FALSE,
-#                                            searchNonStandard = FALSE,
-#                                            includeDescendants = TRUE,
-#                                            includeAncestor = TRUE)
+smallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("sc_lung_cancer" = smallcell_lungcancer_codes$concept_id),
+                                           cdm = cdm,
+                                           domains = "Condition",
+                                           standardConcept = "Standard",
+                                           searchInSynonyms = FALSE,
+                                           searchNonStandard = FALSE,
+                                           includeDescendants = TRUE,
+                                           includeAncestor = TRUE)
 
 
 # according to this NSCLC consists of squamous, non squamous, adencarcinoma and large cell
@@ -214,14 +214,14 @@ nonsmallcell_lungcancer_codes <- getCandidateCodes(
 )
 
 
-# nonsmallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("nsc_lung_cancer" = nonsmallcell_lungcancer_codes$concept_id),
-#                                                            cdm = cdm,
-#                                                            domains = "Condition",
-#                                                            standardConcept = "Standard",
-#                                                            searchInSynonyms = FALSE,
-#                                                            searchNonStandard = FALSE,
-#                                                            includeDescendants = TRUE,
-#                                                            includeAncestor = TRUE)
+nonsmallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("nsc_lung_cancer" = nonsmallcell_lungcancer_codes$concept_id),
+                                                           cdm = cdm,
+                                                           domains = "Condition",
+                                                           standardConcept = "Standard",
+                                                           searchInSynonyms = FALSE,
+                                                           searchNonStandard = FALSE,
+                                                           includeDescendants = TRUE,
+                                                           includeAncestor = TRUE)
 
 
 
@@ -267,14 +267,14 @@ stage1_nsclungcancer_codes <- getCandidateCodes(
 )
 
 
-# nsclc_stage1_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage1_nsclungcancer_codes$concept_id),
-#                                                               cdm = cdm,
-#                                                               domains = "Condition",
-#                                                               standardConcept = "Standard",
-#                                                               searchInSynonyms = FALSE,
-#                                                               searchNonStandard = FALSE,
-#                                                               includeDescendants = TRUE,
-#                                                               includeAncestor = TRUE)
+nsclc_stage1_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage1_nsclungcancer_codes$concept_id),
+                                                              cdm = cdm,
+                                                              domains = "Condition",
+                                                              standardConcept = "Standard",
+                                                              searchInSynonyms = FALSE,
+                                                              searchNonStandard = FALSE,
+                                                              includeDescendants = TRUE,
+                                                              includeAncestor = TRUE)
 
 
 #staging codes 2 NSCLC
@@ -317,14 +317,14 @@ stage2_nsclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-# nsclc_stage2_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage2_nsclungcancer_codes$concept_id),
-#                                              cdm = cdm,
-#                                              domains = "Condition",
-#                                              standardConcept = "Standard",
-#                                              searchInSynonyms = FALSE,
-#                                              searchNonStandard = FALSE,
-#                                              includeDescendants = TRUE,
-#                                              includeAncestor = TRUE)
+nsclc_stage2_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage2_nsclungcancer_codes$concept_id),
+                                             cdm = cdm,
+                                             domains = "Condition",
+                                             standardConcept = "Standard",
+                                             searchInSynonyms = FALSE,
+                                             searchNonStandard = FALSE,
+                                             includeDescendants = TRUE,
+                                             includeAncestor = TRUE)
 
 
 
@@ -368,14 +368,14 @@ stage3_nsclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-# nsclc_stage3_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage3_nsclungcancer_codes$concept_id),
-#                                              cdm = cdm,
-#                                              domains = "Condition",
-#                                              standardConcept = "Standard",
-#                                              searchInSynonyms = FALSE,
-#                                              searchNonStandard = FALSE,
-#                                              includeDescendants = TRUE,
-#                                              includeAncestor = TRUE)
+nsclc_stage3_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage3_nsclungcancer_codes$concept_id),
+                                             cdm = cdm,
+                                             domains = "Condition",
+                                             standardConcept = "Standard",
+                                             searchInSynonyms = FALSE,
+                                             searchNonStandard = FALSE,
+                                             includeDescendants = TRUE,
+                                             includeAncestor = TRUE)
 
 
 
@@ -420,14 +420,14 @@ stage4_nsclungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
-# nsclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_nsclungcancer_codes$concept_id),
-#                                              cdm = cdm,
-#                                              domains = "Condition",
-#                                              standardConcept = "Standard",
-#                                              searchInSynonyms = FALSE,
-#                                              searchNonStandard = FALSE,
-#                                              includeDescendants = TRUE,
-#                                              includeAncestor = TRUE)
+nsclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_nsclungcancer_codes$concept_id),
+                                             cdm = cdm,
+                                             domains = "Condition",
+                                             standardConcept = "Standard",
+                                             searchInSynonyms = FALSE,
+                                             searchNonStandard = FALSE,
+                                             includeDescendants = TRUE,
+                                             includeAncestor = TRUE)
 
 
 
@@ -611,26 +611,53 @@ sclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_sclu
 
 
 
-
+# Creating cohort files ------------
 
 # # add to previous concept ids (which were snomed only)
-# mm_narrow_concepts <- c(mm_narrow_concepts, mm_icdo3_mappings$concept_id)
-# mm_broad_concepts <- c(mm_broad_concepts, mm_icdo3_mappings$concept_id)
-#
-# # 1) mm narrow - no restrictions ----
-# mm_narrow <- cohort(
-#   entry = entry(
-#     conditionOccurrence(cs(mm_narrow_concepts, name = "mm_narrow_cond")),
-#     observation(cs(mm_narrow_concepts, name = "mm_narrow_obs")),
-#     observationWindow = continuousObservation(0L, 0L),
-#     primaryCriteriaLimit = "First"
-#   ),
-#   exit = exit(
-#     endStrategy = observationExit()
-#   )
-# )
-# writeCohort(mm_narrow, here::here("cohorts",
-#                                   "mm_narrow.json"))
+
+# creates a cohort where patients exit at the end of observation or end of study broad lung cancer
+total_prev_lung_cancer_broad <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(lungcancer_codes$concept_id, name = "lung_cancer_end"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(
+    endStrategy = observationExit()
+  )
+)
+
+writeCohort(total_prev_lung_cancer_broad, here::here("preliminary_cohorts",
+                                                     "lung_cancer_end.json"))
+
+
+# creates a cohort where patients exit after 2 years for broad lung cancer
+partial_prev2y_lung_cancer_broad <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(lungcancer_codes$concept_id, name = "lung_cancer_2y"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(fixedExit("startDate", 720L)
+  )
+)
+
+writeCohort(partial_prev2y_lung_cancer_broad, here::here("preliminary_cohorts",
+                                                     "lung_cancer_2y.json"))
+
+# creates a cohort where patients exit after 5 years for broad lung cancer
+partial_prev5y_lung_cancer_broad <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(lungcancer_codes$concept_id, name = "lung_cancer_5y"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(fixedExit("startDate", 1825L)
+  )
+)
+
+writeCohort(partial_prev5y_lung_cancer_broad, here::here("preliminary_cohorts",
+                                  "lung_cancer_5y.json"))
 
 
 
