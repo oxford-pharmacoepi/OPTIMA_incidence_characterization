@@ -10,11 +10,13 @@ library(here)
 library(DBI)
 library(CDMConnector)
 library(dplyr)
+library(tidyr)
 library(CodelistGenerator)
 
 # db with vocab ----
 server_dbi <- Sys.getenv("DB_SERVER_cdm_ukbiobank_202003_dbi") #ukb
 #server_dbi <- Sys.getenv("DB_SERVER_cdm_gold_202207_dbi") #GOLD
+server_dbi <- Sys.getenv("DB_SERVER_cdm_thin_fr_202308_dbi")
 user       <- Sys.getenv("DB_USER")
 password   <- Sys.getenv("DB_PASSWORD")
 port       <- Sys.getenv("DB_PORT")
@@ -41,7 +43,8 @@ results_database_schema <- "results"
 
 # database metadata and connection details -----
 # The name/ acronym for the database
-db_name<-"UKB"
+#db_name<-"UKB"
+db_name<-"THIN_fr"
 
 # Name of outcome table in the result table where the outcome cohorts will be stored
 # Note, if there is an existing table in your results schema with the same names
@@ -64,23 +67,31 @@ cdm$person %>%
 # check vocab version
 # getVocabVersion(cdm = cdm)
 
-# getConceptClassId(cdm,
-#                   standardConcept = "Standard")
+getConceptClassId(cdm,
+                  standardConcept = "Standard")
 
 # [1] "Clinical Finding"  "Context-dependent" "HCPCS Modifier"    "ICDO Condition"
 # [5] "Procedure"
 
-# all lung cancer together
+# Broad lung cancer including cancers of trachea and bronchus and lower respiratory tract
 lungcancer_codes <- getCandidateCodes(
   cdm = cdm,
-  keywords = "malignant neoplasm of lung",
+  keywords = c("malignant neoplasm of lung",
+               "malignant neoplasm of trachea",
+               "Primary malignant neoplasm of bronchus",
+               "Oat cell carcinoma of lung",
+               "Oat cell carcinoma of trachea",
+               "Oat cell carcinoma of main bronchus" ,
+               "malignant neoplasm of lower respiratory tract") ,
   exclude = c("melanoma",
               "lymphoma",
               "sarcoma",
               "secondary",
               "metastasis",
+              "lymphocytic",
               "benign",
               "hodgkin",
+              "neuroendocrine",
               "rhabdomyosarcoma",
               "angiomyosarcoma",
               "fibrosarcoma",
@@ -105,8 +116,10 @@ lungcancer_codes <- getCandidateCodes(
   domains = "Condition"
 )
 
+write.csv(lungcancer_codes, here::here("preliminary_cohorts" ,
+                                       paste0(cdmName(cdm), "_lungCancerBroad.csv")), row.names = FALSE)
 
-#trying out orphan codes for lung cancer
+#trying out orphan codes for lung cancer BROAD
 lungcancer_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = lungcancer_codes$concept_id),
                                 cdm = cdm,
                                 domains = "Condition",
@@ -116,112 +129,297 @@ lungcancer_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = lungcancer_c
                                 includeDescendants = TRUE,
                                 includeAncestor = TRUE)
 
-# get the counts from codes used in the database from achilles
-#test <- achillesCodeUse(list(lc = lungcancer_codes$concept_id), cdm, countBy = c("person"), minCellCount = 0)
+
+lungcancer_orphan_codes <- lungcancer_orphan_codes %>%
+  separate(additional_level, into = c("Description", "Concept ID"), sep = " ; ")
+
+write.csv(lungcancer_orphan_codes, here::here("preliminary_cohorts" ,
+                                       paste0(cdmName(cdm), "_lungCancerBroad_orphan.csv")), row.names = FALSE)
 
 
-# small cell lung cancer
-smallcell_lungcancer_codes <- getCandidateCodes(
+# get codes for staging/grade
+
+#Stage 1
+stage1_codes <- getCandidateCodes(
   cdm = cdm,
-  keywords = c("Small cell carcinoma of lung",
-               "Oat cell carcinoma of lung",
-               "small cell malignant neoplasm of lung"),
-  exclude = c("melanoma",
-              "metastasis",
-              "Non-small" ,
-              "secondary",
-              "benign",
-              "hodgkin",
-              "sarcoma",
-              "rhabdomyosarcoma",
-              "angiomyosarcoma",
-              "fibrosarcoma",
-              "leiomyosarcoma",
-              "hemangiosarcoma",
-              "pseudosarcomatous",
-              "carcinosarcoma",
-              "leukemia",
-              "blastoma",
-              "T-cell",
-              "atelectasis",
-              "plasmacytoma",
-              "mesenchymoma",
-              "heavy chain disease" ,
-              "ectomesenchymoma",
-              "myeloproliferative",
-              "sezary",
-              "lymphoid",
-              "epithelioid hemangioendothelioma") ,
-  domains = "Condition"
-)
+  keywords = c("TNM stage 1",
+               "Stage 1"
+               ) ,
+  exclude = c("stage 2",
+              "Ann Arbor Stage",
+              "Eye fundus" ,
+              "Newborn",
+              "ISS Stage",
+              "ENSAT",
+              "Evans" ,
+              "Enneking",
+              "Lugano",
+              "FIGO", #
+              "Rai Stage" ,
+              "RISS Stage",
+              "Antibody detection",
+              "Node stage",
+              "retinoblastoma" ,
+              "WR stage",
+              "Stage M1" ,
+              "Stage D1" ,
+              "Durie/Salmon Stage 1" ,
+              "SEER Summary Stage",
+              "PRETEXT Stage" ,
+              "INRG Stage" ,
+              "COG Stage" ,
+              "Clotting",
+              "INSS" ,
+              "Masaoka_Koga Stage 1" ,
+              "Antibody identification" ,
+              "stage 3",
+              "stage 4") ,
+  domains = "Measurement")
 
-smallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("sc_lung_cancer" = smallcell_lungcancer_codes$concept_id),
-                                           cdm = cdm,
-                                           domains = "Condition",
-                                           standardConcept = "Standard",
-                                           searchInSynonyms = FALSE,
-                                           searchNonStandard = FALSE,
-                                           includeDescendants = TRUE,
-                                           includeAncestor = TRUE)
+write.csv(stage1_codes, here::here("preliminary_cohorts" ,
+                                              paste0(cdmName(cdm), "_stage1_codes.csv")), row.names = FALSE)
 
 
-# according to this NSCLC consists of squamous, non squamous, adencarcinoma and large cell
-#https://www.nature.com/articles/nrdp20159
-# Non-small cell lung cancer
-nonsmallcell_lungcancer_codes <- getCandidateCodes(
+
+#Stage 2
+stage2_codes <- getCandidateCodes(
   cdm = cdm,
-  keywords = c("Non-small cell lung cancer",
-               "malignant neoplasm of lung",
-               "Squamous non-small cell lung cancer",
-               "Nonsquamous nonsmall cell neoplasm of lung",
-               "Primary acinar cell carcinoma of lung",
-               "Primary adenocarcinoma of lung",
-               "Primary solid carcinoma of lung",
-               "Large cell carcinoma of lung"
+  keywords = c("TNM stage 2",
+               "Stage 2"
+  ) ,
+  exclude = c("stage 1",
+              "Ann Arbor Stage",
+              "Masaoka_Koga Stage 2a",
+              "Masaoka_Koga Stage 2",
+              "Durie/Salmon Stage 2",
+              "Masaoka_Koga Stage 2b",
+              "Coagulation factor VIII",
+              "Antibody identification",
+              "Eye fundus" ,
+              "Newborn",
+              "ISS Stage",
+              "ENSAT",
+              "Evans" ,
+              "Enneking",
+              "Lugano",
+              "FIGO", #
+              "Rai Stage" ,
+              "RISS Stage",
+              "Antibody detection",
+              "Node stage",
+              "retinoblastoma" ,
+              "WR stage",
+              "Stage M1" ,
+              "Stage D1" ,
+              "Durie/Salmon" ,
+              "SEER Summary Stage",
+              "PRETEXT Stage" ,
+              "INRG Stage" ,
+              "COG Stage" ,
+              "Clotting",
+              "INSS" ,
+              "Masaoka_Koga" ,
+              "stage 3",
+              "stage 4") ,
+  domains = "Measurement")
 
-               ),
-  exclude = c("melanoma",
-              "lymphoma",
-              "secondary",
-              "small cell carcinoma",
-              "Oat cell carcinoma",
-              "metastasis",
-              "secondary",
-              "benign",
-              "hodgkin",
-              "sarcoma",
-              "small cell malignant neoplasm",
-              "rhabdomyosarcoma",
-              "angiomyosarcoma",
-              "fibrosarcoma",
-              "leiomyosarcoma",
-              "hemangiosarcoma",
-              "pseudosarcomatous",
-              "carcinosarcoma",
-              "leukemia",
-              "blastoma",
-              "T-cell",
-              "atelectasis",
-              "plasmacytoma",
-              "mesenchymoma",
-              "heavy chain disease" ,
-              "ectomesenchymoma",
-              "myeloproliferative",
-              "sezary",
-              "lymphoid",
-              "epithelioid hemangioendothelioma") ,
-  domains = "Condition"
-)
+write.csv(stage2_codes, here::here("preliminary_cohorts" ,
+                                              paste0(cdmName(cdm), "_stage2_codes.csv")), row.names = FALSE)
+#Stage 3
+stage3_codes <- getCandidateCodes(
+  cdm = cdm,
+  keywords = c("TNM stage 3",
+               "Stage 3"
+  ) ,
+  exclude = c("stage 2",
+              "stage 1",
+              "Ann Arbor Stage",
+              "Eye fundus" ,
+              "Newborn",
+              "ISS Stage",
+              "ENSAT",
+              "Evans" ,
+              "Enneking",
+              "Lugano",
+              "FIGO",
+              "Rai Stage" ,
+              "RISS Stage",
+              "Antibody detection",
+              "Node stage",
+              "retinoblastoma" ,
+              "WR stage",
+              "Stage M1" ,
+              "Stage D1" ,
+              "Durie/Salmon" ,
+              "SEER Summary Stage",
+              "PRETEXT Stage" ,
+              "INRG Stage" ,
+              "COG Stage" ,
+              "Clotting",
+              "INSS" ,
+              "Durie/Salmon Stage 3",
+              "Masaoka_Koga Stage 3",
+              "stage 4") ,
+  domains = "Measurement")
+
+write.csv(stage3_codes, here::here("preliminary_cohorts" ,
+                                              paste0(cdmName(cdm), "_stage3_codes.csv")), row.names = FALSE)
+#Stage 4
+stage4_codes <- getCandidateCodes(
+  cdm = cdm,
+  keywords = c("TNM stage 4",
+               "Stage 4",
+               "Stage M1" ,
+               "Stage D1",
+               "Metastasis"
+  ) ,
+  exclude = c("stage 2",
+              "stage 1",
+              "Ann Arbor Stage",
+              "Eye fundus" ,
+              "Newborn",
+              "ISS Stage",
+              "ENSAT",
+              "Evans" ,
+              "Enneking",
+              "Lugano",
+              "FIGO", #
+              "Rai Stage" ,
+              "RISS Stage",
+              "Antibody detection",
+              "Node stage",
+              "retinoblastoma" ,
+              "WR stage",
+              "SEER Summary Stage",
+              "PRETEXT Stage" ,
+              "INRG Stage" ,
+              "COG Stage" ,
+              "Clotting",
+              "INSS" ,
+              "Masaoka_Koga Stage 4" ,
+              "Masaoka_Koga Stage 4a",
+              "Site of distant metastasis in Breast tumor",
+              "Collaborative staging metastasis evaluation Cancer",
+              "Tumor size, largest metastasis, additional dimension",
+              "Circulating tumor cell test",
+              "Circulating tumor cells",
+              "Malignant pleural effusion",
+              "Malignant ascites" ,
+              "KISS1",
+              "MTA1 ",
+              "MTA3",
+              "stage 3") ,
+  domains = "Measurement")
+
+write.csv(stage4_codes, here::here("preliminary_cohorts" ,
+                                              paste0(cdmName(cdm), "_stage4_codes.csv")), row.names = FALSE)
+
+# # get the counts from codes used in the database from achilles
+# test <- achillesCodeUse(list(lc = lungcancer_codes$concept_id), cdm, countBy = c("person"), minCellCount = 0)
 
 
-nonsmallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("nsc_lung_cancer" = nonsmallcell_lungcancer_codes$concept_id),
-                                                           cdm = cdm,
-                                                           domains = "Condition",
-                                                           standardConcept = "Standard",
-                                                           searchInSynonyms = FALSE,
-                                                           searchNonStandard = FALSE,
-                                                           includeDescendants = TRUE,
-                                                           includeAncestor = TRUE)
+# # small cell lung cancer
+# smallcell_lungcancer_codes <- getCandidateCodes(
+#   cdm = cdm,
+#   keywords = c("Small cell carcinoma of lung",
+#                "Oat cell carcinoma of lung",
+#                "small cell malignant neoplasm of lung"),
+#   exclude = c("melanoma",
+#               "metastasis",
+#               "Non-small" ,
+#               "secondary",
+#               "benign",
+#               "hodgkin",
+#               "sarcoma",
+#               "rhabdomyosarcoma",
+#               "angiomyosarcoma",
+#               "fibrosarcoma",
+#               "leiomyosarcoma",
+#               "hemangiosarcoma",
+#               "pseudosarcomatous",
+#               "carcinosarcoma",
+#               "leukemia",
+#               "blastoma",
+#               "T-cell",
+#               "atelectasis",
+#               "plasmacytoma",
+#               "mesenchymoma",
+#               "heavy chain disease" ,
+#               "ectomesenchymoma",
+#               "myeloproliferative",
+#               "sezary",
+#               "lymphoid",
+#               "epithelioid hemangioendothelioma") ,
+#   domains = "Condition"
+# )
+#
+# smallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("sc_lung_cancer" = smallcell_lungcancer_codes$concept_id),
+#                                            cdm = cdm,
+#                                            domains = "Condition",
+#                                            standardConcept = "Standard",
+#                                            searchInSynonyms = FALSE,
+#                                            searchNonStandard = FALSE,
+#                                            includeDescendants = TRUE,
+#                                            includeAncestor = TRUE)
+
+
+# # according to this NSCLC consists of squamous, non squamous, adencarcinoma and large cell
+# #https://www.nature.com/articles/nrdp20159
+# # Non-small cell lung cancer
+# nonsmallcell_lungcancer_codes <- getCandidateCodes(
+#   cdm = cdm,
+#   keywords = c("Non-small cell lung cancer",
+#                "malignant neoplasm of lung",
+#                "Squamous non-small cell lung cancer",
+#                "Nonsquamous nonsmall cell neoplasm of lung",
+#                "Primary acinar cell carcinoma of lung",
+#                "Primary adenocarcinoma of lung",
+#                "Primary solid carcinoma of lung",
+#                "Large cell carcinoma of lung"
+#
+#                ),
+#   exclude = c("melanoma",
+#               "lymphoma",
+#               "secondary",
+#               "small cell carcinoma",
+#               "Oat cell carcinoma",
+#               "metastasis",
+#               "secondary",
+#               "benign",
+#               "hodgkin",
+#               "sarcoma",
+#               "small cell malignant neoplasm",
+#               "rhabdomyosarcoma",
+#               "angiomyosarcoma",
+#               "fibrosarcoma",
+#               "leiomyosarcoma",
+#               "hemangiosarcoma",
+#               "pseudosarcomatous",
+#               "carcinosarcoma",
+#               "leukemia",
+#               "blastoma",
+#               "T-cell",
+#               "atelectasis",
+#               "plasmacytoma",
+#               "mesenchymoma",
+#               "heavy chain disease" ,
+#               "ectomesenchymoma",
+#               "myeloproliferative",
+#               "sezary",
+#               "lymphoid",
+#               "epithelioid hemangioendothelioma") ,
+#   domains = "Condition"
+# )
+#
+#
+# nonsmallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("nsc_lung_cancer" = nonsmallcell_lungcancer_codes$concept_id),
+#                                                            cdm = cdm,
+#                                                            domains = "Condition",
+#                                                            standardConcept = "Standard",
+#                                                            searchInSynonyms = FALSE,
+#                                                            searchNonStandard = FALSE,
+#                                                            includeDescendants = TRUE,
+#                                                            includeAncestor = TRUE)
 
 
 
@@ -430,195 +628,91 @@ nsclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_nsc
                                              includeAncestor = TRUE)
 
 
-
-
-#staging codes 1 SCLC
-stage1_sclungcancer_codes <- getCandidateCodes(
-  cdm = cdm,
-  keywords = c("Primary small cell malignant neoplasm of lung, TNM stage 1"),
-  exclude = c("melanoma",
-              "lymphoma",
-              "secondary",
-              "metastasis",
-              "secondary",
-              "benign",
-              "hodgkin",
-              "sarcoma",
-              "rhabdomyosarcoma",
-              "angiomyosarcoma",
-              "fibrosarcoma",
-              "leiomyosarcoma",
-              "hemangiosarcoma",
-              "pseudosarcomatous",
-              "carcinosarcoma",
-              "leukemia",
-              "blastoma",
-              "T-cell",
-              "atelectasis",
-              "plasmacytoma",
-              "mesenchymoma",
-              "heavy chain disease" ,
-              "ectomesenchymoma",
-              "myeloproliferative",
-              "sezary",
-              "lymphoid",
-              "epithelioid hemangioendothelioma") ,
-  domains = "Condition"
-)
-
-sclc_stage1_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage1_sclungcancer_codes$concept_id),
-                                             cdm = cdm,
-                                             domains = "Condition",
-                                             standardConcept = "Standard",
-                                             searchInSynonyms = FALSE,
-                                             searchNonStandard = FALSE,
-                                             includeDescendants = TRUE,
-                                             includeAncestor = TRUE)
-
-
-
-#staging codes 2 SCLC
-stage2_sclungcancer_codes <- getCandidateCodes(
-  cdm = cdm,
-  keywords = c("Primary small cell malignant neoplasm of lung, TNM stage 2"),
-  exclude = c("melanoma",
-              "lymphoma",
-              "secondary",
-              "metastasis",
-              "secondary",
-              "benign",
-              "hodgkin",
-              "sarcoma",
-              "rhabdomyosarcoma",
-              "angiomyosarcoma",
-              "fibrosarcoma",
-              "leiomyosarcoma",
-              "hemangiosarcoma",
-              "pseudosarcomatous",
-              "carcinosarcoma",
-              "leukemia",
-              "blastoma",
-              "T-cell",
-              "atelectasis",
-              "plasmacytoma",
-              "mesenchymoma",
-              "heavy chain disease" ,
-              "ectomesenchymoma",
-              "myeloproliferative",
-              "sezary",
-              "lymphoid",
-              "epithelioid hemangioendothelioma") ,
-  domains = "Condition"
-)
-
-sclc_stage2_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage2_sclungcancer_codes$concept_id),
-                                            cdm = cdm,
-                                            domains = "Condition",
-                                            standardConcept = "Standard",
-                                            searchInSynonyms = FALSE,
-                                            searchNonStandard = FALSE,
-                                            includeDescendants = TRUE,
-                                            includeAncestor = TRUE)
-
-
-#staging codes 3 SCLC
-stage3_sclungcancer_codes <- getCandidateCodes(
-  cdm = cdm,
-  keywords = c("Primary small cell malignant neoplasm of lung, TNM stage 3"),
-  exclude = c("melanoma",
-              "lymphoma",
-              "secondary",
-              "metastasis",
-              "secondary",
-              "benign",
-              "hodgkin",
-              "sarcoma",
-              "rhabdomyosarcoma",
-              "angiomyosarcoma",
-              "fibrosarcoma",
-              "leiomyosarcoma",
-              "hemangiosarcoma",
-              "pseudosarcomatous",
-              "carcinosarcoma",
-              "leukemia",
-              "blastoma",
-              "T-cell",
-              "atelectasis",
-              "plasmacytoma",
-              "mesenchymoma",
-              "heavy chain disease" ,
-              "ectomesenchymoma",
-              "myeloproliferative",
-              "sezary",
-              "lymphoid",
-              "epithelioid hemangioendothelioma") ,
-  domains = "Condition"
-)
-
-sclc_stage3_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage3_sclungcancer_codes$concept_id),
-                                            cdm = cdm,
-                                            domains = "Condition",
-                                            standardConcept = "Standard",
-                                            searchInSynonyms = FALSE,
-                                            searchNonStandard = FALSE,
-                                            includeDescendants = TRUE,
-                                            includeAncestor = TRUE)
-
-
-
-#staging codes 4 SCLC
-stage4_sclungcancer_codes <- getCandidateCodes(
-  cdm = cdm,
-  keywords = c("Primary small cell malignant neoplasm of lung, TNM stage 4"),
-  exclude = c("melanoma",
-              "lymphoma",
-              "secondary",
-              "metastasis",
-              "secondary",
-              "benign",
-              "hodgkin",
-              "sarcoma",
-              "rhabdomyosarcoma",
-              "angiomyosarcoma",
-              "fibrosarcoma",
-              "leiomyosarcoma",
-              "hemangiosarcoma",
-              "pseudosarcomatous",
-              "carcinosarcoma",
-              "leukemia",
-              "blastoma",
-              "T-cell",
-              "atelectasis",
-              "plasmacytoma",
-              "mesenchymoma",
-              "heavy chain disease" ,
-              "ectomesenchymoma",
-              "myeloproliferative",
-              "sezary",
-              "lymphoid",
-              "epithelioid hemangioendothelioma") ,
-  domains = "Condition"
-)
-
-sclc_stage4_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = stage4_sclungcancer_codes$concept_id),
-                                            cdm = cdm,
-                                            domains = "Condition",
-                                            standardConcept = "Standard",
-                                            searchInSynonyms = FALSE,
-                                            searchNonStandard = FALSE,
-                                            includeDescendants = TRUE,
-                                            includeAncestor = TRUE)
-
-
-
 # Creating cohort files ------------
 
-# # add to previous concept ids (which were snomed only)
+# read in reviewed list of codelists
+reviewed_code_list <- read.csv(here::here("preliminary_cohorts" , "reviewed" ,
+                                   paste0(cdmName(cdm), "_lungCancerBroad_reviewed.csv")))
 
-# creates a cohort where patients exit at the end of observation or end of study broad lung cancer
+
+# Broad lung cancer incidence
+broad_inc <- reviewed_code_list %>%
+  filter(broad_inc == "y") %>%
+  pull(concept_id)
+
+# narrow lung cancer incidence
+narrow_inc <- reviewed_code_list %>%
+  filter(narrow_inc == "y") %>%
+  pull(concept_id)
+
+# Broad lung cancer prevalence
+broad_prev <- reviewed_code_list %>%
+  filter(Broad_prev == "y") %>%
+  pull(concept_id)
+
+# narrow lung cancer prevalence
+narrow_prev <- reviewed_code_list %>%
+  filter(narrow_prev == "y") %>%
+  pull(concept_id)
+
+# small cell lung cancer
+sclc <- reviewed_code_list %>%
+  filter(SCLC == "y") %>%
+  pull(concept_id)
+
+# create cohorts
+
+# 1 broad incidence
+lung_cancer_incident_broad <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_inc"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(
+    endStrategy = observationExit()
+  )
+)
+
+writeCohort(lung_cancer_incident_broad, here::here("preliminary_cohorts",
+                                                     "lung_cancer_incident_broad.json"))
+
+# 2 narrow incidence
+lung_cancer_incident_narrow <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(narrow_inc, name = "lung_cancer_narrow_inc"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(
+    endStrategy = observationExit()
+  )
+)
+
+writeCohort(lung_cancer_incident_narrow, here::here("preliminary_cohorts",
+                                                   "lung_cancer_incident_narrow.json"))
+
+
+# 3 sclc incidence
+small_cell_lung_cancer <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(sclc, name = "small_cell_lung_cancer"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(
+    endStrategy = observationExit()
+  )
+)
+
+writeCohort(small_cell_lung_cancer, here::here("preliminary_cohorts",
+                                                    "small_cell_lung_cancer.json"))
+
+
+# 4 broad prev end
 total_prev_lung_cancer_broad <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(lungcancer_codes$concept_id, name = "lung_cancer_end"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_prev, name = "broad_lung_cancer_end"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -628,13 +722,13 @@ total_prev_lung_cancer_broad <- cohort(
 )
 
 writeCohort(total_prev_lung_cancer_broad, here::here("preliminary_cohorts",
-                                                     "lung_cancer_end.json"))
+                                                     "broad_lung_cancer_end.json"))
 
 
-# creates a cohort where patients exit after 2 years for broad lung cancer
+# 5 broad prev 2 year
 partial_prev2y_lung_cancer_broad <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(lungcancer_codes$concept_id, name = "lung_cancer_2y"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_prev, name = "broad_lung_cancer_2y"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -643,12 +737,12 @@ partial_prev2y_lung_cancer_broad <- cohort(
 )
 
 writeCohort(partial_prev2y_lung_cancer_broad, here::here("preliminary_cohorts",
-                                                     "lung_cancer_2y.json"))
+                                                         "broad_lung_cancer_2y.json"))
 
-# creates a cohort where patients exit after 5 years for broad lung cancer
+# 6 broad prev 5 year
 partial_prev5y_lung_cancer_broad <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(lungcancer_codes$concept_id, name = "lung_cancer_5y"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_prev, name = "broad_lung_cancer_5y"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -657,7 +751,77 @@ partial_prev5y_lung_cancer_broad <- cohort(
 )
 
 writeCohort(partial_prev5y_lung_cancer_broad, here::here("preliminary_cohorts",
-                                  "lung_cancer_5y.json"))
+                                                         "broad_lung_cancer_5y.json"))
+
+# 7 narrow prev end
+total_prev_lung_cancer_narrow <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(narrow_prev, name = "narrow_lung_cancer_end"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(
+    endStrategy = observationExit()
+  )
+)
+
+writeCohort(total_prev_lung_cancer_narrow, here::here("preliminary_cohorts",
+                                                     "narrow_lung_cancer_end.json"))
 
 
+# 8 narrow prev 2 year
+partial_prev2y_lung_cancer_narrow <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(narrow_prev, name = "narrow_lung_cancer_2y"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(fixedExit("startDate", 720L)
+  )
+)
 
+writeCohort(partial_prev2y_lung_cancer_narrow, here::here("preliminary_cohorts",
+                                                         "narrow_lung_cancer_2y.json"))
+
+# 9 narrow prev 5 year
+partial_prev5y_lung_cancer_narrow <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(narrow_prev, name = "narrow_lung_cancer_5y"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(fixedExit("startDate", 1825L)
+  )
+)
+
+writeCohort(partial_prev5y_lung_cancer_narrow, here::here("preliminary_cohorts",
+                                                         "narrow_lung_cancer_5y.json"))
+
+# 10 sclc prev 2 year
+partial_prev2y_sclc <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(sclc, name = "sclc_2y"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(fixedExit("startDate", 720L)
+  )
+)
+
+writeCohort(partial_prev2y_sclc, here::here("preliminary_cohorts",
+                                                          "small_cell_lung_cancer_2y.json"))
+
+
+# 11 sclc prev 5 year
+partial_prev5y_sclc <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(sclc, name = "sclc_5y"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(fixedExit("startDate", 1825L)
+  )
+)
+
+writeCohort(partial_prev5y_sclc, here::here("preliminary_cohorts",
+                                                          "small_cell_lung_cancer_5y.json"))
