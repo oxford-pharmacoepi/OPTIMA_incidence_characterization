@@ -1,14 +1,14 @@
 # settings ------
 input <- list(
   runGenerateCohort = T,              #### Generate cohort or use preloaded cohorts
-  runCalculateOverlap = F,            #### Calculate Overlap
+  runCalculateOverlap = T,            #### Calculate Overlap
   runCountCodes = T,                  #### run orphan codes and count codes
   runIndexEvents = T,                 #### run index events
   runProfiling = T,                   #### run age and time in database characterisation
   runMatchedSampleLSC = T,            #### run matched LSC
   runIncidence = T,                   #### run Incidence
   runPrevalence = T,                  #### run Prevalence
-  sampleIncidencePrevalence = 1000000, #### Sample for Incidence Prevalence (NULL if all cdm)
+  sampleIncidencePrevalence = 500000, #### Sample for Incidence Prevalence (NULL if all cdm)
   cdmName = db_name,
   exportResultsRData=T
 )
@@ -492,7 +492,7 @@ zip::zip(zipfile = file.path(paste0(
   here("Results", db_name), "/Results_", study_prefix, db_name, ".zip"
 )),
 files = files_to_zip,
-root = here("Results"))
+root = here("Results", db_name ))
 
 if (input$exportResultsRData) {
   analyses_performed <- as.integer(c(input$runGenerateCohort, 
