@@ -56,23 +56,23 @@ data$index_events <- data$index_events %>%
 
 
 # Cohort overlap
-# data$cohort_overlap <- data$cohort_overlap %>%
-#   ungroup() %>%
-#   inner_join(data$cohort_count %>%
-#                select(cdm_name,
-#                       cohort_definition_id_x = cohort_definition_id,
-#                       cohort_name_x = cohort_name,
-#                       subject_counts_x = number_subjects),
-#              by = c("cdm_name", "cohort_definition_id_x")) %>%
-#   inner_join(data$cohort_count %>%
-#                select(cdm_name,
-#                       cohort_definition_id_y = cohort_definition_id,
-#                       cohort_name_y = cohort_name,
-#                       subject_counts_y = number_subjects),
-#              by = c("cdm_name", "cohort_definition_id_y")) %>%
-#   mutate(
-#     intersect_counts = as.integer(intersect_count)) %>%
-#   select(-intersect_count)
+data$cohort_overlap <- data$cohort_overlap %>%
+  ungroup() %>%
+  inner_join(data$cohort_count %>%
+               select(cdm_name,
+                      cohort_definition_id_x = cohort_definition_id,
+                      cohort_name_x = cohort_name,
+                      subject_counts_x = number_subjects),
+             by = c("cdm_name", "cohort_definition_id_x")) %>%
+  inner_join(data$cohort_count %>%
+               select(cdm_name,
+                      cohort_definition_id_y = cohort_definition_id,
+                      cohort_name_y = cohort_name,
+                      subject_counts_y = number_subjects),
+             by = c("cdm_name", "cohort_definition_id_y")) %>%
+  mutate(
+    intersect_counts = as.integer(intersect_count)) %>%
+  select(-intersect_count)
 
 
 # # Age distribution
