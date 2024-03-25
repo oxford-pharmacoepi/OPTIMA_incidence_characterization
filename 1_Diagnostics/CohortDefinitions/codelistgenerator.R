@@ -181,7 +181,6 @@ write.csv(stage1_codes, here::here("preliminary_cohorts" ,
                                               paste0(cdmName(cdm), "_stage1_codes.csv")), row.names = FALSE)
 
 
-
 #Stage 2
 stage2_codes <- getCandidateCodes(
   cdm = cdm,
