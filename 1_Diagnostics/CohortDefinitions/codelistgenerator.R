@@ -14,7 +14,7 @@ library(tidyr)
 library(CodelistGenerator)
 
 # db with vocab ----
-server_dbi <- Sys.getenv("DB_SERVER_cdm_ukbiobank_202003_dbi") #ukb
+#server_dbi <- Sys.getenv("DB_SERVER_cdm_ukbiobank_202003_dbi") #ukb
 #server_dbi <- Sys.getenv("DB_SERVER_cdm_gold_202207_dbi") #GOLD
 server_dbi <- Sys.getenv("DB_SERVER_cdm_thin_fr_202308_dbi")
 user       <- Sys.getenv("DB_USER")
@@ -313,115 +313,6 @@ stage4_codes <- getCandidateCodes(
 
 write.csv(stage4_codes, here::here("preliminary_cohorts" ,
                                               paste0(cdmName(cdm), "_stage4_codes.csv")), row.names = FALSE)
-
-# # get the counts from codes used in the database from achilles
-# test <- achillesCodeUse(list(lc = lungcancer_codes$concept_id), cdm, countBy = c("person"), minCellCount = 0)
-
-
-# # small cell lung cancer
-# smallcell_lungcancer_codes <- getCandidateCodes(
-#   cdm = cdm,
-#   keywords = c("Small cell carcinoma of lung",
-#                "Oat cell carcinoma of lung",
-#                "small cell malignant neoplasm of lung"),
-#   exclude = c("melanoma",
-#               "metastasis",
-#               "Non-small" ,
-#               "secondary",
-#               "benign",
-#               "hodgkin",
-#               "sarcoma",
-#               "rhabdomyosarcoma",
-#               "angiomyosarcoma",
-#               "fibrosarcoma",
-#               "leiomyosarcoma",
-#               "hemangiosarcoma",
-#               "pseudosarcomatous",
-#               "carcinosarcoma",
-#               "leukemia",
-#               "blastoma",
-#               "T-cell",
-#               "atelectasis",
-#               "plasmacytoma",
-#               "mesenchymoma",
-#               "heavy chain disease" ,
-#               "ectomesenchymoma",
-#               "myeloproliferative",
-#               "sezary",
-#               "lymphoid",
-#               "epithelioid hemangioendothelioma") ,
-#   domains = "Condition"
-# )
-#
-# smallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("sc_lung_cancer" = smallcell_lungcancer_codes$concept_id),
-#                                            cdm = cdm,
-#                                            domains = "Condition",
-#                                            standardConcept = "Standard",
-#                                            searchInSynonyms = FALSE,
-#                                            searchNonStandard = FALSE,
-#                                            includeDescendants = TRUE,
-#                                            includeAncestor = TRUE)
-
-
-# # according to this NSCLC consists of squamous, non squamous, adencarcinoma and large cell
-# #https://www.nature.com/articles/nrdp20159
-# # Non-small cell lung cancer
-# nonsmallcell_lungcancer_codes <- getCandidateCodes(
-#   cdm = cdm,
-#   keywords = c("Non-small cell lung cancer",
-#                "malignant neoplasm of lung",
-#                "Squamous non-small cell lung cancer",
-#                "Nonsquamous nonsmall cell neoplasm of lung",
-#                "Primary acinar cell carcinoma of lung",
-#                "Primary adenocarcinoma of lung",
-#                "Primary solid carcinoma of lung",
-#                "Large cell carcinoma of lung"
-#
-#                ),
-#   exclude = c("melanoma",
-#               "lymphoma",
-#               "secondary",
-#               "small cell carcinoma",
-#               "Oat cell carcinoma",
-#               "metastasis",
-#               "secondary",
-#               "benign",
-#               "hodgkin",
-#               "sarcoma",
-#               "small cell malignant neoplasm",
-#               "rhabdomyosarcoma",
-#               "angiomyosarcoma",
-#               "fibrosarcoma",
-#               "leiomyosarcoma",
-#               "hemangiosarcoma",
-#               "pseudosarcomatous",
-#               "carcinosarcoma",
-#               "leukemia",
-#               "blastoma",
-#               "T-cell",
-#               "atelectasis",
-#               "plasmacytoma",
-#               "mesenchymoma",
-#               "heavy chain disease" ,
-#               "ectomesenchymoma",
-#               "myeloproliferative",
-#               "sezary",
-#               "lymphoid",
-#               "epithelioid hemangioendothelioma") ,
-#   domains = "Condition"
-# )
-#
-#
-# nonsmallcell_lungcancer_codes_orphan_codes <- findOrphanCodes(x = list("nsc_lung_cancer" = nonsmallcell_lungcancer_codes$concept_id),
-#                                                            cdm = cdm,
-#                                                            domains = "Condition",
-#                                                            standardConcept = "Standard",
-#                                                            searchInSynonyms = FALSE,
-#                                                            searchNonStandard = FALSE,
-#                                                            includeDescendants = TRUE,
-#                                                            includeAncestor = TRUE)
-
-
 
 
 #staging codes 1 NSCLC
