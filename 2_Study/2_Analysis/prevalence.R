@@ -26,22 +26,17 @@ cli::cli_alert_success("- Got denominator")
   
   }
   
-# instanstiate cohorts for partial prevalence  
-  
 }
 
 
-
-
-
-# Estimate total prevalence -------
+# Estimate prevalence -------
 cli::cli_alert_info("- Getting prevalence")
 
-# total prevalence
+# prevalence until end of observation (total) and partial prevalence at 2 and 5 years
 prev <- estimatePeriodPrevalence(
   cdm,
   denominatorTable = "denominator",
-  outcomeTable = "outcome",
+  outcomeTable = "outcome_p",
   interval = "years",
   completeDatabaseIntervals = TRUE,
   fullContribution = FALSE,
