@@ -28,7 +28,7 @@ tic(msg = "phenotypeR total time run: ")
 # Options and set-up: directories and settings ------
 tic(msg = "Settings and loading of Phoebe")
 
-cohort_json_dir <- here("Cohorts/")
+cohort_json_dir <- here("Cohorts")
 cohorts_name <- "cancer_"
 
 # To export output 
