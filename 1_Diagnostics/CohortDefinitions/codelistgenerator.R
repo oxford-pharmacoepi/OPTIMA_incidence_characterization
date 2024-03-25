@@ -225,6 +225,7 @@ stage2_codes <- getCandidateCodes(
 
 write.csv(stage2_codes, here::here("preliminary_cohorts" ,
                                               paste0(cdmName(cdm), "_stage2_codes.csv")), row.names = FALSE)
+
 #Stage 3
 stage3_codes <- getCandidateCodes(
   cdm = cdm,
@@ -264,6 +265,7 @@ stage3_codes <- getCandidateCodes(
 
 write.csv(stage3_codes, here::here("preliminary_cohorts" ,
                                               paste0(cdmName(cdm), "_stage3_codes.csv")), row.names = FALSE)
+
 #Stage 4
 stage4_codes <- getCandidateCodes(
   cdm = cdm,
@@ -552,7 +554,6 @@ sclc <- reviewed_code_list %>%
   pull(concept_id)
 
 # create cohorts
-
 # 1 broad incidence
 lung_cancer_incident_broad <- cohort(
   entry = entry(
@@ -720,7 +721,6 @@ writeCohort(partial_prev5y_sclc, here::here("preliminary_cohorts",
 
 
 # lung cancer plus stage ------
-
 # lung cancer OR measurement - unable to get nested to work so will take the codes below and create in ATLAS
 
 # broad stage 1
@@ -758,8 +758,6 @@ writeCohort(lung_cancer_incident_broad_stage2, here::here("preliminary_cohorts",
 
 
 
-
-
 # broad stage 3
 lung_cancer_incident_broad_stage3 <- cohort(
   entry = entry(
@@ -793,9 +791,5 @@ lung_cancer_incident_broad_stage4 <- cohort(
 
 writeCohort(lung_cancer_incident_broad_stage4, here::here("preliminary_cohorts",
                                                           "lung_cancer_incident_broad_s4.json"))
-
-
-
-
 
 
