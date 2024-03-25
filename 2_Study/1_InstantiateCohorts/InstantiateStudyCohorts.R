@@ -21,26 +21,8 @@ cdm <- CDMConnector::generateConceptCohortSet(
 if(isTRUE(run_prevalence)){
   
 # instantiate 
-cancer_concepts_tp <- CodelistGenerator::codesFromCohort(
-  path = here::here("2_Study", "1_InstantiateCohorts", "Cohorts", "prevalence", "total" ) ,
-  cdm = cdm,
-  withConceptDetails = FALSE)
-
-
-# instantiate the cohorts with no prior history 
-cdm <- CDMConnector::generateConceptCohortSet(
-  cdm,
-  conceptSet = cancer_concepts_tp,
-  name = "outcome_tp",
-  limit = "first",
-  requiredObservation = c(0, 0),
-  end = "observation_period_end_date",
-  overwrite = TRUE )
-
-
-
-cancer_concepts_tp <- CodelistGenerator::codesFromCohort(
-  path = here::here("2_Study", "1_InstantiateCohorts", "Cohorts", "prevalence", "partial" ) ,
+cancer_concepts_p <- CodelistGenerator::codesFromCohort(
+  path = here::here("2_Study", "1_InstantiateCohorts", "Cohorts", "prevalence" ) ,
   cdm = cdm,
   withConceptDetails = FALSE)
 
@@ -59,4 +41,3 @@ cdm <- CDMConnector::generateConceptCohortSet(
 
 
 cli::cli_alert_success("- Got cancer definitions")
-
