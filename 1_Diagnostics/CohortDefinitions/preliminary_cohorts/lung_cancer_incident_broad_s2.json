@@ -2,7 +2,7 @@
   "ConceptSets": [
     {
       "id": 0,
-      "name": "broad_lung_cancer_end",
+      "name": "lung_cancer_broad_inc",
       "expression": {
         "items": [
           {
@@ -9357,23 +9357,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 4198434,
-              "CONCEPT_NAME": "Local recurrence of malignant tumor of lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "314954002",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36712981,
               "CONCEPT_NAME": "Adenocarcinoma of right lung",
               "STANDARD_CONCEPT": "S",
@@ -9510,6 +9493,2360 @@
           }
         ]
       }
+    },
+    {
+      "id": 1,
+      "name": "stage2",
+      "expression": {
+        "items": [
+          {
+            "concept": {
+              "CONCEPT_ID": 1635007,
+              "CONCEPT_NAME": "IRS-modified TNM stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "IRSm-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633283,
+              "CONCEPT_NAME": "Stage L2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-L2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633286,
+              "CONCEPT_NAME": "AJCC/UICC post therapy clinical Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633320,
+              "CONCEPT_NAME": "AJCC/UICC post therapy clinical Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633325,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy pathological Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-6th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633342,
+              "CONCEPT_NAME": "AJCC/UICC post therapy pathological Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633345,
+              "CONCEPT_NAME": "AJCC/UICC 7th clinical Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-7th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633357,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy clinical Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-7th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633386,
+              "CONCEPT_NAME": "AJCC/UICC 7th pathological Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-7th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633391,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy clinical Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-6th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633409,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy clinical Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-6th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633430,
+              "CONCEPT_NAME": "AJCC/UICC 8th pathological Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-8th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633438,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy pathological Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-8th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633482,
+              "CONCEPT_NAME": "AJCC/UICC 6th Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "6th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633489,
+              "CONCEPT_NAME": "AJCC/UICC clinical Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633535,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy clinical Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-7th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633567,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy pathological Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-8th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633627,
+              "CONCEPT_NAME": "AJCC/UICC 7th Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "7th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633702,
+              "CONCEPT_NAME": "AJCC/UICC pathological Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633751,
+              "CONCEPT_NAME": "AJCC/UICC 6th pathological Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-6th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633753,
+              "CONCEPT_NAME": "AJCC/UICC 6th Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "6th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633756,
+              "CONCEPT_NAME": "AJCC/UICC post therapy clinical Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633813,
+              "CONCEPT_NAME": "AJCC/UICC pathological Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633835,
+              "CONCEPT_NAME": "AJCC/UICC 6th clinical Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-6th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633841,
+              "CONCEPT_NAME": "AJCC/UICC clinical Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633859,
+              "CONCEPT_NAME": "AJCC/UICC pathological Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633861,
+              "CONCEPT_NAME": "AJCC/UICC 7th pathological Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-7th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633873,
+              "CONCEPT_NAME": "AJCC/UICC 6th pathological Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-6th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633907,
+              "CONCEPT_NAME": "Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633915,
+              "CONCEPT_NAME": "AJCC/UICC 7th pathological Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-7th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1633928,
+              "CONCEPT_NAME": "AJCC/UICC 8th pathological Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-8th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634008,
+              "CONCEPT_NAME": "AJCC/UICC 6th clinical Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-6th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634022,
+              "CONCEPT_NAME": "Stage D2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-D2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634028,
+              "CONCEPT_NAME": "AJCC/UICC Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634036,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy pathological Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-8th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634051,
+              "CONCEPT_NAME": "AJCC/UICC 8th pathological Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-8th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634056,
+              "CONCEPT_NAME": "AJCC/UICC 8th clinical Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-8th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634073,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy clinical Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-6th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634123,
+              "CONCEPT_NAME": "AJCC/UICC Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634124,
+              "CONCEPT_NAME": "Stage 2S",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-2S",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634141,
+              "CONCEPT_NAME": "AJCC/UICC 8th clinical Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-8th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634167,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy pathological Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-8th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634177,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy clinical Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-7th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634181,
+              "CONCEPT_NAME": "AJCC/UICC 7th Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "7th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634209,
+              "CONCEPT_NAME": "AJCC/UICC Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634225,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy pathological Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-6th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634226,
+              "CONCEPT_NAME": "AJCC/UICC 8th Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634273,
+              "CONCEPT_NAME": "Masaoka_Koga Stage 2a",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Masaoka_Koga-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634314,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy pathological Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-7th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634316,
+              "CONCEPT_NAME": "AJCC/UICC 8th Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634332,
+              "CONCEPT_NAME": "AJCC/UICC clinical Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634338,
+              "CONCEPT_NAME": "AJCC/UICC Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634341,
+              "CONCEPT_NAME": "Masaoka_Koga Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Masaoka_Koga-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634368,
+              "CONCEPT_NAME": "AJCC/UICC 7th Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "7th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634370,
+              "CONCEPT_NAME": "Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634379,
+              "CONCEPT_NAME": "AJCC/UICC 6th pathological Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-6th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634390,
+              "CONCEPT_NAME": "AJCC/UICC 8th pathological Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-8th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634440,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy pathological Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-6th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634443,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy pathological Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-7th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634453,
+              "CONCEPT_NAME": "Stage 2ES",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-2ES",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634465,
+              "CONCEPT_NAME": "AJCC/UICC 7th clinical Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-7th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634479,
+              "CONCEPT_NAME": "AJCC/UICC 6th clinical Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-6th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634542,
+              "CONCEPT_NAME": "AJCC/UICC 6th Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "6th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634575,
+              "CONCEPT_NAME": "AJCC/UICC 7th pathological Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-7th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634615,
+              "CONCEPT_NAME": "AJCC/UICC 6th pathological Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-6th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634619,
+              "CONCEPT_NAME": "AJCC/UICC 7th pathological Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-7th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634632,
+              "CONCEPT_NAME": "Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634655,
+              "CONCEPT_NAME": "Masaoka_Koga Stage 2b",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Masaoka_Koga-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634677,
+              "CONCEPT_NAME": "AJCC/UICC 6th pathological Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-6th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634718,
+              "CONCEPT_NAME": "AJCC/UICC 6th clinical Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-6th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634760,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy pathological Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-8th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634764,
+              "CONCEPT_NAME": "Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634778,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy clinical Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-6th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634801,
+              "CONCEPT_NAME": "AJCC/UICC 6th clinical Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-6th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634883,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy clinical Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-6th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634886,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy clinical Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-7th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634890,
+              "CONCEPT_NAME": "AJCC/UICC 8th pathological Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-8th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634900,
+              "CONCEPT_NAME": "AJCC/UICC 8th Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634903,
+              "CONCEPT_NAME": "AJCC/UICC Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634914,
+              "CONCEPT_NAME": "AJCC/UICC Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634917,
+              "CONCEPT_NAME": "AJCC/UICC clinical Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634932,
+              "CONCEPT_NAME": "AJCC/UICC 8th clinical Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-8th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634937,
+              "CONCEPT_NAME": "AJCC/UICC 7th Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "7th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634960,
+              "CONCEPT_NAME": "AJCC/UICC pathological Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634970,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy clinical Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-7th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634987,
+              "CONCEPT_NAME": "AJCC/UICC 6th clinical Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-6th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634994,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy pathological Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-7th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1634998,
+              "CONCEPT_NAME": "AJCC/UICC post therapy pathological Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635034,
+              "CONCEPT_NAME": "AJCC/UICC 7th clinical Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-7th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635036,
+              "CONCEPT_NAME": "AJCC/UICC post therapy pathological Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635043,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy clinical Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-8th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635047,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy pathological Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-8th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635056,
+              "CONCEPT_NAME": "AJCC/UICC clinical Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635074,
+              "CONCEPT_NAME": "AJCC/UICC 6th Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "6th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635088,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy pathological Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-7th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635131,
+              "CONCEPT_NAME": "Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635173,
+              "CONCEPT_NAME": "AJCC/UICC post therapy clinical Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635175,
+              "CONCEPT_NAME": "AJCC/UICC pathological Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635177,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy clinical Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-8th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635182,
+              "CONCEPT_NAME": "AJCC/UICC 7th clinical Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-7th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635193,
+              "CONCEPT_NAME": "AJCC/UICC 7th Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "7th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635197,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy pathological Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-7th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635215,
+              "CONCEPT_NAME": "AJCC/UICC 7th Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "7th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635217,
+              "CONCEPT_NAME": "AJCC/UICC 8th clinical Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-8th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635236,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy pathological Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-6th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635239,
+              "CONCEPT_NAME": "AJCC/UICC 6th Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "6th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635243,
+              "CONCEPT_NAME": "AJCC/UICC 7th clinical Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-7th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635288,
+              "CONCEPT_NAME": "AJCC/UICC 8th Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635309,
+              "CONCEPT_NAME": "Stage B2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-B2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635319,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy clinical Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-8th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635334,
+              "CONCEPT_NAME": "AJCC/UICC post therapy pathological Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635366,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy clinical Stage 2C",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-8th_AJCC/UICC-Stage-2C",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635381,
+              "CONCEPT_NAME": "AJCC/UICC 7th pathological Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-7th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635382,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy pathological Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-6th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635386,
+              "CONCEPT_NAME": "AJCC/UICC 8th pathological Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-8th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635388,
+              "CONCEPT_NAME": "Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635399,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy clinical Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-6th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635401,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy clinical Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-8th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635417,
+              "CONCEPT_NAME": "AJCC/UICC 6th post therapy pathological Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-6th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635423,
+              "CONCEPT_NAME": "AJCC/UICC 8th post therapy clinical Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-8th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635428,
+              "CONCEPT_NAME": "AJCC/UICC pathological Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635486,
+              "CONCEPT_NAME": "AJCC/UICC clinical Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635494,
+              "CONCEPT_NAME": "AJCC/UICC 8th Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635541,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy clinical Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-7th_AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635576,
+              "CONCEPT_NAME": "AJCC/UICC post therapy clinical Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635591,
+              "CONCEPT_NAME": "AJCC/UICC 7th post therapy pathological Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-7th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635601,
+              "CONCEPT_NAME": "AJCC/UICC 8th clinical Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-8th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635673,
+              "CONCEPT_NAME": "Durie/Salmon Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "DS-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635689,
+              "CONCEPT_NAME": "AJCC/UICC post therapy pathological Stage 2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-AJCC/UICC-Stage-2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635692,
+              "CONCEPT_NAME": "AJCC/UICC post therapy clinical Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yc-AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635730,
+              "CONCEPT_NAME": "AJCC/UICC 8th Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635774,
+              "CONCEPT_NAME": "AJCC/UICC 6th pathological Stage 2E",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "p-6th_AJCC/UICC-Stage-2E",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635786,
+              "CONCEPT_NAME": "AJCC/UICC 8th clinical Stage 2A",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-8th_AJCC/UICC-Stage-2A",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635809,
+              "CONCEPT_NAME": "AJCC/UICC post therapy pathological Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "yp-AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635877,
+              "CONCEPT_NAME": "AJCC/UICC 6th Stage 2A2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "6th_AJCC/UICC-Stage-2A2",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 1635896,
+              "CONCEPT_NAME": "AJCC/UICC 7th clinical Stage 2B",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "c-7th_AJCC/UICC-Stage-2B",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "Cancer Modifier",
+              "CONCEPT_CLASS_ID": "Staging/Grading"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4123154,
+              "CONCEPT_NAME": "Lung stage L2",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "258320004",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Staging / Scales"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 37109771,
+              "CONCEPT_NAME": "ASQ:SE-2 - Ages and Stages Questionnaires: Social-Emotional second edition",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "723616003",
+              "DOMAIN_ID": "Measurement",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Staging / Scales"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          }
+        ]
+      }
     }
   ],
   "PrimaryCriteria": {
@@ -9517,6 +11854,11 @@
       {
         "ConditionOccurrence": {
           "CodesetId": 0
+        }
+      },
+      {
+        "Measurement": {
+          "CodesetId": 1
         }
       }
     ],
