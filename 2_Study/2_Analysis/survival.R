@@ -49,7 +49,7 @@ cdm$outcome <- mutate(cdm$outcome,
 # remove people with any history of cancer
 codelistExclusion <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
 # add cancer concepts to exclusion concepts to make sure we capture all exclusions
-codelistExclusion <- list(unique(Reduce(union_all, c(cancer_concepts, codelistExclusion))))
+codelistExclusion <- list(unique(Reduce(union_all, c(cancer_concepts_inc, codelistExclusion))))
 
 #rename list of concepts
 names(codelistExclusion) <- "anymalignancy"
