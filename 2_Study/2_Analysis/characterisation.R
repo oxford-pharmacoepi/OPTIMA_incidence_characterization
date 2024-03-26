@@ -27,6 +27,21 @@ summaryDemographics <- cdm$outcome %>%
 
 # run this part if user has said FALSE to survival analysis
 if(isFALSE(run_survival)){
+  
+  cli::cli_alert_info("Add demographics to cohort")
+  cdm$outcome <- cdm$outcome %>% 
+    PatientProfiles::addDemographics(
+      ageGroup = list(
+        "age_group" =
+          list(
+            "18 to 49" = c(18, 49),
+            "50 to 39" = c(50, 59),
+            "60 to 59" = c(60, 69),
+            "70 to 79" = c(70, 79),
+            "80 +" = c(80, 150)
+          )
+      )) 
+  
   suppressWarnings(
     
     summaryDemographics <- cdm$outcome %>%
