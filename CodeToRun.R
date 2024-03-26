@@ -84,7 +84,7 @@ cdm$person %>%
 # Study start date -----
 # please put the study start date if you do not have usable data before "2003-01-01" 
 # for example if you have usable data from 2009 you would put 2010-01-01 (to allow for 1 year prior history)
-study_start <- "2010-01-01"
+study_start <- "2011-01-01"
 
 # Run the study ------
 # For some data partners they may not have be able to run certain studies i.e. a cancer registry
