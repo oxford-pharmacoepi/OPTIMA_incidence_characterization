@@ -2,7 +2,7 @@
   "ConceptSets": [
     {
       "id": 0,
-      "name": "lung_cancer_broad_inc",
+      "name": "lung_cancer_broad_stage_2",
       "expression": {
         "items": [
           {

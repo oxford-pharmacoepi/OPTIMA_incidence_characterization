@@ -15,8 +15,6 @@ library(CodelistGenerator)
 library(ggplot2)
 
 # db with vocab ----
-#server_dbi <- Sys.getenv("DB_SERVER_cdm_ukbiobank_202003_dbi") #ukb
-#server_dbi <- Sys.getenv("DB_SERVER_cdm_gold_202207_dbi") #GOLD
 server_dbi <- Sys.getenv("DB_SERVER_cdm_thin_fr_202308_dbi")
 user       <- Sys.getenv("DB_USER")
 password   <- Sys.getenv("DB_PASSWORD")
@@ -726,7 +724,7 @@ writeCohort(partial_prev5y_sclc, here::here("preliminary_cohorts",
 # broad stage 1
 lung_cancer_incident_broad_stage1 <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_inc"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_1"), db, vocabularyDatabaseSchema = "public")),
     measurement(getConceptSetDetails(cs(stage1_codes$concept_id , name = "stage1"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
@@ -743,7 +741,7 @@ writeCohort(lung_cancer_incident_broad_stage1, here::here("preliminary_cohorts",
 # broad stage 2
 lung_cancer_incident_broad_stage2 <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_inc"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_2"), db, vocabularyDatabaseSchema = "public")),
     measurement(getConceptSetDetails(cs(stage2_codes$concept_id , name = "stage2"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
@@ -761,7 +759,7 @@ writeCohort(lung_cancer_incident_broad_stage2, here::here("preliminary_cohorts",
 # broad stage 3
 lung_cancer_incident_broad_stage3 <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_inc"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_3"), db, vocabularyDatabaseSchema = "public")),
     measurement(getConceptSetDetails(cs(stage3_codes$concept_id , name = "stage3"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
@@ -779,7 +777,7 @@ writeCohort(lung_cancer_incident_broad_stage3, here::here("preliminary_cohorts",
 # broad stage 4
 lung_cancer_incident_broad_stage4 <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_inc"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_4"), db, vocabularyDatabaseSchema = "public")),
     measurement(getConceptSetDetails(cs(stage4_codes$concept_id , name = "stage4"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
