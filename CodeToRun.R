@@ -81,11 +81,17 @@ cdm <- CDMConnector::cdm_from_con(con = db,
 # cdm$person %>% 
 #   tally()
 
+# Study start date -----
+# please put the study start date if you do not have usable data before "2002-12-31" 
+# for example if you have usable data from 2009 you would put 2010-01-01 (to allow for 1 year prior history)
+study_start <- "2010-01-01"
+
 # Run the study ------
 # For some data partners they may not have be able to run certain studies i.e. a cancer registry
 # will not have a background denominator population therefore run_incidence will be set to FALSE
 run_incidence <- TRUE
-run_survival <- TRUE
+run_prevalence <- FALSE
+run_survival <- FALSE
 run_characterisation <- TRUE
 
 source(here("RunStudy.R"))
