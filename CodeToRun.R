@@ -83,7 +83,7 @@ cdm$person %>%
 
 # Study start date -----
 # please put the study start date if you do not have usable data before "2003-01-01" 
-# for example if you have usable data from 2009 you would put 2010-01-01 (to allow for 1 year prior history)
+# for example if you have usable data from 2010 you would put 2011-01-01 (to allow for 1 year prior history)
 study_start <- "2011-01-01"
 
 # Run the study ------
