@@ -220,13 +220,28 @@ ui <- dashboardPage(
       
       tabItem(
         tabName = "inc_attrition",
+        
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
-            inputId = "attrition_cohort_name_selector",
-            label = "Study cohort",
-            choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = "lung",
+            inputId = "attrition_time_selector",
+            label = "Time",
+            choices = unique(incidence_attrition$analysis_interval),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_database_name_selector",
+            label = "Database",
+            choices = unique(incidence_attrition$cdm_name),
+            selected = unique(incidence_attrition$cdm_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -648,6 +663,7 @@ ui <- dashboardPage(
                         label = "Facet by",
                         choices = c("outcome_cohort_name", 
                                     "denominator_sex",
+                                    "cdm_name" ,
                                     "denominator_age_group"),
                         selected = c("outcome_cohort_name"),
                         options = list(
@@ -662,9 +678,10 @@ ui <- dashboardPage(
                         label = "Colour by",
                         choices = c("outcome_cohort_name", 
                                     "denominator_sex",
+                                    "cdm_name" ,
                                     "denominator_age_group"
                                     ),
-                        selected = c("outcome_cohort_name"),
+                        selected = c("outcome_cohort_name", "cdm_name"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
@@ -779,6 +796,7 @@ ui <- dashboardPage(
                         label = "Facet by",
                         choices = c("outcome_cohort_name", 
                                     "denominator_sex",
+                                    "cdm_name",
                                     "age_standard"),
                         selected = c("outcome_cohort_name"),
                         options = list(
@@ -793,9 +811,10 @@ ui <- dashboardPage(
                         label = "Colour by",
                         choices = c("outcome_cohort_name", 
                                     "denominator_sex",
+                                    "cdm_name",
                                     "age_standard"
                         ),
-                        selected = c("age_standard"),
+                        selected = c("age_standard", "cdm_name"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,

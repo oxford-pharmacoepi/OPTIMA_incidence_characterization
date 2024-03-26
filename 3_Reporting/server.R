@@ -22,6 +22,7 @@ server <-	function(input, output, session) {
   get_table_attrition <-reactive({
     
     table <- incidence_attrition %>% 
+      filter(cdm_name %in% input$attrition_database_name_selector) %>% 
       filter(outcome_cohort_name %in% input$attrition_cohort_name_selector) %>% 
       filter(analysis_interval %in% input$attrition_time_selector)
     
