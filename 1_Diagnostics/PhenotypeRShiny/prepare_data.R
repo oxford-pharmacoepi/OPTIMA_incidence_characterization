@@ -109,6 +109,44 @@ data$time_distribution <- tibble(covariate = c("age", "prior_observation", "futu
 
 
 # LSC
+# data$lsc_table <- data$lsc_matched %>%
+#   
+#   
+# variable_name <- c("Phalen's sign", "Phalen's sign", "Eye / vision finding", 
+#                    "Eye / vision finding" , "Asthma daytime symptoms", "Asthma daytime symptoms")
+# variable_level <- c("-inf to -366", "-inf to -366", "-inf to -366", "-inf to -366", "-inf to -366", "-inf to -366"
+#                     )
+# estimate_type <- c("numeric" ,"percentage",
+#                    "numeric" ,"percentage",
+#                    "numeric" ,"percentage")
+# estimate_value <- c(1, 0.108, 5, 0.54, 27, 2.93)
+# 
+# test <- data.frame(variable_name, variable_level, estimate_type, estimate_value)
+# 
+# test <- data$lsc_matched %>%
+#   mutate(
+#     estimate_type = paste0("matched_", estimate_type),
+#     estimate = as.numeric(estimate_value)
+#   ) %>%
+#   pivot_wider(names_from = estimate_type, values_from = estimate) %>%
+#   left_join(
+#     data$lsc_sample %>%
+#       mutate(
+#         estimate_type = paste0("sample_", estimate_type),
+#         estimate = as.numeric(estimate_value)
+#       ) %>%
+#       pivot_wider(names_from = estimate_type, values_from = estimate)) %>%
+#   mutate(
+#     difference_numeric = (sample_numeric - matched_numeric)/matched_numeric,
+#     difference_percentage = (sample_percentage - matched_percentage)/matched_percentage
+#   ) %>%
+#   select(
+#     cdm_name, cohort_name = group_level, concept_name = variable_name,
+#     window = variable_level, matched_numeric, matched_percentage, sample_numeric, sample_percentage,
+#     difference_numeric, difference_percentage
+#   )
+
+
 data$lsc_table <- data$lsc_matched %>%
   mutate(
     estimate_type = paste0("matched_", estimate_type),
