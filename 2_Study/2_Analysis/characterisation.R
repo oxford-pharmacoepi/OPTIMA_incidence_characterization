@@ -1,6 +1,10 @@
 # demographics ----
 cli::cli_alert_info("Summarising Demographics")
 
+
+# run this part if user has said TRUE to survival analysis
+if(isTRUE(run_survival)){
+  
 suppressWarnings(
 
 summaryDemographics <- cdm$outcome %>%
@@ -19,6 +23,29 @@ summaryDemographics <- cdm$outcome %>%
   )
 
 )
+}
+
+# run this part if user has said FALSE to survival analysis
+if(isFALSE(run_survival)){
+  suppressWarnings(
+    
+    summaryDemographics <- cdm$outcome %>%
+      summariseCharacteristics(
+        strata = list(c("sex"),
+                      c("age_group"),
+                      c("age_group", "sex")),
+        ageGroup = list( "18 to 49" = c(18, 49),
+                         "50 to 59" = c(50, 59),
+                         "60 to 69" = c(60, 69),
+                         "70 to 79" = c(70, 79),
+                         "80 +" = c(80, 150)),
+        tableIntersect = list()
+      )
+    
+  )
+}
+
+
 
 write_csv(summaryDemographics %>%
             omopgenerics::suppress(minCellCount = 5), here("Results",db_name, paste0(cdmName(cdm),
@@ -39,6 +66,10 @@ cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm,
 
 
 cli::cli_alert_info("Summarising Comorbidities")
+
+
+# run this part if user has said TRUE to survival analysis
+if(isTRUE(run_survival)){
 
 suppressWarnings(
   
@@ -68,7 +99,40 @@ summaryComorbidity <- cdm$outcome %>%
   )
 
 )
+  
+}
 
+
+# run this part if user has said FALSE to survival analysis
+if(isFALSE(run_survival)){
+  suppressWarnings(
+    
+    summaryComorbidity <- cdm$outcome %>%
+      summariseCharacteristics(
+        strata = list(c("sex"),
+                      c("age_group"),
+                      c("age_group", "sex")),
+        ageGroup = list( "18 to 49" = c(18, 49),
+                         "50 to 59" = c(50, 59),
+                         "60 to 69" = c(60, 69),
+                         "70 to 79" = c(70, 79),
+                         "80 +" = c(80, 150)),
+        tableIntersect = list(),
+        cohortIntersect = list("Comorbidities" = list(
+          targetCohortTable = "conditions",
+          value = "flag",
+          window = list(c(-999999, -1) ,
+                        c(-999999, -366),
+                        c(-365, -31),
+                        c(-30, -1),
+                        c(0, 0))
+        )
+        )
+      )
+    
+  )
+  
+}
 
 write_csv(summaryComorbidity %>%
             omopgenerics::suppress(minCellCount = 5), here("Results",db_name, paste0(cdmName(cdm),
@@ -88,8 +152,10 @@ cdm <- DrugUtilisation::generateDrugUtilisationCohortSet(cdm = cdm,
                                                          name = "medications")
 
 
+# run this part if user has said TRUE to survival analysis
+if(isTRUE(run_survival)){
+  
 suppressWarnings(
-
 summaryMedications <- cdm$outcome %>%
   summariseCharacteristics(
     strata = list(c("sex"),
@@ -118,6 +184,40 @@ summaryMedications <- cdm$outcome %>%
   )
 
 )
+
+}
+
+# run this part if user has said FALSE to survival analysis
+if(isFALSE(run_survival)){
+  suppressWarnings(
+    summaryMedications <- cdm$outcome %>%
+      summariseCharacteristics(
+        strata = list(c("sex"),
+                      c("age_group"),
+                      c("age_group", "sex")),
+        ageGroup = list( "18 to 49" = c(18, 49),
+                         "50 to 59" = c(50, 59),
+                         "60 to 69" = c(60, 69),
+                         "70 to 79" = c(70, 79),
+                         "80 +" = c(80, 150)),
+        tableIntersect = list(),
+        cohortIntersect = list(
+          "Medications" = list(
+            targetCohortTable = "medications",
+            value = "flag",
+            window = list(c(-365, -1),
+                          c(-365, -31),
+                          c(-30, -1),
+                          c(0, 0),
+                          c(1, 30),
+                          c(1, 90),
+                          c(1, 365))
+          ))
+      )
+    
+  )
+  
+}
 
 
 
