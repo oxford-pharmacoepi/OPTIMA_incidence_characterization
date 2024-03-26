@@ -78,8 +78,8 @@ cdm <- CDMConnector::cdm_from_con(con = db,
 
 # # to check whether the DBI connection is correct, 
 # # running the next line should give you a count of your person table
-# cdm$person %>% 
-#   tally()
+cdm$person %>%
+  tally()
 
 # Study start date -----
 # please put the study start date if you do not have usable data before "2003-01-01" 

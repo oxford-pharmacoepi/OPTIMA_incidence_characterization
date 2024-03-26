@@ -61,7 +61,6 @@ if(isFALSE(run_survival)){
 }
 
 
-
 write_csv(summaryDemographics %>%
             omopgenerics::suppress(minCellCount = 5), here("Results",db_name, paste0(cdmName(cdm),
                                                                              "_summary_demographics.csv"
