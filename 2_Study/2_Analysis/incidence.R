@@ -6,7 +6,7 @@ cli::cli_alert_info("- Getting denominator")
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator" ,
-  cohortDateRange = c(as.Date("2002-12-31"), as.Date("2022-12-31")),
+  cohortDateRange = c(as.Date(study_start), as.Date("2023-01-01")),
   requirementInteractions = TRUE,
   ageGroup =list(
     c(18, 150),
@@ -44,7 +44,7 @@ cli::cli_alert_info("- Getting participants from incidence")
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator_parts" ,
-  cohortDateRange = c(as.Date("2002-12-31"), as.Date("2022-12-31")),
+  cohortDateRange = c(as.Date(study_start), as.Date("2023-01-01")),
   ageGroup =list(
     c(18, 150)),
   sex = c("Both"),
