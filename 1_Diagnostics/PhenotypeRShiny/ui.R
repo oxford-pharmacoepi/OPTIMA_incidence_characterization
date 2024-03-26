@@ -372,9 +372,18 @@ ui <- dashboardPage(
           tabPanel(
             "Plot",
             h4(),
-            plotSelectors("plsc_facet", 
-                          c("cohort_name", "cdm_name", "window"),
-                          type = "facet_by"),
+            pickerInput(
+              inputId = "plsc_facet",
+              label = "facet_by",
+              choices = c("cohort_name", "cdm_name", "window"),
+              selected = c("cohort_name", "cdm_name", "window"),
+              options = list(
+                `actions-box` = TRUE,
+                size = 10,
+                `selected-text-format` = "count > 3"
+              ),
+              multiple = TRUE) ,
+            
             plotlyOutput('lsc_plot', height = "800px") %>% withSpinner()
           )
         )

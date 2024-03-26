@@ -370,9 +370,11 @@ server <- function(input, output, session) {
       niceColumnNames() %>% 
       select(input$select_lsc_columns)
   })
-  output$lsc_plot <- renderPlotly({
-    table <- filterData(data$lsc_table, "lsc", input) %>% 
-      mutate(label = paste0(concept_name, "; ", window))
+    
+    output$lsc_plot <- renderPlotly({
+     
+     table <- data$lsc_table %>% 
+       mutate(label = paste0(concept_name, "; ", window))
     
     if(!is.null(input$plsc_facet)){
       p <- table %>%
