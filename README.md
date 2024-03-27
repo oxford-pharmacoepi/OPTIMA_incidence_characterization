@@ -9,6 +9,8 @@
 
 ---
 
+## Repository organisation
+
 This repo is organized as follows:
 - [1_Diagnostics](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/1_Diagnostics): Please find the folders for the diagnostics of cancer phenotypes related to the study. [CohortDefinitions](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/1_Diagnostics/CohortDefinitions) has the code related to developing the initial codelists using codelistgenerator. [PhenotypeR](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/1_Diagnostics/PhenotypeR) contains the code to perform cohort diagnostics for phenotypes and [PhenotypeRShiny](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/1_Diagnostics/PhenotypeRShiny) contains the shiny to review results from PhenotypeR.
 - [2_Study](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/2_Study): please find there the relevant code to obtain the study results.
