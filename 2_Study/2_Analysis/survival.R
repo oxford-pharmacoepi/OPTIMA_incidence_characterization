@@ -41,7 +41,7 @@ cdm$outcome <- cdm$outcome %>%
 cdm$outcome <- mutate(cdm$outcome, 
                       diag_yr_gp = cut(year,
                                        breaks = seq(as.Date("2003-01-01"), as.Date("2023-01-01"), by = "5 years"), 
-                                       labels = c("2003-2006", "2007-2010", "2011-2014", "2015-2018", "2019-2023"),
+                                       labels = c("2003-2007", "2008-2012", "2013-2017", "2018-2022"),
                                        include.lowest = TRUE))
 
 
