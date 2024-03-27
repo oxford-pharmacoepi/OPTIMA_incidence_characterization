@@ -1,7 +1,7 @@
 # Incidence, Prevalence and Survival - OPTIMA
 <img src="https://img.shields.io/badge/Study%20Status-Started-blue.svg" alt="Study Status: Started">
 
-- **Study title**: The Worldwide incidence of lung cancer
+- **Study title**: The Worldwide Incidence of Lung Cancer
 - **Study leads**: Danielle Newby (danielle.newby@ndorms.ox.ac.uk)
 - **ShinyApp PhenotypeR**:
 - **ShinyApp Main Study**:
@@ -10,7 +10,7 @@
 ---
 
 This repo is organized as follows:
-- [1_Diagnostics](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/1_Diagnostics): please find there the repository for the diagnostics of cancer phenotypes related to the study. CohortDefinitions has the code related to developing the initial codelists. PhenotypeR contains the code to perform cohort diagnostics using PhenotypeR and PhenotypeRShiny contains the shiny to review results from PhenotypeR.
+- [1_Diagnostics](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/1_Diagnostics): please find there the repository for the diagnostics of cancer phenotypes related to the study. CohortDefinitions has the code related to developing the initial codelists. PhenotypeR contains the code to perform cohort diagnostics using [PhenotypeR](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/1_Diagnostics/PhenotypeR) and [PhenotypeRShiny](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/1_Diagnostics/PhenotypeRShiny) contains the shiny to review results from PhenotypeR.
 - [2_Study](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/2_Study): please find there the relevant code to obtain the study results.
 - [3_Reporting](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/3_Reporting): please find there the code to visualise the results with the shiny app.
 
