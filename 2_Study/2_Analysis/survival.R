@@ -96,8 +96,8 @@ cdm$outcome <- cdm$outcome %>%
   filter(is.na(death_date) | death_date <= observation_period_end_date)
 
 #update the attrition
-cdm$outcome <- cdm$outcome |> 
-  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
+cdm$outcome <- cdm$outcome %>% 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   CDMConnector::recordCohortAttrition(reason="Exclude patients where death occurs outside of observation end date" )
 
 # remove those with date of death and cancer diagnosis on same date
@@ -108,7 +108,7 @@ cdm$outcome <- cdm$outcome %>%
   ))
 
 # update the attrition
-cdm$outcome <- cdm$outcome |> 
+cdm$outcome <- cdm$outcome %>% 
   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
   CDMConnector::recordCohortAttrition(reason="Exclude patients with death date same as cancer diagnosis date" )
 
@@ -165,8 +165,8 @@ cdm$outcome <- cdm$outcome %>%
   dplyr::filter(anymalignancy_minf_to_m1 != 1)
 
 # make outcome a perm table and update the attrition
-cdm$outcome <- cdm$outcome |> 
-  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
+cdm$outcome <- cdm$outcome %>% 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   recordCohortAttrition(reason="Exclude patients with any prior history of maglinancy (ex skin cancer)")
 
 #remove people with date of death outside of their observation period end
@@ -186,8 +186,8 @@ cdm$outcome <- cdm$outcome %>%
   filter(is.na(death_date) | death_date <= observation_period_end_date)
 
 #update the attrition
-cdm$outcome <- cdm$outcome |> 
-  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
+cdm$outcome <- cdm$outcome %>% 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   CDMConnector::recordCohortAttrition(reason="Exclude patients where death occurs outside of observation end date" )
 
 # remove those with date of death and cancer diagnosis on same date
@@ -198,8 +198,8 @@ cdm$outcome <- cdm$outcome %>%
             ))
 
 # update the attrition
-cdm$outcome <- cdm$outcome |> 
-  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
+cdm$outcome <- cdm$outcome %>% 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
  CDMConnector::recordCohortAttrition(reason="Exclude patients with death date same as cancer diagnosis date" )
 
 }
