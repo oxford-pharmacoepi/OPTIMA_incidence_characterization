@@ -221,7 +221,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   surv <- estimateSingleEventSurvival(cdm = cdm,
                                       followUpDays = 1827,
                                       censorOnCohortExit = TRUE ,
-                                      censorOnDate = as.Date("2022-12-31") ,
+                                      censorOnDate = as.Date("2023-01-01") ,
                                       eventGap = c(5) ,
                                       estimateGap = c(5) ,
                                       targetCohortTable = "outcome",
