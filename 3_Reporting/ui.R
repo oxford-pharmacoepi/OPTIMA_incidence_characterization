@@ -143,7 +143,7 @@ ui <- dashboardPage(
       # background  ------
       tabItem(
         tabName = "background",
-        h3("Incidence and Survival of Lung Cancer: a multinational cohort study"),
+        h3("Worldwide incidence of lung cancer: a multinational cohort study"),
         tags$h4(tags$strong("Please note, the results presented here should be considered as
                                                 preliminary and subject to change.")),
         
