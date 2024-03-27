@@ -18,8 +18,8 @@ cdm$outcome <- cdm$outcome %>%
                     by = c("subject_id")) %>%
   dplyr::compute()
 
-cdm$outcome <- cdm$outcome |> 
-  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
+cdm$outcome <- cdm$outcome %>% 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   recordCohortAttrition(reason="Excluding cases from excluded from incidence analysis")
 
 cli::cli_alert_info("Add demographics to cohort")
@@ -38,11 +38,11 @@ cdm$outcome <- cdm$outcome %>%
   mutate(year = year(cohort_start_date))
 
 # create diagnosis age band groups
-cdm$outcome <- mutate(cdm$outcome, 
-                      diag_yr_gp = cut(year,
-                                       breaks = seq(as.Date("2003-01-01"), as.Date("2023-01-01"), by = "5 years"), 
-                                       labels = c("2003-2007", "2008-2012", "2013-2017", "2018-2022"),
-                                       include.lowest = TRUE))
+cdm$outcome <- cdm$outcome %>%
+  mutate(diag_yr_gp = cut(year,
+                          breaks = c(2003, 2008, 2013, 2018, 2023),
+                          labels = c("2003-2007", "2008-2012", "2013-2017", "2018-2022"),
+                          include.lowest = TRUE)) 
 
 
 # add in exclusion criteria
@@ -75,8 +75,8 @@ cdm$outcome <- cdm$outcome %>%
   dplyr::filter(anymalignancy_minf_to_m1 != 1)
 
 # make outcome a perm table and update the attrition
-cdm$outcome <- cdm$outcome |> 
-  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) |> 
+cdm$outcome <- cdm$outcome %>% 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   recordCohortAttrition(reason="Exclude patients with any prior history of maglinancy (ex skin cancer)")
 
 #remove people with date of death outside of their observation period end
@@ -130,11 +130,11 @@ cdm$outcome <- cdm$outcome %>%
   mutate(year = year(cohort_start_date))
   
 # create diagnosis age band groups
-cdm$outcome <- mutate(cdm$outcome, 
-                      diag_yr_gp = cut(year,
-                                       breaks = seq(as.Date("2003-01-01"), as.Date("2023-01-01"), by = "5 years"), 
-                                       labels = c("2003-2007", "2008-2012", "2013-2017", "2018-2022"),
-                                       include.lowest = TRUE))
+cdm$outcome <- cdm$outcome %>%
+  mutate(diag_yr_gp = cut(year,
+                          breaks = c(2003, 2008, 2013, 2018, 2023),
+                          labels = c("2003-2007", "2008-2012", "2013-2017", "2018-2022"),
+                          include.lowest = TRUE)) 
 
 # add in exclusion criteria
 # remove people with any history of cancer
