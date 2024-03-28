@@ -175,7 +175,6 @@ cdm$outcome <- cdm$outcome %>%
   recordCohortAttrition(reason="Exclude patients outside study period")
 
 
-
 #for those with prior history remove those with less than 365 days of prior history -------
 cdm$outcome <- cdm$outcome %>% 
   filter(prior_observation >= 365) 
