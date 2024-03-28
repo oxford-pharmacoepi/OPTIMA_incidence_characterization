@@ -113,9 +113,10 @@ cdm$outcome <- cdm$outcome %>%
 cdm$outcome <- cdm$outcome %>%
   dplyr::filter(flag_allmalignancy_0_to_0 != 1)
 
-cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
-                                                   reason="Exclude patients with multiple cancers on different sites diagnosed on same day" )
-
+#update the attrition
+cdm$outcome <- cdm$outcome %>% 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+  CDMConnector::recordCohortAttrition(reason="Exclude patients with multiple cancers on different sites diagnosed on same day" )
 
 #remove people with date of death outside of their observation period end -----
 cdm$outcome <- cdm$outcome %>% 
@@ -250,8 +251,10 @@ cdm$outcome <- cdm$outcome %>%
 cdm$outcome <- cdm$outcome %>%
   dplyr::filter(flag_allmalignancy_0_to_0 != 1)
 
-cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
-                                                   reason="Exclude patients with multiple cancers on different sites diagnosed on same day" )
+#update the attrition
+cdm$outcome <- cdm$outcome %>% 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+  CDMConnector::recordCohortAttrition(reason="Exclude patients with multiple cancers on different sites diagnosed on same day" )
 
 
 #remove people with date of death outside of their observation period end -----
