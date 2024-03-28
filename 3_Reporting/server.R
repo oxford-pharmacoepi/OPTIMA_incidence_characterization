@@ -21,6 +21,16 @@ server <-	function(input, output, session) {
   # incidence attrition -----
   get_table_attrition <-reactive({
     
+    
+    
+    validate(need(input$attrition_database_name_selector != "", "Please select a database"))
+    validate(need(input$attrition_outcome_selector != "", "Please select an outcome"))
+    validate(need(input$attrition_sex_selector != "", "Please select sex group"))
+    validate(need(input$attrition_age_selector != "", "Please select age group"))
+    validate(need(input$attrition_time_selector != "", "Please select time period"))
+    
+    
+    
     table <- incidence_attrition %>% 
       filter(cdm_name %in% input$attrition_database_name_selector) %>% 
       filter(outcome_cohort_name %in% input$attrition_outcome_selector) %>% 
@@ -97,6 +107,8 @@ server <-	function(input, output, session) {
 
 
     demo_characteristics
+    
+    
   })
 
 

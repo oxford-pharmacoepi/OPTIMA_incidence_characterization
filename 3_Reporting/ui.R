@@ -299,7 +299,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "demographics_cohort_selector",
-            label = "Cancer",
+            label = "Outcome",
             choices = unique(demo_characteristics$group_level),
             selected = unique(demo_characteristics$group_level),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -463,9 +463,9 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "inc_estimates_cohort_selector",
-            label = "Cancer",
+            label = "Outcome",
             choices = unique(incidence_estimates$outcome_cohort_name),
-            selected = "lung",
+            selected = unique(incidence_estimates$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -500,9 +500,9 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "inc_estimates_cohort_selector_std",
-            label = "Cancer",
+            label = "Outcome",
             choices = unique(incidence_estimates_std$outcome_cohort_name),
-            selected = "lung",
+            selected = unique(incidence_estimates_std$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -525,9 +525,9 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "risk_table_cohort_name_selector",
-            label = "Study cohort",
+            label = "Outcome",
             choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = "lung",
+            selected = unique(incidence_attrition$outcome_cohort_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -564,7 +564,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "median_cohort_name_selector",
-            label = "Study cohort",
+            label = "Outcome",
             choices = unique(survival_median_table$group_level),
             selected = "lung",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -625,7 +625,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "incidence_cohort_name_selector",
-            label = "Cancer",
+            label = "Outcome",
             choices = unique(incidence_estimates$outcome_cohort_name),
             selected = unique(incidence_estimates$outcome_cohort_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -904,7 +904,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "attrition_cohort_name_selector1",
-            label = "Cancer",
+            label = "Outcome",
             choices = unique(survival_attrition$outcome_cohort_name),
             selected = "lung",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),

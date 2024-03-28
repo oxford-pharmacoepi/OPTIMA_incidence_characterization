@@ -243,7 +243,8 @@ for(i in seq_along(tableone_demo_files)){
   tableone_demo[[i]] <- readr::read_csv(tableone_demo_files[[i]],
                                                  show_col_types = FALSE)  
 }
-demo_characteristics <- dplyr::bind_rows(tableone_demo)
+demo_characteristics <- dplyr::bind_rows(tableone_demo) %>% 
+  select(!c(result_id)) 
 
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
@@ -253,7 +254,8 @@ for(i in seq_along(tableone_med_files)){
   tableone_med[[i]] <- readr::read_csv(tableone_med_files[[i]],
                                         show_col_types = FALSE)  
 }
-med_characteristics <- dplyr::bind_rows(tableone_med)
+med_characteristics <- dplyr::bind_rows(tableone_med)  %>% 
+  select(!c(result_id)) 
 
 # table one comorbidities ------
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
@@ -263,7 +265,8 @@ for(i in seq_along(tableone_comorb_files)){
   tableone_comorb[[i]] <- readr::read_csv(tableone_comorb_files[[i]],
                                        show_col_types = FALSE)  
 }
-comorb_characteristics <- dplyr::bind_rows(tableone_comorb)
+comorb_characteristics <- dplyr::bind_rows(tableone_comorb)  %>% 
+  select(!c(result_id)) 
 
 }
 
