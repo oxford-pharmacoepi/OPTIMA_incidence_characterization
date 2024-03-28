@@ -132,9 +132,23 @@ cdm$outcome <- cdm$outcome %>%
 # create diagnosis age band groups
 cdm$outcome <- cdm$outcome %>%
   mutate(diag_yr_gp = cut(year,
-                          breaks = c(2003, 2008, 2013, 2018, 2023),
+                          breaks = c(2003, 2008, 2013, 2018, 2024),
                           labels = c("2003-2007", "2008-2012", "2013-2017", "2018-2022"),
                           include.lowest = TRUE)) 
+
+
+# remove those outside the study period
+cdm$outcome <- cdm$outcome %>%
+  dplyr::filter(!is.na(diag_yr_gp)) %>% 
+  dplyr::filter(cohort_start_date <= as.Date("2023-01-01"))
+
+# make outcome a perm table and update the attrition
+cdm$outcome <- cdm$outcome %>% 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+  recordCohortAttrition(reason="Exclude patients outside study period")
+
+
+
 
 # add in exclusion criteria
 # remove people with any history of cancer
