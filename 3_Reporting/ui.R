@@ -224,16 +224,39 @@ ui <- dashboardPage(
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
-            inputId = "attrition_time_selector",
-            label = "Time",
-            choices = unique(incidence_attrition$analysis_interval),
-            selected = "overall",
+            inputId = "attrition_outcome_selector",
+            label = "Outcome",
+            choices = unique(incidence_attrition$outcome_cohort_name),
+            selected = unique(incidence_attrition$outcome_cohort_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_sex_selector",
+            label = "Sex",
+            choices = unique(incidence_attrition$denominator_sex),
+            selected = "Both",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
         
         
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_age_selector",
+            label = "Age Group",
+            choices = unique(incidence_attrition$denominator_age_group),
+            selected = unique(incidence_attrition$denominator_age_group)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",

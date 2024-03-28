@@ -23,10 +23,13 @@ server <-	function(input, output, session) {
     
     table <- incidence_attrition %>% 
       filter(cdm_name %in% input$attrition_database_name_selector) %>% 
-      filter(outcome_cohort_name %in% input$attrition_cohort_name_selector) %>% 
+      filter(outcome_cohort_name %in% input$attrition_outcome_selector) %>% 
+      filter(denominator_sex %in% input$attrition_sex_selector) %>% 
+      filter(denominator_age_group %in% input$attrition_age_selector) %>% 
       filter(analysis_interval %in% input$attrition_time_selector)
     
     table
+    
   }) 
   
   output$tbl_incidence_attrition <- renderText(kable(get_table_attrition()) %>%
