@@ -83,7 +83,7 @@ cdm$outcome <- cdm$outcome %>%
 codelistExclusion1 <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
 
 # merge all concepts for all cancers together
-codes2remove <- list(unique(Reduce(union_all, c(cancer_concepts))))
+codes2remove <- list(unique(Reduce(union_all, c(cancer_concepts_inc))))
 names(codes2remove) <- "allmalignancy"
 
 # remove lists from our cancers of interest from the any malignancy list
@@ -227,7 +227,7 @@ cdm$outcome <- cdm$outcome %>%
 codelistExclusion1 <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
 
 # merge all concepts for all cancers together
-codes2remove <- list(unique(Reduce(union_all, c(cancer_concepts))))
+codes2remove <- list(unique(Reduce(union_all, c(cancer_concepts_inc))))
 names(codes2remove) <- "allmalignancy"
 
 # remove lists from our cancers of interest from the any malignancy list
