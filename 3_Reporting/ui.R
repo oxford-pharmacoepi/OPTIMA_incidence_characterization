@@ -384,6 +384,19 @@ ui <- dashboardPage(
           )
         ),
         
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "comorb_time_selector",
+            label = "Time",
+            choices = unique(comorb_characteristics$additional_level),
+            selected = "conditions and -999999 to -1",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
         # tags$hr(),
         gt_output("gt_comorb_characteristics") %>% 
           withSpinner() ,
@@ -419,6 +432,18 @@ ui <- dashboardPage(
             label = "Demographics",
             choices = unique(med_characteristics$strata_level),
             selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "med_time_selector",
+            label = "Time",
+            choices = unique(med_characteristics$additional_level),
+            selected = "medications and -365 to -1",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -620,6 +645,7 @@ ui <- dashboardPage(
             multiple = TRUE
           )
         ),
+        
   
         htmlOutput("dt_surv_stats"),
         

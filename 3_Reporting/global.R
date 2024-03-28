@@ -199,7 +199,7 @@ for(i in seq_along(survival_attrition_files)){
                                            show_col_types = FALSE)
 }
 survival_attrition <- dplyr::bind_rows(survival_attrition) %>% 
-  filter(group_level != remove_outcomes )
+  filter(outcome_cohort_name != remove_outcomes )
 
 
 # survival summaries ------

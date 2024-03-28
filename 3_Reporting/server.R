@@ -139,9 +139,16 @@ server <-	function(input, output, session) {
       need(input$comorb_selector != "", "Please select a demographic")
     )
     
+    validate(
+      need(input$comorb_time_selector != "", "Please select a demographic time period")
+    )
+    
+    
+    
     comorb_characteristics <- comorb_characteristics %>%
       filter(strata_level %in% input$comorb_selector) %>%
-      filter(group_level %in% input$comorb_cohort_selector)
+      filter(group_level %in% input$comorb_cohort_selector) %>% 
+      filter(additional_level %>% input$comorb_time_selector)
     
     
     comorb_characteristics
