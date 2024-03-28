@@ -99,15 +99,10 @@ cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm,
 # create a flag of anyone with MALIGNANT NEOPLASTIC DISEASE (excluding skin cancer) ON cancer diagnosis date but removing our codes of interest
 # in doing so we are capturing people with other cancers on the same day and wont exclude everyone
 cdm$outcome <- cdm$outcome %>%
-  PatientProfiles::addCohortIntersect(
-    cdm = cdm,
+  PatientProfiles::addCohortIntersectFlag(
     targetCohortTable = "allmalignancy",
     targetStartDate = "cohort_start_date",
     targetEndDate = "cohort_end_date",
-    flag = TRUE,
-    count = FALSE,
-    date = FALSE,
-    days = FALSE,
     window = list(c(0, 0))
   )
 
@@ -243,18 +238,12 @@ cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm,
 # create a flag of anyone with MALIGNANT NEOPLASTIC DISEASE (excluding skin cancer) ON cancer diagnosis date but removing our codes of interest
 # in doing so we are capturing people with other cancers on the same day and wont exclude everyone
 cdm$outcome <- cdm$outcome %>%
-  PatientProfiles::addCohortIntersect(
-    cdm = cdm,
+  PatientProfiles::addCohortIntersectFlag(
     targetCohortTable = "allmalignancy",
     targetStartDate = "cohort_start_date",
     targetEndDate = "cohort_end_date",
-    flag = TRUE,
-    count = FALSE,
-    date = FALSE,
-    days = FALSE,
     window = list(c(0, 0))
   )
-
 
 cdm$outcome <- cdm$outcome %>%
   dplyr::distinct(subject_id, .keep_all = TRUE)
