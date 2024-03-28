@@ -63,7 +63,7 @@ ui <- dashboardPage(
       menuItem(
         text = "Incidence",
         tabName = "incidence",
-        icon = shiny::icon("chart-line") ,
+        icon = shiny::icon("shower") ,
         menuSubItem(
           text = "Crude Plots",
           tabName = "inc_plots"
@@ -87,6 +87,31 @@ ui <- dashboardPage(
         menuSubItem(
           text = "Attrition Figure",
           tabName = "inc_attrition_fig"
+        )
+        
+      ),
+      
+      
+      
+      menuItem(
+        text = "Prevalence",
+        tabName = "prevalence",
+        icon = shiny::icon("bath") ,
+        menuSubItem(
+          text = "Plots",
+          tabName = "prev_plots"
+        ),
+        menuSubItem(
+          text = "Prevalence Estimates",
+          tabName = "prev_rates"
+        ),
+        menuSubItem(
+          text = "Attrition Table",
+          tabName = "prev_attrition"
+        ),
+        menuSubItem(
+          text = "Attrition Figure",
+          tabName = "prev_attrition_fig"
         )
         
       ),
@@ -339,7 +364,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "comorb_cohort_selector",
-            label = "Cancer",
+            label = "Outcome",
             choices = unique(comorb_characteristics$group_level),
             selected = unique(comorb_characteristics$group_level),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -379,7 +404,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "med_cohort_selector",
-            label = "Cancer",
+            label = "Outcome",
             choices = unique(med_characteristics$group_level),
             selected = unique(med_characteristics$group_level),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -421,7 +446,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "codelist_cohort_selector",
-            label = "Cancer",
+            label = "Outcome",
             choices = unique(concepts_lists$Cancer),
             selected = "Lung",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -769,7 +794,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "incidence_cohort_name_selector_std",
-            label = "Cancer",
+            label = "Outcome",
             choices = unique(incidence_estimates_std$outcome_cohort_name),
             selected = unique(incidence_estimates_std$outcome_cohort_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -947,7 +972,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "attrition_cohort_name_selector",
-            label = "Study cohort",
+            label = "Outcome",
             choices = unique(survival_attrition$outcome_cohort_name),
             selected = "lung",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -986,7 +1011,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "survival_cohort_name_selector",
-            label = "Cancer",
+            label = "Outcome",
             choices = unique(survival_estimates$group_level),
             selected = unique(survival_estimates$group_level),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
