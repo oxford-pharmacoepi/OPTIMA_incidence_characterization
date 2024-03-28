@@ -147,9 +147,6 @@ cdm$outcome <- cdm$outcome %>%
   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   recordCohortAttrition(reason="Exclude patients outside study period")
 
-
-
-
 # add in exclusion criteria
 # remove people with any history of cancer
 codelistExclusion <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
