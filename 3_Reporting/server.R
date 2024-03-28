@@ -301,10 +301,20 @@ server <-	function(input, output, session) {
       need(input$inc_est_analysis_selector != "", "Please select analysis interval")
     )
     
+    validate(
+      need(input$inc_est_sex_selector != "", "Please select sex group")
+    )
+    
+    validate(
+      need(input$inc_est_age_selector != "", "Please select age group")
+    )
+    
     
     table <- incidence_estimates %>%
       filter(outcome_cohort_name %in% input$inc_estimates_cohort_selector) %>%
       filter(analysis_interval %in% input$inc_est_analysis_selector) %>% 
+      filter(denominator_sex %in% input$inc_est_sex_selector) %>% 
+      filter(denominator_age_group %in% input$inc_est_age_selector) %>% 
       relocate(outcome_cohort_name) %>% 
       select(-c(outcome_cohort_id,
                 analysis_repeated_events,
@@ -353,9 +363,23 @@ server <-	function(input, output, session) {
       need(input$inc_estimates_cohort_selector_std != "", "Please select a cohort")
     )
     
+    validate(
+      need(input$inc_estimates_sex_selector_std != "", "Please select sex group")
+    )
+    
+    
+    validate(
+      need(input$inc_estimates_database_selector_std != "", "Please select database")
+    )
+    
+    
+    
     table <- incidence_estimates_std %>%
       filter(outcome_cohort_name %in% input$inc_estimates_cohort_selector_std) %>%
-      relocate(outcome_cohort_name) 
+      filter(denominator_sex %in% input$inc_estimates_sex_selector_std) %>%
+      filter(cdm_name %in% input$inc_estimates_database_selector_std) %>%
+      relocate(outcome_cohort_name) %>% 
+      select(-c(denominator_age_group))
    
     
     table
@@ -390,10 +414,20 @@ server <-	function(input, output, session) {
       need(input$prev_estimates_cdm_selector != "", "Please select database")
     )
     
+    validate(
+      need(input$prev_estimates_sex_selector != "", "Please select sex group")
+    )
+    
+    validate(
+      need(input$prev_estimates_age_selector != "", "Please select age group")
+    )
+    
     
     table <- prevalence_estimates %>%
       filter(outcome_cohort_name %in% input$prev_estimates_cohort_selector) %>%
       filter(cdm_name %in% input$prev_estimates_cdm_selector) %>% 
+      filter(denominator_sex %in% input$prev_estimates_sex_selector) %>% 
+      filter(denominator_age_group %in% input$prev_estimates_age_selector) %>% 
       relocate(outcome_cohort_name) %>% 
       select(-c(outcome_cohort_id,
                 population_obscured,

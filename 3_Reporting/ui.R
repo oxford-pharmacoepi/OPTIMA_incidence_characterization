@@ -73,11 +73,11 @@ ui <- dashboardPage(
           tabName = "inc_plots_std"
         ),
         menuSubItem(
-          text = "Crude Incidence Estimates",
+          text = "Crude Estimates",
           tabName = "inc_rates"
         ),
         menuSubItem(
-          text = "Std Incidence Estimates",
+          text = "Age Standardized Estimates",
           tabName = "inc_rates_std"
         ),
         menuSubItem(
@@ -530,6 +530,33 @@ ui <- dashboardPage(
           )
         ),
         
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "inc_est_sex_selector",
+            label = "Sex",
+            choices = unique(incidence_estimates$denominator_sex),
+            selected = "Both",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "inc_est_age_selector",
+            label = "Age Group",
+            choices = unique(incidence_estimates$denominator_age_group),
+            selected = "18 to 150",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
         htmlOutput('dt_inc_est_table'),
         
         div(style="display:inline-block",
@@ -554,6 +581,34 @@ ui <- dashboardPage(
             multiple = TRUE
           )
         ),
+        
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "inc_estimates_sex_selector_std",
+            label = "Sex",
+            choices = unique(incidence_estimates_std$denominator_sex),
+            selected = "Both",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "inc_estimates_database_selector_std",
+            label = "Database",
+            choices = unique(incidence_estimates_std$cdm_name),
+            selected = unique(incidence_estimates_std$cdm_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
+        
         
         htmlOutput('dt_inc_est_table_std'),
         
@@ -677,6 +732,32 @@ ui <- dashboardPage(
             label = "Database",
             choices = unique(prevalence_estimates$cdm_name),
             selected = unique(prevalence_estimates$cdm_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "prev_estimates_sex_selector",
+            label = "Sex",
+            choices = unique(prevalence_estimates$denominator_sex),
+            selected = "Both",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "prev_estimates_age_selector",
+            label = "Age Group",
+            choices = unique(prevalence_estimates$denominator_age_group),
+            selected = "18 to 150",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
