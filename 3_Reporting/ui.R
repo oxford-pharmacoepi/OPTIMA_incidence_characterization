@@ -91,8 +91,6 @@ ui <- dashboardPage(
         
       ),
       
-      
-      
       menuItem(
         text = "Prevalence",
         tabName = "prevalence",
@@ -115,7 +113,6 @@ ui <- dashboardPage(
         )
         
       ),
-      
       
       menuItem(
         text = "Survival",
