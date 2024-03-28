@@ -591,7 +591,7 @@ ui <- dashboardPage(
             inputId = "median_cohort_name_selector",
             label = "Outcome",
             choices = unique(survival_median_table$group_level),
-            selected = "lung",
+            selected = unique(survival_median_table$group_level)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -729,7 +729,7 @@ ui <- dashboardPage(
                                     "cdm_name" ,
                                     "denominator_age_group"
                                     ),
-                        selected = c("outcome_cohort_name", "cdm_name"),
+                        selected = c("cdm_name"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
@@ -931,7 +931,7 @@ ui <- dashboardPage(
             inputId = "attrition_cohort_name_selector1",
             label = "Outcome",
             choices = unique(survival_attrition$outcome_cohort_name),
-            selected = "lung",
+            selected = unique(survival_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = FALSE
           )

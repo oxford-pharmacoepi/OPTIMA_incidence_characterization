@@ -113,8 +113,22 @@ for(i in seq_along(incidence_estimates_files)){
   incidence_estimates[[i]]<-readr::read_csv(incidence_estimates_files[[i]], 
                                             show_col_types = FALSE)  
 }
-incidence_estimates <- dplyr::bind_rows(incidence_estimates)
 
+incidence_estimates <- dplyr::bind_rows(incidence_estimates) 
+
+
+# perform a filter to remove data with no values ie small cell lung cancer
+remove_outcomes <- incidence_estimates %>% 
+  filter(analysis_interval == "overall") %>% 
+  filter(denominator_sex == "Both") %>% 
+  filter(denominator_age_group == "18 to 150") %>% 
+  group_by(outcome_cohort_name) %>%
+  filter(sum(n_events) == 0) %>% 
+  distinct(outcome_cohort_name) %>% 
+  pull(outcome_cohort_name)
+
+incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
+  filter(outcome_cohort_name != remove_outcomes )
 
 # age standardized incidence estimates -----
 incidence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
@@ -126,7 +140,8 @@ for(i in seq_along(incidence_estimates_files_std)){
   incidence_estimates_std[[i]]<-readr::read_csv(incidence_estimates_files_std[[i]], 
                                             show_col_types = FALSE)  
 }
-incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std)
+incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
+  filter(outcome_cohort_name != remove_outcomes )
 
 # incidence attrition -----
 incidence_attrition_files<-results[stringr::str_detect(results, ".csv")]
@@ -136,7 +151,8 @@ for(i in seq_along(incidence_attrition_files)){
   incidence_attrition[[i]]<-readr::read_csv(incidence_attrition_files[[i]], 
                                             show_col_types = FALSE)  
 }
-incidence_attrition <- dplyr::bind_rows(incidence_attrition)
+incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
+  filter(outcome_cohort_name != remove_outcomes )
 
 # incidence settings ------
 incidence_settings_files<-results[stringr::str_detect(results, ".csv")]
@@ -146,7 +162,8 @@ for(i in seq_along(incidence_settings_files)){
   incidence_settings[[i]]<-readr::read_csv(incidence_settings_files[[i]], 
                                             show_col_types = FALSE)  
 }
-incidence_settings <- dplyr::bind_rows(incidence_settings)
+incidence_settings <- dplyr::bind_rows(incidence_settings) %>% 
+  filter(outcome_cohort_name != remove_outcomes )
 
 }
 
@@ -168,7 +185,8 @@ survival_estimates <- dplyr::bind_rows(survival_estimates) %>%
     overall = FALSE) %>% 
   mutate(time = as.numeric(time)) %>% 
   pivot_wider(names_from = estimate_name, values_from = estimate_value) %>% 
-  filter(estimate_type == "Survival probability")
+  filter(estimate_type == "Survival probability") %>% 
+  filter(group_level != remove_outcomes )
 
 
 # survival attrition ------
@@ -180,7 +198,8 @@ for(i in seq_along(survival_attrition_files)){
   survival_attrition[[i]]<-readr::read_csv(survival_attrition_files[[i]],
                                            show_col_types = FALSE)
 }
-survival_attrition <- dplyr::bind_rows(survival_attrition)
+survival_attrition <- dplyr::bind_rows(survival_attrition) %>% 
+  filter(group_level != remove_outcomes )
 
 
 # survival summaries ------
@@ -226,7 +245,8 @@ survival_median_table <- dplyr::bind_rows(survival_median_table) %>%
            "median_survival"       ,
            "median_survival_95CI_lower" ,
            "median_survival_95CI_higher"
-           ))
+           )) %>% 
+  filter(group_level != remove_outcomes )
   
 
 }
@@ -244,7 +264,8 @@ for(i in seq_along(tableone_demo_files)){
                                                  show_col_types = FALSE)  
 }
 demo_characteristics <- dplyr::bind_rows(tableone_demo) %>% 
-  select(!c(result_id)) 
+  select(!c(result_id)) %>% 
+  filter(group_level != remove_outcomes )
 
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
@@ -255,7 +276,8 @@ for(i in seq_along(tableone_med_files)){
                                         show_col_types = FALSE)  
 }
 med_characteristics <- dplyr::bind_rows(tableone_med)  %>% 
-  select(!c(result_id)) 
+  select(!c(result_id)) %>% 
+  filter(group_level != remove_outcomes )
 
 # table one comorbidities ------
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
@@ -266,23 +288,24 @@ for(i in seq_along(tableone_comorb_files)){
                                        show_col_types = FALSE)  
 }
 comorb_characteristics <- dplyr::bind_rows(tableone_comorb)  %>% 
-  select(!c(result_id)) 
+  select(!c(result_id)) %>% 
+  filter(group_level != remove_outcomes )
 
 }
 
 # risk tables ----------
-# survival_risk_table_files<-results[stringr::str_detect(results, ".csv")]
-# survival_risk_table_files<-results[stringr::str_detect(results, "risk_table_results")]
-# 
-# survival_risk_table <- list()
-# for(i in seq_along(survival_risk_table_files)){
-#   survival_risk_table[[i]]<-readr::read_csv(survival_risk_table_files[[i]],
-#                                             show_col_types = FALSE) %>%
-#     mutate_if(is.double, as.character)
-#   
-# }
-# 
-# survival_risk_table <- dplyr::bind_rows(survival_risk_table)
+survival_risk_table_files<-results[stringr::str_detect(results, ".csv")]
+survival_risk_table_files<-results[stringr::str_detect(results, "risk_table_results")]
+
+survival_risk_table <- list()
+for(i in seq_along(survival_risk_table_files)){
+  survival_risk_table[[i]]<-readr::read_csv(survival_risk_table_files[[i]],
+                                            show_col_types = FALSE) %>%
+    mutate_if(is.double, as.character)
+
+}
+
+survival_risk_table <- dplyr::bind_rows(survival_risk_table) 
 
 
 # cdm snapshot ------
