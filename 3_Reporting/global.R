@@ -167,6 +167,57 @@ incidence_settings <- dplyr::bind_rows(incidence_settings) %>%
 
 }
 
+
+# prevalence estimates -----
+prevalence_estimates_files <-results[stringr::str_detect(results, ".csv")]
+prevalence_estimates_files <-results[stringr::str_detect(results, "prevalence_estimates")]
+if(length(prevalence_estimates_files > 0)){
+  
+  prevalence_estimates <- list()
+  
+  for(i in seq_along(prevalence_estimates_files)){
+    prevalence_estimates[[i]]<-readr::read_csv(prevalence_estimates_files[[i]], 
+                                              show_col_types = FALSE)  
+  }
+  
+  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) 
+
+  
+  # prevalence attrition -----
+  prevalence_attrition_files<-results[stringr::str_detect(results, ".csv")]
+  prevalence_attrition_files<-results[stringr::str_detect(results, "prevalence_attrition")]
+  prevalence_attrition <- list()
+  for(i in seq_along(prevalence_attrition_files)){
+    prevalence_attrition[[i]]<-readr::read_csv(prevalence_attrition_files[[i]], 
+                                              show_col_types = FALSE)  
+  }
+  prevalence_attrition <- dplyr::bind_rows(prevalence_attrition) %>% 
+    filter(outcome_cohort_name != remove_outcomes )
+  
+  # prevalence settings ------
+  prevalence_settings_files<-results[stringr::str_detect(results, ".csv")]
+  prevalence_settings_files<-results[stringr::str_detect(results, "prevalence_settings")]
+  prevalence_settings <- list()
+  for(i in seq_along(prevalence_settings_files)){
+    prevalence_settings[[i]]<-readr::read_csv(prevalence_settings_files[[i]], 
+                                             show_col_types = FALSE)  
+  }
+  prevalence_settings <- dplyr::bind_rows(prevalence_settings) %>% 
+    filter(outcome_cohort_name != remove_outcomes )
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
 # survival estimates -------
 survival_estimates_files <- results[stringr::str_detect(results, ".csv")]
 survival_estimates_files <- results[stringr::str_detect(results, "survival_estimates")]

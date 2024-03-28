@@ -21,8 +21,6 @@ server <-	function(input, output, session) {
   # incidence attrition -----
   get_table_attrition <-reactive({
     
-    
-    
     validate(need(input$attrition_database_name_selector != "", "Please select a database"))
     validate(need(input$attrition_outcome_selector != "", "Please select an outcome"))
     validate(need(input$attrition_sex_selector != "", "Please select sex group"))
@@ -216,40 +214,40 @@ server <-	function(input, output, session) {
   
    
 
-  # surv risk table --------
-  # get_risk_table <- reactive({
-  #   
-  #   
-  #   validate(
-  #     need(input$risk_table_cohort_name_selector != "", "Please select a cohort")
-  #   )
-  #   validate(
-  #     need(input$risk_table_database_name_selector != "", "Please select a database")
-  #   )
-  #   
-  # 
-  #   table <- survival_risk_table %>%
-  #     filter(outcome_cohort_name %in% input$risk_table_cohort_name_selector) %>%
-  #     filter(cdm_name %in% input$risk_table_database_name_selector) 
-  #   
-  #   table
-  #   
-  # })
-  # 
-  # 
-  # output$dt_risk_table <- renderText(kable(get_risk_table()) %>%
-  #                                      kable_styling("striped", full_width = F) )
-  # 
-  # 
-  # output$gt_risk_table_word <- downloadHandler(
-  #   filename = function() {
-  #     "risk_table.docx"
-  #   },
-  #   content = function(file) {
-  #     x <- gt(get_risk_table())
-  #     gtsave(x, file)
-  #   }
-  # )  
+  #surv risk table --------
+  get_risk_table <- reactive({
+
+
+    validate(
+      need(input$risk_table_cohort_name_selector != "", "Please select a cohort")
+    )
+    validate(
+      need(input$risk_table_database_name_selector != "", "Please select a database")
+    )
+
+
+    table <- survival_risk_table %>%
+      filter(outcome_cohort_name %in% input$risk_table_cohort_name_selector) %>%
+      filter(cdm_name %in% input$risk_table_database_name_selector)
+
+    table
+
+  })
+
+
+  output$dt_risk_table <- renderText(kable(get_risk_table()) %>%
+                                       kable_styling("striped", full_width = F) )
+
+
+  output$gt_risk_table_word <- downloadHandler(
+    filename = function() {
+      "risk_table.docx"
+    },
+    content = function(file) {
+      x <- gt(get_risk_table())
+      gtsave(x, file)
+    }
+  )
   
   
   # surv stats --------
@@ -292,7 +290,7 @@ server <-	function(input, output, session) {
   # )
 
 
-  
+  # incidence stats -------- 
   get_inc_estimates_table <- reactive({
     
     
@@ -308,8 +306,7 @@ server <-	function(input, output, session) {
       filter(outcome_cohort_name %in% input$inc_estimates_cohort_selector) %>%
       filter(analysis_interval %in% input$inc_est_analysis_selector) %>% 
       relocate(outcome_cohort_name) %>% 
-      select(-c(analysis_id,
-                outcome_cohort_id,
+      select(-c(outcome_cohort_id,
                 analysis_repeated_events,
                 analysis_min_cell_count,
                 denominator_target_cohort_name,
@@ -346,6 +343,9 @@ server <-	function(input, output, session) {
     }
   )
   
+  
+  
+  # inc age std stats --------
   get_inc_estimates_table_std <- reactive({
     
     
@@ -376,6 +376,72 @@ server <-	function(input, output, session) {
       gtsave(x, file)
     }
   )
+  
+  
+  
+  # prev stats -------- 
+  get_prev_estimates_table <- reactive({
+    
+    
+    validate(
+      need(input$prev_estimates_cohort_selector != "", "Please select a cohort")
+    )
+    validate(
+      need(input$prev_estimates_cdm_selector != "", "Please select database")
+    )
+    
+    
+    table <- prevalence_estimates %>%
+      filter(outcome_cohort_name %in% input$prev_estimates_cohort_selector) %>%
+      filter(cdm_name %in% input$prev_estimates_cdm_selector) %>% 
+      relocate(outcome_cohort_name) %>% 
+      select(-c(outcome_cohort_id,
+                population_obscured,
+                cases_obscured,
+                result_obscured,
+                analysis_type,
+                analysis_interval,
+                analysis_complete_database_intervals,
+                analysis_time_point,
+                analysis_full_contribution,
+                analysis_min_cell_count,
+                denominator_cohort_id,
+                denominator_cohort_name,
+                denominator_days_prior_observation,
+                denominator_start_date,
+                denominator_end_date,
+                denominator_target_cohort_definition_id,
+                denominator_target_cohort_name,
+                limit,
+                prior_observation,
+                future_observation,
+                end
+
+                
+      ))
+    
+    table
+    
+  })
+  
+  
+  output$dt_prev_est_table <- renderText(kable(get_prev_estimates_table()) %>%
+                                          kable_styling("striped", full_width = F) )
+  
+  
+  output$dt_prev_est_table_word <- downloadHandler(
+    filename = function() {
+      "prevalence_estimates.docx"
+    },
+    content = function(file) {
+      x <- gt(get_prev_estimates_table())
+      gtsave(x, file)
+    }
+  )
+  
+  
+  
+  
   
   # survival plots -------
   get_surv_plot <- reactive({

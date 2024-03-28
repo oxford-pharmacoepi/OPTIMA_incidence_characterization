@@ -655,6 +655,53 @@ ui <- dashboardPage(
         
       ),   
       
+      
+      tabItem(
+        tabName = "prev_rates",
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "prev_estimates_cohort_selector",
+            label = "Outcome",
+            choices = unique(prevalence_estimates$outcome_cohort_name),
+            selected = unique(prevalence_estimates$outcome_cohort_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "prev_estimates_cdm_selector",
+            label = "Database",
+            choices = unique(prevalence_estimates$cdm_name),
+            selected = unique(prevalence_estimates$cdm_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        htmlOutput('dt_prev_est_table'),
+        
+        div(style="display:inline-block",
+            downloadButton(
+              outputId = "dt_prev_est_table_word",
+              label = "Download table as word"
+            ), 
+            style="display:inline-block; float:right")
+        
+      ),
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
   
       tabItem(
         tabName = "inc_plots",
