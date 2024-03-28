@@ -137,7 +137,7 @@ cdm$outcome <- cdm$outcome %>%
                           include.lowest = TRUE)) 
 
 
-# remove those outside the study period
+# remove those outside the study period ------
 cdm$outcome <- cdm$outcome %>%
   dplyr::filter(!is.na(diag_yr_gp)) %>% 
   dplyr::filter(cohort_start_date <= as.Date("2023-01-01"))
@@ -147,11 +147,20 @@ cdm$outcome <- cdm$outcome %>%
   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   recordCohortAttrition(reason="Exclude patients outside study period")
 
-# add in exclusion criteria
-# remove people with any history of cancer
+
+
+#for those with prior history remove those with less than 365 days of prior history -------
+cdm$outcome <- cdm$outcome %>% 
+  filter(prior_observation >= 365) 
+
+cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
+                                                   reason="Excluded patients with less than 365 prior history" )
+
+
+# remove people with any history of cancer (apart from skin cancer) -------
 codelistExclusion <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
 # add cancer concepts to exclusion concepts to make sure we capture all exclusions
-codelistExclusion <- list(unique(Reduce(union_all, c(cancer_concepts, codelistExclusion))))
+codelistExclusion <- list(unique(Reduce(union_all, c(cancer_concepts_inc, codelistExclusion))))
 
 #rename list of concepts
 names(codelistExclusion) <- "anymalignancy"
@@ -180,7 +189,52 @@ cdm$outcome <- cdm$outcome %>%
   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   recordCohortAttrition(reason="Exclude patients with any prior history of maglinancy (ex skin cancer)")
 
-#remove people with date of death outside of their observation period end
+
+# remove any patients with other cancers on same date not in our list of cancers -----
+# get the any malignancy codelist
+codelistExclusion1 <- CodelistGenerator::codesFromConceptSet(here::here("1_InstantiateCohorts", "Exclusion"), cdm)
+
+# merge all concepts for all cancers together
+codes2remove <- list(unique(Reduce(union_all, c(cancer_concepts))))
+names(codes2remove) <- "allmalignancy"
+
+# remove lists from our cancers of interest from the any malignancy list
+codes2remove <- list(codelistExclusion1$cancerexcludnonmelaskincancer[!codelistExclusion1$cancerexcludnonmelaskincancer %in% codes2remove$allmalignancy])
+names(codes2remove) <- "allmalignancy"
+
+#instantiate any malignancy codes minus our cancers of interest
+cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm,
+                                              conceptSet = codes2remove ,
+                                              name = "allmalignancy",
+                                              overwrite = TRUE)
+
+# create a flag of anyone with MALIGNANT NEOPLASTIC DISEASE (excluding skin cancer) ON cancer diagnosis date but removing our codes of interest
+# in doing so we are capturing people with other cancers on the same day and wont exclude everyone
+cdm$outcome <- cdm$outcome %>%
+  PatientProfiles::addCohortIntersect(
+    cdm = cdm,
+    targetCohortTable = "allmalignancy",
+    targetStartDate = "cohort_start_date",
+    targetEndDate = "cohort_end_date",
+    flag = TRUE,
+    count = FALSE,
+    date = FALSE,
+    days = FALSE,
+    window = list(c(0, 0))
+  )
+
+
+cdm$outcome <- cdm$outcome %>%
+  dplyr::distinct(subject_id, .keep_all = TRUE)
+
+cdm$outcome <- cdm$outcome %>%
+  dplyr::filter(flag_allmalignancy_0_to_0 != 1)
+
+cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
+                                                   reason="Exclude patients with multiple cancers on different sites diagnosed on same day" )
+
+
+#remove people with date of death outside of their observation period end -----
 cdm$outcome <- cdm$outcome %>% 
   dplyr::left_join(cdm$death %>%
                      select("person_id",  "death_date") %>%
@@ -200,18 +254,6 @@ cdm$outcome <- cdm$outcome %>%
 cdm$outcome <- cdm$outcome %>% 
   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   CDMConnector::recordCohortAttrition(reason="Exclude patients where death occurs outside of observation end date" )
-
-# remove those with date of death and cancer diagnosis on same date
-cdm$outcome <- cdm$outcome %>% 
-  dplyr::filter(is.na(death_date) | death_date != cohort_start_date) %>% 
-  select(-c(observation_period_end_date,
-            death_date
-            ))
-
-# update the attrition
-cdm$outcome <- cdm$outcome %>% 
-  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
- CDMConnector::recordCohortAttrition(reason="Exclude patients with death date same as cancer diagnosis date" )
 
 }
   
