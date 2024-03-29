@@ -111,7 +111,7 @@ cdm$outcome <- cdm$outcome %>%
   dplyr::distinct(subject_id, .keep_all = TRUE)
 
 cdm$outcome <- cdm$outcome %>%
-  dplyr::filter(flag_allmalignancy_0_to_0 != 1)
+  dplyr::filter(allmalignancy_0_to_0 != 1)
 
 #update the attrition
 cdm$outcome <- cdm$outcome %>% 
@@ -249,7 +249,7 @@ cdm$outcome <- cdm$outcome %>%
   dplyr::distinct(subject_id, .keep_all = TRUE)
 
 cdm$outcome <- cdm$outcome %>%
-  dplyr::filter(flag_allmalignancy_0_to_0 != 1)
+  dplyr::filter(allmalignancy_m0_to_m0 != 1)
 
 #update the attrition
 cdm$outcome <- cdm$outcome %>% 
