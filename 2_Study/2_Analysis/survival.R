@@ -3,6 +3,7 @@
 cli::cli_alert_info("- Getting participants for survival")
   
 if(isTRUE(run_incidence)){
+  
 # get participants from incidence analysis to feed into survival analysis
 cdm$outcome_participants <- participants(inc_overall_parts, 1) %>% 
   select("subject_id", "outcome_start_date") %>% 
@@ -40,9 +41,9 @@ cdm$outcome <- cdm$outcome %>%
 # create diagnosis age band groups
 cdm$outcome <- cdm$outcome %>%
   mutate(diag_yr_gp = cut(year,
-                          breaks = c(2003, 2008, 2013, 2018, 2024),
-                          labels = c("2003-2007", "2008-2012", "2013-2017", "2018-2022"),
-                          include.lowest = TRUE)) 
+                        breaks = c(2003, 2007, 2011, 2015, 2019, 2024),
+                        labels = c("2003-2006", "2007-2010", "2011-2014", "2015-2018", "2019-2023"),
+                        include.lowest = TRUE))
 
 
 # remove people with any history of cancer (apart from skin cancer) -------
@@ -160,9 +161,9 @@ cdm$outcome <- cdm$outcome %>%
 # create diagnosis age band groups
 cdm$outcome <- cdm$outcome %>%
   mutate(diag_yr_gp = cut(year,
-                          breaks = c(2003, 2008, 2013, 2018, 2024),
-                          labels = c("2003-2007", "2008-2012", "2013-2017", "2018-2022"),
-                          include.lowest = TRUE)) 
+                          breaks = c(2003, 2007, 2011, 2015, 2019, 2024),
+                          labels = c("2003-2006", "2007-2010", "2011-2014", "2015-2018", "2019-2023"),
+                          include.lowest = TRUE))
 
 
 # remove those outside the study period ------
@@ -307,7 +308,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                     c("age_group", "sex"),
                                                     c("diag_yr_gp"),
                                                     c("diag_yr_gp", "sex")),
-                                      minCellCount = 5)
+                                      minCellCount = 0)
   )
   
 
@@ -334,3 +335,8 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   cli::cli_alert_success("Survival Analysis Complete")
 
 }
+
+# get n events/ n risk table
+# attributes(surv)
+# asdg <- test$events
+
