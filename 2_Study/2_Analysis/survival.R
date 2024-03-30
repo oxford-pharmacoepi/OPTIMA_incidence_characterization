@@ -40,7 +40,7 @@ cdm$outcome <- cdm$outcome %>%
 # create diagnosis age band groups
 cdm$outcome <- cdm$outcome %>%
   mutate(diag_yr_gp = cut(year,
-                          breaks = c(2003, 2008, 2013, 2018, 2023),
+                          breaks = c(2003, 2008, 2013, 2018, 2024),
                           labels = c("2003-2007", "2008-2012", "2013-2017", "2018-2022"),
                           include.lowest = TRUE)) 
 
