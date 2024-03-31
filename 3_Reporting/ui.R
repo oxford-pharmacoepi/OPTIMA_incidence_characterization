@@ -947,7 +947,7 @@ ui <- dashboardPage(
             inputId = "incidence_cohort_name_selector_std",
             label = "Outcome",
             choices = unique(incidence_estimates_std$outcome_cohort_name),
-            selected = unique(incidence_estimates_std$outcome_cohort_name),
+            selected = unique(incidence_estimates_std$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -971,7 +971,7 @@ ui <- dashboardPage(
             inputId = "incidence_std_method",
             label = "Standardization Method",
             choices = unique(incidence_estimates_std$age_standard),
-            selected = unique(incidence_estimates_std$age_standard),
+            selected = unique(incidence_estimates_std$age_standard)[c(2,3)],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -997,7 +997,7 @@ ui <- dashboardPage(
                                     "denominator_sex",
                                     "cdm_name",
                                     "age_standard"),
-                        selected = c("outcome_cohort_name"),
+                        selected = c("outcome_cohort_name", "age_standard"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
@@ -1013,7 +1013,7 @@ ui <- dashboardPage(
                                     "cdm_name",
                                     "age_standard"
                         ),
-                        selected = c("age_standard", "cdm_name"),
+                        selected = c("cdm_name"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
