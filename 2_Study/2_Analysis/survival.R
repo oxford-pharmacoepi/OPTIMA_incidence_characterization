@@ -296,7 +296,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
   suppressWarnings(
   surv <- estimateSingleEventSurvival(cdm = cdm,
-                                      followUpDays = 1827,
+                                      followUpDays = 1825,
                                       censorOnCohortExit = TRUE ,
                                       censorOnDate = as.Date("2023-01-01") ,
                                       eventGap = c(5) ,
@@ -311,6 +311,9 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                       minCellCount = 0)
   )
   
+  cli::cli_alert_info("Exporting numbers at risk and events")
+  write_csv(attributes(surv)$events, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_atrisk_events.csv"
+  )))
 
   cli::cli_alert_info("Exporting survival attrition")
   write_csv(attrition(cdm$outcome) %>% 
@@ -336,7 +339,5 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
 
 }
 
-# get n events/ n risk table
-# attributes(surv)
-# asdg <- test$events
+
 
