@@ -28,6 +28,25 @@ summaryDemographics <- cdm$outcome %>%
 # run this part if user has said FALSE to survival analysis
 if(isFALSE(run_survival)){
   
+  # take the participants from the incidence analysis
+  if(isTRUE(run_incidence)){
+    
+    # get participants from incidence analysis to feed into survival analysis
+    cdm$outcome_participants <- participants(inc_overall_parts, 1) %>% 
+      select("subject_id", "outcome_start_date") %>% 
+      filter(!is.na(outcome_start_date)) %>% 
+      rename("cohort_start_date" = "outcome_start_date") %>% 
+      compute(name = "outcome_participants")
+    
+    # filter out participants not present in this and record in attrition
+    cdm$outcome <- cdm$outcome %>% 
+      dplyr::right_join(cdm$outcome_participants %>%
+                          select("subject_id") %>% 
+                          distinct(),
+                        by = c("subject_id")) %>%
+      dplyr::compute()
+    
+  
   cli::cli_alert_info("Add demographics to cohort")
   cdm$outcome <- cdm$outcome %>% 
     PatientProfiles::addDemographics(
@@ -58,6 +77,11 @@ if(isFALSE(run_survival)){
       )
     
   )
+  }
+  
+  # take participants from prevalent analysis
+  # TBC
+    
 }
 
 
@@ -119,6 +143,10 @@ summaryComorbidity <- cdm$outcome %>%
 
 # run this part if user has said FALSE to survival analysis
 if(isFALSE(run_survival)){
+  
+  # using incidence analysis
+  if(isTRUE(run_incidence)){
+    
   suppressWarnings(
     
     summaryComorbidity <- cdm$outcome %>%
@@ -145,6 +173,11 @@ if(isFALSE(run_survival)){
       )
     
   )
+  
+  }
+  
+  # using prevalence analysis 
+  # TBC
   
 }
 
@@ -203,6 +236,10 @@ summaryMedications <- cdm$outcome %>%
 
 # run this part if user has said FALSE to survival analysis
 if(isFALSE(run_survival)){
+  
+  # using incidence analysis
+  if(isTRUE(run_incidence)){
+  
   suppressWarnings(
     summaryMedications <- cdm$outcome %>%
       summariseCharacteristics(
@@ -232,8 +269,11 @@ if(isFALSE(run_survival)){
   )
   
 }
+  
+  # using prevalence analysis 
+  #TBC
 
-
+}
 
 write_csv(summaryMedications %>%
             omopgenerics::suppress(minCellCount = 5),
