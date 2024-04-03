@@ -346,7 +346,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                 name = "additional_name",
                 level = "additional_level",
                 keep = TRUE,
-                overall = TRUE), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_atrisk_events.csv"
+                overall = TRUE), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_at_risk_events.csv"
   )))
 
   cli::cli_alert_info("Exporting survival attrition")
