@@ -303,6 +303,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   cli::cli_alert_info("Estimating survival")
   
   suppressWarnings(
+    
   surv <- estimateSingleEventSurvival(cdm = cdm,
                                       followUpDays = 1825,
                                       censorOnCohortExit = TRUE ,
@@ -316,55 +317,31 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                     c("age_group", "sex"),
                                                     c("diag_yr_gp"),
                                                     c("diag_yr_gp", "sex")),
+                                      minCellCount = 0) )
+  
+  suppressWarnings(
+  # get risk table at yearly intervals
+  surv_risk_table <- estimateSingleEventSurvival(cdm = cdm,
+                                      followUpDays = 1825,
+                                      censorOnCohortExit = TRUE ,
+                                      censorOnDate = as.Date("2023-01-01") ,
+                                      eventGap = c(365) ,
+                                      estimateGap = c(365) ,
+                                      targetCohortTable = "outcome",
+                                      outcomeCohortTable = "cancer_death",
+                                      strata = list(c("sex"),
+                                                    c("age_group"),
+                                                    c("age_group", "sex"),
+                                                    c("diag_yr_gp"),
+                                                    c("diag_yr_gp", "sex")),
                                       minCellCount = 0)
+
   )
   
-  # add one with 365 gaps 
-  # suppressWarnings(
-  #   surv <- estimateSingleEventSurvival(cdm = cdm,
-  #                                       followUpDays = 1825,
-  #                                       censorOnCohortExit = TRUE ,
-  #                                       censorOnDate = as.Date("2023-01-01") ,
-  #                                       eventGap = c(365) ,
-  #                                       estimateGap = c(365) ,
-  #                                       targetCohortTable = "outcome",
-  #                                       outcomeCohortTable = "cancer_death",
-  #                                       strata = list(c("sex"),
-  #                                                     c("age_group"),
-  #                                                     c("age_group", "sex"),
-  #                                                     c("diag_yr_gp"),
-  #                                                     c("diag_yr_gp", "sex")),
-  #                                       minCellCount = 0)
-  # )
   
   cli::cli_alert_info("Exporting numbers at risk and events")
-  
-  # process_data <- function(data) {
-  #   
-  #   # Aggregate data
-  #   df_events <- aggregate(n.event ~ time_1, data = data, FUN = sum)
-  #   df_risk <- data %>% 
-  #     group_by(time_1) %>% 
-  #     slice(1) %>% 
-  #     ungroup() %>% 
-  #     select(time_1, n.risk)
-  #   
-  #   # Merge aggregated data back to original dataframe
-  #   overall <- df_events %>% 
-  #     left_join(df_risk, by = "time_1") %>% 
-  #     relocate(n.risk, .before = n.event)
-  #   
-  #   return(overall)
-  # }
-  # 
-  # breaks <- c(0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, Inf)
-  # 
-  # # Create labels for the breaks
-  # labels <- c(0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22)
-  
-  
-  
-  write_csv(attributes(surv)$events %>% 
+
+  write_csv(attributes(surv_risk_table)$events %>% 
               splitNameLevel(
                 name = "additional_name",
                 level = "additional_level",
@@ -395,6 +372,3 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   cli::cli_alert_success("Survival Analysis Complete")
 
 }
-
-
-
