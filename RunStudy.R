@@ -10,7 +10,8 @@ if (!file.exists(output_folder)){
 
 # get cdm snapshot
 cli::cli_alert_info("- Getting cdm snapshot")
-write_csv(snapshot(cdm), here("Results", paste0(db_name,
+write_csv(snapshot(cdm) %>% 
+            mutate(start_date = study_start), here("Results", paste0(db_name,
   "/", cdmName(cdm), "_cdm_snapshot_.csv"
 )))
 
