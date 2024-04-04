@@ -5,6 +5,9 @@ cli::cli_alert_info("Summarising Demographics")
 # run this part if user has said TRUE to survival analysis
 if(isTRUE(run_survival)){
   
+  # and if user has not run incidence analysis
+  if(isFALSE(run_incidence)){
+  
 suppressWarnings(
 
 summaryDemographics <- cdm$outcome %>%
@@ -23,6 +26,8 @@ summaryDemographics <- cdm$outcome %>%
   )
 
 )
+  }
+  
 }
 
 # run this part if user has said FALSE to survival analysis
@@ -108,6 +113,10 @@ cli::cli_alert_info("Summarising Comorbidities")
 
 # run this part if user has said TRUE to survival analysis
 if(isTRUE(run_survival)){
+  
+  
+  # take the participants from the incidence analysis
+  if(isTRUE(run_incidence)){
 
 suppressWarnings(
   
@@ -137,6 +146,8 @@ summaryComorbidity <- cdm$outcome %>%
   )
 
 )
+  
+  }
   
 }
 
@@ -202,6 +213,10 @@ cdm <- DrugUtilisation::generateDrugUtilisationCohortSet(cdm = cdm,
 # run this part if user has said TRUE to survival analysis
 if(isTRUE(run_survival)){
   
+  
+  # take the participants from the incidence analysis
+  if(isTRUE(run_incidence)){
+  
 suppressWarnings(
 summaryMedications <- cdm$outcome %>%
   summariseCharacteristics(
@@ -232,6 +247,8 @@ summaryMedications <- cdm$outcome %>%
 
 )
 
+  }
+  
 }
 
 # run this part if user has said FALSE to survival analysis
