@@ -1125,7 +1125,7 @@ ui <- dashboardPage(
             inputId = "attrition_cohort_name_selector",
             label = "Outcome",
             choices = unique(survival_attrition$outcome_cohort_name),
-            selected = "lung",
+            selected = unique(survival_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
