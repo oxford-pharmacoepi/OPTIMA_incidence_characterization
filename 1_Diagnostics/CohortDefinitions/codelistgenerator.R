@@ -112,7 +112,7 @@ lungcancer_codes <- getCandidateCodes(
               "epithelioid hemangioendothelioma"
 
   ) ,
-  domains = "Condition"
+  domains = c("Condition", "Observation")
 )
 
 write.csv(lungcancer_codes, here::here("preliminary_cohorts" ,
@@ -121,7 +121,7 @@ write.csv(lungcancer_codes, here::here("preliminary_cohorts" ,
 #trying out orphan codes for lung cancer BROAD
 lungcancer_orphan_codes <- findOrphanCodes(x = list("lung_cancer" = lungcancer_codes$concept_id),
                                 cdm = cdm,
-                                domains = "Condition",
+                                domains = c("Condition", "Observation"),
                                 standardConcept = "Standard",
                                 searchInSynonyms = FALSE,
                                 searchNonStandard = FALSE,
