@@ -20,7 +20,7 @@ cdm <- CDMConnector::generateConceptCohortSet(
 
 
 # only run analysis where we have counts more than 200 ----
-cancer_cohorts_inc <- CDMConnector::cohortSet(cdm$outcome) %>%
+cancer_cohorts_inc <- CDMConnector::settings(cdm$outcome) %>%
   dplyr::inner_join(CDMConnector::cohortCount(cdm$outcome), by = "cohort_definition_id") %>%
   dplyr::arrange(cohort_definition_id) %>% 
   dplyr::filter(number_subjects >= 200)
@@ -55,7 +55,7 @@ cdm <- CDMConnector::generateConceptCohortSet(
 
 
 # only run analysis where we have counts more than 200 ----
-cancer_cohorts_prev <- CDMConnector::cohortSet(cdm$outcome_p) %>%
+cancer_cohorts_prev <- CDMConnector::settings(cdm$outcome_p) %>%
   dplyr::inner_join(CDMConnector::cohortCount(cdm$outcome_p), by = "cohort_definition_id") %>%
   dplyr::arrange(cohort_definition_id) %>% 
   dplyr::filter(number_subjects >= 200)
