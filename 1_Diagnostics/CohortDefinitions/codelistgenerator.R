@@ -791,30 +791,50 @@ writeCohort(lung_cancer_incident_broad_stage4, here::here("preliminary_cohorts",
                                                           "lung_cancer_incident_broad_s4.json"))
 
 
-# smoking
+# smoking status
 reviewed_code_list_smoking <- read.csv(here::here("preliminary_cohorts" , "reviewed" ,
                                           paste0(cdmName(cdm), "_smokingBroad_reviewed.csv")))
 
 
-# Broad lung cancer incidence
-smoker <- reviewed_code_list %>%
-  filter(broad_inc == "y") %>%
+# smoker
+smoker_obs <- reviewed_code_list_smoking %>%
+  filter(Smoker == "y" &
+           domain_id == "Observation" ) %>%
   pull(concept_id)
 
-pre_smoker <- reviewed_code_list %>%
-  filter(broad_inc == "y") %>%
+smoker_cond <- reviewed_code_list_smoking %>%
+  filter(Smoker == "y" &
+           domain_id == "Condition" ) %>%
   pull(concept_id)
 
-non_smoker <- reviewed_code_list %>%
-  filter(broad_inc == "y") %>%
+# previous smoker
+pre_smoker_obs <- reviewed_code_list_smoking %>%
+  filter(Previous.smoker == "y" &
+           domain_id == "Observation" ) %>%
+  pull(concept_id)
+
+pre_smoker_cond <- reviewed_code_list_smoking %>%
+  filter(Previous.smoker == "y" &
+           domain_id == "Condition" ) %>%
+  pull(concept_id)
+
+#non smoker
+non_smoker_obs <- reviewed_code_list_smoking %>%
+  filter(non.smoker == "y" &
+           domain_id == "Observation" ) %>%
+  pull(concept_id)
+
+non_smoker_cond <- reviewed_code_list_smoking %>%
+  filter(non.smoker == "y" &
+           domain_id == "Condition" ) %>%
   pull(concept_id)
 
 
 # smoker
-lung_cancer_incident_broad_stage4 <- cohort(
+smoker <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_4"), db, vocabularyDatabaseSchema = "public")),
-    measurement(getConceptSetDetails(cs(stage4_codes$concept_id , name = "stage4"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(smoker_cond, name = "smoker_cond"), db, vocabularyDatabaseSchema = "public")),
+    observation(getConceptSetDetails(cs(smoker_obs , name = "smoker_obs"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -823,15 +843,14 @@ lung_cancer_incident_broad_stage4 <- cohort(
   )
 )
 
-writeCohort(lung_cancer_incident_broad_stage4, here::here("preliminary_cohorts",
-                                                          "lung_cancer_incident_broad_s4.json"))
+writeCohort(smoker, here::here("preliminary_cohorts", "smoker.json"))
 
 
-# pervious smoker
-lung_cancer_incident_broad_stage4 <- cohort(
+# former smoker
+prev_smoker <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_4"), db, vocabularyDatabaseSchema = "public")),
-    measurement(getConceptSetDetails(cs(stage4_codes$concept_id , name = "stage4"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(pre_smoker_cond, name = "prev_smoker_cond"), db, vocabularyDatabaseSchema = "public")),
+    observation(getConceptSetDetails(cs(pre_smoker_obs , name = "prev_smoker_obs"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -840,16 +859,13 @@ lung_cancer_incident_broad_stage4 <- cohort(
   )
 )
 
-writeCohort(lung_cancer_incident_broad_stage4, here::here("preliminary_cohorts",
-                                                          "lung_cancer_incident_broad_s4.json"))
+writeCohort(prev_smoker, here::here("preliminary_cohorts", "prev_smoker.json"))
 
 # non smoker
-
-# broad stage 4
-lung_cancer_incident_broad_stage4 <- cohort(
+non_smoker <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_4"), db, vocabularyDatabaseSchema = "public")),
-    measurement(getConceptSetDetails(cs(stage4_codes$concept_id , name = "stage4"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(non_smoker_cond, name = "non_smoker_cond"), db, vocabularyDatabaseSchema = "public")),
+    observation(getConceptSetDetails(cs(non_smoker_obs , name = "non_smoker_obs"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -858,6 +874,4 @@ lung_cancer_incident_broad_stage4 <- cohort(
   )
 )
 
-writeCohort(lung_cancer_incident_broad_stage4, here::here("preliminary_cohorts",
-                                                          "lung_cancer_incident_broad_s4.json"))
-
+writeCohort(non_smoker, here::here("preliminary_cohorts", "non_smoker.json"))
