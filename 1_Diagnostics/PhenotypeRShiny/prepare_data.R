@@ -127,13 +127,13 @@ data$lsc_table <- data$lsc_matched %>%
         names_from = estimate_type, 
                   values_from = estimate)) %>%
   mutate(
-    difference_numeric = (sample_numeric - matched_numeric)/matched_numeric,
+    difference_integer = (sample_integer - matched_integer)/matched_integer,
     difference_percentage = (sample_percentage - matched_percentage)/matched_percentage
   ) %>%
   select(
     cdm_name, cohort_name = group_level, concept_name = variable_name,
-    window = variable_level, matched_numeric, matched_percentage, sample_numeric, sample_percentage,
-    difference_numeric, difference_percentage
+    window = variable_level, matched_integer, matched_percentage, sample_integer, sample_percentage,
+    difference_integer, difference_percentage
   )
 
 # Shiny theme ----
