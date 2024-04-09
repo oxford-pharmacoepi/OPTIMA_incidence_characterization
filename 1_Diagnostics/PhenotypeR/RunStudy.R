@@ -269,7 +269,7 @@ tic(msg = "Patient_profiles summary")
 #cdm$Results_dx <- cdm[[cohorts_name]]
 if (input$runProfiling) {
   Patient_profiles <- cdm[[cohorts_name]] %>%
-    addDemographics(cdm) %>% 
+    addDemographics() %>% 
     collect()   %>%
     mutate( age_group= cut(age, c(seq(0, 110, 5 ), Inf), include.lowest=TRUE))
   
@@ -343,6 +343,10 @@ if (input$runMatchedSampleLSC) {
     # minCellCount = 5,
     minimumFrequency = 0.0005
   )
+  
+  large_scale_char_matched <- large_scale_char_matched %>% 
+    filter(variable_name != "settings")
+  
   output$lsc_matched <- large_scale_char_matched %>% mutate(cdm_name = input$cdmName)
   write_csv(output$lsc_matched, here("Results",db_name, paste0(
     "lsc_matched_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
@@ -364,6 +368,10 @@ if (input$runMatchedSampleLSC) {
     # minCellCount = 5,
     minimumFrequency = 0.0005
   )
+  
+  large_scale_char_sample <- large_scale_char_sample %>% 
+    filter(variable_name != "settings")
+  
   output$lsc_sample <- large_scale_char_sample %>% mutate(cdm_name = input$cdmName)
   write_csv(output$lsc_sample, here("Results",db_name, paste0(
     "lsc_sample_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
