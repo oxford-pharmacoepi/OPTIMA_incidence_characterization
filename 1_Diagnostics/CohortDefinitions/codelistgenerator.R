@@ -719,12 +719,13 @@ writeCohort(partial_prev5y_sclc, here::here("preliminary_cohorts",
 
 
 # lung cancer plus stage ------
-# lung cancer OR measurement - unable to get nested to work so will take the codes below and create in ATLAS
+# lung cancer condition OR measurement - unable to get nested to work so will take the codes below and create in ATLAS
 
 # broad stage 1
 lung_cancer_incident_broad_stage1 <- cohort(
   entry = entry(
     conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_1"), db, vocabularyDatabaseSchema = "public")),
+
     measurement(getConceptSetDetails(cs(stage1_codes$concept_id , name = "stage1"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
