@@ -519,6 +519,26 @@ write.csv(stage4_codes, here::here("preliminary_cohorts" ,
 #                                              includeAncestor = TRUE)
 
 
+# smoking related phenotypes
+
+smoking_codes <- getCandidateCodes(
+  cdm = cdm,
+  keywords = c("smoking",
+               "smoker",
+               "tobacco",
+               "pipe",
+               "cigar"
+  ) ,
+  #exclude = c("non smoker") ,
+  domains = c("condition", "observation", "measurement")
+)
+
+write.csv(smoking_codes, here::here("preliminary_cohorts" , "other_cancers",
+                                    paste0(cdmName(cdm), "_smokingBroad.csv")), row.names = FALSE)
+
+
+
+
 # Creating cohort files ------------
 
 # read in reviewed list of codelists
