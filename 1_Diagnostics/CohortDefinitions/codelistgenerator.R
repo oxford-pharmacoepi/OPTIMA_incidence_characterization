@@ -15,7 +15,8 @@ library(CodelistGenerator)
 library(ggplot2)
 
 # db with vocab ----
-server_dbi <- Sys.getenv("DB_SERVER_cdm_thin_fr_202308_dbi")
+#server_dbi <- Sys.getenv("DB_SERVER_cdm_thin_fr_202308_dbi")
+server_dbi <- Sys.getenv("DB_SERVER_cdm_gold_202307_dbi")
 user       <- Sys.getenv("DB_USER")
 password   <- Sys.getenv("DB_PASSWORD")
 port       <- Sys.getenv("DB_PORT")
@@ -42,7 +43,6 @@ results_database_schema <- "results"
 
 # database metadata and connection details -----
 # The name/ acronym for the database
-#db_name<-"UKB"
 db_name<-"THIN_fr"
 
 # Name of outcome table in the result table where the outcome cohorts will be stored
