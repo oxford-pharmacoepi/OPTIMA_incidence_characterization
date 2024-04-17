@@ -1253,3 +1253,5 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 903663,From athena,Pipe smoker,Observation,OMOP Extension,standard,y,y,n,n
 903664,From athena,Cigar smoker,Observation,OMOP Extension,standard,y,y,n,n
 903665,From athena,Hookah smoker,Observation,OMOP Extension,standard,y,y,n,n
+903651,From athena,Currently doesn't use tobacco or its derivatives,Observation,OMOP Extension,standard,y,n,n,y
+903654,From athena,Tobacco or its derivatives user,Observation,OMOP Extension,standard,y,y,n,n
