@@ -1243,3 +1243,13 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 37020790,From descendants,Rules for using smoked tobacco products inside home,Observation,LOINC,standard,n,n,n,n
 37020828,From descendants,Rules for using smokeless tobacco products inside home,Observation,LOINC,standard,n,n,n,n
 4209423,From orphan concepts,Nicotine dependence,Condition,SNOMED,standard,y,y,n,n
+903653,From athena,Never used tobacco or its derivatives,Observation,OMOP Extension,standard,y,n,n,y
+903657,From athena,Cigarette smoker,Observation,OMOP Extension,standard,y,y,n,n
+903659,From athena,Light cigarette smoker (1-9 cigarettes per day),Observation,OMOP Extension,standard,y,y,n,n
+903658,From athena,Trivial cigarette smoker (0-1 cigarettes per day),Observation,OMOP Extension,standard,y,y,n,n
+903660,From athena,Moderate cigarette smoker (10-19 cigarettes per day),Observation,OMOP Extension,standard,y,y,n,n
+903661,From athena,Heavy cigarette smoker (20-39 cigarettes per day),Observation,OMOP Extension,standard,y,y,n,n
+903662,From athena,Very heavy cigarette smoker (more or equal to 40 cigarettes per day),Observation,OMOP Extension,standard,y,y,n,n
+903663,From athena,Pipe smoker,Observation,OMOP Extension,standard,y,y,n,n
+903664,From athena,Cigar smoker,Observation,OMOP Extension,standard,y,y,n,n
+903665,From athena,Hookah smoker,Observation,OMOP Extension,standard,y,y,n,n
