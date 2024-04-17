@@ -7,6 +7,23 @@
         "items": [
           {
             "concept": {
+              "CONCEPT_ID": 602340,
+              "CONCEPT_NAME": "Tobacco dependence caused by cigarettes in remission",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "16077051000119102",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
               "CONCEPT_ID": 4103418,
               "CONCEPT_NAME": "Tobacco dependence in remission",
               "STANDARD_CONCEPT": "S",
@@ -568,6 +585,40 @@
               "CONCEPT_CODE": "48031000119106",
               "DOMAIN_ID": "Observation",
               "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 3012697,
+              "CONCEPT_NAME": "History of Tobacco use",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "11367-0",
+              "DOMAIN_ID": "Observation",
+              "VOCABULARY_ID": "LOINC",
+              "CONCEPT_CLASS_ID": "Clinical Observation"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 3197200,
+              "CONCEPT_NAME": "History of tobacco use",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "4200001000004105",
+              "DOMAIN_ID": "Observation",
+              "VOCABULARY_ID": "Nebraska Lexicon",
               "CONCEPT_CLASS_ID": "Clinical Finding"
             },
             "isExcluded": false,
