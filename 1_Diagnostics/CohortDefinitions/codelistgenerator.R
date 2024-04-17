@@ -15,8 +15,7 @@ library(CodelistGenerator)
 library(ggplot2)
 
 # db with vocab ----
-#server_dbi <- Sys.getenv("DB_SERVER_cdm_thin_fr_202308_dbi")
-server_dbi <- Sys.getenv("DB_SERVER_cdm_gold_202307_dbi")
+server_dbi <- Sys.getenv("DB_SERVER_cdm_thin_fr_202308_dbi")
 user       <- Sys.getenv("DB_USER")
 password   <- Sys.getenv("DB_PASSWORD")
 port       <- Sys.getenv("DB_PORT")
