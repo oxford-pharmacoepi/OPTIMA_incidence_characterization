@@ -10,7 +10,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 46270550,From initial search,Smoker's melanosis,Condition,SNOMED,standard,y,y,n,n
 440612,From initial search,Toxic effect of tobacco and nicotine,Condition,SNOMED,standard,n,n,n,n
 437264,From initial search,Tobacco dependence syndrome,Condition,SNOMED,standard,y,y,n,n
-602340,From initial search,Tobacco dependence caused by cigarettes in remission,Condition,SNOMED,standard,y,y,n,n
+602340,From initial search,Tobacco dependence caused by cigarettes in remission,Condition,SNOMED,standard,y,n,y,n
 4070519,From initial search,Fetal or neonatal effect of maternal use of tobacco,Condition,SNOMED,standard,n,n,n,n
 619068,From initial search,Nondependent abuse of tobacco,Condition,SNOMED,standard,y,y,n,n
 4103417,From initial search,"Tobacco dependence, episodic",Condition,SNOMED,standard,y,y,n,n
@@ -139,10 +139,10 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 4162014,From descendants,Intentional pimozide poisoning,Condition,SNOMED,standard,n,n,n,n
 600776,From initial search,Lack of support for smoking cessation,Observation,SNOMED,standard,y,y,n,n
 762882,From initial search,Documentation of smoking cessation medication action plan,Observation,SNOMED,standard,n,n,n,n
-764197,From initial search,Tobacco smoking in mother complicating puerperium,Observation,SNOMED,standard,n,n,n,n
-764198,From initial search,Tobacco smoking in mother complicating childbirth,Observation,SNOMED,standard,n,n,n,n
-764199,From initial search,Tobacco smoking in mother complicating pregnancy,Observation,SNOMED,standard,n,n,n,n
-764383,From initial search,Enrollment in smoking cessation program,Observation,SNOMED,standard,n,n,n,n
+764197,From initial search,Tobacco smoking in mother complicating puerperium,Observation,SNOMED,standard,y,y,n,n
+764198,From initial search,Tobacco smoking in mother complicating childbirth,Observation,SNOMED,standard,y,y,n,n
+764199,From initial search,Tobacco smoking in mother complicating pregnancy,Observation,SNOMED,standard,y,y,n,n
+764383,From initial search,Enrollment in smoking cessation program,Observation,SNOMED,standard,y,y,n,n
 765320,From initial search,Patient declines smoking cessation information,Observation,SNOMED,standard,n,n,n,n
 903062,From initial search,Attempt Quit Smoking: Completely Quit Age Prefer Not To Answer,Observation,PPI,standard,n,n,n,n
 903063,From initial search,Smoking: Current Daily Cigarette Number Prefer Not To Answer,Observation,PPI,standard,n,n,n,n
@@ -192,8 +192,8 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 4090846,From initial search,Stop smoking monitor default,Observation,SNOMED,standard,n,n,n,n
 4090847,From initial search,Stop smoking monitoring verbal invite,Observation,SNOMED,standard,n,n,n,n
 4090849,From initial search,Stop smoking monitoring check done,Observation,SNOMED,standard,n,n,n,n
-4190573,From initial search,Thinking about stopping smoking,Observation,SNOMED,standard,n,n,n,n
-4193014,From initial search,Negotiated date for cessation of smoking,Observation,SNOMED,standard,n,n,n,n
+4190573,From initial search,Thinking about stopping smoking,Observation,SNOMED,standard,y,y,n,n
+4193014,From initial search,Negotiated date for cessation of smoking,Observation,SNOMED,standard,y,y,n,n
 4233486,From initial search,Current non smoker but past smoking history unknown,Observation,SNOMED,standard,n,n,n,n
 4269997,From initial search,Tobacco smoking consumption - finding,Observation,SNOMED,standard,n,n,n,n
 4275495,From initial search,Tobacco smoking behavior - finding,Observation,SNOMED,standard,n,n,n,n
@@ -206,9 +206,9 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 37208717,From initial search,"Adapted ASSIST-Lite (Alcohol, Smoking and Substance Involvement Screening Test Lite) - Opioid total score",Observation,SNOMED,standard,n,n,n,n
 37208977,From initial search,QOF (Quality and Outcomes Framework) smoking quality indicator-related care invitation,Observation,SNOMED,standard,n,n,n,n
 37310795,From initial search,QOF (Quality and Outcomes Framework) smoking quality indicator-related care invitation using preferred method of communication,Observation,SNOMED,standard,n,n,n,n
-40766642,From initial search,Are you considering quitting smoking during the next 6 months [PLCO],Observation,LOINC,standard,n,n,n,n
-40766643,From initial search,"In the past, have you ever made a serious attempt to quit smoking That is, have you stopped smoking for at least one day or longer because you were trying to quit [PLCO]",Observation,LOINC,standard,n,n,n,n
-40766644,From initial search,What was the longest length of time you stopped smoking because you were trying to quit [PLCO],Observation,LOINC,standard,n,n,n,n
+40766642,From initial search,Are you considering quitting smoking during the next 6 months [PLCO],Observation,LOINC,standard,y,y,n,n
+40766643,From initial search,"In the past, have you ever made a serious attempt to quit smoking That is, have you stopped smoking for at least one day or longer because you were trying to quit [PLCO]",Observation,LOINC,standard,y,y,n,n
+40766644,From initial search,What was the longest length of time you stopped smoking because you were trying to quit [PLCO],Observation,LOINC,standard,y,y,n,n
 40766645,From initial search,How old were you when you most recently quit smoking [PLCO],Observation,LOINC,standard,n,n,n,n
 40766646,From initial search,"Thinking of the most recent time you quit smoking, did you use any of the following products [PLCO]",Observation,LOINC,standard,n,n,n,n
 40766647,From initial search,"During the past 12 months, did any doctor, dentist, nurse, or any other health professional advise you to quit smoking [PLCO]",Observation,LOINC,standard,n,n,n,n
@@ -254,7 +254,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 4215409,From initial search,Ready to stop smoking,Observation,SNOMED,standard,y,y,n,n
 4206526,From initial search,Smoking cessation behavior,Observation,SNOMED,standard,n,n,n,n
 4255395,From initial search,Smoking review not indicated,Observation,SNOMED,standard,n,n,n,n
-21494888,From initial search,Tobacco smoking status for tobacco smoker,Observation,LOINC,standard,n,n,n,n
+21494888,From initial search,Tobacco smoking status for tobacco smoker,Observation,LOINC,standard,y,y,n,n
 35609899,From initial search,Smoking cessation programme declined,Observation,SNOMED,standard,n,n,n,n
 36674873,From initial search,Referral for brief intervention for smoking cessation,Observation,SNOMED,standard,n,n,n,n
 37019483,From initial search,PROMIS short form - smoking - nicotine dependence for all smokers 4a - version 1.0 raw score,Observation,LOINC,standard,n,n,n,n
@@ -405,7 +405,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 4209006,From initial search,Heavy smoker (over 20 per day),Observation,SNOMED,standard,y,y,n,n
 4209585,From initial search,Moderate smoker (20 or less per day),Observation,SNOMED,standard,y,y,n,n
 4053745,From initial search,Meat and fish smoker,Observation,SNOMED,standard,n,n,n,n
-4058136,From initial search,Very heavy cigarette smoker (40+ cigs/day),Observation,SNOMED,standard,n,n,n,n
+4058136,From initial search,Very heavy cigarette smoker (40+ cigs/day),Observation,SNOMED,standard,y,y,n,n
 4216306,From initial search,No smokers in the household,Observation,SNOMED,standard,n,n,n,n
 37395605,From initial search,Occasional tobacco smoker,Observation,SNOMED,standard,y,y,n,n
 4041511,From initial search,Heavy cigarette smoker,Observation,SNOMED,standard,y,y,n,n
@@ -524,10 +524,10 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 36305168,From initial search,Smokeless tobacco status,Observation,LOINC,standard,n,n,n,n
 44802869,From initial search,Ex-smoker annual review,Observation,SNOMED,standard,y,n,y,n
 46270534,From initial search,Ex-smoker for more than 1 year,Observation,SNOMED,standard,y,n,y,n
-3012697,From initial search,History of Tobacco use,Observation,LOINC,standard,n,n,n,n
+3012697,From initial search,History of Tobacco use,Observation,LOINC,standard,y,n,y,n
 3046963,From initial search,Use of tobacco products at least daily [Minimum Data Set],Observation,LOINC,standard,n,n,n,n
 3193708,From initial search,Pregnancy complicated by tobacco use,Observation,Nebraska Lexicon,standard,n,n,n,n
-3197200,From initial search,History of tobacco use,Observation,Nebraska Lexicon,standard,n,n,n,n
+3197200,From initial search,History of tobacco use,Observation,Nebraska Lexicon,standard,y,n,y,n
 4050338,From initial search,Tobacco processor,Observation,SNOMED,standard,n,n,n,n
 4051390,From initial search,Foreman - tobacco processor,Observation,SNOMED,standard,n,n,n,n
 4052031,From initial search,Tobacco consumption unknown,Observation,SNOMED,standard,n,n,n,n
@@ -1242,4 +1242,16 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 40756893,From descendants,"Patient screened for tobacco use and received tobacco cessation intervention (counseling, pharmacotherapy, or both), if identified as a tobacco user (PV, CAD)",Observation,CPT4,standard,n,n,n,n
 37020790,From descendants,Rules for using smoked tobacco products inside home,Observation,LOINC,standard,n,n,n,n
 37020828,From descendants,Rules for using smokeless tobacco products inside home,Observation,LOINC,standard,n,n,n,n
-4209423,From orphan concepts,Nicotine dependence,Condition,SNOMED,standard,y,n,n,n
+4209423,From orphan concepts,Nicotine dependence,Condition,SNOMED,standard,y,y,n,n
+903653,From athena,Never used tobacco or its derivatives,Observation,OMOP Extension,standard,y,n,n,y
+903657,From athena,Cigarette smoker,Observation,OMOP Extension,standard,y,y,n,n
+903659,From athena,Light cigarette smoker (1-9 cigarettes per day),Observation,OMOP Extension,standard,y,y,n,n
+903658,From athena,Trivial cigarette smoker (0-1 cigarettes per day),Observation,OMOP Extension,standard,y,y,n,n
+903660,From athena,Moderate cigarette smoker (10-19 cigarettes per day),Observation,OMOP Extension,standard,y,y,n,n
+903661,From athena,Heavy cigarette smoker (20-39 cigarettes per day),Observation,OMOP Extension,standard,y,y,n,n
+903662,From athena,Very heavy cigarette smoker (more or equal to 40 cigarettes per day),Observation,OMOP Extension,standard,y,y,n,n
+903663,From athena,Pipe smoker,Observation,OMOP Extension,standard,y,y,n,n
+903664,From athena,Cigar smoker,Observation,OMOP Extension,standard,y,y,n,n
+903665,From athena,Hookah smoker,Observation,OMOP Extension,standard,y,y,n,n
+903651,From athena,Currently doesn't use tobacco or its derivatives,Observation,OMOP Extension,standard,y,n,n,y
+903654,From athena,Tobacco or its derivatives user,Observation,OMOP Extension,standard,y,y,n,n

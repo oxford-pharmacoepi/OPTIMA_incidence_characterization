@@ -42,7 +42,6 @@ results_database_schema <- "results"
 
 # database metadata and connection details -----
 # The name/ acronym for the database
-#db_name<-"UKB"
 db_name<-"THIN_fr"
 
 # Name of outcome table in the result table where the outcome cohorts will be stored
@@ -517,6 +516,26 @@ write.csv(stage4_codes, here::here("preliminary_cohorts" ,
 #                                              searchNonStandard = FALSE,
 #                                              includeDescendants = TRUE,
 #                                              includeAncestor = TRUE)
+
+
+# smoking related phenotypes
+
+smoking_codes <- getCandidateCodes(
+  cdm = cdm,
+  keywords = c("smoking",
+               "smoker",
+               "tobacco",
+               "pipe",
+               "cigar"
+  ) ,
+  #exclude = c("non smoker") ,
+  domains = c("condition", "observation", "measurement")
+)
+
+write.csv(smoking_codes, here::here("preliminary_cohorts" , "other_cancers",
+                                    paste0(cdmName(cdm), "_smokingBroad.csv")), row.names = FALSE)
+
+
 
 
 # Creating cohort files ------------
