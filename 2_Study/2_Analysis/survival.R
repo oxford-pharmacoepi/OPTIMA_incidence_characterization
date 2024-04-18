@@ -302,6 +302,8 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   # estimate survival ----
   cli::cli_alert_info("Estimating survival")
   
+  # Analysis 1 
+  # this creates survival stratified by diagnosis groups with follow up truncated at 5 years
   suppressWarnings(
     
   surv <- estimateSingleEventSurvival(cdm = cdm,
@@ -319,8 +321,26 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                     c("diag_yr_gp", "sex")),
                                       minCellCount = 0) )
   
+  # Analysis 2 
+  # follow up not truncated and not carrying out stratification by diagnosis year
   suppressWarnings(
-  # get risk table at yearly intervals
+    
+    surv1 <- estimateSingleEventSurvival(cdm = cdm,
+                                        followUpDays = Inf,
+                                        censorOnCohortExit = TRUE ,
+                                        censorOnDate = as.Date("2023-01-01") ,
+                                        eventGap = c(5) ,
+                                        estimateGap = c(5) ,
+                                        targetCohortTable = "outcome",
+                                        outcomeCohortTable = "cancer_death",
+                                        strata = list(c("sex"),
+                                                      c("age_group"),
+                                                      c("age_group", "sex")),
+                                        minCellCount = 0) )
+  
+  
+  suppressWarnings(
+  # to risk table at yearly intervals for participants for risk table
   surv_risk_table <- estimateSingleEventSurvival(cdm = cdm,
                                       followUpDays = 1825,
                                       censorOnCohortExit = TRUE ,
@@ -336,6 +356,23 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                     c("diag_yr_gp", "sex")),
                                       minCellCount = 0)
 
+  )
+  
+  suppressWarnings(
+    # to risk table at yearly intervals for participants for risk table for non truncated analysis
+    surv_risk_table1 <- estimateSingleEventSurvival(cdm = cdm,
+                                                   followUpDays = Inf,
+                                                   censorOnCohortExit = TRUE ,
+                                                   censorOnDate = as.Date("2023-01-01") ,
+                                                   eventGap = c(365) ,
+                                                   estimateGap = c(365) ,
+                                                   targetCohortTable = "outcome",
+                                                   outcomeCohortTable = "cancer_death",
+                                                   strata = list(c("sex"),
+                                                                 c("age_group"),
+                                                                 c("age_group", "sex")),
+                                                   minCellCount = 0)
+    
   )
   
   
@@ -366,8 +403,15 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
   # export survival summary ----
   cli::cli_alert_info("Exporting survival summary")
-  write_csv(survivalSummary(surv), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_summary.csv"
+  write_csv(tableSurvival(surv,
+                          times = c(365,730,1095,1460, 1825)), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_summary.csv"
   ))) 
+  
+  
+  write_csv(tableSurvival(surv1,
+                          times = c(365,730,1095,1460, 1825, 2190, 2555, 2920, 3285, 3650)), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_summary_not_truncated.csv"
+                          ))) 
+  
 
   cli::cli_alert_success("Survival Analysis Complete")
 
