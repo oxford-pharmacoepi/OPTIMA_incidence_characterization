@@ -340,15 +340,16 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
 
   cli::cli_alert_info("Exporting survival attrition")
-  # bind initial attrition and survival attrition
   
+  # initial attrition (ie removing people with multiple cancers, previous history of cancer)
   attrition1 <- attrition(cdm$outcome) %>% 
     mutate(cdm_name = db_name) %>% 
     dplyr::inner_join(settings(cdm$outcome) %>%   
                         select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
     rename(outcome_cohort_name = cohort_name) 
   
-  # attrition from survival (only takes first one what about other outcomes)
+  # attrition from survival (only takes first one what about other outcomes BUG)
+  # will need to duplicate based on how many outcomes AND will need to update the numbers of the attrition so it runs from 1-10 not 1-6 then 1-3
   attrition2 <- attributes(surv)$attrition %>% 
     rename(cohort_definition_id  = outcome_id) %>% 
     select(-c(exposure_id)) %>% 
