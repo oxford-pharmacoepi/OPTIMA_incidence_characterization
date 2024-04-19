@@ -319,7 +319,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                     c("age_group", "sex"),
                                                     c("diag_yr_gp"),
                                                     c("diag_yr_gp", "sex")),
-                                      minCellCount = 0) )
+                                      minCellCount = 5) )
   
   # Analysis 2 
   # follow up not truncated and not carrying out stratification by diagnosis year
@@ -336,80 +336,53 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                         strata = list(c("sex"),
                                                       c("age_group"),
                                                       c("age_group", "sex")),
-                                        minCellCount = 0) )
+                                        minCellCount = 5) )
   
-  
-  suppressWarnings(
-  # to risk table at yearly intervals for participants for risk table
-  surv_risk_table <- estimateSingleEventSurvival(cdm = cdm,
-                                      followUpDays = 1825,
-                                      censorOnCohortExit = TRUE ,
-                                      censorOnDate = as.Date("2023-01-01") ,
-                                      eventGap = c(365) ,
-                                      estimateGap = c(365) ,
-                                      targetCohortTable = "outcome",
-                                      outcomeCohortTable = "cancer_death",
-                                      strata = list(c("sex"),
-                                                    c("age_group"),
-                                                    c("age_group", "sex"),
-                                                    c("diag_yr_gp"),
-                                                    c("diag_yr_gp", "sex")),
-                                      minCellCount = 0)
-
-  )
-  
-  suppressWarnings(
-    # to risk table at yearly intervals for participants for risk table for non truncated analysis
-    surv_risk_table1 <- estimateSingleEventSurvival(cdm = cdm,
-                                                   followUpDays = Inf,
-                                                   censorOnCohortExit = TRUE ,
-                                                   censorOnDate = as.Date("2023-01-01") ,
-                                                   eventGap = c(365) ,
-                                                   estimateGap = c(365) ,
-                                                   targetCohortTable = "outcome",
-                                                   outcomeCohortTable = "cancer_death",
-                                                   strata = list(c("sex"),
-                                                                 c("age_group"),
-                                                                 c("age_group", "sex")),
-                                                   minCellCount = 0)
-    
-  )
-  
-  
-  cli::cli_alert_info("Exporting numbers at risk and events")
-
-  write_csv(attributes(surv_risk_table)$events %>% 
-              splitNameLevel(
-                name = "additional_name",
-                level = "additional_level",
-                keep = TRUE,
-                overall = TRUE), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_at_risk_events.csv"
-  )))
 
   cli::cli_alert_info("Exporting survival attrition")
-  write_csv(attrition(cdm$outcome) %>% 
-              mutate(cdm_name = db_name) %>% 
-              dplyr::inner_join(settings(cdm$outcome) %>%   
-                                  select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
-              rename(outcome_cohort_name = cohort_name)
-            , here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_attrition.csv"
+  # bind initial attrition and survival attrition
+  
+  attrition1 <- attrition(cdm$outcome) %>% 
+    mutate(cdm_name = db_name) %>% 
+    dplyr::inner_join(settings(cdm$outcome) %>%   
+                        select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
+    rename(outcome_cohort_name = cohort_name) 
+  
+  # attrition from survival (only takes first one what about other outcomes)
+  attrition2 <- attributes(surv)$attrition %>% 
+    rename(cohort_definition_id  = outcome_id) %>% 
+    select(-c(exposure_id)) %>% 
+    dplyr::inner_join(settings(cdm$outcome) %>%   
+                        select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
+    mutate(cdm_name = db_name)
+  
+  #bind attrition together
+  attrition_final <- bind_rows(attrition1, attrition2)
+  
+  #write the results
+  write_csv(attrition_final, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_attrition.csv"
   )))
   
-
   # export survival estimates ----
+  # analysis 1
   cli::cli_alert_info("Exporting survival results")
   write_csv(surv, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_estimates.csv"
             )))
   
+  # analysis 2
+  cli::cli_alert_info("Exporting survival results")
+  write_csv(surv1, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_estimates.csv"
+  )))
+  
   # export survival summary ----
   cli::cli_alert_info("Exporting survival summary")
   write_csv(tableSurvival(surv,
-                          times = c(365,730,1095,1460, 1825)), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_summary.csv"
+                          times = c(seq(0, 1825, by = 365))), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_summary.csv"
   ))) 
   
-  
+  # export survival summary for non truncated analysis
   write_csv(tableSurvival(surv1,
-                          times = c(365,730,1095,1460, 1825, 2190, 2555, 2920, 3285, 3650)), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_summary_not_truncated.csv"
+                          times = c(seq(0, 3650, by = 365))), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_summary_not_truncated.csv"
                           ))) 
   
 
