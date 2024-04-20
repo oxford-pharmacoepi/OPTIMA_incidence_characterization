@@ -49,20 +49,20 @@
     },
     "CirceR": {
       "Package": "CirceR",
-      "Version": "1.3.2",
+      "Version": "1.3.3",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteUsername": "ohdsi",
       "RemoteRepo": "CirceR",
       "RemoteRef": "HEAD",
-      "RemoteSha": "758a67ee9c446420efba7bcbc9b7217dccfa8805",
+      "RemoteSha": "d9e83b5e83ccf88000946a48a075a2145b4e7db2",
       "RemoteHost": "api.github.com",
       "Requirements": [
         "R",
         "RJSONIO",
         "rJava"
       ],
-      "Hash": "cfba98b562fa0b6a31ea8cdf09912e60"
+      "Hash": "d5d6e3c0ebbf9e537825409847135136"
     },
     "CodelistGenerator": {
       "Package": "CodelistGenerator",
@@ -271,7 +271,7 @@
     },
     "PatientProfiles": {
       "Package": "PatientProfiles",
-      "Version": "0.7.0",
+      "Version": "0.8.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -290,7 +290,7 @@
         "tidyr",
         "visOmopResults"
       ],
-      "Hash": "5d83449a4bca47ebe62866c88d992b37"
+      "Hash": "4fe667d15c8ce4dfd0c2699753925b50"
     },
     "R6": {
       "Package": "R6",
@@ -1333,7 +1333,7 @@
     },
     "lme4": {
       "Package": "lme4",
-      "Version": "1.1-35.2",
+      "Version": "1.1-35.3",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1355,7 +1355,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "c255dd80a1771f41321db15041feed11"
+      "Hash": "862f9d995f528f3051f524791955b20c"
     },
     "log4r": {
       "Package": "log4r",
@@ -1843,13 +1843,13 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "1.0.5",
+      "Version": "1.0.7",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "utils"
       ],
-      "Hash": "32c3f93e8360f667ca5863272ec8ba6a"
+      "Hash": "397b7b2a265bc5a7a06852524dabae20"
     },
     "rlang": {
       "Package": "rlang",
@@ -2007,7 +2007,7 @@
     },
     "shinyWidgets": {
       "Package": "shinyWidgets",
-      "Version": "0.8.4",
+      "Version": "0.8.5",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2021,7 +2021,7 @@
         "sass",
         "shiny"
       ],
-      "Hash": "32fa500353f86092c64fe12c062ee34c"
+      "Hash": "fcfd331c780da8d4b62fa4bfb6c8785e"
     },
     "shinycssloaders": {
       "Package": "shinycssloaders",
@@ -2184,7 +2184,7 @@
     },
     "testthat": {
       "Package": "testthat",
-      "Version": "3.2.1",
+      "Version": "3.2.1.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -2209,7 +2209,7 @@
         "waldo",
         "withr"
       ],
-      "Hash": "4767a686ebe986e6cb01d075b3f09729"
+      "Hash": "3f6e7e5e2220856ff865e4834766bf2b"
     },
     "tibble": {
       "Package": "tibble",
