@@ -1337,6 +1337,17 @@ thyroid_cancer <- reviewed_code_list_thyroid_cancer %>%
   ) %>%
   pull(concept_id)
 
+# esophageal
+reviewed_code_list_esophageal_cancer <- read.csv(here::here("preliminary_cohorts" ,"other_cancers", "reviewed" ,
+                                                         paste0(cdmName(cdm), "_esophagealCancerBroad_reviewed.csv")))
+
+esophageal_cancer <- reviewed_code_list_esophageal_cancer %>%
+  filter(include == "y" &
+           domain_id == "Condition"
+  ) %>%
+  pull(concept_id)
+
+
 # create cohorts
 thyroid_cancer <- cohort(
   entry = entry(
@@ -1548,6 +1559,18 @@ hypopharynx_cancer <- cohort(
 writeCohort(hypopharynx_cancer, here::here("preliminary_cohorts", "other_cancers", "reviewed", "hypopharynx_cancer.json"))
 
 
+esophageal_cancer <- cohort(
+  entry = entry(
+    conditionOccurrence(getConceptSetDetails(cs(esophageal_cancer, name = "esophageal_cancer"), db, vocabularyDatabaseSchema = "public")),
+    observationWindow = continuousObservation(0L, 0L),
+    primaryCriteriaLimit = "First"
+  ),
+  exit = exit(
+    endStrategy = observationExit()
+  )
+)
+
+writeCohort(esophageal_cancer, here::here("preliminary_cohorts", "other_cancers", "reviewed", "esophageal_cancer.json"))
 
 
 
