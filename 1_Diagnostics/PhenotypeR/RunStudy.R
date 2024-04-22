@@ -120,8 +120,7 @@ toc(log = TRUE)
 
 
 # Step 2: Cohort Overlap (Subjects) ###############
-# Percentages and counts: Counts only for now, percentages easy
-# May want to add names to cohorts
+# Percentages and counts: Counts only for now
 
 tic(msg = "Calculate Overlap")
 if (input$runCalculateOverlap) {
@@ -156,18 +155,8 @@ tryCatch({  write_csv(output$cohort_overlap, here("Results",db_name, paste0(
 toc(log = TRUE)
 
 # Step 3: Counts : Concepts in Data Source, Orphan concepts, Cohort definition, Index Event Breakdown #########
-# Details, Cohort Count ,  Cohort definition, Concept Sets, JSON, SQL
-# TO DO: Ideally separate all steps - more loops but less mess
-# 2,3 - Using achillesCOdeUse + Phoebe recommendations
-# 2,3 - We could add options to use getcodeuse from CodelsitGenerator and the orphanCodes
-# TO DO: Need to improve metadata in names of concept sets and names of cohorts
-# TO DO: Need to add  Source field and Standard fields
-# TO DO: Codelist generator - waiting for predictable table to erase the trycatch
-# TO DO: Make the code with achillesCOdeUse faster (probably out of a loop)
 
 #### Test orphans with codelistgen
-# orphans <- CodelistGenerator::findOrphanCodes(code_list, cdm)
-
 tic(msg = "Orphan codes + markdown readable text for only first cohort")
 
 cohort_set_res = cohort_set
@@ -339,22 +328,22 @@ if (input$runMatchedSampleLSC) {
     eventInWindow = c("condition_occurrence", "visit_occurrence",
                       "measurement", "procedure_occurrence",  "observation"), 
     episodeInWindow = c("drug_era"),
-    #includeSource = TRUE,
-    # minCellCount = 5,
     minimumFrequency = 0.0005
   )
   
   large_scale_char_matched <- large_scale_char_matched %>% 
     filter(variable_name != "settings")
   
-  output$lsc_matched <- large_scale_char_matched %>% mutate(cdm_name = input$cdmName)
+  output$lsc_matched <- large_scale_char_matched %>% mutate(cdm_name = input$cdmName) %>% 
+    omopgenerics::suppress(minCellCount = 5)
+  
   write_csv(output$lsc_matched, here("Results",db_name, paste0(
     "lsc_matched_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
 }
 toc(log = TRUE)
 
-tic("LArgeScaleChar sample")
+tic("LargeScaleChar sample")
 if (input$runMatchedSampleLSC) {
   large_scale_char_sample <- summariseLargeScaleCharacteristics(
     cohort=cdm$sample,
@@ -364,22 +353,22 @@ if (input$runMatchedSampleLSC) {
     eventInWindow = c("condition_occurrence", "visit_occurrence",
                       "measurement", "procedure_occurrence",  "observation"), 
     episodeInWindow = c("drug_era"),
-    #includeSource = TRUE,
-    # minCellCount = 5,
     minimumFrequency = 0.0005
   )
   
   large_scale_char_sample <- large_scale_char_sample %>% 
-    filter(variable_name != "settings")
+    filter(variable_name != "settings") %>% 
+    omopgenerics::suppress(minCellCount = 5)
   
   output$lsc_sample <- large_scale_char_sample %>% mutate(cdm_name = input$cdmName)
+  
   write_csv(output$lsc_sample, here("Results",db_name, paste0(
     "lsc_sample_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
 }
 toc(log = TRUE)
 
-tic("LArgeScaleChar difference")
+tic("LargeScaleChar difference")
 if (input$runMatchedSampleLSC) {
   difference <- large_scale_char_sample  %>% 
     left_join( large_scale_char_matched, 
@@ -387,17 +376,16 @@ if (input$runMatchedSampleLSC) {
                             group_name, group_level,
                             strata_name, strata_level,  
                             additional_name, additional_level,
-                            # type, 
-                            # analysis, concept,
                             variable_name, variable_level,
-                            estimate_type )) %>% 
+                            estimate_type ), relationship = "many-to-many") %>% 
     mutate(numx =as.double(`estimate_value.x`),
            numy =as.double(`estimate_value.y`)) %>%
     mutate(difference =(numx-numy)/numy )
   
   # rm(matched_cohort)
   
-  output$lsc_difference <- difference %>% mutate(cdm_name = input$cdmName)
+  output$lsc_difference <- difference %>% mutate(cdm_name = input$cdmName) 
+  
   write_csv(output$lsc_difference, here("Results",db_name, paste0(
     "lsc_difference_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
@@ -408,7 +396,6 @@ toc(log = TRUE)
 # Step 6: Incidence Rates ################
 # Stratified by Age 10y, Gender, Calendar Year
 # For now stratified by kid-Adult-Older Adult 
-# it is the step it takes longest
  
 tic(msg = "Incidence Prevalence Sampling + Denominator")
 if (input$runIncidence|input$runPrevalence) {
@@ -442,8 +429,9 @@ if (input$runIncidence ) {
     repeatedEvents = FALSE,
     outcomeWashout = Inf,
     completeDatabaseIntervals = FALSE,
-    minCellCount = 0 ) 
-  write_csv(output$incidence |> IncidencePrevalence:::obscureCounts(), here("Results", db_name, paste0(
+    minCellCount = 5 ) 
+  
+  write_csv(output$incidence , here("Results", db_name, paste0(
     "incidence_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
   )))
   
@@ -471,7 +459,6 @@ if (input$runPrevalence ) {
 
 
 toc(log = TRUE)
-
 
 rm(cdmSampled)
 
