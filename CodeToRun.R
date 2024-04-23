@@ -2,7 +2,7 @@
 # the following will prompt you to install the various packages used in the study 
 # install.packages("renv")
 # renv::activate()
-renv:restore()
+renv::restore()
 
 # load r packages
 library(CirceR)
