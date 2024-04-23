@@ -41,7 +41,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 74582,From initial search,Primary malignant neoplasm of rectum,Condition,SNOMED,standard,y,n,y
 438090,From initial search,"Overlapping malignant neoplasm of rectum, anus and anal canal",Condition,SNOMED,standard,y,n,n
 603311,From initial search,Primary malignant gastrointestinal stromal neoplasm of rectum,Condition,SNOMED,standard,n,n,n
-4095430,From initial search,"Malignant neoplasm of rectum, rectosigmoid junction and anus",Condition,SNOMED,standard,y,n,n
+4095430,From initial search,"Malignant neoplasm of rectum, rectosigmoid junction and anus",Condition,SNOMED,standard,y,n,y
 4287939,From initial search,Rectum involved by direct extension of malignant neoplasm,Condition,SNOMED,standard,y,n,y
 36549045,From initial search,"Neoplasm, malignant of overlapping lesion of rectum, anus and anal canal",Condition,ICDO3,standard,y,n,n
 40481902,From initial search,Malignant neoplasm of anorectum,Condition,SNOMED,standard,y,n,y
@@ -154,109 +154,109 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 44503091,From descendants,Mucinous adenocarcinoma of hepatic flexure of colon,Condition,ICDO3,standard,y,y,n
 44504349,From descendants,"Carcinoma, NOS, of ascending colon",Condition,ICDO3,standard,y,y,n
 44504355,From descendants,"Carcinoma, NOS, of hepatic flexure of colon",Condition,ICDO3,standard,y,y,n
-438699,From descendants,Primary malignant neoplasm of rectosigmoid junction,Condition,SNOMED,standard,y,n,n
+438699,From descendants,Primary malignant neoplasm of rectosigmoid junction,Condition,SNOMED,standard,y,y,n
 4115028,From descendants,Carcinoma of sigmoid colon,Condition,SNOMED,standard,y,y,n
-4151260,From descendants,Carcinoma of the rectosigmoid junction,Condition,SNOMED,standard,y,n,n
-4180792,From descendants,Malignant tumor of rectosigmoid junction,Condition,SNOMED,standard,y,n,n
+4151260,From descendants,Carcinoma of the rectosigmoid junction,Condition,SNOMED,standard,y,y,n
+4180792,From descendants,Malignant tumor of rectosigmoid junction,Condition,SNOMED,standard,y,y,n
 4200514,From descendants,Adenocarcinoma of sigmoid colon,Condition,SNOMED,standard,y,y,n
-4322376,From descendants,Adenocarcinoma of rectosigmoid junction,Condition,SNOMED,standard,y,n,n
+4322376,From descendants,Adenocarcinoma of rectosigmoid junction,Condition,SNOMED,standard,y,y,n
 36402630,From descendants,"Adenocarcinoma,uncertain whether primary or metastatic site of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36403009,From descendants,Adenocarcinoma in situ in familial polyp. coli of rectosigmoid junction,Condition,ICDO3,standard,n,n,n
 36403010,From descendants,Adenocarcinoma in situ in familial polyp. coli of sigmoid colon,Condition,ICDO3,standard,n,n,n
 36403093,From descendants,Adenocarc. in situ in mult. adenomatous polyps of sigmoid colon,Condition,ICDO3,standard,n,n,n
 36403095,From descendants,Adenocarc. in situ in mult. adenomatous polyps of rectosigmoid junction,Condition,ICDO3,standard,n,n,n
-36517800,From descendants,Adenocarcinoma with cartilaginous and osseous metaplasia of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
-36518243,From descendants,"Carcinoma, undifferentiated, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
+36517800,From descendants,Adenocarcinoma with cartilaginous and osseous metaplasia of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
+36518243,From descendants,"Carcinoma, undifferentiated, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
 36521726,From descendants,"Clear cell adenocarcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36521973,From descendants,Carcinofibroma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 36522352,From descendants,Adenocarcinoma with squamous metaplasia of sigmoid colon,Condition,ICDO3,standard,y,y,n
 36522585,From descendants,Malignant mastocytosis of sigmoid colon,Condition,ICDO3,standard,n,n,n
-36522763,From descendants,"Carcinoma, diffuse type of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
+36522763,From descendants,"Carcinoma, diffuse type of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
 36524507,From descendants,Acinar cell carcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
-36525001,From descendants,Papillary microcarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36525001,From descendants,Papillary microcarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36525556,From descendants,"Squamous cell carcinoma, adenoid of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36526276,From descendants,Malignant mastocytosis of rectosigmoid junction,Condition,ICDO3,standard,n,n,n
-36526362,From descendants,Tubular adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36526362,From descendants,Tubular adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36526752,From descendants,"Metaplastic carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
-36527779,From descendants,Myoepithelial carcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36527779,From descendants,Myoepithelial carcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36528366,From descendants,Adenocarcinoma with apocrine metaplasia of sigmoid colon,Condition,ICDO3,standard,y,y,n
-36529222,From descendants,Hepatoid adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36529222,From descendants,Hepatoid adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36529934,From descendants,"Solid carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
-36529981,From descendants,"Carcinoma, anaplastic, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
+36529981,From descendants,"Carcinoma, anaplastic, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
 36531112,From descendants,"Papillary carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36533511,From descendants,Carcinoma simplex of sigmoid colon,Condition,ICDO3,standard,y,y,n
 36533849,From descendants,"Squamous cell carcinoma, spindle cell of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36534141,From descendants,Scirrhous adenocarcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 36534469,From descendants,"Carcinoma, anaplastic, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36535776,From descendants,"Small cell carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,n,n,n
-36536825,From descendants,"Papillary carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
-36536908,From descendants,Adenocarcinoma in multiple adenomatous polyps of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36536825,From descendants,"Papillary carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
+36536908,From descendants,Adenocarcinoma in multiple adenomatous polyps of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36537155,From descendants,Pleomorphic carcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
-36538727,From descendants,"Cystadenocarcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
+36538727,From descendants,"Cystadenocarcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
 36539064,From descendants,"Carcinoma, undifferentiated, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36539303,From descendants,Adenocarcinoma with cartilaginous and osseous metaplasia of sigmoid colon,Condition,ICDO3,standard,y,y,n
 36539431,From descendants,Mucoepidermoid carcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
-36539890,From descendants,Carcinoma simplex of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
-36539924,From descendants,"Solid carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
-36542114,From descendants,Adenocarcinoma with squamous metaplasia of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36539890,From descendants,Carcinoma simplex of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
+36539924,From descendants,"Solid carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
+36542114,From descendants,Adenocarcinoma with squamous metaplasia of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36542446,From descendants,"Carcinoma, diffuse type of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36543690,From descendants,"Solitary fibrous tumor, malignant of rectosigmoid junction",Condition,ICDO3,standard,n,n,n
-36544212,From descendants,Pleomorphic carcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36544212,From descendants,Pleomorphic carcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36545170,From descendants,Malignant histiocytosis of sigmoid colon,Condition,ICDO3,standard,n,n,n
-36545562,From descendants,Epithelial-myoepithelial carcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36545562,From descendants,Epithelial-myoepithelial carcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36547294,From descendants,"Squamous cell carcinoma, microinvasive of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36548472,From descendants,Adenocarcinoid tumor of sigmoid colon,Condition,ICDO3,standard,y,y,n
 36549367,From descendants,Polygonal cell carcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
-36552007,From descendants,Adenocarcinoid tumor of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36552007,From descendants,Adenocarcinoid tumor of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36552278,From descendants,Epithelial-myoepithelial carcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
-36552671,From descendants,"Verrucous carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
-36552772,From descendants,Adenocarcinoma in adenomatous polyposis coli of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36552671,From descendants,"Verrucous carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
+36552772,From descendants,Adenocarcinoma in adenomatous polyposis coli of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36553110,From descendants,Glassy cell carcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
-36553482,From descendants,Scirrhous adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
-36554357,From descendants,"Medullary carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
-36555022,From descendants,Mucoepidermoid carcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
-36555932,From descendants,"Metaplastic carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
+36553482,From descendants,Scirrhous adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
+36554357,From descendants,"Medullary carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
+36555022,From descendants,Mucoepidermoid carcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
+36555932,From descendants,"Metaplastic carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
 36555955,From descendants,"Verrucous carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36556087,From descendants,"Epithelioma, malignant of sigmoid colon",Condition,ICDO3,standard,y,y,n
 36558010,From descendants,Hepatoid adenocarcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 36558313,From descendants,Basal cell adenocarcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 36560584,From descendants,Carcinofibroma of rectosigmoid junction,Condition,ICDO3,standard,n,n,n
 36560788,From descendants,"Cystadenocarcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
-36561698,From descendants,Adenocarcinoma with apocrine metaplasia of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36561698,From descendants,Adenocarcinoma with apocrine metaplasia of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36562573,From descendants,Gastrointestinal stromal tumor of rectosigmoid junction,Condition,ICDO3,standard,n,n,n
 36562593,From descendants,Malignant histiocytosis of rectosigmoid junction,Condition,ICDO3,standard,n,n,n
 36563181,From descendants,Myoepithelial carcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 36563654,From descendants,"Large cell carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
-36565088,From descendants,"Epithelioma, malignant of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
+36565088,From descendants,"Epithelioma, malignant of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
 36565794,From descendants,Papillary squamous cell carcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 36566061,From descendants,"Spindle cell carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
-36566885,From descendants,Superficial spreading adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+36566885,From descendants,Superficial spreading adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 36567229,From descendants,"Small cell carcinoma, fusiform cell of sigmoid colon",Condition,ICDO3,standard,n,n,n
-37016239,From descendants,Primary adenocarcinoma of rectosigmoid junction,Condition,SNOMED,standard,y,n,n
-37018661,From descendants,Malignant neoplasm of rectosigmoid junction metastatic to brain,Condition,SNOMED,standard,y,n,n
+37016239,From descendants,Primary adenocarcinoma of rectosigmoid junction,Condition,SNOMED,standard,y,y,n
+37018661,From descendants,Malignant neoplasm of rectosigmoid junction metastatic to brain,Condition,SNOMED,standard,y,y,n
 42511613,From descendants,"Micropapillary carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
 42512292,From descendants,Serrated adenocarcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 42512414,From descendants,"Mesonephroma, malignant of sigmoid colon",Condition,ICDO3,standard,n,n,n
-42512553,From descendants,"Micropapillary carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
-42512621,From descendants,Serrated adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+42512553,From descendants,"Micropapillary carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
+42512621,From descendants,Serrated adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 44499436,From descendants,Adenocarcinoma in adenomatous polyposis coli of sigmoid colon,Condition,ICDO3,standard,y,y,n
-44499504,From descendants,Adenocarcinoma with mixed subtypes of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+44499504,From descendants,Adenocarcinoma with mixed subtypes of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 44499550,From descendants,Adenocarcinoma in tubulovillous adenoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
-44499754,From descendants,Adenosquamous carcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
-44499966,From descendants,Villous adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+44499754,From descendants,Adenosquamous carcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
+44499966,From descendants,Villous adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 44500018,From descendants,"Cribriform carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
-44500037,From descendants,Mucin-producing adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+44500037,From descendants,Mucin-producing adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 44500060,From descendants,Adenocarcinoma in multiple adenomatous polyps of sigmoid colon,Condition,ICDO3,standard,y,y,n
-44500138,From descendants,"Papillary adenocarcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
+44500138,From descendants,"Papillary adenocarcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
 44500195,From descendants,Superficial spreading adenocarcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 44500411,From descendants,Adenocarcinoma in adenomatous polyp of sigmoid colon,Condition,ICDO3,standard,y,y,n
 44500413,From descendants,Adenocarcinoma with mixed subtypes of sigmoid colon,Condition,ICDO3,standard,y,y,n
 44500648,From descendants,"Papillary adenocarcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
 44500982,From descendants,"Squamous cell carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
-44501075,From descendants,"Adenocarcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
+44501075,From descendants,"Adenocarcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
 44501145,From descendants,Adenocarcinoma in villous adenoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
-44501440,From descendants,Adenocarcinoma in villous adenoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
-44501639,From descendants,Adenocarcinoma in tubulovillous adenoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+44501440,From descendants,Adenocarcinoma in villous adenoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
+44501639,From descendants,Adenocarcinoma in tubulovillous adenoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 44501720,From descendants,Tubular adenocarcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 44501742,From descendants,"Epithelioid mesothelioma, malignant of sigmoid colon",Condition,ICDO3,standard,n,n,n
 44502029,From descendants,Mucinous adenocarcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
@@ -264,14 +264,14 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 44502115,From descendants,"Medullary carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
 44502351,From descendants,Gastrointestinal stromal tumor of sigmoid colon,Condition,ICDO3,standard,n,n,n
 44502709,From descendants,Mucin-producing adenocarcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
-44502874,From descendants,"Endometrioid adenocarcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
-44502951,From descendants,Mucinous adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
-44503086,From descendants,Adenocarcinoma in adenomatous polyp of rectosigmoid junction,Condition,ICDO3,standard,y,n,n
+44502874,From descendants,"Endometrioid adenocarcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
+44502951,From descendants,Mucinous adenocarcinoma of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
+44503086,From descendants,Adenocarcinoma in adenomatous polyp of rectosigmoid junction,Condition,ICDO3,standard,y,y,n
 44503088,From descendants,Villous adenocarcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 44503097,From descendants,Adenosquamous carcinoma of sigmoid colon,Condition,ICDO3,standard,y,y,n
 44504379,From descendants,"Carcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
 44504380,From descendants,"Adenocarcinoma, NOS, of sigmoid colon",Condition,ICDO3,standard,y,y,n
-44504400,From descendants,"Carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,n,n
+44504400,From descendants,"Carcinoma, NOS, of rectosigmoid junction",Condition,ICDO3,standard,y,y,n
 4181344,From descendants,Malignant tumor of splenic flexure,Condition,SNOMED,standard,y,y,n
 4193165,From descendants,Carcinoma of descending colon,Condition,SNOMED,standard,y,y,n
 4193872,From descendants,Carcinoma of splenic flexure,Condition,SNOMED,standard,y,y,n
@@ -822,3 +822,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 3188664,From initial search,KRAS nucleotide sequence detected in excised malignant neoplasm of colon,Observation,Nebraska Lexicon,standard,n,n,n
 3190042,From initial search,BRAF sequence variant identified in excised malignant neoplasm of colon,Observation,Nebraska Lexicon,standard,n,n,n
 3190403,From initial search,PTEN sequence variant identified in excised malignant neoplasm of colon,Observation,Nebraska Lexicon,standard,n,n,n
+432837,From orphan concepts,Primary malignant neoplasm of cecum,Condition,SNOMED,standard,y,y,n
+443391,From orphan concepts,Malignant tumor of cecum,Condition,SNOMED,standard,y,y,n
+4116240,From orphan concepts,Carcinoma of cecum,Condition,SNOMED,standard,y,y,n
+4246125,From orphan concepts,Primary malignant neoplasm of large intestine,Condition,SNOMED,standard,y,y,n
