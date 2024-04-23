@@ -93,4 +93,3 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,live
 607725,From descendants,Anatomic location directly invaded by primary malignant neoplasm of intrahepatic bile duct,Observation,SNOMED,standard,n,y
 607728,From descendants,Presence of direct invasion by primary malignant neoplasm of intrahepatic bile duct to nerve,Observation,SNOMED,standard,n,y
 602965,From descendants,Histologic type of primary malignant neoplasm of intrahepatic bile duct,Observation,SNOMED,standard,n,y
-"	40490929",From orphans,Primary malignant neoplasm of biliary tract,Condition,SNOMED,standard,n,y
