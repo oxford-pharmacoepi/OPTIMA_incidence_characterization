@@ -75,6 +75,23 @@
           },
           {
             "concept": {
+              "CONCEPT_ID": 4095430,
+              "CONCEPT_NAME": "Malignant neoplasm of rectum, rectosigmoid junction and anus",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187760008",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
               "CONCEPT_ID": 4287939,
               "CONCEPT_NAME": "Rectum involved by direct extension of malignant neoplasm",
               "STANDARD_CONCEPT": "S",
