@@ -1591,7 +1591,3 @@ esophageal_cancer <- cohort(
 
 writeCohort(esophageal_cancer, here::here("preliminary_cohorts", "other_cancers", "reviewed", "esophageal_cancer.json"))
 
-
-
-
-
