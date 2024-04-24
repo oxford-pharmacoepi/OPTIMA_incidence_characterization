@@ -1205,13 +1205,6 @@ liver_cancer <- reviewed_code_list_liver_cancer %>%
   ) %>%
   pull(concept_id)
 
-
-bile_duct_cancer <- reviewed_code_list_liver_cancer %>%
-  filter(`bile_duct` == "y" &
-           domain_id == "Condition"
-  ) %>%
-  pull(concept_id)
-
 # create cohorts
 liver_cancer <- cohort(
   entry = entry(
@@ -1225,20 +1218,6 @@ liver_cancer <- cohort(
 )
 
 writeCohort(liver_cancer, here::here("preliminary_cohorts", "other_cancers", "reviewed", "liver_cancer.json"))
-
-# create cohorts
-bile_duct_cancer <- cohort(
-  entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(bile_duct_cancer, name = "bile_duct_cancer"), db, vocabularyDatabaseSchema = "public")),
-    observationWindow = continuousObservation(0L, 0L),
-    primaryCriteriaLimit = "First"
-  ),
-  exit = exit(
-    endStrategy = observationExit()
-  )
-)
-
-writeCohort(bile_duct_cancer, here::here("preliminary_cohorts", "other_cancers", "reviewed", "bile_duct_cancer.json"))
 
 
 # ovarian
