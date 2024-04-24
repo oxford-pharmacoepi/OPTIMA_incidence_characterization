@@ -4474,21 +4474,23 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36557290,From descendants,"Villous adenocarcinoma of tonsil, NOS",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36537074,From descendants,Villous adenocarcinoma of tonsillar fossa,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36531971,From descendants,Villous adenocarcinoma of tonsillar pillar,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
-36520705,From descendants,"Adenocarcinoma, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y BROAD,n,n,n,n,n,n,n
-4113107,From descendants,"Carcinoma of lip, oral cavity and pharynx",Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
-36530930,From descendants,"Carcinoma, anaplastic, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y BROAD,n,n,n,n,n,n,n
-36528624,From descendants,"Carcinoma, undifferentiated, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y BROAD,n,n,n,n,n,n,n
-36530736,From descendants,"Epithelioma, malignant of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y BROAD,n,n,n,n,n,n,n
-440655,From descendants,"Malignant neoplasm of tongue, tip and lateral border",Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
-4116236,From descendants,"Malignant tumor of ear, nose and throat",Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
-4114222,From initial search,Malignant tumor of head and neck,Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
-4178979,From descendants,Malignant tumor of neck,Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
-761019,From descendants,Merkel cell carcinoma of neck,Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
-36557349,From descendants,"Mucinous adenocarcinoma of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y BROAD,n,n,n,n,n,n,n
-4111021,From descendants,Overlapping malignant neoplasm of oral cavity and lips and salivary glands,Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
-36519272,From descendants,"Papillary carcinoma, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y BROAD,n,n,n,n,n,n,n
-36523150,From descendants,"Papillary cystadenocarcinoma, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y BROAD,n,n,n,n,n,n,n
-602005,From descendants,Primary adenocarcinoma of head,Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
-601998,From descendants,Primary adenocarcinoma of neck,Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
-4216273,From descendants,"Primary malignant neoplasm of ear, nose AND/OR throat",Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
-30346,From descendants,Primary malignant neoplasm of neck,Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
+36520705,From descendants,"Adenocarcinoma, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+4113107,From descendants,"Carcinoma of lip, oral cavity and pharynx",Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+36530930,From descendants,"Carcinoma, anaplastic, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+36528624,From descendants,"Carcinoma, undifferentiated, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+36530736,From descendants,"Epithelioma, malignant of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+440655,From descendants,"Malignant neoplasm of tongue, tip and lateral border",Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+4116236,From descendants,"Malignant tumor of ear, nose and throat",Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+4114222,From initial search,Malignant tumor of head and neck,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+4178979,From descendants,Malignant tumor of neck,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+761019,From descendants,Merkel cell carcinoma of neck,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+36557349,From descendants,"Mucinous adenocarcinoma of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+4111021,From descendants,Overlapping malignant neoplasm of oral cavity and lips and salivary glands,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+36519272,From descendants,"Papillary carcinoma, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+36523150,From descendants,"Papillary cystadenocarcinoma, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+602005,From descendants,Primary adenocarcinoma of head,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+601998,From descendants,Primary adenocarcinoma of neck,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+4216273,From descendants,"Primary malignant neoplasm of ear, nose AND/OR throat",Condition,SNOMED,standard,n,n,n,n,n,n,n,n
+30346,From descendants,Primary malignant neoplasm of neck,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+40493020,From orphan,Malignant neoplasm of upper respiratory tract,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+252840,From orphan,Primary malignant neoplasm of upper respiratory tract,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
