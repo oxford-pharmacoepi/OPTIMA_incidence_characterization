@@ -3,9 +3,9 @@
     {
       "concept": {
         "CONCEPT_CLASS_ID": "Clinical Finding",
-        "CONCEPT_CODE": "12063002",
-        "CONCEPT_ID": 4026112,
-        "CONCEPT_NAME": "Rectal hemorrhage",
+        "CONCEPT_CODE": "19943007",
+        "CONCEPT_ID": 4064161,
+        "CONCEPT_NAME": "Cirrhosis of liver",
         "DOMAIN_ID": "Condition",
         "INVALID_REASON": "V",
         "INVALID_REASON_CAPTION": "Valid",
