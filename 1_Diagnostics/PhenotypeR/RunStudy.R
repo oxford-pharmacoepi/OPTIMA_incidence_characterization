@@ -332,7 +332,8 @@ if (input$runMatchedSampleLSC) {
   )
   
   large_scale_char_matched <- large_scale_char_matched %>% 
-    filter(variable_name != "settings")
+    filter(variable_name != "settings") %>% 
+    omopgenerics::suppress(minCellCount = 5)
   
   output$lsc_matched <- large_scale_char_matched %>% mutate(cdm_name = input$cdmName) %>% 
     omopgenerics::suppress(minCellCount = 5)
