@@ -335,8 +335,7 @@ if (input$runMatchedSampleLSC) {
     filter(variable_name != "settings") %>% 
     omopgenerics::suppress(minCellCount = 5)
   
-  output$lsc_matched <- large_scale_char_matched %>% mutate(cdm_name = input$cdmName) %>% 
-    omopgenerics::suppress(minCellCount = 5)
+  output$lsc_matched <- large_scale_char_matched %>% mutate(cdm_name = input$cdmName) 
   
   write_csv(output$lsc_matched, here("Results",db_name, paste0(
     "lsc_matched_", cdmName(cdm), "_" ,format(Sys.time(), "%Y_%m_%d"), ".csv"
