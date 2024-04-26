@@ -1610,7 +1610,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36545382,From descendants,Adenocarcinoma in villous adenoma of uvula,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36531583,From descendants,Adenocarcinoma in villous adenoma of vallecula,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36551849,From descendants,Adenocarcinoma in villous adenoma of vestibule of mouth,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
-40479582,From descendants,Adenocarcinoma of head and neck,Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
+40479582,From descendants,Adenocarcinoma of head and neck,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
 4307152,From descendants,Adenocarcinoma of nasopharynx,Condition,SNOMED,standard,y,n,n,n,n,n,y,n
 36538691,From descendants,"Adenocarcinoma with apocrine metaplasia of accessory sinus, NOS",Condition,ICDO3,standard,y,n,y,n,n,n,n,n
 36539225,From descendants,"Adenocarcinoma with apocrine metaplasia of anterior 2/3 of tongue, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
@@ -1647,7 +1647,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36518602,From descendants,Adenocarcinoma with cartilaginous and osseous metaplasia of sphenoid sinus,Condition,ICDO3,standard,y,n,y,n,n,n,n,n
 36566386,From descendants,Adenocarcinoma with cartilaginous and osseous metaplasia of sublingual gland,Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 36560666,From descendants,Adenocarcinoma with cartilaginous and osseous metaplasia of submandibular gland,Condition,ICDO3,standard,y,n,n,y,n,n,n,n
-36521501,From descendants,"Adenocarcinoma with cartilaginous and osseous metaplasia of tongue, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+36521501,From descendants,"Adenocarcinoma with cartilaginous and osseous metaplasia of tongue, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36555998,From descendants,"Adenocarcinoma with mixed subtypes of accessory sinus, NOS",Condition,ICDO3,standard,y,n,y,n,n,n,n,n
 36524511,From descendants,"Adenocarcinoma with mixed subtypes of anterior 2/3 of tongue, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36554696,From descendants,Adenocarcinoma with mixed subtypes of anterior floor of mouth,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
@@ -1712,7 +1712,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36544155,From descendants,Adenocarcinoma with mixed subtypes of submandibular gland,Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 36557569,From descendants,Adenocarcinoma with mixed subtypes of superior wall of nasopharynx,Condition,ICDO3,standard,y,n,n,n,n,n,y,n
 36535322,From descendants,Adenocarcinoma with mixed subtypes of supraglottis,Condition,ICDO3,standard,y,n,n,n,y,n,n,n
-36559198,From descendants,"Adenocarcinoma with mixed subtypes of tongue, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+36559198,From descendants,"Adenocarcinoma with mixed subtypes of tongue, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36565146,From descendants,"Adenocarcinoma with mixed subtypes of tonsil, NOS",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36563856,From descendants,Adenocarcinoma with mixed subtypes of tonsillar fossa,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36543334,From descendants,Adenocarcinoma with mixed subtypes of tonsillar pillar,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
@@ -1791,7 +1791,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36551099,From descendants,"Adenocarcinoma, NOS, of overlapping lesion of tongue",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36531925,From descendants,"Adenocarcinoma, NOS, of overlapping lesion of tonsil",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36532187,From descendants,"Adenocarcinoma, NOS, of overlapping lesions of oropharynx",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
-36568252,From descendants,"Adenocarcinoma, NOS, of palate, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+36568252,From descendants,"Adenocarcinoma, NOS, of palate, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36556858,From descendants,"Adenocarcinoma, NOS, of pharynx, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36530215,From descendants,"Adenocarcinoma, NOS, of postcricoid region",Condition,ICDO3,standard,y,n,n,n,n,n,n,y
 36530520,From descendants,"Adenocarcinoma, NOS, of posterior wall of hypopharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,y
@@ -1860,7 +1860,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36537914,From descendants,Adenoid cystic carcinoma of overlapping lesion of tongue,Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36530659,From descendants,Adenoid cystic carcinoma of overlapping lesion of tonsil,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36567954,From descendants,Adenoid cystic carcinoma of overlapping lesions of oropharynx,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
-44501717,From descendants,"Adenoid cystic carcinoma of palate, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+44501717,From descendants,"Adenoid cystic carcinoma of palate, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 4313754,From descendants,Adenoid cystic carcinoma of parotid gland,Condition,SNOMED,standard,y,n,n,y,n,n,n,n
 44500443,From descendants,"Adenoid cystic carcinoma of pharynx, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36535109,From descendants,Adenoid cystic carcinoma of postcricoid region,Condition,ICDO3,standard,y,n,n,n,n,n,n,y
@@ -1890,7 +1890,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36555708,From descendants,"Adenosquamous carcinoma of anterior 2/3 of tongue, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36541121,From descendants,Adenosquamous carcinoma of anterior floor of mouth,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36551205,From descendants,"Adenosquamous carcinoma of base of tongue, NOS",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
-36528997,From descendants,Adenosquamous carcinoma of border of tongue,Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+36528997,From descendants,Adenosquamous carcinoma of border of tongue,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36535889,From descendants,Adenosquamous carcinoma of cheeck mucosa,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36546006,From descendants,Adenosquamous carcinoma of commissure of lip,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36538364,From descendants,Adenosquamous carcinoma of ethmoid sinus,Condition,ICDO3,standard,y,n,y,n,n,n,n,n
@@ -2208,7 +2208,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36528162,From descendants,"Carcinoma, anaplastic, NOS, of overlapping lesion of tongue",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36552189,From descendants,"Carcinoma, anaplastic, NOS, of overlapping lesion of tonsil",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36553937,From descendants,"Carcinoma, anaplastic, NOS, of overlapping lesions of oropharynx",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
-36526321,From descendants,"Carcinoma, anaplastic, NOS, of palate, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+36526321,From descendants,"Carcinoma, anaplastic, NOS, of palate, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36553970,From descendants,"Carcinoma, anaplastic, NOS, of parotid gland",Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 36536751,From descendants,"Carcinoma, anaplastic, NOS, of pharynx, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36546681,From descendants,"Carcinoma, anaplastic, NOS, of postcricoid region",Condition,ICDO3,standard,y,n,n,n,n,n,n,y
@@ -2237,7 +2237,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 44504052,From descendants,"Carcinoma, NOS, of anterior floor of mouth",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36530379,From descendants,"Carcinoma, NOS, of anterior wall of nasopharynx",Condition,ICDO3,standard,y,n,n,n,n,n,y,n
 44503983,From descendants,"Carcinoma, NOS, of base of tongue, NOS",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
-36545377,From descendants,"Carcinoma, NOS, of border of tongue",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+36545377,From descendants,"Carcinoma, NOS, of border of tongue",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36539484,From descendants,"Carcinoma, NOS, of cheeck mucosa",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 44503962,From descendants,"Carcinoma, NOS, of commissure of lip",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 44504851,From descendants,"Carcinoma, NOS, of ethmoid sinus",Condition,ICDO3,standard,y,n,y,n,n,n,n,n
@@ -2281,7 +2281,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36526156,From descendants,"Carcinoma, NOS, of overlapping lesion of tongue",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36536885,From descendants,"Carcinoma, NOS, of overlapping lesion of tonsil",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36551464,From descendants,"Carcinoma, NOS, of overlapping lesions of oropharynx",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
-44504095,From descendants,"Carcinoma, NOS, of palate, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+44504095,From descendants,"Carcinoma, NOS, of palate, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 44503716,From descendants,"Carcinoma, NOS, of parotid gland",Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 36536994,From descendants,"Carcinoma, NOS, of pharynx, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36559476,From descendants,"Carcinoma, NOS, of postcricoid region",Condition,ICDO3,standard,y,n,n,n,n,n,n,y
@@ -2578,7 +2578,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36557970,From descendants,Epithelial-myoepithelial carcinoma of sublingual gland,Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 44499923,From descendants,Epithelial-myoepithelial carcinoma of submandibular gland,Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 36530266,From descendants,Epithelial-myoepithelial carcinoma of supraglottis,Condition,ICDO3,standard,y,n,n,n,y,n,n,n
-36520155,From descendants,"Epithelial-myoepithelial carcinoma of tongue, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+36520155,From descendants,"Epithelial-myoepithelial carcinoma of tongue, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36557006,From descendants,"Epithelial-myoepithelial carcinoma of tonsil, NOS",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36560051,From descendants,Epithelial-myoepithelial carcinoma of tonsillar fossa,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36544170,From descendants,Epithelial-myoepithelial carcinoma of tonsillar pillar,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
@@ -2590,7 +2590,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36533858,From descendants,"Epithelioma, malignant of anterior 2/3 of tongue, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36534318,From descendants,"Epithelioma, malignant of anterior floor of mouth",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36532976,From descendants,"Epithelioma, malignant of anterior wall of nasopharynx",Condition,ICDO3,standard,y,n,n,n,n,n,y,n
-36541390,From descendants,"Epithelioma, malignant of base of tongue, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+36541390,From descendants,"Epithelioma, malignant of base of tongue, NOS",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36525081,From descendants,"Epithelioma, malignant of border of tongue",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36546451,From descendants,"Epithelioma, malignant of cheeck mucosa",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36532693,From descendants,"Epithelioma, malignant of commissure of lip",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
@@ -3160,7 +3160,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36561954,From descendants,Mucin-producing adenocarcinoma of overlapping lesion of major salivary glands,Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 36522293,From descendants,Mucin-producing adenocarcinoma of overlapping lesion of nasopharynx,Condition,ICDO3,standard,y,n,n,n,n,n,y,n
 36538742,From descendants,Mucin-producing adenocarcinoma of overlapping lesion of other and unspecified parts of mouth,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
-36567083,From descendants,Mucin-producing adenocarcinoma of overlapping lesion of palate,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+36567083,From descendants,Mucin-producing adenocarcinoma of overlapping lesion of palate,Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36526191,From descendants,Mucin-producing adenocarcinoma of overlapping lesion of tongue,Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36533415,From descendants,Mucin-producing adenocarcinoma of overlapping lesion of tonsil,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36548802,From descendants,Mucin-producing adenocarcinoma of overlapping lesions of oropharynx,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
@@ -3228,11 +3228,11 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36548909,From descendants,Mucoepidermoid carcinoma of overlapping lesion of major salivary glands,Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 36551322,From descendants,Mucoepidermoid carcinoma of overlapping lesion of nasopharynx,Condition,ICDO3,standard,y,n,n,n,n,n,y,n
 36533915,From descendants,Mucoepidermoid carcinoma of overlapping lesion of other and unspecified parts of mouth,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
-36565930,From descendants,Mucoepidermoid carcinoma of overlapping lesion of palate,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+36565930,From descendants,Mucoepidermoid carcinoma of overlapping lesion of palate,Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36541208,From descendants,Mucoepidermoid carcinoma of overlapping lesion of tongue,Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36564810,From descendants,Mucoepidermoid carcinoma of overlapping lesion of tonsil,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36544487,From descendants,Mucoepidermoid carcinoma of overlapping lesions of oropharynx,Condition,ICDO3,standard,y,n,n,n,n,y,n,n
-44501576,From descendants,"Mucoepidermoid carcinoma of palate, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+44501576,From descendants,"Mucoepidermoid carcinoma of palate, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 4308149,From descendants,Mucoepidermoid carcinoma of parotid gland,Condition,SNOMED,standard,y,n,n,y,n,n,n,n
 36548346,From descendants,"Mucoepidermoid carcinoma of pharynx, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36560407,From descendants,Mucoepidermoid carcinoma of postcricoid region,Condition,ICDO3,standard,y,n,n,n,n,n,n,y
@@ -3358,7 +3358,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 44504056,From descendants,"Neoplasm, metastatic of lateral floor of mouth",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 44504033,From descendants,"Neoplasm, metastatic of lower gum",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 44503950,From descendants,"Neoplasm, metastatic of mucosa of lower lip",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
-44504093,From descendants,"Neoplasm, metastatic of palate, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+44504093,From descendants,"Neoplasm, metastatic of palate, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 44504081,From descendants,"Neoplasm, metastatic of soft palate, NOS",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 44503736,From descendants,"Neoplasm, metastatic of sublingual gland",Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 44503730,From descendants,"Neoplasm, metastatic of submandibular gland",Condition,ICDO3,standard,y,n,n,y,n,n,n,n
@@ -3378,7 +3378,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 28356,From descendants,Overlapping malignant neoplasm of major salivary gland,Condition,SNOMED,standard,y,n,n,y,n,n,n,n
 432558,From descendants,Overlapping malignant neoplasm of nasopharynx,Condition,SNOMED,standard,y,n,n,n,n,n,y,n
 438691,From descendants,Overlapping malignant neoplasm of oropharynx,Condition,SNOMED,standard,y,n,n,n,n,y,n,n
-4001170,From descendants,Overlapping malignant neoplasm of palate,Condition,SNOMED,standard,y,y,n,n,n,n,n,n
+4001170,From descendants,Overlapping malignant neoplasm of palate,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
 436043,From descendants,Overlapping malignant neoplasm of tongue,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
 4002498,From descendants,Overlapping malignant neoplasm of tonsil,Condition,SNOMED,standard,y,n,n,n,n,y,n,n
 45769059,From descendants,Overlapping squamous cell carcinoma of hypopharynx,Condition,SNOMED,standard,y,n,n,n,n,n,n,y
@@ -3495,7 +3495,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36535091,From descendants,"Papillary carcinoma, NOS, of anterior 2/3 of tongue, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36532136,From descendants,"Papillary carcinoma, NOS, of anterior floor of mouth",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36540037,From descendants,"Papillary carcinoma, NOS, of anterior wall of nasopharynx",Condition,ICDO3,standard,y,n,n,n,n,n,y,n
-36533529,From descendants,"Papillary carcinoma, NOS, of base of tongue, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+36533529,From descendants,"Papillary carcinoma, NOS, of base of tongue, NOS",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36544362,From descendants,"Papillary carcinoma, NOS, of border of tongue",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36551014,From descendants,"Papillary carcinoma, NOS, of cheeck mucosa",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 36556229,From descendants,"Papillary carcinoma, NOS, of commissure of lip",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
@@ -3807,7 +3807,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 761907,From descendants,Primary adenocarcinoma of nasopharynx,Condition,SNOMED,standard,y,n,n,n,n,n,y,n
 45768878,From descendants,Primary adenocarcinoma of oropharynx,Condition,SNOMED,standard,y,n,n,n,n,y,n,n
 36715836,From descendants,Primary adenocarcinoma of overlapping lesion of accessory sinuses,Condition,SNOMED,standard,y,n,y,n,n,n,n,n
-36715796,From descendants,Primary adenocarcinoma of palate,Condition,SNOMED,standard,y,y,n,n,n,n,n,n
+36715796,From descendants,Primary adenocarcinoma of palate,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
 36715797,From descendants,Primary adenocarcinoma of parotid gland,Condition,SNOMED,standard,y,n,n,y,n,n,n,n
 45768830,From descendants,Primary adenocarcinoma of sphenoidal sinus,Condition,SNOMED,standard,y,n,y,n,n,n,n,n
 45768940,From descendants,Primary adenocarcinoma of subglottis,Condition,SNOMED,standard,y,n,n,n,y,n,n,n
@@ -4026,7 +4026,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 42512223,From descendants,Sebaceous carcinoma of submandibular gland,Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 42511813,From descendants,"Secretory carcinoma of mouth, NOS",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
 42511636,From descendants,Secretory carcinoma of mucosa of upper lip,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
-42511681,From descendants,Secretory carcinoma of overlapping lesion of palate,Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+42511681,From descendants,Secretory carcinoma of overlapping lesion of palate,Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 42512866,From descendants,"Secretory carcinoma of soft palate, NOS",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 42512510,From descendants,Secretory carcinoma of submandibular gland,Condition,ICDO3,standard,y,n,n,y,n,n,n,n
 3181145,From descendants,Sinus cancer with intracranial extension,Condition,Nebraska Lexicon,standard,y,n,y,n,n,n,n,n
@@ -4054,7 +4054,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36535444,From descendants,"Spindle cell carcinoma, NOS, of vallecula",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 4111776,From descendants,Squamous cell carcinoma of buccal mucosa,Condition,SNOMED,standard,y,y,n,n,n,n,n,n
 4174910,From descendants,Squamous cell carcinoma of gum,Condition,SNOMED,standard,y,y,n,n,n,n,n,n
-37396745,From descendants,Squamous cell carcinoma of head and neck,Condition,SNOMED,standard,y BROAD,n,n,n,n,n,n,n
+37396745,From descendants,Squamous cell carcinoma of head and neck,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
 4237016,From descendants,Squamous cell carcinoma of larynx,Condition,SNOMED,standard,y,n,n,n,y,n,n,n
 4113108,From descendants,Squamous cell carcinoma of lip,Condition,SNOMED,standard,y,y,n,n,n,n,n,n
 4169288,From descendants,Squamous cell carcinoma of mucous membrane of lower lip,Condition,SNOMED,standard,y,y,n,n,n,n,n,n
@@ -4181,8 +4181,8 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36537188,From descendants,"Verrucous carcinoma, NOS, of oropharynx, NOS",Condition,ICDO3,standard,y,n,n,n,n,y,n,n
 36524919,From descendants,"Verrucous carcinoma, NOS, of overlapping lesion of hypopharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,y
 36519628,From descendants,"Verrucous carcinoma, NOS, of overlapping lesion of larynx",Condition,ICDO3,standard,y,n,n,n,y,n,n,n
-36566259,From descendants,"Verrucous carcinoma, NOS, of overlapping lesion of palate",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
-36519669,From descendants,"Verrucous carcinoma, NOS, of overlapping lesion of tongue",Condition,ICDO3,standard,y,y,n,n,n,n,n,n
+36566259,From descendants,"Verrucous carcinoma, NOS, of overlapping lesion of palate",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
+36519669,From descendants,"Verrucous carcinoma, NOS, of overlapping lesion of tongue",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36565198,From descendants,"Verrucous carcinoma, NOS, of palate, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36517532,From descendants,"Verrucous carcinoma, NOS, of pharynx, NOS",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36533547,From descendants,"Verrucous carcinoma, NOS, of posterior wall of hypopharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,y
@@ -4479,7 +4479,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 36530930,From descendants,"Carcinoma, anaplastic, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36528624,From descendants,"Carcinoma, undifferentiated, NOS, of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
 36530736,From descendants,"Epithelioma, malignant of overlapping lesion of lip, oral cavity and pharynx",Condition,ICDO3,standard,y,n,n,n,n,n,n,n
-440655,From descendants,"Malignant neoplasm of tongue, tip and lateral border",Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+440655,From descendants,"Malignant neoplasm of tongue, tip and lateral border",Condition,SNOMED,standard,y,y,n,n,n,n,n,n
 4116236,From descendants,"Malignant tumor of ear, nose and throat",Condition,SNOMED,standard,y,n,n,n,n,n,n,n
 4114222,From initial search,Malignant tumor of head and neck,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
 4178979,From descendants,Malignant tumor of neck,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
@@ -4494,3 +4494,11 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,over
 30346,From descendants,Primary malignant neoplasm of neck,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
 40493020,From orphan,Malignant neoplasm of upper respiratory tract,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
 252840,From orphan,Primary malignant neoplasm of upper respiratory tract,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+4089652,From orphan,Malignant tumor aryepiglottic fold - hypopharyngeal aspect,Condition,SNOMED,standard,y,n,n,n,n,n,n,y
+437220,From orphan,Primary malignant neoplasm of ventral surface of tongue,Condition,SNOMED,standard,y,y,n,n,n,n,n,n
+"	35610172",From orphan,Malignant neoplasm of ventral surface of tongue,Condition,SNOMED,standard,y,y,n,n,n,n,n,n
+35610411,From orphan,Overlapping malignant neoplasm of mouth,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+40381321,From orphan,Malignant neoplasm of dorsal surface of tongue,Condition,SNOMED,standard,y,y,n,n,n,n,n,n
+432254,From orphan,Primary malignant neoplasm of Waldeyer's ring,Condition,SNOMED,standard,y,n,n,n,n,y,n,n
+442131,From orphan,Primary malignant neoplasm of head,Condition,SNOMED,standard,y,n,n,n,n,n,n,n
+434587,From orphan,Primary malignant neoplasm of dorsal surface of tongue,Condition,SNOMED,standard,y,y,n,n,n,n,n,n

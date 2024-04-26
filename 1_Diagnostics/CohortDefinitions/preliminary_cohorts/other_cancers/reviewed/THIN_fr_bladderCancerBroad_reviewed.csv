@@ -481,3 +481,8 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 3187463,From initial search,Histologic type of primary malignant neoplasm of gallbladder,Observation,Nebraska Lexicon,standard,n
 4329788,From initial search,Family history of malignant neoplasm of urinary bladder,Observation,SNOMED,standard,n
 3168250,From initial search,Histologic type of primary malignant neoplasm urinary bladder,Observation,Nebraska Lexicon,standard,y
+73712,From orphan,Malignant tumor of vault of bladder,Condition,SNOMED,standard,y
+197508,From orphan,Malignant tumor of urinary bladder,Condition,SNOMED,standard,y
+4095167,From orphan,Malignant tumor of ureteric orifice,Condition,SNOMED,standard,y
+4095755,From orphan,Malignant tumor of trigone of urinary bladder,Condition,SNOMED,standard,y
+4095756,From orphan,Malignant tumor of bladder neck,Condition,SNOMED,standard,y

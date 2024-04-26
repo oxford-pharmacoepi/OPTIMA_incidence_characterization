@@ -136,3 +136,5 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 44502731,From descendants,Teratoma with malignant transformation of ovary,Condition,ICDO3,standard,n
 44502732,From descendants,"Struma ovarii, malignant of ovary",Condition,ICDO3,standard,y
 201801,From orphan concepts,Primary malignant neoplasm of fallopian tube,Condition,SNOMED,standard,y
+4178969,From orphan concepts,Malignant tumor of fallopian tube,Condition,SNOMED,standard,y
+200052,From orphan concepts,Primary malignant neoplasm of uterine adnexa,Condition,SNOMED,standard,y

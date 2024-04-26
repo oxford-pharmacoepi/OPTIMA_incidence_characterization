@@ -960,3 +960,5 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 36567489,From descendants,"Verrucous carcinoma, NOS, of overlapping lesion of breast",Condition,ICDO3,standard,y
 36549778,From descendants,"Verrucous carcinoma, NOS, of upper-inner quadrant of breast",Condition,ICDO3,standard,y
 36567316,From descendants,"Verrucous carcinoma, NOS, of upper-outer quadrant of breast",Condition,ICDO3,standard,y
+40664624,From orphan,Clinician diagnosed breast cancer preoperatively by a minimally invasive biopsy method,Observation,HCPCS,standard,y
+4184597,From orphan,Paget's disease and intraductal carcinoma of breast,Observation,SNOMED,standard,y

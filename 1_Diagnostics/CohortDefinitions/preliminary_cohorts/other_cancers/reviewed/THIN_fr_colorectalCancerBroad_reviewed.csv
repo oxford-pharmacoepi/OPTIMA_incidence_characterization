@@ -826,3 +826,4 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 443391,From orphan concepts,Malignant tumor of cecum,Condition,SNOMED,standard,y,y,n
 4116240,From orphan concepts,Carcinoma of cecum,Condition,SNOMED,standard,y,y,n
 4246125,From orphan concepts,Primary malignant neoplasm of large intestine,Condition,SNOMED,standard,y,y,n
+937656,From orphan concepts,Adenoma(s) or colorectal cancer detected during screening colonoscopy,Observation,SNOMED,standard,y,n,n

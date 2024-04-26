@@ -126,3 +126,6 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 607674,From initial search,Presence of direct invasion by primary malignant neoplasm of anus to lymphatic vessel and/or small blood vessel,Observation,SNOMED,standard,y
 607675,From initial search,Presence of direct invasion by primary malignant neoplasm of anus to nerve,Observation,SNOMED,standard,y
 937653,From initial search,"Surveillance colonoscopy - personal history of colonic polyps, colon cancer, or other malignant neoplasm of rectum, rectosigmoid junction, and anus",Observation,HCPCS,standard,y
+4180780,From orphan concepts,Malignant tumor of anal canal,Condition,SNOMED,standard,y
+4180911,From orphan concepts,Malignant tumor of anus,Condition,SNOMED,standard,y
+"	4116241",From orphan concepts,"	Squamous cell carcinoma of anal margin",Condition,SNOMED,standard,y

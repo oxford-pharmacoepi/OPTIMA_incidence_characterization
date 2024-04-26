@@ -363,3 +363,4 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 607056,From initial search,Histologic grade of primary malignant neoplasm of esophagus,Observation,SNOMED,standard,y
 607668,From initial search,Anatomic location directly invaded by primary malignant neoplasm of esophagus,Observation,SNOMED,standard,n
 3183119,From initial search,Histologic type of primary malignant neoplasm of esophagus,Observation,Nebraska Lexicon,standard,y
+"	4094854",From orphan,Malignant tumor of cervical part of esophagus,Condition,SNOMED,standard,y

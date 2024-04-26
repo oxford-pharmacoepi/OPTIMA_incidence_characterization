@@ -105,7 +105,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 4289384,From descendants,Malignant tumor involving uterine corpus by direct extension from vagina,Condition,SNOMED,standard,n
 4289673,From descendants,Malignant tumor involving uterine cervix by direct extension from fallopian tube,Condition,SNOMED,standard,n
 4294181,From descendants,Adenoma malignum,Condition,SNOMED,standard,n
-4310575,From descendants,"Carcinoma of uterine cervix, invasive",Condition,SNOMED,standard,y
+4310575,From descendants,"Carcinoma of uterine cervix, invasive",Condition,SNOMED,standard,n
 35621807,From descendants,Adenoid basal carcinoma of cervix uteri,Condition,SNOMED,standard,n
 35621808,From descendants,Adenoid cystic carcinoma of cervix uteri,Condition,SNOMED,standard,n
 35623818,From descendants,Primitive neuroectodermal tumor of corpus uteri,Condition,SNOMED,standard,n
@@ -147,7 +147,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 36519772,From descendants,"Verrucous carcinoma, NOS, of overlapping lesion of corpus uteri",Condition,ICDO3,standard,y
 36519787,From descendants,Adenocarcinoma with mixed subtypes of myometrium,Condition,ICDO3,standard,y
 36519816,From descendants,Malignant histiocytosis of fundus uteri,Condition,ICDO3,standard,n
-36519922,From descendants,"Carcinofibroma of uterus, NOS",Condition,ICDO3,standard,y
+36519922,From descendants,"Carcinofibroma of uterus, NOS",Condition,ICDO3,standard,n
 36519970,From descendants,Adenoid basal carcinoma of exocervix,Condition,ICDO3,standard,n
 36520102,From descendants,"Epithelioma, malignant of exocervix",Condition,ICDO3,standard,n
 36520162,From descendants,"Epithelioma, malignant of endocervix",Condition,ICDO3,standard,n
@@ -301,7 +301,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 36537775,From descendants,"Carcinoma, anaplastic, NOS, of endometrium",Condition,ICDO3,standard,y
 36537803,From descendants,Adenoid cystic carcinoma of exocervix,Condition,ICDO3,standard,n
 36537946,From descendants,Mucoepidermoid carcinoma of cervix uteri,Condition,ICDO3,standard,n
-36537954,From descendants,Carcinofibroma of endometrium,Condition,ICDO3,standard,y
+36537954,From descendants,Carcinofibroma of endometrium,Condition,ICDO3,standard,n
 36538159,From descendants,Mucin-producing adenocarcinoma of myometrium,Condition,ICDO3,standard,y
 36538257,From descendants,Epithelial-myoepithelial carcinoma of endometrium,Condition,ICDO3,standard,y
 36538363,From descendants,Hepatoid adenocarcinoma of myometrium,Condition,ICDO3,standard,y
@@ -461,7 +461,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 36557981,From descendants,Schneiderian carcinoma of exocervix,Condition,ICDO3,standard,n
 36558221,From descendants,"Mesonephroma, malignant of exocervix",Condition,ICDO3,standard,n
 36558224,From descendants,"Urothelial carcinoma, micropapillary of corpus uteri",Condition,ICDO3,standard,y
-36558286,From descendants,"Endometrioid adenofibroma, malignant of fundus uteri",Condition,ICDO3,standard,y
+36558286,From descendants,"Endometrioid adenofibroma, malignant of fundus uteri",Condition,ICDO3,standard,n
 36558309,From descendants,Adenocarcinoma with cartilaginous and osseous metaplasia of cervix uteri,Condition,ICDO3,standard,n
 36558316,From descendants,Pleomorphic carcinoma of endocervix,Condition,ICDO3,standard,n
 36558356,From descendants,Cloacogenic carcinoma of endometrium,Condition,ICDO3,standard,y
@@ -756,3 +756,9 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,incl
 602967,From descendants,Histologic type of primary malignant neoplasm of cervix uteri,Observation,SNOMED,standard,n
 4175994,From descendants,Family history of malignant neoplasm of cervix uteri,Observation,SNOMED,standard,n
 46274041,From descendants,Family history of malignant neoplasm of endometrium,Observation,SNOMED,standard,y
+4110871,From orphan,Endometrial carcinoma,Condition,SNOMED,standard,y
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
