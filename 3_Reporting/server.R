@@ -352,8 +352,8 @@ server <-	function(input, output, session) {
                                                  incidence_100000_pys_95CI_lower," to ", 
                                                  incidence_100000_pys_95CI_upper, ")"))) %>% 
       select(-c(outcome_cohort_id,
-                "incidence_100000_pys_95CI_lower",
-                "incidence_100000_pys_95CI_upper",
+                incidence_100000_pys_95CI_lower,
+                incidence_100000_pys_95CI_upper,
                 analysis_repeated_events,
                 analysis_min_cell_count,
                 denominator_target_cohort_name,
@@ -367,46 +367,31 @@ server <-	function(input, output, session) {
                 analysis_complete_database_intervals,
                 analysis_outcome_washout,
                 denominator_cohort_id,
-                analysis_interval,
                 cohort_obscured,
-                result_obscured
-                
-                ))
-    
-    
-    %>% 
-      table <- table %>% 
-      mutate(incidence_100000_pys=nice.num2(incidence_100000_pys)) %>% 
-      mutate(incidence_100000_pys_95CI_lower=nice.num2(incidence_100000_pys_95CI_lower)) %>% 
-      mutate(incidence_100000_pys_95CI_upper=nice.num2(incidence_100000_pys_95CI_upper)) %>% 
-      mutate(incidence_100000_pys= ifelse(!is.na(incidence_100000_pys),
-                                          paste0(incidence_100000_pys, " (",
-                                                 incidence_100000_pys_95CI_lower," to ", 
-                                                 incidence_100000_pys_95CI_upper, ")"))) %>% 
-      select(!c("incidence_100000_pys_95CI_lower", "incidence_100000_pys_95CI_upper",
-                "cohort_obscured", "result_obscured","person_days",
-                "analysis_min_cell_count","analysis_repeated_events",
-                "analysis_outcome_washout",
-                "denominator_cohort_id", "outcome_cohort_id",
-                "denominator_strata_cohort_definition_id",
-                "denominator_strata_cohort_name")) %>% 
-      mutate(n_persons=nice.num.count(n_persons)) %>% 
-      mutate(n_events=nice.num.count(n_events)) %>% 
-      mutate(person_years=nice.num.count(person_years)) %>% 
-      relocate(incidence_start_date) %>% 
-      relocate(incidence_end_date, .after = incidence_start_date) %>% 
-      relocate(person_years, .after = n_persons) %>% 
+                result_obscured,
+                limit,
+                end,
+                prior_observation,
+                future_observation
+                )) %>% 
+
+      # mutate(n_persons=nice.num.count(n_persons)) %>% 
+      # mutate(n_events=nice.num.count(n_events)) %>% 
+      # mutate(person_years=nice.num.count(person_years)) %>% 
+      # relocate(incidence_start_date) %>% 
+      # relocate(incidence_end_date, .after = incidence_start_date) %>% 
+      # relocate(person_years, .after = n_persons) %>% 
       rename(`Start Date` = incidence_start_date,
              `End Date` = incidence_end_date,
              `Persons (n)` = n_persons,
              `Person Years`= person_years,
              `Events (n)` = n_events,
-             `Incidence (100000 pys)` = incidence_100000_pys,
-             Cancer = outcome_cohort_name,
+             `Incidence (100,000 pys)` = incidence_100000_pys,
              `Time Interval` = analysis_interval,
              Age = denominator_age_group,
+             `Cohort Name` = outcome_cohort_name, 
              Sex = denominator_sex,
-             Database = database_name)
+             Database = cdm_name)
     
     table
     
@@ -453,7 +438,32 @@ server <-	function(input, output, session) {
       filter(denominator_sex %in% input$inc_estimates_sex_selector_std) %>%
       filter(cdm_name %in% input$inc_estimates_database_selector_std) %>%
       relocate(outcome_cohort_name) %>% 
-      select(-c(denominator_age_group))
+      select(-c(denominator_age_group)) %>% 
+      mutate(incidence_100000_pys=nice.num2(incidence_100000_pys)) %>% 
+      mutate(incidence_100000_pys_95CI_lower=nice.num2(incidence_100000_pys_95CI_lower)) %>% 
+      mutate(incidence_100000_pys_95CI_upper=nice.num2(incidence_100000_pys_95CI_upper)) %>% 
+      mutate(incidence_100000_pys= ifelse(!is.na(incidence_100000_pys),
+                                          paste0(incidence_100000_pys, " (",
+                                                 incidence_100000_pys_95CI_lower," to ", 
+                                                 incidence_100000_pys_95CI_upper, ")"))) %>% 
+      select(-c(person_years,
+                n_events,
+                incidence_100000_pys_95CI_lower,
+                incidence_100000_pys_95CI_upper
+      )) %>% 
+      
+      # mutate(n_persons=nice.num.count(n_persons)) %>% 
+      # mutate(n_events=nice.num.count(n_events)) %>% 
+      # mutate(person_years=nice.num.count(person_years)) %>% 
+      # relocate(incidence_start_date) %>% 
+      # relocate(incidence_end_date, .after = incidence_start_date) %>% 
+      # relocate(person_years, .after = n_persons) %>% 
+      rename(`Start Date` = incidence_start_date,
+             `Incidence (100,000 pys)` = incidence_100000_pys,
+             `Population Age Standard` = age_standard,
+             `Cohort Name` = outcome_cohort_name, 
+             Sex = denominator_sex,
+             Database = cdm_name)
    
     
     table
