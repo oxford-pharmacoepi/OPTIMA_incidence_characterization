@@ -1,5 +1,33 @@
 #### SERVER ------
 server <-	function(input, output, session) {
+  
+  
+  # Markdown ----
+  output$markdown <- renderUI({
+    
+    table <- cohort_set %>% 
+      filter(cohort_name %in% input$cohort_set_input) %>% 
+      pull(markdown) %>% 
+      formatMarkdown()
+  })
+  # JSON ----
+  output$verb <- renderPrint({
+    
+    cat(cohort_set %>% 
+          filter(cohort_name %in% input$cohort_set_input) %>%
+          pull(json) %>%
+          unlist())
+  })
+  output$clip <- renderUI({
+    rclipButton(
+      inputId = "clipbtn",
+      label = "Copy to clipboard",
+      clipText = input$json, 
+      icon = icon("clipboard"),
+      placement = "top",
+      options = list(delay = list(show = 800, hide = 100), trigger = "hover")
+    )
+  })
 
   
   # cdm snapshot------
@@ -54,38 +82,38 @@ server <-	function(input, output, session) {
   )
   
   # clinical codelists ----------------
-  get_codelists <- reactive({
-    
-    validate(
-      need(input$codelist_cohort_selector != "", "Please select a cohort")
-    )
-    
-    validate(
-      need(input$codelist_vocab_selector != "", "Please select a vocab")
-    )
-    
-    table <- concepts_lists %>%
-      filter(Vocabulary %in% input$codelist_vocab_selector) %>%
-      filter(Cancer %in% input$codelist_cohort_selector)
-    
-    table
-    
-  })
+  # get_codelists <- reactive({
+  #   
+  #   validate(
+  #     need(input$codelist_cohort_selector != "", "Please select a cohort")
+  #   )
+  #   
+  #   validate(
+  #     need(input$codelist_vocab_selector != "", "Please select a vocab")
+  #   )
+  #   
+  #   table <- concepts_lists %>%
+  #     filter(Vocabulary %in% input$codelist_vocab_selector) %>%
+  #     filter(Cancer %in% input$codelist_cohort_selector)
+  #   
+  #   table
+  #   
+  # })
   
   
-  output$tbl_codelists <- renderText(kable(get_codelists()) %>%
-                                       kable_styling("striped", full_width = F) )
-  
-  
-  output$gt_codelists_word <- downloadHandler(
-    filename = function() {
-      "concept_lists.docx"
-    },
-    content = function(file) {
-      x <- gt(get_codelists())
-      gtsave(x, file)
-    }
-  )
+  # output$tbl_codelists <- renderText(kable(get_codelists()) %>%
+  #                                      kable_styling("striped", full_width = F) )
+  # 
+  # 
+  # output$gt_codelists_word <- downloadHandler(
+  #   filename = function() {
+  #     "concept_lists.docx"
+  #   },
+  #   content = function(file) {
+  #     x <- gt(get_codelists())
+  #     gtsave(x, file)
+  #   }
+  # )
   
   
   #patient_demographics ----

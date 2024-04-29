@@ -23,6 +23,8 @@ library(PatientProfiles)
 library(DiagrammeR)
 library(DiagrammeRsvg)
 library(rsvg)
+library(CirceR)
+library(rclipboard)
 
 
 mytheme <- create_theme(
@@ -74,6 +76,16 @@ nice.num.count<-function(x) {
   trimws(format(x,
                 big.mark=",", nsmall = 0, digits=1, scientific=FALSE))}
 
+# format markdown
+formatMarkdown <- function(x) {
+  lines <- strsplit(x, "\r\n\r\n") |> unlist()
+  getFormat <- function(line) {
+    if (grepl("###", line)) {return(h3(gsub("###", "", line)))} 
+    else {h4(line)} 
+  }
+  purrr::map(lines, ~ getFormat(.))
+}
+
 
 # Load, prepare, and merge results -----
 results <-list.files(here("data"), full.names = TRUE,
@@ -96,13 +108,30 @@ results <- list.files(
   include.dirs = TRUE
 )
 
-# concept code lists -----
-concepts_lists <- read_csv(here::here("www", "concept_list.csv"), show_col_types = FALSE) %>% 
-  filter(Cancer == "Lung")
+# cohort concept code lists -----
+cohort_set <- CDMConnector::read_cohort_set(
+gsub("3_Reporting/", "", here("2_study", "1_InstantiateCohorts", "Cohorts", "incidence") ))
+
+cohort_set$markdown <- ""
+
+for (n in  row_number(cohort_set) ) {
+  
+  cohort <- cohort_set$cohort_name[n]  
+  json <- paste0(cohort_set$json[n]  )
+  cohortExpresion <- CirceR::cohortExpressionFromJson(json)
+  markdown <- CirceR::cohortPrintFriendly(cohortExpresion)
+  cohort_set$markdown[n] <-  markdown
+  
+} 
+
+
+# concepts_lists <- read_csv(here::here("www", "concept_list.csv"), show_col_types = FALSE) %>% 
+#   filter(Cancer == "Lung")
 
 # incidence estimates not standardized -----
 incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
 incidence_estimates_files <-results[stringr::str_detect(results, "incidence_estimates")]
+
 if(length(incidence_estimates_files > 0)){
   
 incidence_estimates_files <-incidence_estimates_files[!(stringr::str_detect(incidence_estimates_files, "age_std_"))]
@@ -128,7 +157,18 @@ remove_outcomes <- incidence_estimates %>%
   pull(outcome_cohort_name)
 
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
-  filter(outcome_cohort_name != remove_outcomes )
+  filter(outcome_cohort_name != remove_outcomes ) %>% 
+  filter(outcome_cohort_name != "any_malignant_neoplasm")
+
+incidence_estimates_thinuk <- dplyr::bind_rows(incidence_estimates) %>%
+  filter(cdm_name == "THIN_uk" & incidence_start_date > "2010-01-01")
+
+# # remove UK data from before 2011
+incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
+   filter(cdm_name != "THIN_uk" )
+
+incidence_estimates <- dplyr::bind_rows(incidence_estimates, 
+                                        incidence_estimates_thinuk) 
 
 # age standardized incidence estimates -----
 incidence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
@@ -141,7 +181,17 @@ for(i in seq_along(incidence_estimates_files_std)){
                                             show_col_types = FALSE)  
 }
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
-  filter(outcome_cohort_name != remove_outcomes )
+  filter(outcome_cohort_name != remove_outcomes ) %>% 
+  filter(outcome_cohort_name != "any_malignant_neoplasm")
+
+incidence_estimates_std_thinuk <- dplyr::bind_rows(incidence_estimates_std) %>%
+  filter(cdm_name == "THIN_uk" & incidence_start_date > "2010-01-01")
+
+incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>%
+  filter(cdm_name != "THIN_uk" )
+
+incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std, 
+                                        incidence_estimates_std_thinuk) 
 
 # incidence attrition -----
 incidence_attrition_files<-results[stringr::str_detect(results, ".csv")]
@@ -152,7 +202,8 @@ for(i in seq_along(incidence_attrition_files)){
                                             show_col_types = FALSE)  
 }
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
-  filter(outcome_cohort_name != remove_outcomes )
+  filter(outcome_cohort_name != remove_outcomes ) %>% 
+  filter(outcome_cohort_name != "any_malignant_neoplasm")
 
 # incidence settings ------
 incidence_settings_files<-results[stringr::str_detect(results, ".csv")]
@@ -163,7 +214,8 @@ for(i in seq_along(incidence_settings_files)){
                                             show_col_types = FALSE)  
 }
 incidence_settings <- dplyr::bind_rows(incidence_settings) %>% 
-  filter(outcome_cohort_name != remove_outcomes )
+  filter(outcome_cohort_name != remove_outcomes ) %>% 
+  filter(outcome_cohort_name != "any_malignant_neoplasm")
 
 }
 
@@ -206,14 +258,6 @@ if(length(prevalence_estimates_files > 0)){
     filter(outcome_cohort_name != remove_outcomes )
   
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -316,7 +360,8 @@ for(i in seq_along(tableone_demo_files)){
 }
 demo_characteristics <- dplyr::bind_rows(tableone_demo) %>% 
   select(!c(result_id)) %>% 
-  filter(group_level != remove_outcomes )
+  filter(group_level != remove_outcomes )  %>% 
+  filter(group_level != "any_malignant_neoplasm")
 
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
@@ -328,7 +373,8 @@ for(i in seq_along(tableone_med_files)){
 }
 med_characteristics <- dplyr::bind_rows(tableone_med)  %>% 
   select(!c(result_id)) %>% 
-  filter(group_level != remove_outcomes )
+  filter(group_level != remove_outcomes ) %>% 
+  filter(group_level != "any_malignant_neoplasm")
 
 # table one comorbidities ------
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
@@ -340,7 +386,8 @@ for(i in seq_along(tableone_comorb_files)){
 }
 comorb_characteristics <- dplyr::bind_rows(tableone_comorb)  %>% 
   select(!c(result_id)) %>% 
-  filter(group_level != remove_outcomes )
+  filter(group_level != remove_outcomes ) %>% 
+  filter(group_level != "any_malignant_neoplasm")
 
 }
 

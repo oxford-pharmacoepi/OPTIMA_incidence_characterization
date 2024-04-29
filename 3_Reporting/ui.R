@@ -323,7 +323,7 @@ ui <- dashboardPage(
             inputId = "demographics_cohort_selector",
             label = "Outcome",
             choices = unique(demo_characteristics$group_level),
-            selected = unique(demo_characteristics$group_level),
+            selected = unique(demo_characteristics$group_level)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -363,7 +363,7 @@ ui <- dashboardPage(
             inputId = "comorb_cohort_selector",
             label = "Outcome",
             choices = unique(comorb_characteristics$group_level),
-            selected = unique(comorb_characteristics$group_level),
+            selected = unique(comorb_characteristics$group_level)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -416,7 +416,7 @@ ui <- dashboardPage(
             inputId = "med_cohort_selector",
             label = "Outcome",
             choices = unique(med_characteristics$group_level),
-            selected = unique(med_characteristics$group_level),
+            selected = unique(med_characteristics$group_level)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -461,46 +461,77 @@ ui <- dashboardPage(
       ) ,
       
       
-      tabItem(
-        tags$h5("The clinical codelists for each cancer used in this study are presented below:"),
-        tabName = "cohort_concepts",
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
+      # tabItem(
+      #   tags$h5("The clinical codelists for each cancer used in this study are presented below:"),
+      #   tabName = "cohort_concepts",
+      #   div(
+      #     style = "display: inline-block;vertical-align:top; width: 150px;",
+      #     pickerInput(
+      #       inputId = "codelist_cohort_selector",
+      #       label = "Outcome",
+      #       choices = unique(concepts_lists$Cancer),
+      #       selected = "Lung",
+      #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+      #       multiple = TRUE
+      #     )
+      #   ),
+        
+        # cohort definition ------
+        tabItem(
+          tabName = "cohort_concepts",
+          
           pickerInput(
-            inputId = "codelist_cohort_selector",
-            label = "Outcome",
-            choices = unique(concepts_lists$Cancer),
-            selected = "Lung",
+            inputId = "cohort_set_input",
+            label = "Cohort Set",
+            choices = unique(cohort_set$cohort_name),
+            selected = unique(cohort_set$cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "codelist_vocab_selector",
-            label = "Vocabulary",
-            choices = unique(concepts_lists$Vocabulary),
-            selected = unique(concepts_lists$Vocabulary),
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        htmlOutput('tbl_codelists'),
-        
-        tags$hr(),
-        
-        div(
-          style = "display:inline-block",
-          downloadButton(
-            outputId = "gt_codelists_word",
-            label = "Download table as word"
+            multiple = FALSE
           ),
-          style = "display:inline-block; float:right"
-        )
-      ) , 
+          tabsetPanel(
+            type = "tabs",
+            tabPanel(
+              "Cohort definition",
+              uiOutput("markdown")
+            ),
+            tabPanel(
+              "JSON",
+              h4(),
+              rclipboardSetup(),
+              uiOutput("clip"),
+              verbatimTextOutput("verb"),
+            )
+            # tabPanel(
+            #   "Concept sets",
+            # )
+          )
+        ),
+        
+      #   div(
+      #     style = "display: inline-block;vertical-align:top; width: 150px;",
+      #     pickerInput(
+      #       inputId = "codelist_vocab_selector",
+      #       label = "Vocabulary",
+      #       choices = unique(concepts_lists$Vocabulary),
+      #       selected = unique(concepts_lists$Vocabulary),
+      #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+      #       multiple = TRUE
+      #     )
+      #   ),
+      #   
+      #   htmlOutput('tbl_codelists'),
+      #   
+      #   tags$hr(),
+      #   
+      #   div(
+      #     style = "display:inline-block",
+      #     downloadButton(
+      #       outputId = "gt_codelists_word",
+      #       label = "Download table as word"
+      #     ),
+      #     style = "display:inline-block; float:right"
+      #   )
+      # ) , 
       
       
       
@@ -629,7 +660,7 @@ ui <- dashboardPage(
             inputId = "risk_table_cohort_name_selector",
             label = "Outcome",
             choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = unique(incidence_attrition$outcome_cohort_name),
+            selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -803,7 +834,7 @@ ui <- dashboardPage(
             inputId = "incidence_cohort_name_selector",
             label = "Outcome",
             choices = unique(incidence_estimates$outcome_cohort_name),
-            selected = unique(incidence_estimates$outcome_cohort_name),
+            selected = unique(incidence_estimates$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
