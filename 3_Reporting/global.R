@@ -109,8 +109,14 @@ results <- list.files(
 )
 
 # cohort concept code lists -----
-cohort_set <- CDMConnector::read_cohort_set(
-gsub("3_Reporting/", "", here("2_study", "1_InstantiateCohorts", "Cohorts", "incidence") ))
+# cohort_set <- CDMConnector::read_cohort_set(
+# gsub("3_Reporting/", "", here("2_study", "1_InstantiateCohorts", "Cohorts", "incidence") ))
+
+cohort_set <- CDMConnector::read_cohort_set(here::here(
+  "www", "Cohorts" , "incidence" ))
+
+cohort_set1 <- CDMConnector::read_cohort_set(here::here(
+  "www", "Cohorts" , "prevalence" ))
 
 cohort_set$markdown <- ""
 
@@ -123,10 +129,6 @@ for (n in  row_number(cohort_set) ) {
   cohort_set$markdown[n] <-  markdown
   
 } 
-
-
-# concepts_lists <- read_csv(here::here("www", "concept_list.csv"), show_col_types = FALSE) %>% 
-#   filter(Cancer == "Lung")
 
 # incidence estimates not standardized -----
 incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
