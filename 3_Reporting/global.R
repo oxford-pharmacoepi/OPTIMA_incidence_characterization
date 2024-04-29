@@ -118,6 +118,9 @@ cohort_set <- CDMConnector::read_cohort_set(here::here(
 cohort_set1 <- CDMConnector::read_cohort_set(here::here(
   "www", "Cohorts" , "prevalence" ))
 
+cohort_set <- bind_rows(cohort_set,
+                        cohort_set1)
+
 cohort_set$markdown <- ""
 
 for (n in  row_number(cohort_set) ) {
