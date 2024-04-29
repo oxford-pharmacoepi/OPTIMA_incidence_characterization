@@ -235,7 +235,8 @@ if(length(prevalence_estimates_files > 0)){
                                               show_col_types = FALSE)  
   }
   
-  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) 
+  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) %>% 
+    filter(outcome_cohort_name != "any_malignant_neoplasm")
 
   
   # prevalence attrition -----
@@ -247,7 +248,8 @@ if(length(prevalence_estimates_files > 0)){
                                               show_col_types = FALSE)  
   }
   prevalence_attrition <- dplyr::bind_rows(prevalence_attrition) %>% 
-    filter(outcome_cohort_name != remove_outcomes )
+    filter(outcome_cohort_name != remove_outcomes ) %>% 
+    filter(outcome_cohort_name != "any_malignant_neoplasm")
   
   # prevalence settings ------
   prevalence_settings_files<-results[stringr::str_detect(results, ".csv")]

@@ -62,7 +62,38 @@ server <-	function(input, output, session) {
       filter(outcome_cohort_name %in% input$attrition_outcome_selector) %>% 
       filter(denominator_sex %in% input$attrition_sex_selector) %>% 
       filter(denominator_age_group %in% input$attrition_age_selector) %>% 
-      filter(analysis_interval %in% input$attrition_time_selector)
+      filter(analysis_interval %in% input$attrition_time_selector) %>% 
+      select(-c(analysis_id,
+                denominator_target_cohort_definition_id,
+                end,
+                denominator_target_cohort_name,
+                denominator_end_date,
+                denominator_start_date,
+                limit,
+                prior_observation,
+                future_observation,
+                outcome_cohort_id,
+                analysis_outcome_washout,
+                analysis_complete_database_intervals,
+                denominator_cohort_id,
+                analysis_min_cell_count,
+                analysis_repeated_events,
+                denominator_cohort_name,
+                denominator_days_prior_observation,
+                denominator_target_cohort_name
+      )) %>% 
+      rename(`Persons (n)` = number_subjects,
+             `Records (n)` = number_records,
+             Reason = reason,
+             `Reason ID` = reason_id,
+             `Excluded Persons (n)` = excluded_subjects,
+             `Excluded Records (n)` = excluded_records,
+             Age = denominator_age_group,
+             `Cohort Name` = outcome_cohort_name, 
+             Sex = denominator_sex,
+             `Time Interval`= analysis_interval,
+             Database = cdm_name) %>% 
+      relocate(`Reason ID`, Reason, .before = `Records (n)`)
     
     table
     
@@ -80,40 +111,69 @@ server <-	function(input, output, session) {
       gtsave(x, file)
     }
   )
+
+  # prevalence attrition -----
+  get_table_attritionp <-reactive({
+    
+    validate(need(input$attrition_database_name_selectorp != "", "Please select a database"))
+    validate(need(input$attrition_outcome_selectorp != "", "Please select an outcome"))
+    validate(need(input$attrition_sex_selectorp != "", "Please select sex group"))
+    validate(need(input$attrition_age_selectorp != "", "Please select age group"))
+    
+    table <- prevalence_attrition %>% 
+      filter(cdm_name %in% input$attrition_database_name_selectorp) %>% 
+      filter(outcome_cohort_name %in% input$attrition_outcome_selectorp) %>% 
+      filter(denominator_sex %in% input$attrition_sex_selectorp) %>% 
+      filter(denominator_age_group %in% input$attrition_age_selectorp) %>% 
+      select(-c(analysis_id,
+                denominator_target_cohort_definition_id,
+                end,
+                denominator_target_cohort_name,
+                denominator_end_date,
+                denominator_start_date,
+                limit,
+                prior_observation,
+                future_observation,
+                outcome_cohort_id,
+                analysis_complete_database_intervals,
+                denominator_cohort_id,
+                analysis_min_cell_count,
+                analysis_time_point,
+                analysis_full_contribution,
+                denominator_cohort_name,
+                denominator_days_prior_observation,
+                denominator_target_cohort_name,
+                analysis_interval,
+                analysis_type
+      )) %>% 
+      rename(`Persons (n)` = number_subjects,
+             `Records (n)` = number_records,
+             Reason = reason,
+             `Reason ID` = reason_id,
+             `Excluded Persons (n)` = excluded_subjects,
+             `Excluded Records (n)` = excluded_records,
+             Age = denominator_age_group,
+             `Cohort Name` = outcome_cohort_name, 
+             Sex = denominator_sex,
+             Database = cdm_name) %>% 
+      relocate(`Reason ID`, Reason, .before = `Records (n)`)
+    
+    table
+    
+  }) 
   
-  # clinical codelists ----------------
-  # get_codelists <- reactive({
-  #   
-  #   validate(
-  #     need(input$codelist_cohort_selector != "", "Please select a cohort")
-  #   )
-  #   
-  #   validate(
-  #     need(input$codelist_vocab_selector != "", "Please select a vocab")
-  #   )
-  #   
-  #   table <- concepts_lists %>%
-  #     filter(Vocabulary %in% input$codelist_vocab_selector) %>%
-  #     filter(Cancer %in% input$codelist_cohort_selector)
-  #   
-  #   table
-  #   
-  # })
+  output$tbl_prevalence_attrition <- renderText(kable(get_table_attritionp()) %>%
+                                                 kable_styling("striped", full_width = F) )
   
-  
-  # output$tbl_codelists <- renderText(kable(get_codelists()) %>%
-  #                                      kable_styling("striped", full_width = F) )
-  # 
-  # 
-  # output$gt_codelists_word <- downloadHandler(
-  #   filename = function() {
-  #     "concept_lists.docx"
-  #   },
-  #   content = function(file) {
-  #     x <- gt(get_codelists())
-  #     gtsave(x, file)
-  #   }
-  # )
+  output$dt_prevalence_attrition_word <- downloadHandler(
+    filename = function() {
+      "prevalence_attrition.docx"
+    },
+    content = function(file) {
+      x <- gt(get_table_attritionp())
+      gtsave(x, file)
+    }
+  )
   
   
   #patient_demographics ----
@@ -374,13 +434,6 @@ server <-	function(input, output, session) {
                 prior_observation,
                 future_observation
                 )) %>% 
-
-      # mutate(n_persons=nice.num.count(n_persons)) %>% 
-      # mutate(n_events=nice.num.count(n_events)) %>% 
-      # mutate(person_years=nice.num.count(person_years)) %>% 
-      # relocate(incidence_start_date) %>% 
-      # relocate(incidence_end_date, .after = incidence_start_date) %>% 
-      # relocate(person_years, .after = n_persons) %>% 
       rename(`Start Date` = incidence_start_date,
              `End Date` = incidence_end_date,
              `Persons (n)` = n_persons,
@@ -451,13 +504,6 @@ server <-	function(input, output, session) {
                 incidence_100000_pys_95CI_lower,
                 incidence_100000_pys_95CI_upper
       )) %>% 
-      
-      # mutate(n_persons=nice.num.count(n_persons)) %>% 
-      # mutate(n_events=nice.num.count(n_events)) %>% 
-      # mutate(person_years=nice.num.count(person_years)) %>% 
-      # relocate(incidence_start_date) %>% 
-      # relocate(incidence_end_date, .after = incidence_start_date) %>% 
-      # relocate(person_years, .after = n_persons) %>% 
       rename(`Start Date` = incidence_start_date,
              `Incidence (100,000 pys)` = incidence_100000_pys,
              `Population Age Standard` = age_standard,
@@ -508,16 +554,29 @@ server <-	function(input, output, session) {
     )
     
     
+    
     table <- prevalence_estimates %>%
       filter(outcome_cohort_name %in% input$prev_estimates_cohort_selector) %>%
       filter(cdm_name %in% input$prev_estimates_cdm_selector) %>% 
       filter(denominator_sex %in% input$prev_estimates_sex_selector) %>% 
       filter(denominator_age_group %in% input$prev_estimates_age_selector) %>% 
-      relocate(outcome_cohort_name) %>% 
-      select(-c(outcome_cohort_id,
+      mutate(prevalence=paste0(nice.num3(prevalence*100), "%")) %>% 
+      mutate(prevalence_95CI_lower=paste0(nice.num3(prevalence_95CI_lower*100), "%")) %>% 
+      mutate(prevalence_95CI_upper=paste0(nice.num3(prevalence_95CI_upper*100), "%")) %>% 
+      mutate(prevalence = ifelse(!is.na(prevalence),
+                                paste0(prevalence, " (",
+                                       prevalence_95CI_lower," to ", 
+                                       prevalence_95CI_upper, ")"))) %>% 
+      
+      select(!c(prevalence_95CI_lower, 
+                prevalence_95CI_upper,
+                result_obscured,
+                analysis_min_cell_count,
+                outcome_cohort_id,
                 population_obscured,
                 cases_obscured,
                 result_obscured,
+                analysis_id,
                 analysis_type,
                 analysis_interval,
                 analysis_complete_database_intervals,
@@ -535,9 +594,19 @@ server <-	function(input, output, session) {
                 prior_observation,
                 future_observation,
                 end
-
                 
-      ))
+                )) %>%
+      relocate(prevalence, .before = outcome_cohort_name) %>% 
+      rename(`Start Date` = prevalence_start_date,
+             `Prevalence (95% CI)` = prevalence,
+             `End Date` = prevalence_end_date,
+             `Population (n)` = n_population,
+             `Cases (n)` = n_cases,
+             `Cohort Name` = outcome_cohort_name,
+             Age = denominator_age_group,
+             Sex = denominator_sex,
+             Database = cdm_name)
+    
     
     table
     

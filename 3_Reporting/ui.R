@@ -315,6 +315,74 @@ ui <- dashboardPage(
             style="display:inline-block; float:right")
         
       ),
+      
+      tabItem(
+        tabName = "prev_attrition",
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_outcome_selectorp",
+            label = "Cohort Name",
+            choices = unique(prevalence_attrition$outcome_cohort_name),
+            selected = unique(prevalence_attrition$outcome_cohort_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_sex_selectorp",
+            label = "Sex",
+            choices = unique(prevalence_attrition$denominator_sex),
+            selected = "Both",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_age_selectorp",
+            label = "Age Group",
+            choices = unique(prevalence_attrition$denominator_age_group),
+            selected = unique(prevalence_attrition$denominator_age_group)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "attrition_database_name_selectorp",
+            label = "Database",
+            choices = unique(prevalence_attrition$cdm_name),
+            selected = unique(prevalence_attrition$cdm_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
+        htmlOutput('tbl_prevalence_attrition'),
+        
+        div(style="display:inline-block",
+            downloadButton(
+              outputId = "dt_prevalence_attrition_word",
+              label = "Download table as word"
+            ), 
+            style="display:inline-block; float:right")
+        
+      ),
+      
+      
+      
+      
       tabItem(
         tabName = "demographics",
         div(
