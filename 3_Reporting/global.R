@@ -172,6 +172,7 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
 incidence_estimates <- dplyr::bind_rows(incidence_estimates, 
                                         incidence_estimates_thinuk) 
 
+
 # age standardized incidence estimates -----
 incidence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
 incidence_estimates_files_std<-results[stringr::str_detect(results, "incidence_estimates")]
