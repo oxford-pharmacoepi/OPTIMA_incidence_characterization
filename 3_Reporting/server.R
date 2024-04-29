@@ -463,7 +463,8 @@ server <-	function(input, output, session) {
              `Population Age Standard` = age_standard,
              `Cohort Name` = outcome_cohort_name, 
              Sex = denominator_sex,
-             Database = cdm_name)
+             Database = cdm_name) %>%
+      pivot_wider(names_from = `Population Age Standard`, values_from = `Incidence (100,000 pys)`)
    
     
     table
