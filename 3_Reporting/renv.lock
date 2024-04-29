@@ -469,6 +469,34 @@
       ],
       "Hash": "3f038e5ac7f41d4ac41ce658c85e3042"
     },
+    "codelistGenerator": {
+      "Package": "CodelistGenerator",
+      "Version": "2.2.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "CDMConnector",
+        "DBI",
+        "PatientProfiles",
+        "R",
+        "RJSONIO",
+        "checkmate",
+        "cli",
+        "dplyr",
+        "duckdb",
+        "glue",
+        "lubridate",
+        "magrittr",
+        "omopgenerics",
+        "purrr",
+        "rlang",
+        "stringr",
+        "tidyr",
+        "tidyselect",
+        "vctrs"
+      ],
+      "Hash": "cc4a1269780cdf216ea59c6ffcf69573"
+    },
     "colorspace": {
       "Package": "colorspace",
       "Version": "2.1-0",
@@ -637,6 +665,19 @@
         "vctrs"
       ],
       "Hash": "fedd9d00c2944ff00a0e2696ccf048ec"
+    },
+    "duckdb": {
+      "Package": "duckdb",
+      "Version": "0.10.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "DBI",
+        "R",
+        "methods",
+        "utils"
+      ],
+      "Hash": "af292ac7dd0245e3772fcc358a0db85a"
     },
     "ellipsis": {
       "Package": "ellipsis",

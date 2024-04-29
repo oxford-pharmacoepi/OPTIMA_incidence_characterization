@@ -25,6 +25,7 @@ library(DiagrammeRsvg)
 library(rsvg)
 library(CirceR)
 library(rclipboard)
+library(CodelistGenerator)
 
 
 mytheme <- create_theme(
@@ -132,6 +133,10 @@ for (n in  row_number(cohort_set) ) {
   cohort_set$markdown[n] <-  markdown
   
 } 
+
+
+# Get concept ids from a provided path to cohort json files
+# in list form
 
 # incidence estimates not standardized -----
 incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
