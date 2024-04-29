@@ -1174,7 +1174,262 @@ server <-	function(input, output, session) {
   
   
   
+  get_prevalence_plot <- reactive({
+    
+    validate(need(input$prevalence_cohort_name_selector != "", "Please select a cohort"))
+    validate(need(input$prevalence_database_selector != "", "Please select a database"))
+    validate(need(input$prevalence_sex_selector != "", "Please select sex"))
+    validate(need(input$prevalence_age_selector != "", "Please select age group"))
+    validate(need(input$prevalence_plot_group != "", "Please select a group to colour by") )
+    validate(need(input$prevalence_plot_facet != "", "Please select a group to facet by"))
+    validate(need(input$prevalence_start_date_selector != "", "Please select prevalence dates"))
+    
+    
+    plot_data <- prevalence_estimates %>%
+      # first deselect settings which did not vary for this study
+      select(!c(analysis_id,
+                analysis_complete_database_intervals,
+                denominator_start_date,
+                denominator_days_prior_observation,
+                denominator_target_cohort_definition_id,
+                analysis_min_cell_count,
+                denominator_target_cohort_name,
+                result_obscured,
+                outcome_cohort_id,
+                denominator_cohort_name,
+                denominator_cohort_id,
+                denominator_end_date)) %>%
+      filter(cdm_name %in% input$prevalence_database_selector)  %>%
+      filter(as.character(prevalence_start_date) %in% input$prevalence_start_date_selector)  %>%
+      filter(outcome_cohort_name %in% input$prevalence_cohort_name_selector)  %>%
+      filter(denominator_sex %in% input$prevalence_sex_selector) %>% 
+      filter(denominator_age_group %in% input$prevalence_age_selector) 
+    
+    
+    if (input$show_error_bars) {
+      
+      if (!is.null(input$prevalence_plot_group) && !is.null(input$prevalence_plot_facet)) {
+        plot <- plot_data %>%
+          unite("Group", c(all_of(input$prevalence_plot_group)), remove = FALSE, sep = "; ") %>%
+          unite("facet_var", c(all_of(input$prevalence_plot_facet)), remove = FALSE, sep = "; ") %>%
+          ggplot(aes_string(x="prevalence_start_date", y="prevalence",
+                            ymin = "prevalence_95CI_lower",
+                            ymax = "prevalence_95CI_upper",
+                            group = "Group",
+                            colour = "Group", fill = "Group")) +
+          geom_point(position=position_dodge(width=1))+
+          geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
+                      alpha = 0.1) + 
+          geom_line(size = 0.25) +
+          labs(x = "Calendar Year", y = "Prevalence (%)") +
+          facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
+          scale_y_continuous(limits = c(0, NA)) +
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                text = element_text(size = 15))
+        
+        
+      } else if (!is.null(input$prevalence_plot_group) && is.null(input$prevalence_plot_facet)) {
+        plot <- plot_data %>%
+          unite("Group", c(all_of(input$prevalence_plot_group)), remove = FALSE, sep = "; ") %>%
+          ggplot(aes_string(x="prevalence_start_date", y="prevalence",
+                            ymin = "prevalence_95CI_lower",
+                            ymax = "prevalence_95CI_upper",
+                            group="Group",
+                            colour="Group", fill = "Group")) +
+          geom_point(position=position_dodge(width=1))+
+          geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
+                      alpha = 0.1) + 
+          geom_line(size = 0.25) +
+          labs(x = "Calendar Year", y = "Prevalence (%)") +
+          scale_y_continuous(limits = c(0, NA)) +
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                text = element_text(size = 15))
+        
+      } else if (is.null(input$prevalence_plot_group) && !is.null(input$prevalence_plot_facet)) {
+        plot <- plot_data %>%
+          unite("facet_var", c(all_of(input$prevalence_plot_facet)), remove = FALSE, sep = "; ") %>%
+          ggplot(aes_string(x="prevalence_start_date", y="prevalence",
+                            ymin = "prevalence_95CI_lower",
+                            ymax = "prevalence_95CI_upper")) +
+          geom_point(position=position_dodge(width=1))+
+          geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
+                      alpha = 0.1) + 
+          geom_line(size = 0.25) +
+          labs(x = "Calendar Year", y = "Prevalence (%)") +
+          facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
+          scale_y_continuous(limits = c(0, NA)) +
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                text = element_text(size = 15))
+        
+      } else {
+        plot <- plot_data %>%
+          
+          ggplot(aes_string(x="prevalence_start_date", y="prevalence",
+                            ymin = "prevalence_95CI_lower",
+                            ymax = "prevalence_95CI_upper")) +
+          geom_point(position=position_dodge(width=1))+
+          geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
+                      alpha = 0.1) + 
+          geom_line(size = 0.25) +
+          labs(x = "Calendar Year", y = "Prevalence (%)") +
+          scale_y_continuous(limits = c(0, NA)) +
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                text = element_text(size = 15))
+        
+      }
+      
+      
+      # Move scale_y_continuous outside of ggplot
+      plot <- plot + 
+        theme(strip.text = element_text(size = 15, face = "bold")
+              
+        )
+      
+      plot
+      
+      
+      
+    } else {
+      
+      
+      if (!is.null(input$prevalence_plot_group) && !is.null(input$prevalence_plot_facet)) {
+        plot <- plot_data %>%
+          unite("Group", c(all_of(input$prevalence_plot_group)), remove = FALSE, sep = "; ") %>%
+          unite("facet_var", c(all_of(input$prevalence_plot_facet)), remove = FALSE, sep = "; ") %>%
+          ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
+                            ymin = "prevalence_95CI_lower",
+                            ymax = "prevalence_95CI_upper",
+                            group = "Group", colour = "Group")) +
+          geom_point(position = position_dodge(width = 1)) +
+          labs(x = "Calendar Year", y = "Prevalence (%)") +
+          scale_y_continuous(limits = c(0, NA)) +
+          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
+          theme(axis.text.x = element_text(angle = 45, hjust = 1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6),
+                panel.background = element_blank(),
+                axis.line = element_line(colour = "black", size = 0.6),
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                text = element_text(size = 15)) +
+          facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
+        
+      } else if (!is.null(input$prevalence_plot_group) && is.null(input$prevalence_plot_facet)) {
+        plot <- plot_data %>%
+          unite("Group", c(all_of(input$prevalence_plot_group)), remove = FALSE, sep = "; ") %>%
+          ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
+                            ymin = "prevalence_95CI_lower",
+                            ymax = "prevalence_95CI_upper",
+                            group = "Group", colour = "Group")) +
+          geom_point(position = position_dodge(width = 1)) +
+          labs(x = "Calendar Year", y = "Prevalence (%)") +
+          scale_y_continuous(limits = c(0, NA)) +
+          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
+          theme(axis.text.x = element_text(angle = 45, hjust = 1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6),
+                panel.background = element_blank(),
+                axis.line = element_line(colour = "black", size = 0.6),
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                text = element_text(size = 15)) 
+        
+        
+      } else if (is.null(input$prevalence_plot_group) && !is.null(input$prevalence_plot_facet)) {
+        plot <- plot_data %>%
+          unite("facet_var", c(all_of(input$prevalence_plot_facet)), remove = FALSE, sep = "; ") %>%
+          ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
+                            ymin = "prevalence_95CI_lower",
+                            ymax = "prevalence_95CI_upper",
+                            group = "Group", colour = "Group")) +
+          geom_point(position = position_dodge(width = 1)) +
+          labs(x = "Calendar Year", y = "Prevalence (%)") +
+          scale_y_continuous(limits = c(0, NA)) +
+          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
+          theme(axis.text.x = element_text(angle = 45, hjust = 1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6),
+                panel.background = element_blank(),
+                axis.line = element_line(colour = "black", size = 0.6),
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                text = element_text(size = 15)) +
+          facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
+        
+        
+      } else {
+        plot <- plot_data %>%
+          ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
+                            ymin = "prevalence_95CI_lower",
+                            ymax = "prevalence_95CI_upper")) +
+          geom_point(position = position_dodge(width = 1)) +
+          labs(x = "Calendar Year", y = "Prevalence (%)") +
+          scale_y_continuous(limits = c(0, NA)) +
+          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
+          theme(axis.text.x = element_text(angle = 45, hjust = 1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6),
+                panel.background = element_blank(),
+                axis.line = element_line(colour = "black", size = 0.6),
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                text = element_text(size = 15)) +
+          facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
+        
+        
+      }
+      
+      
+      # Move scale_y_continuous outside of ggplot
+      plot <- plot + 
+        theme(strip.text = element_text(size = 15, face = "bold")
+              
+        )
+      
+      plot
+      
+      
+      
+    }
+    
+    
+  })
   
+  output$prevalencePlot <- renderPlot(
+    get_prevalence_plot()
+  )
+  
+  output$prevalence_download_plot <- downloadHandler(
+    filename = function() {
+      "prevalence_estimates_plot.png"
+    },
+    content = function(file) {
+      ggsave(
+        file,
+        get_incidence_plot(),
+        width = as.numeric(input$prevalence_download_width),
+        height = as.numeric(input$prevalence_download_height),
+        dpi = as.numeric(input$prevalence_download_dpi),
+        units = "cm"
+      )
+    }
+  )
   
   
   

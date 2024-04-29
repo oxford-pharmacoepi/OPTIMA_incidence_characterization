@@ -527,22 +527,6 @@ ui <- dashboardPage(
             style="display:inline-block; float:right")
         
       ) ,
-      
-      
-      # tabItem(
-      #   tags$h5("The clinical codelists for each cancer used in this study are presented below:"),
-      #   tabName = "cohort_concepts",
-      #   div(
-      #     style = "display: inline-block;vertical-align:top; width: 150px;",
-      #     pickerInput(
-      #       inputId = "codelist_cohort_selector",
-      #       label = "Outcome",
-      #       choices = unique(concepts_lists$Cancer),
-      #       selected = "Lung",
-      #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-      #       multiple = TRUE
-      #     )
-      #   ),
         
         # cohort definition ------
         tabItem(
@@ -568,40 +552,12 @@ ui <- dashboardPage(
               rclipboardSetup(),
               uiOutput("clip"),
               verbatimTextOutput("verb"),
-            )
-            # tabPanel(
-            #   "Concept sets",
-            # )
+            ) ,
+            tabPanel(
+            "Concept sets",
+             )
           )
         ),
-        
-      #   div(
-      #     style = "display: inline-block;vertical-align:top; width: 150px;",
-      #     pickerInput(
-      #       inputId = "codelist_vocab_selector",
-      #       label = "Vocabulary",
-      #       choices = unique(concepts_lists$Vocabulary),
-      #       selected = unique(concepts_lists$Vocabulary),
-      #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-      #       multiple = TRUE
-      #     )
-      #   ),
-      #   
-      #   htmlOutput('tbl_codelists'),
-      #   
-      #   tags$hr(),
-      #   
-      #   div(
-      #     style = "display:inline-block",
-      #     downloadButton(
-      #       outputId = "gt_codelists_word",
-      #       label = "Download table as word"
-      #     ),
-      #     style = "display:inline-block; float:right"
-      #   )
-      # ) , 
-      
-      
       
       tabItem(
         tabName = "inc_rates",
@@ -873,16 +829,136 @@ ui <- dashboardPage(
         
       ),
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-  
+      tabItem(
+        tabName = "prev_plots",
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "prevalence_database_selector",
+            label = "Database",
+            choices = unique(prevalence_estimates$cdm_name),
+            selected = unique(prevalence_estimates$cdm_name),
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "prevalence_cohort_name_selector",
+            label = "Cohort Name",
+            choices = unique(prevalence_estimates$outcome_cohort_name),
+            selected = unique(prevalence_estimates$outcome_cohort_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "prevalence_start_date_selector",
+            label = "Prevalence Start Date",
+            choices = as.character(unique(prevalence_estimates$prevalence_start_date)),
+            selected = as.character(unique(prevalence_estimates$prevalence_start_date)),
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "prevalence_sex_selector",
+            label = "Sex",
+            choices = unique(prevalence_estimates$denominator_sex),
+            selected = "Both",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "prevalence_age_selector",
+            label = "Age Group",
+            choices = unique(prevalence_estimates$denominator_age_group),
+            selected = "18 to 150",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(style="display: inline-block;vertical-align:top; width: 150px;",
+            pickerInput(inputId = "prevalence_plot_facet",
+                        label = "Facet by",
+                        choices = c("outcome_cohort_name", 
+                                    "denominator_sex",
+                                    "cdm_name" ,
+                                    "denominator_age_group"),
+                        selected = c("outcome_cohort_name"),
+                        options = list(
+                          `actions-box` = TRUE,
+                          size = 10,
+                          `selected-text-format` = "count > 3"),
+                        multiple = TRUE,)
+        ),
+        
+        div(style="display: inline-block;vertical-align:top; width: 150px;",
+            pickerInput(inputId = "prevalence_plot_group",
+                        label = "Colour by",
+                        choices = c("outcome_cohort_name", 
+                                    "denominator_sex",
+                                    "cdm_name" ,
+                                    "denominator_age_group"
+                        ),
+                        selected = c("cdm_name"),
+                        options = list(
+                          `actions-box` = TRUE,
+                          size = 10,
+                          `selected-text-format` = "count > 3"),
+                        multiple = TRUE,)
+            
+            
+        ),
+        
+        
+        
+        div(
+          style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
+          checkboxInput("show_error_bars", "Show Ribbons", value = TRUE)
+        ),
+        
+        div(
+          style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
+          plotOutput("prevalencePlot",
+                     height = "800px"
+          ) %>%
+            withSpinner(),
+          h4("Download Figure"),
+          div("Height:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+          div(
+            style = "display: inline-block;",
+            textInput("prevalence_download_height", "", 30, width = "50px")
+          ),
+          div("cm", style = "display: inline-block; margin-right: 25px;"),
+          div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+          div(
+            style = "display: inline-block;",
+            textInput("prevalence_download_width", "", 35, width = "50px")
+          ),
+          div("cm", style = "display: inline-block; margin-right: 25px;"),
+          div("dpi:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+          div(
+            style = "display: inline-block; margin-right:",
+            textInput("prevalence_download_dpi", "", 600, width = "50px")
+          ),
+          downloadButton("prevalence_download_plot", "Download plot")
+        )
+        
+        
+      ),
       tabItem(
         tabName = "inc_plots",
         div(

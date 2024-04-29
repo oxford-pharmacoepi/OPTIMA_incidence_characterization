@@ -236,8 +236,16 @@ if(length(prevalence_estimates_files > 0)){
   }
   
   prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) %>% 
-    filter(outcome_cohort_name != "any_malignant_neoplasm")
-
+    filter(outcome_cohort_name != "any_malignant_neoplasm") 
+    
+  prevalence_estimates_thinuk <- dplyr::bind_rows(prevalence_estimates) %>%
+    filter(cdm_name == "THIN_uk" & prevalence_start_date > "2010-01-01")
+  
+  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) %>%
+    filter(cdm_name != "THIN_uk" )
+  
+  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates, 
+                                           prevalence_estimates_thinuk) 
   
   # prevalence attrition -----
   prevalence_attrition_files<-results[stringr::str_detect(results, ".csv")]
@@ -263,9 +271,6 @@ if(length(prevalence_estimates_files > 0)){
     filter(outcome_cohort_name != remove_outcomes )
   
 }
-
-
-
 
 # survival estimates -------
 survival_estimates_files <- results[stringr::str_detect(results, ".csv")]
