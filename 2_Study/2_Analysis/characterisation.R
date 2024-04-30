@@ -87,8 +87,6 @@ if(isFALSE(run_survival)){
   )
   }
   
-  # take participants from prevalent analysis
-  # TBC
     
 }
 
