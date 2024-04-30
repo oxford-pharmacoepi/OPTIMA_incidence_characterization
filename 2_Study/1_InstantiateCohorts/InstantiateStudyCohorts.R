@@ -2,22 +2,15 @@
 cli::cli_alert_info("- Getting cancer definitions")
 
 # get concept sets from cohorts----
-cancer_concepts_inc <- CodelistGenerator::codesFromCohort(
-  path = here::here("2_Study", "1_InstantiateCohorts", "Cohorts", "incidence" ) ,
-  cdm = cdm,
-  withConceptDetails = FALSE)
-
+cancer_concepts_inc <- CDMConnector::readCohortSet(
+  path = here::here("2_Study", "1_InstantiateCohorts", "Cohorts", "incidence" ))
 
 # instantiate the cohorts with no prior history 
-cdm <- CDMConnector::generateConceptCohortSet(
+cdm <- CDMConnector::generateCohortSet(
   cdm,
   conceptSet = cancer_concepts_inc,
   name = "outcome",
-  limit = "first",
-  requiredObservation = c(0, 0),
-  end = "observation_period_end_date",
-  overwrite = TRUE )
-
+  overwrite = TRUE)
 
 # only run analysis where we have counts more than 200 ----
 cancer_cohorts_inc <- CDMConnector::settings(cdm$outcome) %>%
@@ -36,23 +29,15 @@ cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
 if(isTRUE(run_prevalence)){
   
 # instantiate 
-cancer_concepts_p <- CodelistGenerator::codesFromCohort(
-  path = here::here("2_Study", "1_InstantiateCohorts", "Cohorts", "prevalence" ) ,
-  cdm = cdm,
-  withConceptDetails = FALSE)
+cancer_concepts_p <- CDMConnector::readCohortSet(
+  path = here::here("2_Study", "1_InstantiateCohorts", "Cohorts", "prevalence" ))
 
-
-# instantiate the cohorts with no prior history 
-cdm <- CDMConnector::generateConceptCohortSet(
+# instantiate the cohorts
+cdm <- CDMConnector::generateCohortSet(
   cdm,
-  conceptSet = cancer_concepts_p,
+  cohortSet = cancer_concepts_p,
   name = "outcome_p",
-  limit = "first",
-  requiredObservation = c(0, 0),
-  end = "observation_period_end_date",
   overwrite = TRUE )
-
-
 
 # only run analysis where we have counts more than 200 ----
 cancer_cohorts_prev <- CDMConnector::settings(cdm$outcome_p) %>%

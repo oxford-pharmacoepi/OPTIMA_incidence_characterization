@@ -973,6 +973,23 @@
             "isExcluded": false,
             "includeDescendants": false,
             "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44502035,
+              "CONCEPT_NAME": "Acinar cell carcinoma of prostate gland",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8550/3-C61.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
           }
         ]
       }
