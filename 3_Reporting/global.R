@@ -437,12 +437,13 @@ for(i in seq_along(snapshot_files)){
   
 }
 snapshotcdm <- bind_rows(snapshotcdm) %>% 
-  select("cdm_name", "person_count", "observation_period_count" ,
+  select("cdm_name", "person_count", "observation_period_count" , "start_date",
          "vocabulary_version", "cdm_version", "cdm_description",) %>% 
   mutate(person_count = nice.num.count(person_count), 
          observation_period_count = nice.num.count(observation_period_count)) %>% 
   dplyr::mutate(cdm_name = replace(cdm_name, cdm_name == "CPRD_GOLD", "CPRD GOLD")) %>% 
   rename("Database name" = "cdm_name",
+         "Study Start Date" = "start_date",
          "Persons in the database" = "person_count",
          "Number of observation periods" = "observation_period_count",
          "OMOP CDM vocabulary version" = "vocabulary_version",
