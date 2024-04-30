@@ -8,7 +8,7 @@ cancer_concepts_inc <- CDMConnector::readCohortSet(
 # instantiate the cohorts with no prior history 
 cdm <- CDMConnector::generateCohortSet(
   cdm,
-  conceptSet = cancer_concepts_inc,
+  cohortSet = cancer_concepts_inc,
   name = "outcome",
   overwrite = TRUE)
 
