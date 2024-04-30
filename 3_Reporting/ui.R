@@ -400,6 +400,18 @@ ui <- dashboardPage(
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
+            inputId = "demographics_database_name_selector",
+            label = "Database",
+            choices = unique(demo_characteristics$cdm_name),
+            selected = unique(demo_characteristics$cdm_name),
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
             inputId = "demographics_selector",
             label = "Demographics",
             choices = unique(demo_characteristics$strata_level),
@@ -432,6 +444,18 @@ ui <- dashboardPage(
             label = "Outcome",
             choices = unique(comorb_characteristics$group_level),
             selected = unique(comorb_characteristics$group_level)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "comorb_database_name_selector",
+            label = "Database",
+            choices = unique(comorb_characteristics$cdm_name),
+            selected = unique(comorb_characteristics$cdm_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -485,6 +509,18 @@ ui <- dashboardPage(
             label = "Outcome",
             choices = unique(med_characteristics$group_level),
             selected = unique(med_characteristics$group_level)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "med_database_name_selector",
+            label = "Database",
+            choices = unique(med_characteristics$cdm_name),
+            selected = unique(med_characteristics$cdm_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )

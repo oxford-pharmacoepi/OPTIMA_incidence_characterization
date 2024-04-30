@@ -193,10 +193,15 @@ server <-	function(input, output, session) {
     validate(
       need(input$demographics_selector != "", "Please select a demographic")
     )
+    
+    validate(
+      need(input$demographics_database_name_selector != "", "Please select a database")
+    )
 
     demo_characteristics <- demo_characteristics %>%
       filter(strata_level %in% input$demographics_selector) %>%
-      filter(group_level %in% input$demographics_cohort_selector)
+      filter(group_level %in% input$demographics_cohort_selector) %>% 
+      filter(cdm_name %in% input$demographics_database_name_selector)
 
 
     demo_characteristics
@@ -236,13 +241,15 @@ server <-	function(input, output, session) {
       need(input$comorb_time_selector != "", "Please select a demographic time period")
     )
     
-    
+    validate(
+      need(input$comorb_database_name_selector != "", "Please select a database")
+    )
     
     comorb_characteristics <- comorb_characteristics %>%
       filter(strata_level %in% input$comorb_selector) %>%
       filter(group_level %in% input$comorb_cohort_selector) %>% 
-      filter(additional_level %in% input$comorb_time_selector)
-    
+      filter(additional_level %in% input$comorb_time_selector) %>% 
+      filter(cdm_name %in% input$comorb_database_name_selector)
     
     comorb_characteristics
     
@@ -281,13 +288,18 @@ server <-	function(input, output, session) {
       need(input$med_time_selector != "", "Please select a demographic time period")
     )
     
+    validate(
+      need(input$med_database_name_selector != "", "Please select a database")
+    )
+    
     med_characteristics <- med_characteristics %>%
       filter(strata_level %in% input$med_selector) %>%
       filter(group_level %in% input$med_cohort_selector) %>% 
-      filter(additional_level %in% input$med_time_selector)
-    
+      filter(additional_level %in% input$med_time_selector) %>% 
+      filter(cdm_name %in% input$med_database_name_selector)
     
     med_characteristics
+    
   })
   
   
