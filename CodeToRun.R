@@ -26,6 +26,7 @@ library(tictoc)
 library(RPostgres)
 library(CodelistGenerator)
 library(DrugUtilisation)
+library(dsr)
 
 # database metadata and connection details -----
 # The name/ acronym for the database
@@ -84,7 +85,7 @@ cdm$person %>%
 # Study start date -----
 # please put the study start date if you do not have usable data before "2003-01-01" 
 # for example if you have usable data from 2010 you would put 2011-01-01 (to allow for 1 year prior history)
-study_start <- "2011-01-01"
+study_start <- "..."
 
 # Run the study ------
 # For some data partners they may not have be able to run certain studies i.e. a cancer registry
