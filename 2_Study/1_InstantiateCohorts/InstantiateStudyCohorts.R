@@ -53,7 +53,8 @@ cdm <- CDMConnector::generateCohortSet(
 # cdm$outcome_p <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome_p,
 #                                                    reason="Removing cancer cohorts from analysis with less than 200 patients" )
 # 
-# }
+
+}
 
 
 cli::cli_alert_success("- Got cancer definitions")
