@@ -1,4 +1,6 @@
 #### PACKAGES -----
+renv::restore()
+
 library(shiny)
 library(shinydashboard)
 library(shinythemes)
@@ -17,7 +19,7 @@ library(stringr)
 library(ggplot2)
 library(fresh)
 library(plotly)
-library(ggalt)
+#library(ggalt)
 library(bslib)
 library(PatientProfiles)
 library(DiagrammeR)
