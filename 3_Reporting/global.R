@@ -168,8 +168,7 @@ remove_outcomes <- incidence_estimates %>%
   pull(outcome_cohort_name)
 
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
-  filter(outcome_cohort_name != remove_outcomes ) %>% 
-  filter(outcome_cohort_name != "any_malignant_neoplasm")
+  filter(!(outcome_cohort_name %in% remove_outcomes ))
 
 incidence_estimates_thinuk <- dplyr::bind_rows(incidence_estimates) %>%
   filter(cdm_name == "THIN_uk" & incidence_start_date > "2010-01-01")
@@ -192,9 +191,9 @@ for(i in seq_along(incidence_estimates_files_std)){
   incidence_estimates_std[[i]]<-readr::read_csv(incidence_estimates_files_std[[i]], 
                                             show_col_types = FALSE)  
 }
+
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
-  filter(outcome_cohort_name != remove_outcomes ) %>% 
-  filter(outcome_cohort_name != "any_malignant_neoplasm")
+  filter(!(outcome_cohort_name %in% remove_outcomes) )
 
 incidence_estimates_std_thinuk <- dplyr::bind_rows(incidence_estimates_std) %>%
   filter(cdm_name == "THIN_uk" & incidence_start_date > "2010-01-01")
@@ -214,8 +213,7 @@ for(i in seq_along(incidence_attrition_files)){
                                             show_col_types = FALSE)  
 }
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
-  filter(outcome_cohort_name != remove_outcomes ) %>% 
-  filter(outcome_cohort_name != "any_malignant_neoplasm")
+  filter(!(outcome_cohort_name %in% remove_outcomes ))
 
 # incidence settings ------
 incidence_settings_files<-results[stringr::str_detect(results, ".csv")]
@@ -226,8 +224,7 @@ for(i in seq_along(incidence_settings_files)){
                                             show_col_types = FALSE)  
 }
 incidence_settings <- dplyr::bind_rows(incidence_settings) %>% 
-  filter(outcome_cohort_name != remove_outcomes ) %>% 
-  filter(outcome_cohort_name != "any_malignant_neoplasm")
+  filter(!(outcome_cohort_name %in% remove_outcomes ))
 
 }
 
@@ -244,8 +241,7 @@ if(length(prevalence_estimates_files > 0)){
                                               show_col_types = FALSE)  
   }
   
-  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) %>% 
-    filter(outcome_cohort_name != "any_malignant_neoplasm") 
+  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) 
     
   prevalence_estimates_thinuk <- dplyr::bind_rows(prevalence_estimates) %>%
     filter(cdm_name == "THIN_uk" & prevalence_start_date > "2010-01-01")
@@ -265,8 +261,7 @@ if(length(prevalence_estimates_files > 0)){
                                               show_col_types = FALSE)  
   }
   prevalence_attrition <- dplyr::bind_rows(prevalence_attrition) %>% 
-    filter(outcome_cohort_name != remove_outcomes ) %>% 
-    filter(outcome_cohort_name != "any_malignant_neoplasm")
+    filter(!(outcome_cohort_name %in% remove_outcomes ))
   
   # prevalence settings ------
   prevalence_settings_files<-results[stringr::str_detect(results, ".csv")]
@@ -276,8 +271,7 @@ if(length(prevalence_estimates_files > 0)){
     prevalence_settings[[i]]<-readr::read_csv(prevalence_settings_files[[i]], 
                                              show_col_types = FALSE)  
   }
-  prevalence_settings <- dplyr::bind_rows(prevalence_settings) %>% 
-    filter(outcome_cohort_name != remove_outcomes )
+  prevalence_settings <- dplyr::bind_rows(prevalence_settings)
   
 }
 
@@ -300,7 +294,7 @@ survival_estimates <- dplyr::bind_rows(survival_estimates) %>%
   mutate(time = as.numeric(time)) %>% 
   pivot_wider(names_from = estimate_name, values_from = estimate_value) %>% 
   filter(estimate_type == "Survival probability") %>% 
-  filter(group_level != remove_outcomes )
+  filter(!(group_level %in% remove_outcomes ))
 
 
 # survival attrition ------
@@ -313,7 +307,7 @@ for(i in seq_along(survival_attrition_files)){
                                            show_col_types = FALSE)
 }
 survival_attrition <- dplyr::bind_rows(survival_attrition) %>% 
-  filter(outcome_cohort_name != remove_outcomes )
+  filter(!(outcome_cohort_name %in% remove_outcomes ))
 
 
 # survival summaries ------
@@ -360,7 +354,7 @@ survival_median_table <- dplyr::bind_rows(survival_median_table) %>%
            "median_survival_95CI_lower" ,
            "median_survival_95CI_higher"
            )) %>% 
-  filter(group_level != remove_outcomes )
+  filter(!(group_level %in% remove_outcomes ))
   
 
 }
@@ -379,8 +373,7 @@ for(i in seq_along(tableone_demo_files)){
 }
 demo_characteristics <- dplyr::bind_rows(tableone_demo) %>% 
   select(!c(result_id)) %>% 
-  filter(group_level != remove_outcomes )  %>% 
-  filter(group_level != "any_malignant_neoplasm")
+  filter(!(group_level %in% remove_outcomes ) )
 
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
@@ -392,8 +385,7 @@ for(i in seq_along(tableone_med_files)){
 }
 med_characteristics <- dplyr::bind_rows(tableone_med)  %>% 
   select(!c(result_id)) %>% 
-  filter(group_level != remove_outcomes ) %>% 
-  filter(group_level != "any_malignant_neoplasm")
+  filter(!(group_level %in% remove_outcomes ) )
 
 # table one comorbidities ------
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
@@ -405,8 +397,7 @@ for(i in seq_along(tableone_comorb_files)){
 }
 comorb_characteristics <- dplyr::bind_rows(tableone_comorb)  %>% 
   select(!c(result_id)) %>% 
-  filter(group_level != remove_outcomes ) %>% 
-  filter(group_level != "any_malignant_neoplasm")
+  filter(!(group_level %in% remove_outcomes ) )
 
 }
 
