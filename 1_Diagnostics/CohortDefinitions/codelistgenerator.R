@@ -741,75 +741,75 @@ writeCohort(partial_prev5y_sclc, here::here("preliminary_cohorts",
 # lung cancer condition OR measurement - unable to get nested to work so will take the codes below and create in ATLAS
 
 # broad stage 1
-lung_cancer_incident_broad_stage1 <- cohort(
-  entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_1"), db, vocabularyDatabaseSchema = "public")),
-
-    measurement(getConceptSetDetails(cs(stage1_codes$concept_id , name = "stage1"), db, vocabularyDatabaseSchema = "public")),
-    observationWindow = continuousObservation(0L, 0L),
-    primaryCriteriaLimit = "First"
-  ),
-  exit = exit(
-    endStrategy = observationExit()
-  )
-)
-
-writeCohort(lung_cancer_incident_broad_stage1, here::here("preliminary_cohorts",
-                                                   "lung_cancer_incident_broad_s1.json"))
-
-
-# broad stage 2
-lung_cancer_incident_broad_stage2 <- cohort(
-  entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_2"), db, vocabularyDatabaseSchema = "public")),
-    measurement(getConceptSetDetails(cs(stage2_codes$concept_id , name = "stage2"), db, vocabularyDatabaseSchema = "public")),
-    observationWindow = continuousObservation(0L, 0L),
-    primaryCriteriaLimit = "First"
-  ),
-  exit = exit(
-    endStrategy = observationExit()
-  )
-)
-
-writeCohort(lung_cancer_incident_broad_stage2, here::here("preliminary_cohorts",
-                                                          "lung_cancer_incident_broad_s2.json"))
-
-
-
-# broad stage 3
-lung_cancer_incident_broad_stage3 <- cohort(
-  entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_3"), db, vocabularyDatabaseSchema = "public")),
-    measurement(getConceptSetDetails(cs(stage3_codes$concept_id , name = "stage3"), db, vocabularyDatabaseSchema = "public")),
-    observationWindow = continuousObservation(0L, 0L),
-    primaryCriteriaLimit = "First"
-  ),
-  exit = exit(
-    endStrategy = observationExit()
-  )
-)
-
-writeCohort(lung_cancer_incident_broad_stage3, here::here("preliminary_cohorts",
-                                                          "lung_cancer_incident_broad_s3.json"))
-
-
-
-# broad stage 4
-lung_cancer_incident_broad_stage4 <- cohort(
-  entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_4"), db, vocabularyDatabaseSchema = "public")),
-    measurement(getConceptSetDetails(cs(stage4_codes$concept_id , name = "stage4"), db, vocabularyDatabaseSchema = "public")),
-    observationWindow = continuousObservation(0L, 0L),
-    primaryCriteriaLimit = "First"
-  ),
-  exit = exit(
-    endStrategy = observationExit()
-  )
-)
-
-writeCohort(lung_cancer_incident_broad_stage4, here::here("preliminary_cohorts",
-                                                          "lung_cancer_incident_broad_s4.json"))
-
+# lung_cancer_incident_broad_stage1 <- cohort(
+#   entry = entry(
+#     conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_1"), db, vocabularyDatabaseSchema = "public")),
+#
+#     measurement(getConceptSetDetails(cs(stage1_codes$concept_id , name = "stage1"), db, vocabularyDatabaseSchema = "public")),
+#     observationWindow = continuousObservation(0L, 0L),
+#     primaryCriteriaLimit = "First"
+#   ),
+#   exit = exit(
+#     endStrategy = observationExit()
+#   )
+# )
+#
+# writeCohort(lung_cancer_incident_broad_stage1, here::here("preliminary_cohorts",
+#                                                    "lung_cancer_incident_broad_s1.json"))
+#
+#
+# # broad stage 2
+# lung_cancer_incident_broad_stage2 <- cohort(
+#   entry = entry(
+#     conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_2"), db, vocabularyDatabaseSchema = "public")),
+#     measurement(getConceptSetDetails(cs(stage2_codes$concept_id , name = "stage2"), db, vocabularyDatabaseSchema = "public")),
+#     observationWindow = continuousObservation(0L, 0L),
+#     primaryCriteriaLimit = "First"
+#   ),
+#   exit = exit(
+#     endStrategy = observationExit()
+#   )
+# )
+#
+# writeCohort(lung_cancer_incident_broad_stage2, here::here("preliminary_cohorts",
+#                                                           "lung_cancer_incident_broad_s2.json"))
+#
+#
+#
+# # broad stage 3
+# lung_cancer_incident_broad_stage3 <- cohort(
+#   entry = entry(
+#     conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_3"), db, vocabularyDatabaseSchema = "public")),
+#     measurement(getConceptSetDetails(cs(stage3_codes$concept_id , name = "stage3"), db, vocabularyDatabaseSchema = "public")),
+#     observationWindow = continuousObservation(0L, 0L),
+#     primaryCriteriaLimit = "First"
+#   ),
+#   exit = exit(
+#     endStrategy = observationExit()
+#   )
+# )
+#
+# writeCohort(lung_cancer_incident_broad_stage3, here::here("preliminary_cohorts",
+#                                                           "lung_cancer_incident_broad_s3.json"))
+#
+#
+#
+# # broad stage 4
+# lung_cancer_incident_broad_stage4 <- cohort(
+#   entry = entry(
+#     conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_broad_stage_4"), db, vocabularyDatabaseSchema = "public")),
+#     measurement(getConceptSetDetails(cs(stage4_codes$concept_id , name = "stage4"), db, vocabularyDatabaseSchema = "public")),
+#     observationWindow = continuousObservation(0L, 0L),
+#     primaryCriteriaLimit = "First"
+#   ),
+#   exit = exit(
+#     endStrategy = observationExit()
+#   )
+# )
+#
+# writeCohort(lung_cancer_incident_broad_stage4, here::here("preliminary_cohorts",
+#                                                           "lung_cancer_incident_broad_s4.json"))
+#
 
 # smoking status
 reviewed_code_list_smoking <- read.csv(here::here("preliminary_cohorts" , "reviewed" ,
