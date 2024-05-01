@@ -757,33 +757,68 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "median_cohort_name_selector",
-            label = "Outcome",
-            choices = unique(survival_median_table$group_level),
-            selected = unique(survival_median_table$group_level)[1],
+            label = "Outcome name",
+            choices = unique(incidence_attrition$outcome_cohort_name),
+            selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
+        
+        # div(
+        #   style = "display: inline-block;vertical-align:top; width: 150px;",
+        #   pickerInput(
+        #     inputId = "median_demo_selector",
+        #     label = "Demographics",
+        #     choices = unique(survival_median_table$strata_level),
+        #     selected = unique(survival_median_table$strata_level)[1],
+        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+        #     multiple = TRUE
+        #   )
+        # ),
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "median_demo_selector",
             label = "Demographics",
-            choices = unique(survival_median_table$strata_level),
-            selected = unique(survival_median_table$strata_level)[1],
+            choices = {
+              tryCatch({
+                unique_vals <- unique(survival_median_table$strata_level)
+                if (!is.null(unique_vals)) {
+                  return(unique_vals)
+                } else {
+                  return("No data available")
+                }
+              }, error = function(e) {
+                return("Error retrieving data")
+              })
+            },
+            selected = {
+              tryCatch({
+                unique_vals <- unique(survival_median_table$strata_level)
+                if (!is.null(unique_vals)) {
+                  return(unique_vals[1])
+                } else {
+                  return(NULL)
+                }
+              }, error = function(e) {
+                return(NULL)
+              })
+            },
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
-        ),
+        ) ,
+        
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "median_database_name_selector",
             label = "Database",
-            choices = unique(survival_median_table$cdm_name),
-            selected = unique(survival_median_table$cdm_name),
+            choices = unique(incidence_attrition$cdm_name),
+            selected = unique(incidence_attrition$cdm_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1281,8 +1316,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_database_name_selector1",
             label = "Database",
-            choices = unique(survival_attrition$cdm_name),
-            selected = unique(survival_attrition$cdm_name)[1],
+            choices = unique(incidence_attrition$cdm_name),
+            selected = unique(incidence_attrition$cdm_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = FALSE
           )
@@ -1292,8 +1327,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_cohort_name_selector1",
             label = "Outcome",
-            choices = unique(survival_attrition$outcome_cohort_name),
-            selected = unique(survival_attrition$outcome_cohort_name)[1],
+            choices = unique(incidence_attrition$outcome_cohort_name),
+            selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = FALSE
           )
@@ -1324,8 +1359,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_database_name_selector",
             label = "Database",
-            choices = unique(survival_attrition$cdm_name),
-            selected = unique(survival_attrition$cdm_name)[1],
+            choices = unique(incidence_attrition$cdm_name),
+            selected = unique(incidence_attrition$cdm_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1335,8 +1370,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_cohort_name_selector",
             label = "Outcome",
-            choices = unique(survival_attrition$outcome_cohort_name),
-            selected = unique(survival_attrition$outcome_cohort_name)[1],
+            choices = unique(incidence_attrition$outcome_cohort_name),
+            selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1361,8 +1396,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "survival_database_selector",
             label = "Database",
-            choices = unique(survival_estimates$cdm_name),
-            selected = unique(survival_estimates$cdm_name),
+            choices = unique(incidence_attrition$cdm_name),
+            selected = unique(incidence_attrition$cdm_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1374,8 +1409,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "survival_cohort_name_selector",
             label = "Outcome",
-            choices = unique(survival_estimates$group_level),
-            selected = unique(survival_estimates$group_level),
+            choices = unique(incidence_attrition$outcome_cohort_name),
+            selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1386,7 +1421,7 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "survival_demo_selector",
             label = "Demographics",
-            choices = unique(survival_estimates$strata_level),
+            choices = unique(demo_characteristics$group_level),
             selected = "Overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE

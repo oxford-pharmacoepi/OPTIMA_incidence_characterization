@@ -296,11 +296,13 @@ survival_estimates <- dplyr::bind_rows(survival_estimates) %>%
   filter(estimate_type == "Survival probability") %>% 
   filter(!(group_level %in% remove_outcomes ))
 
+}
 
 # survival attrition ------
 survival_attrition_files <- results[stringr::str_detect(results, ".csv")]
 survival_attrition_files <- results[stringr::str_detect(results, "survival_attrition")]
 
+if(length(survival_attrition_files > 0)){
 survival_attrition <- list()
 for(i in seq_along(survival_attrition_files)){
   survival_attrition[[i]]<-readr::read_csv(survival_attrition_files[[i]],
@@ -309,11 +311,16 @@ for(i in seq_along(survival_attrition_files)){
 survival_attrition <- dplyr::bind_rows(survival_attrition) %>% 
   filter(!(outcome_cohort_name %in% remove_outcomes ))
 
+}
 
 # survival summaries ------
 survival_median_files <- results[stringr::str_detect(results, ".csv")]
 survival_median_files <- results[stringr::str_detect(results, "survival_summary")]
+
+if(length(survival_median_files > 0)){
+  
 survival_median_table <- list()
+
 for(i in seq_along(survival_median_files)){
   survival_median_table[[i]]<-readr::read_csv(survival_median_files[[i]],
                                               show_col_types = FALSE)  
@@ -371,6 +378,7 @@ for(i in seq_along(tableone_demo_files)){
   tableone_demo[[i]] <- readr::read_csv(tableone_demo_files[[i]],
                                                  show_col_types = FALSE)  
 }
+
 demo_characteristics <- dplyr::bind_rows(tableone_demo) %>% 
   select(!c(result_id)) %>% 
   filter(!(group_level %in% remove_outcomes ) )
@@ -383,6 +391,7 @@ for(i in seq_along(tableone_med_files)){
   tableone_med[[i]] <- readr::read_csv(tableone_med_files[[i]],
                                         show_col_types = FALSE)  
 }
+
 med_characteristics <- dplyr::bind_rows(tableone_med)  %>% 
   select(!c(result_id)) %>% 
   filter(!(group_level %in% remove_outcomes ) )
@@ -395,6 +404,7 @@ for(i in seq_along(tableone_comorb_files)){
   tableone_comorb[[i]] <- readr::read_csv(tableone_comorb_files[[i]],
                                        show_col_types = FALSE)  
 }
+
 comorb_characteristics <- dplyr::bind_rows(tableone_comorb)  %>% 
   select(!c(result_id)) %>% 
   filter(!(group_level %in% remove_outcomes ) )
@@ -404,6 +414,8 @@ comorb_characteristics <- dplyr::bind_rows(tableone_comorb)  %>%
 # risk tables ----------
 survival_risk_table_files<-results[stringr::str_detect(results, ".csv")]
 survival_risk_table_files<-results[stringr::str_detect(results, "risk_table_results")]
+
+if(length(survival_risk_table_files > 0)){
 
 survival_risk_table <- list()
 for(i in seq_along(survival_risk_table_files)){
@@ -415,6 +427,7 @@ for(i in seq_along(survival_risk_table_files)){
 
 survival_risk_table <- dplyr::bind_rows(survival_risk_table) 
 
+}
 
 # cdm snapshot ------
 snapshot_files <- results[stringr::str_detect(results, ".csv")]

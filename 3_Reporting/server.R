@@ -367,7 +367,7 @@ server <-	function(input, output, session) {
   #   validate(
   #     need(input$median_database_name_selector != "", "Please select a database")
   #   )
-  #   
+  # 
   #   validate(
   #     need(input$median_demo_selector != "", "Please select a demographic")
   #   )
@@ -375,7 +375,7 @@ server <-	function(input, output, session) {
   # 
   #   table <- survival_median_table %>%
   #     filter(group_level %in% input$median_cohort_name_selector) %>%
-  #     filter(cdm_name %in% input$median_database_name_selector) %>% 
+  #     filter(cdm_name %in% input$median_database_name_selector) %>%
   #     filter(strata_level %in% input$median_demo_selector)
   # 
   #   table
@@ -1790,12 +1790,22 @@ get_surv_summary <- reactive({
   validate(need(input$median_database_name_selector != "", "Please select a database"))
   validate(need(input$median_demo_selector != "", "Please select a database"))
   
+#  tryCatch({
+    
   table <- survival_median_table %>%
     filter(group_level %in% input$median_cohort_name_selector) %>%
     filter(cdm_name %in% input$median_database_name_selector) %>% 
     filter(strata_level %in% input$median_demo_selector) 
   
   table
+  
+  # Return the filtered table
+#   return(table)
+# }, error = function(e) {
+#   # If an error occurs (e.g., due to missing data), return NULL
+#   return(NULL)
+# })
+
   
 })
 
