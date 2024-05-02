@@ -143,18 +143,34 @@ ui <- dashboardPage(
     ),
       
       
-      # Logo 
-      tags$div(
-        style = "position: relative; margin-top: -10px; text-align: center; margin-bottom: 0;",
-        a(img(
-          src = "logoOxford.png",  # Replace with the correct file name and extension
-          height = "150px",  # Adjust the height as needed
-          width = "auto"     # Let the width adjust proportionally
-        ),
-        href = "https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology",
-        target = "_blank"
-        )
+
+    
+    tags$div(
+      style = "position: relative; margin-top: 20px; text-align: center; margin-bottom: 0;",
+      a(img(
+        src = "Logo_HDS.png",  # Replace with the correct file name and extension
+        height = "150px",  # Adjust the height as needed
+        width = "auto"     # Let the width adjust proportionally
+      ),
+      href = "https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology",
+      target = "_blank"
       )
+    ) ,
+    
+    # Logo 
+    tags$div(
+      style = "position: relative; margin-top: -20px; text-align: center; margin-bottom: 0;",
+      a(img(
+        src = "logoOxford.png",  # Replace with the correct file name and extension
+        height = "150px",  # Adjust the height as needed
+        width = "auto"     # Let the width adjust proportionally
+      ),
+      href = "https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology",
+      target = "_blank"
+      )
+    )
+    
+    
     )
   ),
   
@@ -206,27 +222,12 @@ ui <- dashboardPage(
         tags$h5("Any questions regarding this shiny app please contact",
                 tags$a(href="mailto:danielle.newby@ndorms.ox.ac.uk", "Danielle Newby"), "and any questions regarding this study please contact the corresponding author",
                 tags$a(href="mailto:daniel.prietoalhambra@ndorms.ox.ac.uk", "Professor Daniel Prieto Alhambra")
-                
-        ),
+
         
-        a(img(src="Logo_HSD.png", align = "right",
-              height="2%", width="20%"), href="https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology",
-          target="_blank") ,
-        
-        # tags$div(
-        #   style = "position: relative;",
-        #   a(
-        #     img(
-        #       src = "Logo_HSD.png",  # Replace with the correct file name and extension
-        #       height = "150px",      # Adjust the height as needed
-        #       width = "auto",        # Let the width adjust proportionally
-        #       style = "position: absolute; bottom: 0; right: 0;"  # Positioning the image
-        #     )
-        #   )
-        # )
-        # 
-        
-        
+      ),
+      
+      tags$hr()
+      
       ),
       
       # cdm snapshot ------
