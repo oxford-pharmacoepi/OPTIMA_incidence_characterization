@@ -408,13 +408,27 @@ ui <- dashboardPage(
             multiple = TRUE
           )
         ),
+
+        
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
-            inputId = "demographics_selector",
-            label = "Demographics",
-            choices = unique(demo_characteristics$strata_level),
+            inputId = "demographics_sex_selector",
+            label = "Sex",
+            choices = unique(demo_characteristics$sex),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "demographics_age_selector",
+            label = "Age Group",
+            choices = unique(demo_characteristics$age_group),
             selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -441,7 +455,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "comorb_cohort_selector",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(comorb_characteristics$group_level),
             selected = unique(comorb_characteristics$group_level)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -461,12 +475,25 @@ ui <- dashboardPage(
           )
         ),
         
+        
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
-            inputId = "comorb_selector",
-            label = "Demographics",
-            choices = unique(comorb_characteristics$strata_level),
+            inputId = "comorb_sex_selector",
+            label = "Sex",
+            choices = unique(comorb_characteristics$sex),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "comorb_age_selector",
+            label = "Age Group",
+            choices = unique(comorb_characteristics$age_group),
             selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -479,8 +506,11 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "comorb_time_selector",
             label = "Time",
-            choices = unique(comorb_characteristics$additional_level),
-            selected = "conditions and -999999 to -1",
+            choices = comorb_characteristics %>%
+              filter(window != "overall") %>%
+              pull(window) %>%
+              unique(),
+            selected = "-999999 to -1",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -506,7 +536,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "med_cohort_selector",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(med_characteristics$group_level),
             selected = unique(med_characteristics$group_level)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -529,9 +559,21 @@ ui <- dashboardPage(
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
-            inputId = "med_selector",
-            label = "Demographics",
-            choices = unique(med_characteristics$strata_level),
+            inputId = "med_sex_selector",
+            label = "Sex",
+            choices = unique(med_characteristics$sex),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "med_age_selector",
+            label = "Age Group",
+            choices = unique(med_characteristics$age_group),
             selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -542,9 +584,12 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "med_time_selector",
-            label = "Time",
-            choices = unique(med_characteristics$additional_level),
-            selected = "medications and -365 to -1",
+            label = "Time Window",
+            choices = med_characteristics %>%
+              filter(window != "overall") %>%
+              pull(window) %>%
+              unique(),
+            selected = "-365 to -1",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )

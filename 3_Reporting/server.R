@@ -72,13 +72,9 @@ server <-	function(input, output, session) {
       filter(analysis_interval %in% input$attrition_time_selector) %>% 
       select(-c(analysis_id,
                 denominator_target_cohort_definition_id,
-                end,
                 denominator_target_cohort_name,
                 denominator_end_date,
                 denominator_start_date,
-                limit,
-                prior_observation,
-                future_observation,
                 outcome_cohort_id,
                 analysis_outcome_washout,
                 analysis_complete_database_intervals,
@@ -134,13 +130,9 @@ server <-	function(input, output, session) {
       filter(denominator_age_group %in% input$attrition_age_selectorp) %>% 
       select(-c(analysis_id,
                 denominator_target_cohort_definition_id,
-                end,
                 denominator_target_cohort_name,
                 denominator_end_date,
                 denominator_start_date,
-                limit,
-                prior_observation,
-                future_observation,
                 outcome_cohort_id,
                 analysis_complete_database_intervals,
                 denominator_cohort_id,
@@ -191,7 +183,11 @@ server <-	function(input, output, session) {
     )
 
     validate(
-      need(input$demographics_selector != "", "Please select a demographic")
+      need(input$demographics_sex_selector != "", "Please select a sex")
+    )
+    
+    validate(
+      need(input$demographics_age_selector != "", "Please select an age group")
     )
     
     validate(
@@ -199,10 +195,12 @@ server <-	function(input, output, session) {
     )
 
     demo_characteristics <- demo_characteristics %>%
-      filter(strata_level %in% input$demographics_selector) %>%
+      filter(sex %in% input$demographics_sex_selector) %>% 
+      filter(age_group %in% input$demographics_age_selector) %>% 
       filter(group_level %in% input$demographics_cohort_selector) %>% 
-      filter(cdm_name %in% input$demographics_database_name_selector)
-
+      filter(cdm_name %in% input$demographics_database_name_selector) %>% 
+      select(-c(sex, age_group))
+    
 
     demo_characteristics
     
@@ -211,7 +209,8 @@ server <-	function(input, output, session) {
 
 
   output$gt_demo_characteristics  <- render_gt({
-    PatientProfiles::formatCharacteristics(get_demo_characteristics())
+    PatientProfiles::tableCharacteristics(get_demo_characteristics(),
+                                          header = c("group", "cdm_name", "strata"))
   })
 
 
@@ -220,8 +219,8 @@ server <-	function(input, output, session) {
       "demographics_characteristics.docx"
     },
     content = function(file) {
-
-      gtsave(PatientProfiles::formatCharacteristics(get_demo_characteristics()), file)
+      gtsave(PatientProfiles::tableCharacteristics(get_demo_characteristics(),
+                                                   header = c("group", "cdm_name", "strata")), file)
     }
   )
 
@@ -230,11 +229,14 @@ server <-	function(input, output, session) {
   get_comorb_characteristics <- reactive({
     
     validate(
-      need(input$comorb_cohort_selector != "", "Please select a cohort")
+      need(input$comorb_cohort_selector != "", "Please select a cohort"))
+    
+    validate(
+      need(input$comorb_sex_selector != "", "Please select a sex")
     )
     
     validate(
-      need(input$comorb_selector != "", "Please select a demographic")
+      need(input$comorb_age_selector != "", "Please select an age group")
     )
     
     validate(
@@ -246,10 +248,13 @@ server <-	function(input, output, session) {
     )
     
     comorb_characteristics <- comorb_characteristics %>%
-      filter(strata_level %in% input$comorb_selector) %>%
+      filter(sex %in% input$comorb_sex_selector) %>%
+      filter(age_group %in% input$comorb_age_selector) %>%
       filter(group_level %in% input$comorb_cohort_selector) %>% 
-      filter(additional_level %in% input$comorb_time_selector) %>% 
-      filter(cdm_name %in% input$comorb_database_name_selector)
+      filter(window %in% input$comorb_time_selector) %>% 
+      filter(cdm_name %in% input$comorb_database_name_selector) %>% 
+      select(-c(sex, age_group, table, window, value))
+
     
     comorb_characteristics
     
@@ -257,7 +262,15 @@ server <-	function(input, output, session) {
   
   
   output$gt_comorb_characteristics  <- render_gt({
-    PatientProfiles::formatCharacteristics(get_comorb_characteristics())
+    PatientProfiles::tableCharacteristics(get_comorb_characteristics(),
+                                        
+                                          header = c("group", "cdm_name", "strata", "Window"),
+                                          split = c("group", "strata", "additional"),
+                                          excludeColumns = c("result_id", "estimate_type",
+                                                             "result_type", "value","table",
+                                                             "package_name", "package_version",
+                                                             "variable_name")
+                                          )
   })
   
   
@@ -267,7 +280,15 @@ server <-	function(input, output, session) {
     },
     content = function(file) {
       
-      gtsave(PatientProfiles::formatCharacteristics(get_comorb_characteristics()), file)
+      gtsave(PatientProfiles::tableCharacteristics(get_comorb_characteristics(),
+                                                       
+                                                       header = c("group", "cdm_name", "strata", "Window"),
+                                                       split = c("group", "strata", "additional"),
+                                                       excludeColumns = c("result_id", "estimate_type",
+                                                                          "result_type", "value","table",
+                                                                          "package_name", "package_version",
+                                                                          "variable_name")
+      ), file)
     }
   )
   
@@ -281,7 +302,11 @@ server <-	function(input, output, session) {
     )
     
     validate(
-      need(input$med_selector != "", "Please select a demographic")
+      need(input$med_sex_selector != "", "Please select a sex")
+    )
+    
+    validate(
+      need(input$med_age_selector != "", "Please select an age group")
     )
     
     validate(
@@ -293,10 +318,12 @@ server <-	function(input, output, session) {
     )
     
     med_characteristics <- med_characteristics %>%
-      filter(strata_level %in% input$med_selector) %>%
+      filter(sex %in% input$med_sex_selector) %>%
+      filter(age_group %in% input$med_age_selector) %>%
       filter(group_level %in% input$med_cohort_selector) %>% 
-      filter(additional_level %in% input$med_time_selector) %>% 
-      filter(cdm_name %in% input$med_database_name_selector)
+      filter(window %in% input$med_time_selector) %>% 
+      filter(cdm_name %in% input$med_database_name_selector) %>% 
+      select(-c(sex, age_group, table, window, value))
     
     med_characteristics
     
@@ -304,7 +331,14 @@ server <-	function(input, output, session) {
   
   
   output$gt_med_characteristics  <- render_gt({
-    PatientProfiles::formatCharacteristics(get_med_characteristics())
+    PatientProfiles::tableCharacteristics(get_med_characteristics(),
+                                          header = c("group", "cdm_name", "strata", "Window"),
+                                          split = c("group", "strata", "additional"),
+                                          excludeColumns = c("result_id", "estimate_type",
+                                                              "result_type", "value","table",
+                                                             "package_name", "package_version",
+                                                             "variable_name")
+                                          )
   })
   
   
@@ -314,7 +348,14 @@ server <-	function(input, output, session) {
     },
     content = function(file) {
       
-      gtsave(PatientProfiles::formatCharacteristics(get_med_characteristics()), file)
+      gtsave(    PatientProfiles::tableCharacteristics(get_med_characteristics(),
+                                                       header = c("group", "cdm_name", "strata", "Window"),
+                                                       split = c("group", "strata", "additional"),
+                                                       excludeColumns = c("result_id", "estimate_type",
+                                                                          "result_type", "value","table",
+                                                                          "package_name", "package_version",
+                                                                          "variable_name")
+      ), file)
     }
   )
   
@@ -447,11 +488,7 @@ server <-	function(input, output, session) {
                 analysis_outcome_washout,
                 denominator_cohort_id,
                 cohort_obscured,
-                result_obscured,
-                limit,
-                end,
-                prior_observation,
-                future_observation
+                result_obscured
                 )) %>% 
       rename(`Start Date` = incidence_start_date,
              `End Date` = incidence_end_date,
@@ -608,11 +645,7 @@ server <-	function(input, output, session) {
                 denominator_start_date,
                 denominator_end_date,
                 denominator_target_cohort_definition_id,
-                denominator_target_cohort_name,
-                limit,
-                prior_observation,
-                future_observation,
-                end
+                denominator_target_cohort_name
                 
                 )) %>%
       relocate(prevalence, .before = outcome_cohort_name) %>% 

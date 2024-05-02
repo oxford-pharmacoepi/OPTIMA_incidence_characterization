@@ -380,8 +380,11 @@ for(i in seq_along(tableone_demo_files)){
 }
 
 demo_characteristics <- dplyr::bind_rows(tableone_demo) %>% 
-  select(!c(result_id)) %>% 
-  filter(!(group_level %in% remove_outcomes ) )
+filter(!(group_level %in% remove_outcomes ) ) %>%
+  visOmopResults::splitStrata(
+    keep = TRUE,
+    fill = "overall"
+  )  
 
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
@@ -393,8 +396,16 @@ for(i in seq_along(tableone_med_files)){
 }
 
 med_characteristics <- dplyr::bind_rows(tableone_med)  %>% 
-  select(!c(result_id)) %>% 
-  filter(!(group_level %in% remove_outcomes ) )
+  filter(!(group_level %in% remove_outcomes ) ) %>%
+  visOmopResults::splitStrata(
+    keep = TRUE,
+    fill = "overall"
+  )  %>%
+  visOmopResults::splitAdditional(
+  keep = TRUE,
+  fill = "overall"
+)
+
 
 # table one comorbidities ------
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
@@ -405,9 +416,16 @@ for(i in seq_along(tableone_comorb_files)){
                                        show_col_types = FALSE)  
 }
 
-comorb_characteristics <- dplyr::bind_rows(tableone_comorb)  %>% 
-  select(!c(result_id)) %>% 
-  filter(!(group_level %in% remove_outcomes ) )
+comorb_characteristics <- dplyr::bind_rows(tableone_comorb) %>% 
+  filter(!(group_level %in% remove_outcomes ) ) %>%
+  visOmopResults::splitStrata(
+    keep = TRUE,
+    fill = "overall"
+  )  %>%
+  visOmopResults::splitAdditional(
+    keep = TRUE,
+    fill = "overall"
+  )
 
 }
 
