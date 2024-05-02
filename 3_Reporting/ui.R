@@ -209,9 +209,22 @@ ui <- dashboardPage(
                 
         ),
         
+        a(img(src="Logo_HSD.png", align = "right",
+              height="2%", width="20%"), href="https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology",
+          target="_blank") ,
         
-        
-        tags$hr()
+        # tags$div(
+        #   style = "position: relative;",
+        #   a(
+        #     img(
+        #       src = "Logo_HSD.png",  # Replace with the correct file name and extension
+        #       height = "150px",      # Adjust the height as needed
+        #       width = "auto",        # Let the width adjust proportionally
+        #       style = "position: absolute; bottom: 0; right: 0;"  # Positioning the image
+        #     )
+        #   )
+        # )
+        # 
         
         
       ),
