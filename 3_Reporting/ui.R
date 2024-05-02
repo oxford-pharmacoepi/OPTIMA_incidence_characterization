@@ -187,12 +187,15 @@ ui <- dashboardPage(
         
         tags$h5(
           tags$span("Background:", style = "font-weight: bold;"),
-          "TBC"
+          "Lung cancer is the leading cause of cancer-associated mortality worldwide. New diagnoses are predicted to nearly double by 2070 meaning it will continue to be a major cause of morbidity and mortality globally. While lung cancer incidence rates have been declining in some high-income countries due to reductions in smoking and advancements in screening and treatment, the incidence continues to rise in many low- and middle-income countries. This disparity underscores the importance of understanding the regional variations in lung cancer burden and identifying the underlying factors driving these trends. The aim of this study is to estimate lung cancer incidence in a variety of different data sources across the globe."
+          
         ),
 
         tags$h5(
           tags$span(" Methods:", style = "font-weight: bold;"),
-          "TBC"
+          "We performed a population-based cohort study using the real world databases from primary care and claims. The study period was from January 1, 2003 (or the earliest available data) until database exit, death, or the end of the study on 1st January, 2023. Participants aged 18+ years, with a diagnoses of primary lung cancer, with one-year of prior data availability, were included. We estimated overall lung cancer incidence rates (IR) and stratified by sex and age groups using the",
+          tags$a(href="https://darwin-eu.github.io/IncidencePrevalence/", "IncidencePrevalence R package"),
+ "Crude IRs were calculated were age standardized using European and World Standard populations."
           
           ),
         
@@ -204,7 +207,9 @@ ui <- dashboardPage(
         
         tags$h5(
           tags$span("Funding:" , style = "font-weight: bold;"),
-                "This research was funded by Optimal treatment for patients with solid tumours in Europe through Artificial Intelligence (OPTIMA) initiative (grant number 101034347)."
+                "This research was funded by Optimal treatment for patients with solid tumours in Europe through Artificial Intelligence (",
+          tags$a(href="https://www.optima-oncology.eu/", "OPTIMA"),
+          ") which has received funding from the Innovative Medicines Initiative 2 (IMI2) Joint Undertaking under grant agreement No. 101034347. IMI2 receives support from the European Union Horizon 2020 research and innovation programme and European Federation of Pharmaceutical Industries and Associations (EFPIA). The sponsors of the study did not have any involvement in the writing of the manuscript or the decision to submit it for publication. Additionally, there was partial support from the Oxford NIHR Biomedical Research Centre. The corresponding author had full access to all the data in the study and had final responsibility for the decision to submit for publication."
         ),
         
         tags$h5("The results of this study are published in the following journal:"
@@ -213,8 +218,8 @@ ui <- dashboardPage(
           tags$li(strong("TBC"),"(",tags$a(href="https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology","Paper Link"),")" )),
         
         tags$h5("The analysis code used to generate these results can be found",
-                tags$a(href="https://github.com/oxford-pharmacoepi", "here"),
-                ".The cohort diagnostics including the clinical codelists for lung cancer phenotypes can be found",
+                tags$a(href="https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival", "here"),
+                ".The cohort diagnostics for lung cancer phenotypes can be found",
                 tags$a(href="https://github.com/oxford-pharmacoepi", "here")
                 
         ),
@@ -261,7 +266,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "attrition_outcome_selector",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(incidence_attrition$outcome_cohort_name),
             selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -403,7 +408,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "demographics_cohort_selector",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(demo_characteristics$group_level),
             selected = unique(demo_characteristics$group_level)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -660,7 +665,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "inc_estimates_cohort_selector",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(incidence_estimates$outcome_cohort_name),
             selected = unique(incidence_estimates$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -724,7 +729,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "inc_estimates_cohort_selector_std",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(incidence_estimates_std$outcome_cohort_name),
             selected = unique(incidence_estimates_std$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -777,7 +782,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "risk_table_cohort_name_selector",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(incidence_attrition$outcome_cohort_name),
             selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -816,7 +821,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "median_cohort_name_selector",
-            label = "Outcome name",
+            label = "Cohort Name",
             choices = unique(incidence_attrition$outcome_cohort_name),
             selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -902,7 +907,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "prev_estimates_cohort_selector",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(prevalence_estimates$outcome_cohort_name),
             selected = unique(prevalence_estimates$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -1106,7 +1111,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "incidence_cohort_name_selector",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(incidence_estimates$outcome_cohort_name),
             selected = unique(incidence_estimates$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -1250,7 +1255,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "incidence_cohort_name_selector_std",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(incidence_estimates_std$outcome_cohort_name),
             selected = unique(incidence_estimates_std$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -1385,7 +1390,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "attrition_cohort_name_selector1",
-            label = "Outcome",
+            label = "COhort Name",
             choices = unique(incidence_attrition$outcome_cohort_name),
             selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -1428,7 +1433,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "attrition_cohort_name_selector",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(incidence_attrition$outcome_cohort_name),
             selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
@@ -1467,7 +1472,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "survival_cohort_name_selector",
-            label = "Outcome",
+            label = "Cohort Name",
             choices = unique(incidence_attrition$outcome_cohort_name),
             selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
