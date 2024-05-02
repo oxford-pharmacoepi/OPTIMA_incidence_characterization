@@ -195,7 +195,7 @@ ui <- dashboardPage(
           tags$span(" Methods:", style = "font-weight: bold;"),
           "We performed a population-based cohort study using the real world databases from primary care and claims. The study period was from January 1, 2003 (or the earliest available data) until database exit, death, or the end of the study on 1st January, 2023. Participants aged 18+ years, with a diagnoses of primary lung cancer, with one-year of prior data availability, were included. We estimated overall lung cancer incidence rates (IR) and stratified by sex and age groups using the",
           tags$a(href="https://darwin-eu.github.io/IncidencePrevalence/", "IncidencePrevalence R package"),
- "Crude IRs were calculated were age standardized using European and World Standard populations."
+ "Crude IRs were age standardized using European and World Standard populations."
           
           ),
         
