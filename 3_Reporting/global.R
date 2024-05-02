@@ -154,7 +154,8 @@ for(i in seq_along(incidence_estimates_files)){
                                             show_col_types = FALSE)  
 }
 
-incidence_estimates <- dplyr::bind_rows(incidence_estimates) 
+incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 
 # perform a filter to remove data with no values ie small cell lung cancer
@@ -168,18 +169,8 @@ remove_outcomes <- incidence_estimates %>%
   pull(outcome_cohort_name)
 
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
-  filter(!(outcome_cohort_name %in% remove_outcomes ))
-
-incidence_estimates_thinuk <- dplyr::bind_rows(incidence_estimates) %>%
-  filter(cdm_name == "THIN_uk" & incidence_start_date > "2010-01-01")
-
-# # remove UK data from before 2011
-incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
-   filter(cdm_name != "THIN_uk" )
-
-incidence_estimates <- dplyr::bind_rows(incidence_estimates, 
-                                        incidence_estimates_thinuk) 
-
+  filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 # age standardized incidence estimates -----
 incidence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
@@ -193,16 +184,8 @@ for(i in seq_along(incidence_estimates_files_std)){
 }
 
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
-  filter(!(outcome_cohort_name %in% remove_outcomes) )
-
-incidence_estimates_std_thinuk <- dplyr::bind_rows(incidence_estimates_std) %>%
-  filter(cdm_name == "THIN_uk" & incidence_start_date > "2010-01-01")
-
-incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>%
-  filter(cdm_name != "THIN_uk" )
-
-incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std, 
-                                        incidence_estimates_std_thinuk) 
+  filter(!(outcome_cohort_name %in% remove_outcomes) ) %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 # incidence attrition -----
 incidence_attrition_files<-results[stringr::str_detect(results, ".csv")]
@@ -213,7 +196,8 @@ for(i in seq_along(incidence_attrition_files)){
                                             show_col_types = FALSE)  
 }
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
-  filter(!(outcome_cohort_name %in% remove_outcomes ))
+  filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 # incidence settings ------
 incidence_settings_files<-results[stringr::str_detect(results, ".csv")]
@@ -224,7 +208,8 @@ for(i in seq_along(incidence_settings_files)){
                                             show_col_types = FALSE)  
 }
 incidence_settings <- dplyr::bind_rows(incidence_settings) %>% 
-  filter(!(outcome_cohort_name %in% remove_outcomes ))
+  filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 }
 
@@ -241,16 +226,9 @@ if(length(prevalence_estimates_files > 0)){
                                               show_col_types = FALSE)  
   }
   
-  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) 
+  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) %>% 
+    mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
     
-  prevalence_estimates_thinuk <- dplyr::bind_rows(prevalence_estimates) %>%
-    filter(cdm_name == "THIN_uk" & prevalence_start_date > "2010-01-01")
-  
-  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) %>%
-    filter(cdm_name != "THIN_uk" )
-  
-  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates, 
-                                           prevalence_estimates_thinuk) 
   
   # prevalence attrition -----
   prevalence_attrition_files<-results[stringr::str_detect(results, ".csv")]
@@ -261,7 +239,8 @@ if(length(prevalence_estimates_files > 0)){
                                               show_col_types = FALSE)  
   }
   prevalence_attrition <- dplyr::bind_rows(prevalence_attrition) %>% 
-    filter(!(outcome_cohort_name %in% remove_outcomes ))
+    filter(!(outcome_cohort_name %in% remove_outcomes )) %>% 
+    mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
   
   # prevalence settings ------
   prevalence_settings_files<-results[stringr::str_detect(results, ".csv")]
@@ -271,7 +250,8 @@ if(length(prevalence_estimates_files > 0)){
     prevalence_settings[[i]]<-readr::read_csv(prevalence_settings_files[[i]], 
                                              show_col_types = FALSE)  
   }
-  prevalence_settings <- dplyr::bind_rows(prevalence_settings)
+  prevalence_settings <- dplyr::bind_rows(prevalence_settings)  %>% 
+    mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
   
 }
 
@@ -294,7 +274,8 @@ survival_estimates <- dplyr::bind_rows(survival_estimates) %>%
   mutate(time = as.numeric(time)) %>% 
   pivot_wider(names_from = estimate_name, values_from = estimate_value) %>% 
   filter(estimate_type == "Survival probability") %>% 
-  filter(!(group_level %in% remove_outcomes ))
+  filter(!(group_level %in% remove_outcomes ))  %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 }
 
@@ -309,7 +290,8 @@ for(i in seq_along(survival_attrition_files)){
                                            show_col_types = FALSE)
 }
 survival_attrition <- dplyr::bind_rows(survival_attrition) %>% 
-  filter(!(outcome_cohort_name %in% remove_outcomes ))
+  filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 }
 
@@ -361,7 +343,8 @@ survival_median_table <- dplyr::bind_rows(survival_median_table) %>%
            "median_survival_95CI_lower" ,
            "median_survival_95CI_higher"
            )) %>% 
-  filter(!(group_level %in% remove_outcomes ))
+  filter(!(group_level %in% remove_outcomes ))  %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
   
 
 }
@@ -384,7 +367,8 @@ filter(!(group_level %in% remove_outcomes ) ) %>%
   visOmopResults::splitStrata(
     keep = TRUE,
     fill = "overall"
-  )  
+  )   %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
@@ -404,7 +388,8 @@ med_characteristics <- dplyr::bind_rows(tableone_med)  %>%
   visOmopResults::splitAdditional(
   keep = TRUE,
   fill = "overall"
-)
+)  %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 
 # table one comorbidities ------
@@ -418,6 +403,8 @@ for(i in seq_along(tableone_comorb_files)){
 
 comorb_characteristics <- dplyr::bind_rows(tableone_comorb) %>% 
   filter(!(group_level %in% remove_outcomes ) ) %>%
+  mutate(variable_level = if_else(variable_level == "Loss of small", "loss of smell", variable_level)) %>% 
+  mutate(variable_level = if_else(variable_level == "Cancerexcludnonmelaskincancer", "Malignant neoplasm disease", variable_level)) %>% 
   visOmopResults::splitStrata(
     keep = TRUE,
     fill = "overall"
@@ -425,7 +412,8 @@ comorb_characteristics <- dplyr::bind_rows(tableone_comorb) %>%
   visOmopResults::splitAdditional(
     keep = TRUE,
     fill = "overall"
-  )
+  )  %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 }
 
@@ -443,7 +431,8 @@ for(i in seq_along(survival_risk_table_files)){
 
 }
 
-survival_risk_table <- dplyr::bind_rows(survival_risk_table) 
+survival_risk_table <- dplyr::bind_rows(survival_risk_table)  %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 }
 
@@ -462,14 +451,15 @@ snapshotcdm <- bind_rows(snapshotcdm) %>%
          "vocabulary_version", "cdm_version", "cdm_description",) %>% 
   mutate(person_count = nice.num.count(person_count), 
          observation_period_count = nice.num.count(observation_period_count)) %>% 
-  dplyr::mutate(cdm_name = replace(cdm_name, cdm_name == "CPRD_GOLD", "CPRD GOLD")) %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
   rename("Database name" = "cdm_name",
          "Study Start Date" = "start_date",
          "Persons in the database" = "person_count",
          "Number of observation periods" = "observation_period_count",
          "OMOP CDM vocabulary version" = "vocabulary_version",
          "Database CDM Version" = "cdm_version",
-         "Database Description" = "cdm_description" ) 
+         "Database Description" = "cdm_description" )  
+
 
 # attrition functions ----
 attritionChart <- function(x) {

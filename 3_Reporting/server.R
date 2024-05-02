@@ -999,7 +999,7 @@ server <-	function(input, output, session) {
       filter(denominator_age_group %in% input$incidence_age_selector) 
     
     
-    if (input$show_error_bars) {
+    if (input$show_error_bars1) {
       
       if (!is.null(input$incidence_plot_group) && !is.null(input$incidence_plot_facet)) {
         plot <- plot_data %>%
