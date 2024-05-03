@@ -5,6 +5,215 @@ result_names <- c("cohort_definitions", "cohort_count", "code_counts", "cohort_o
                   "index_events", "lsc_sample", "lsc_matched", "lsc_difference", "log",
                   "cdm_snapshot")
 
+
+  
+  # Load, prepare, and merge results -----
+# see what type of file it is
+tryCatch({
+  results <- list.files(here("data"), full.names = TRUE,
+                        recursive = TRUE,
+                        include.dirs = TRUE,
+                        pattern = ".zip")
+}, error = function(e) {
+  # Handle the error here, you can print a message or take other actions
+  print(paste("An error occurred:", e))
+  # Assign an empty list to results or any other default value you prefer
+  results <- NULL
+})
+
+if(is.null(results)){
+
+#unzip data
+for (i in (1:length(results))) {
+  utils::unzip(zipfile = results[[i]],
+               exdir = here("data"))
+}
+
+#grab the results from the folders
+result_files <- list.files(
+  path = here("data"),
+  pattern = ".csv",
+  full.names = TRUE,
+  recursive = TRUE,
+  include.dirs = TRUE
+)
+
+
+# Read files and join equal outputs
+# read in the files we need and read them into the data
+# cohort definitions
+cohort_definitions_files<-result_files[stringr::str_detect(result_files, ".csv")]
+cohort_definitions_files<-result_files[stringr::str_detect(result_files, "cohort_definitions")]
+
+cohort_definitions_estimates <- list()
+for(i in seq_along(cohort_definitions_files)){
+  cohort_definitions_estimates[[i]]<-readr::read_csv(cohort_definitions_files[[i]], 
+                                             show_col_types = FALSE)  
+}
+
+data$cohort_definitions <- bind_rows(cohort_definitions_estimates)
+
+# cohort count
+cohort_count_files<-result_files[stringr::str_detect(result_files, ".csv")]
+cohort_count_files<-result_files[stringr::str_detect(result_files, "cohort_count")]
+
+cohort_count_estimates <- list()
+for(i in seq_along(cohort_count_files)){
+  cohort_count_estimates[[i]]<-readr::read_csv(cohort_count_files[[i]], 
+                                                     show_col_types = FALSE)  
+}
+
+data$cohort_count <- bind_rows(cohort_count_estimates)
+
+# code counts
+code_count_files<-result_files[stringr::str_detect(result_files, ".csv")]
+code_count_files<-result_files[stringr::str_detect(result_files, "code_count")]
+
+code_count_estimates <- list()
+for(i in seq_along(code_count_files)){
+  code_count_estimates[[i]]<-readr::read_csv(code_count_files[[i]], 
+                                               show_col_types = FALSE)  
+}
+
+data$code_count <- bind_rows(code_count_estimates)
+
+# cohort overlap
+code_overlap_files<-result_files[stringr::str_detect(result_files, ".csv")]
+code_overlap_files<-result_files[stringr::str_detect(result_files, "code_overlap")]
+
+code_overlap_estimates <- list()
+for(i in seq_along(code_overlap_files)){
+  code_overlap_estimates[[i]]<-readr::read_csv(code_overlap_files[[i]], 
+                                             show_col_types = FALSE)  
+}
+
+data$code_overlap <- bind_rows(code_overlap_estimates)
+
+# age distribution
+age_distribution_files<-result_files[stringr::str_detect(result_files, ".csv")]
+age_distribution_files<-result_files[stringr::str_detect(result_files, "age_distribution")]
+
+age_distribution_estimates <- list()
+for(i in seq_along(age_distribution_files)){
+  age_distribution_estimates[[i]]<-readr::read_csv(age_distribution_files[[i]], 
+                                               show_col_types = FALSE)  
+}
+
+data$age_distribution <- bind_rows(age_distribution_estimates)
+
+# time distribution
+time_distribution_files<-result_files[stringr::str_detect(result_files, ".csv")]
+time_distribution_files<-result_files[stringr::str_detect(result_files, "time_distribution")]
+
+time_distribution_estimates <- list()
+for(i in seq_along(time_distribution_files)){
+  time_distribution_estimates[[i]]<-readr::read_csv(time_distribution_files[[i]], 
+                                                   show_col_types = FALSE)  
+}
+
+data$time_distribution <- bind_rows(time_distribution_estimates)
+
+# prevalence
+prevalence_files<-result_files[stringr::str_detect(result_files, ".csv")]
+prevalence_files<-result_files[stringr::str_detect(result_files, "prevalence")]
+
+prevalence_estimates <- list()
+for(i in seq_along(prevalence_files)){
+  prevalence_estimates[[i]]<-readr::read_csv(prevalence_files[[i]], 
+                                                    show_col_types = FALSE)  
+}
+
+data$prevalence <- bind_rows(prevalence_estimates)
+
+# incidence
+incidence_files<-result_files[stringr::str_detect(result_files, ".csv")]
+incidence_files<-result_files[stringr::str_detect(result_files, "incidence")]
+
+incidence_estimates <- list()
+for(i in seq_along(incidence_files)){
+  incidence_estimates[[i]]<-readr::read_csv(incidence_files[[i]], 
+                                             show_col_types = FALSE)  
+}
+
+data$incidence <- bind_rows(incidence_estimates)
+
+# index events
+index_events_files<-result_files[stringr::str_detect(result_files, ".csv")]
+index_events_files<-result_files[stringr::str_detect(result_files, "index_events")]
+
+index_events_estimates <- list()
+for(i in seq_along(index_events_files)){
+  index_events_estimates[[i]]<-readr::read_csv(index_events_files[[i]], 
+                                            show_col_types = FALSE)  
+}
+
+data$index_events <- bind_rows(index_events_estimates)
+
+# lsc sample
+lsc_sample_files<-result_files[stringr::str_detect(result_files, ".csv")]
+lsc_sample_files<-result_files[stringr::str_detect(result_files, "lsc_sample")]
+
+lsc_sample_estimates <- list()
+for(i in seq_along(lsc_sample_files)){
+  lsc_sample_estimates[[i]]<-readr::read_csv(lsc_sample_files[[i]], 
+                                               show_col_types = FALSE)  
+}
+
+data$lsc_sample <- bind_rows(lsc_sample_estimates)
+
+# lsc matched
+lsc_matched_files<-result_files[stringr::str_detect(result_files, ".csv")]
+lsc_matched_files<-result_files[stringr::str_detect(result_files, "lsc_matched")]
+
+lsc_matched_estimates <- list()
+for(i in seq_along(lsc_matched_files)){
+  lsc_matched_estimates[[i]]<-readr::read_csv(lsc_matched_files[[i]], 
+                                             show_col_types = FALSE)  
+}
+
+data$lsc_matched <- bind_rows(lsc_matched_estimates)
+
+# lsc difference
+lsc_difference_files<-result_files[stringr::str_detect(result_files, ".csv")]
+lsc_difference_files<-result_files[stringr::str_detect(result_files, "lsc_difference")]
+
+lsc_difference_estimates <- list()
+for(i in seq_along(lsc_difference_files)){
+  lsc_difference_estimates[[i]]<-readr::read_csv(lsc_difference_files[[i]], 
+                                              show_col_types = FALSE)  
+}
+
+data$lsc_difference <- bind_rows(lsc_difference_estimates)
+
+# log
+log_files<-result_files[stringr::str_detect(result_files, ".csv")]
+log_files<-result_files[stringr::str_detect(result_files, "log")]
+
+log_estimates <- list()
+for(i in seq_along(log_files)){
+  log_estimates[[i]]<-readr::read_csv(log_files[[i]], 
+                                                 show_col_types = FALSE)  
+}
+
+data$log <- bind_rows(log_estimates)
+
+# cdm snapshot
+cdm_snapshot_files<-result_files[stringr::str_detect(result_files, ".csv")]
+cdm_snapshot_files<-result_files[stringr::str_detect(result_files, "cdm_snapshot")]
+
+cdm_snapshot_estimates <- list()
+for(i in seq_along(cdm_snapshot_files)){
+  cdm_snapshot_estimates[[i]]<-readr::read_csv(cdm_snapshot_files[[i]], 
+                                      show_col_types = FALSE)  
+}
+
+data$cdm_snapshot <- bind_rows(cdm_snapshot_estimates)
+
+
+
+
+} else {
+
 # Result files
 result_files <- list.files(path = here(dataFolder), pattern = ".RData")
 
@@ -25,6 +234,8 @@ for (file in result_files) {
   rm(list = x)
 }
 rm(x)
+
+}
 
 # Tranform data for shiny ----
 # Orphan code counts

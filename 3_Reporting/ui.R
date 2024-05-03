@@ -685,6 +685,18 @@ ui <- dashboardPage(
           )
         ),
         
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "inc_est_database_selector",
+            label = "Database",
+            choices = unique(incidence_estimates$cdm_name),
+            selected = unique(incidence_estimates$cdm_name)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",

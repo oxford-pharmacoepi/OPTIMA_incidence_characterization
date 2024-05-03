@@ -445,6 +445,11 @@ server <-	function(input, output, session) {
     validate(
       need(input$inc_estimates_cohort_selector != "", "Please select a cohort")
     )
+    
+    validate(
+      need(input$inc_est_database_selector != "", "Please select a database")
+    )
+
     validate(
       need(input$inc_est_analysis_selector != "", "Please select analysis interval")
     )
@@ -463,6 +468,7 @@ server <-	function(input, output, session) {
       filter(analysis_interval %in% input$inc_est_analysis_selector) %>% 
       filter(denominator_sex %in% input$inc_est_sex_selector) %>% 
       filter(denominator_age_group %in% input$inc_est_age_selector) %>% 
+      filter(cdm_name %in% input$inc_est_database_selector) %>% 
       relocate(outcome_cohort_name) %>% 
       mutate(incidence_100000_pys=nice.num2(incidence_100000_pys)) %>% 
       mutate(incidence_100000_pys_95CI_lower=nice.num2(incidence_100000_pys_95CI_lower)) %>% 
@@ -1274,8 +1280,10 @@ server <-	function(input, output, session) {
                       alpha = 0.1) + 
           geom_line(size = 0.25) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
-          facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
-          scale_y_continuous(limits = c(0, NA)) +
+          facet_wrap(vars(facet_var),ncol = 3, scales = "free_y") +
+          scale_y_continuous(
+            labels = scales::percent,
+            limits = c(0, NA)) +
           theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
                 strip.background = element_rect(color = "black", size = 0.6) ,
@@ -1298,7 +1306,9 @@ server <-	function(input, output, session) {
                       alpha = 0.1) + 
           geom_line(size = 0.25) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
-          scale_y_continuous(limits = c(0, NA)) +
+          scale_y_continuous(
+            labels = scales::percent,
+            limits = c(0, NA)) +
           theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
                 strip.background = element_rect(color = "black", size = 0.6) ,
@@ -1318,8 +1328,10 @@ server <-	function(input, output, session) {
                       alpha = 0.1) + 
           geom_line(size = 0.25) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
-          facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
-          scale_y_continuous(limits = c(0, NA)) +
+          facet_wrap(vars(facet_var),ncol = 3, scales = "free_y") +
+          scale_y_continuous(
+            labels = scales::percent,
+            limits = c(0, NA)) +
           theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
                 strip.background = element_rect(color = "black", size = 0.6) ,
@@ -1339,7 +1351,9 @@ server <-	function(input, output, session) {
                       alpha = 0.1) + 
           geom_line(size = 0.25) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
-          scale_y_continuous(limits = c(0, NA)) +
+          scale_y_continuous(
+            labels = scales::percent,
+            limits = c(0, NA)) +
           theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
                 strip.background = element_rect(color = "black", size = 0.6) ,
@@ -1374,7 +1388,9 @@ server <-	function(input, output, session) {
                             group = "Group", colour = "Group")) +
           geom_point(position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
-          scale_y_continuous(limits = c(0, NA)) +
+          scale_y_continuous(
+            labels = scales::percent,
+            limits = c(0, NA)) +
           geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           theme(axis.text.x = element_text(angle = 45, hjust = 1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
@@ -1394,7 +1410,9 @@ server <-	function(input, output, session) {
                             group = "Group", colour = "Group")) +
           geom_point(position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
-          scale_y_continuous(limits = c(0, NA)) +
+          scale_y_continuous(
+            labels = scales::percent,
+            limits = c(0, NA)) +
           geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           theme(axis.text.x = element_text(angle = 45, hjust = 1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
@@ -1414,7 +1432,9 @@ server <-	function(input, output, session) {
                             group = "Group", colour = "Group")) +
           geom_point(position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
-          scale_y_continuous(limits = c(0, NA)) +
+          scale_y_continuous(
+            labels = scales::percent,
+            limits = c(0, NA)) +
           geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           theme(axis.text.x = element_text(angle = 45, hjust = 1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
@@ -1433,7 +1453,9 @@ server <-	function(input, output, session) {
                             ymax = "prevalence_95CI_upper")) +
           geom_point(position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
-          scale_y_continuous(limits = c(0, NA)) +
+          scale_y_continuous(
+            labels = scales::percent,
+            limits = c(0, NA)) +
           geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           theme(axis.text.x = element_text(angle = 45, hjust = 1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
