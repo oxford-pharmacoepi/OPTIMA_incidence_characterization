@@ -21,7 +21,7 @@ tryCatch({
   results <- NULL
 })
 
-if(is.null(results)){
+if(length(results) > 0){
 
 #unzip data
 for (i in (1:length(results))) {
@@ -38,6 +38,7 @@ result_files <- list.files(
   include.dirs = TRUE
 )
 
+data <- vector("list", length(result_names)) |> setNames(result_names)
 
 # Read files and join equal outputs
 # read in the files we need and read them into the data
@@ -75,7 +76,7 @@ for(i in seq_along(code_count_files)){
                                                show_col_types = FALSE)  
 }
 
-data$code_count <- bind_rows(code_count_estimates)
+data$code_counts <- bind_rows(code_count_estimates)
 
 # cohort overlap
 code_overlap_files<-result_files[stringr::str_detect(result_files, ".csv")]
@@ -113,6 +114,18 @@ for(i in seq_along(time_distribution_files)){
 
 data$time_distribution <- bind_rows(time_distribution_estimates)
 
+# cohort definitions
+cohort_overlap_files<-result_files[stringr::str_detect(result_files, ".csv")]
+cohort_overlap_files<-result_files[stringr::str_detect(result_files, "cohort_overlap")]
+
+cohort_overlap_estimates <- list()
+for(i in seq_along(cohort_overlap_files)){
+  cohort_overlap_estimates[[i]]<-readr::read_csv(cohort_overlap_files[[i]], 
+                                                     show_col_types = FALSE)  
+}
+
+data$cohort_overlap <- bind_rows(cohort_overlap_estimates)
+
 # prevalence
 prevalence_files<-result_files[stringr::str_detect(result_files, ".csv")]
 prevalence_files<-result_files[stringr::str_detect(result_files, "prevalence")]
@@ -127,12 +140,12 @@ data$prevalence <- bind_rows(prevalence_estimates)
 
 # incidence
 incidence_files<-result_files[stringr::str_detect(result_files, ".csv")]
-incidence_files<-result_files[stringr::str_detect(result_files, "incidence")]
+incidence_files<-result_files[stringr::str_detect(result_files, "/incidence_")]
 
 incidence_estimates <- list()
 for(i in seq_along(incidence_files)){
-  incidence_estimates[[i]]<-readr::read_csv(incidence_files[[i]], 
-                                             show_col_types = FALSE)  
+  incidence_estimates[[i]]<-readr::read_csv(incidence_files[[i]],
+                                             show_col_types = FALSE)
 }
 
 data$incidence <- bind_rows(incidence_estimates)
