@@ -633,3 +633,4 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,broa
 4225982,From orphan,Mature T-cell AND/OR NK cell neoplasm,Condition,SNOMED,standard,n,n,n,n,n
 4278365,From orphan,Langerhans cell histiocytosis,Condition,SNOMED,standard,n,n,n,n,n
 4311499,From orphan,Primary malignant neoplasm of respiratory tract,Condition,SNOMED,standard,y,n,n,y,n
+4112739,From orphan,Oat cell carcinoma of lung,Condition,SNOMED,standard,n,n,y,n,n
