@@ -3,7 +3,7 @@
 
 - **Study title**: The Worldwide Incidence of Lung Cancer
 - **Study lead(s)**: Danielle Newby (danielle.newby@ndorms.ox.ac.uk)
-- **ShinyApp PhenotypeR**:
+- **ShinyApp PhenotypeR**: https://dpa-pde-oxford.shinyapps.io/PhenotypeR_OPTIMA_lung_cancer/
 - **ShinyApp Main Study**: https://dpa-pde-oxford.shinyapps.io/OPTIMA_lung_cancer_incidence_survival/
 - **Publications**:
 
