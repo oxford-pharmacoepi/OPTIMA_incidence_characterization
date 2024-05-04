@@ -152,7 +152,10 @@ incidence_estimates <- list()
 for(i in seq_along(incidence_estimates_files)){
   incidence_estimates[[i]]<-readr::read_csv(incidence_estimates_files[[i]], 
                                             show_col_types = FALSE)  
+  
+  
 }
+
 
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
@@ -178,6 +181,7 @@ incidence_estimates_files_std<-results[stringr::str_detect(results, "incidence_e
 incidence_estimates_files_std<-incidence_estimates_files_std[(stringr::str_detect(incidence_estimates_files_std, "age_std_"))]
 
 incidence_estimates_std <- list()
+
 for(i in seq_along(incidence_estimates_files_std)){
   incidence_estimates_std[[i]]<-readr::read_csv(incidence_estimates_files_std[[i]], 
                                             show_col_types = FALSE)  
@@ -191,10 +195,12 @@ incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>%
 incidence_attrition_files<-results[stringr::str_detect(results, ".csv")]
 incidence_attrition_files<-results[stringr::str_detect(results, "incidence_attrition")]
 incidence_attrition <- list()
+
 for(i in seq_along(incidence_attrition_files)){
   incidence_attrition[[i]]<-readr::read_csv(incidence_attrition_files[[i]], 
                                             show_col_types = FALSE)  
 }
+
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
   filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
@@ -207,6 +213,7 @@ for(i in seq_along(incidence_settings_files)){
   incidence_settings[[i]]<-readr::read_csv(incidence_settings_files[[i]], 
                                             show_col_types = FALSE)  
 }
+
 incidence_settings <- dplyr::bind_rows(incidence_settings) %>% 
   filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
@@ -238,6 +245,7 @@ if(length(prevalence_estimates_files > 0)){
     prevalence_attrition[[i]]<-readr::read_csv(prevalence_attrition_files[[i]], 
                                               show_col_types = FALSE)  
   }
+  
   prevalence_attrition <- dplyr::bind_rows(prevalence_attrition) %>% 
     filter(!(outcome_cohort_name %in% remove_outcomes )) %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
@@ -250,6 +258,7 @@ if(length(prevalence_estimates_files > 0)){
     prevalence_settings[[i]]<-readr::read_csv(prevalence_settings_files[[i]], 
                                              show_col_types = FALSE)  
   }
+  
   prevalence_settings <- dplyr::bind_rows(prevalence_settings)  %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
   
