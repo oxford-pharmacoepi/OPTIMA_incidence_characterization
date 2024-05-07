@@ -48,8 +48,11 @@ cdm$outcome <- cdm$outcome %>%
 
 # remove people with any history of cancer (apart from skin cancer) -------
 codelistExclusion <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
+# get codelists for cancers in question
+cancer_codes_inc <- CodelistGenerator::codesFromCohort(here::here("2_Study" ,  "1_InstantiateCohorts", "Cohorts", "incidence"), cdm)
+
 # add cancer concepts to exclusion concepts to make sure we capture all exclusions
-codelistExclusion <- list(unique(Reduce(union_all, c(cancer_concepts_inc, codelistExclusion))))
+codelistExclusion <- list(unique(Reduce(union_all, c(cancer_codes_inc, codelistExclusion))))
 
 #rename list of concepts
 names(codelistExclusion) <- "anymalignancy"
@@ -78,13 +81,12 @@ cdm$outcome <- cdm$outcome %>%
   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   recordCohortAttrition(reason="Exclude patients with any prior history of maglinancy (ex skin cancer)")
 
-
 # remove any patients with other cancers on same date not in our list of cancers -----
 # get the any malignancy codelist
 codelistExclusion1 <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
 
 # merge all concepts for all cancers together
-codes2remove <- list(unique(Reduce(union_all, c(cancer_concepts_inc))))
+codes2remove <- list(unique(Reduce(union_all, c(cancer_codes_inc))))
 names(codes2remove) <- "allmalignancy"
 
 # remove lists from our cancers of interest from the any malignancy list
@@ -195,8 +197,10 @@ cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
 
 # remove people with any history of cancer (apart from skin cancer) -------
 codelistExclusion <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
+# get codelists for cancers in question
+cancer_codes_inc <- CodelistGenerator::codesFromCohort(here::here("2_Study" ,  "1_InstantiateCohorts", "Cohorts", "incidence"), cdm)
 # add cancer concepts to exclusion concepts to make sure we capture all exclusions
-codelistExclusion <- list(unique(Reduce(union_all, c(cancer_concepts_inc, codelistExclusion))))
+codelistExclusion <- list(unique(Reduce(union_all, c(cancer_codes_inc, codelistExclusion))))
 
 #rename list of concepts
 names(codelistExclusion) <- "anymalignancy"
@@ -231,7 +235,7 @@ cdm$outcome <- cdm$outcome %>%
 codelistExclusion1 <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
 
 # merge all concepts for all cancers together
-codes2remove <- list(unique(Reduce(union_all, c(cancer_concepts_inc))))
+codes2remove <- list(unique(Reduce(union_all, c(cancer_codes_inc))))
 names(codes2remove) <- "allmalignancy"
 
 # remove lists from our cancers of interest from the any malignancy list
@@ -296,9 +300,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   # generate death cohort ----
   cli::cli_alert_info("Generating death cohort")
   cdm <- generateDeathCohortSet(cdm = cdm,
-                                name = "cancer_death",
-                                overwrite = TRUE)
-  
+                                name = "cancer_death")
   # estimate survival ----
   cli::cli_alert_info("Estimating survival")
   
@@ -306,37 +308,45 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   # this creates survival stratified by diagnosis groups with follow up truncated at 5 years
   suppressWarnings(
     
-  surv <- estimateSingleEventSurvival(cdm = cdm,
-                                      followUpDays = 1825,
-                                      censorOnCohortExit = TRUE ,
-                                      censorOnDate = as.Date("2023-01-01") ,
-                                      eventGap = c(5) ,
-                                      estimateGap = c(5) ,
-                                      targetCohortTable = "outcome",
-                                      outcomeCohortTable = "cancer_death",
-                                      strata = list(c("sex"),
-                                                    c("age_group"),
-                                                    c("age_group", "sex"),
-                                                    c("diag_yr_gp"),
-                                                    c("diag_yr_gp", "sex")),
-                                      minCellCount = 5) )
+    surv <- estimateSingleEventSurvival(cdm = cdm,
+                                        targetCohortTable = "outcome",
+                                        outcomeCohortTable = "cancer_death",
+                                        outcomeWashout = Inf,
+                                        censorOnCohortExit = TRUE ,
+                                        censorOnDate = as.Date("2023-01-01") ,
+                                        followUpDays = 1825,
+                                        strata = list(c("sex"),
+                                                      c("age_group"),
+                                                      c("age_group", "sex"),
+                                                      c("diag_yr_gp"),
+                                                      c("diag_yr_gp", "sex")),
+                                        eventGap = c(30) ,
+                                        estimateGap = c(1) ,
+                                        restrictedMeanFollowUp = NULL,
+                                        minimumSurvivalDays = 1,
+                                        minCellCount = 5,
+                                        returnParticipants = FALSE) )
   
   # Analysis 2 
   # follow up not truncated and not carrying out stratification by diagnosis year
+  # also includes restricted mean survival
   suppressWarnings(
     
     surv1 <- estimateSingleEventSurvival(cdm = cdm,
-                                        followUpDays = Inf,
-                                        censorOnCohortExit = TRUE ,
-                                        censorOnDate = as.Date("2023-01-01") ,
-                                        eventGap = c(5) ,
-                                        estimateGap = c(5) ,
-                                        targetCohortTable = "outcome",
-                                        outcomeCohortTable = "cancer_death",
-                                        strata = list(c("sex"),
-                                                      c("age_group"),
-                                                      c("age_group", "sex")),
-                                        minCellCount = 5) )
+                                         followUpDays = Inf,
+                                         censorOnCohortExit = TRUE ,
+                                         censorOnDate = as.Date("2023-01-01") ,
+                                         eventGap = c(365) ,
+                                         estimateGap = c(1) ,
+                                         restrictedMeanFollowUp = 1825,
+                                         minimumSurvivalDays = 1,
+                                         targetCohortTable = "outcome",
+                                         outcomeCohortTable = "cancer_death",
+                                         strata = list(c("sex"),
+                                                       c("age_group"),
+                                                       c("age_group", "sex")),
+                                         minCellCount = 5)
+  )
   
 
   cli::cli_alert_info("Exporting survival attrition")
@@ -348,7 +358,6 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                         select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
     rename(outcome_cohort_name = cohort_name) 
   
-  # attrition from survival (only takes first one what about other outcomes BUG)
   # will need to duplicate based on how many outcomes AND will need to update the numbers of the attrition so it runs from 1-10 not 1-6 then 1-3
   attrition2 <- attributes(surv)$attrition %>% 
     rename(cohort_definition_id  = outcome_id) %>% 
@@ -364,28 +373,23 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   write_csv(attrition_final, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_attrition.csv"
   )))
   
-  # export survival estimates ----
+  # export survival results ----
+  # this will be exported as a using omopgenerics exportSummarisedResult argument
+  # then in the shiny we can read this in and then use TableSurvival to make a nice table
   # analysis 1
   cli::cli_alert_info("Exporting survival results")
-  write_csv(surv, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_estimates.csv"
-            )))
+  omopgenerics::exportSummarisedResult(surv,
+                                       fileName = paste0(cdmName(cdm), "_survival_results_analysis1.csv"),
+                                       path = here("Results",db_name))  
   
   # analysis 2
   cli::cli_alert_info("Exporting survival results")
-  write_csv(surv1, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_estimates.csv"
-  )))
+  omopgenerics::exportSummarisedResult(surv1,
+                                       fileName = paste0(cdmName(cdm), "_survival_results_analysis2.csv"),
+                                       path = here("Results",db_name))  
   
   # export survival summary ----
   cli::cli_alert_info("Exporting survival summary")
-  write_csv(tableSurvival(surv,
-                          times = c(seq(0, 1825, by = 365))), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_summary.csv"
-  ))) 
-  
-  # export survival summary for non truncated analysis
-  write_csv(tableSurvival(surv1,
-                          times = c(seq(0, 3650, by = 365))), here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_summary_not_truncated.csv"
-                          ))) 
-  
 
   cli::cli_alert_success("Survival Analysis Complete")
 
