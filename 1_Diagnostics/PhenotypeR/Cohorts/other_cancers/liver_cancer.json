@@ -1,0 +1,688 @@
+{
+  "ConceptSets": [
+    {
+      "id": 0,
+      "name": "liver_cancer",
+      "expression": {
+        "items": [
+          {
+            "concept": {
+              "CONCEPT_ID": 201519,
+              "CONCEPT_NAME": "Primary malignant neoplasm of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "95214007",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4246127,
+              "CONCEPT_NAME": "Malignant neoplasm of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "93870000",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4095432,
+              "CONCEPT_NAME": "Malignant neoplasm of liver and intrahepatic bile ducts",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187767006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4200888,
+              "CONCEPT_NAME": "Local recurrence of malignant tumor of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "314963000",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4001171,
+              "CONCEPT_NAME": "Liver cell carcinoma",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "109841003",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4094864,
+              "CONCEPT_NAME": "Primary carcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187769009",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36517780,
+              "CONCEPT_NAME": "Spindle cell carcinoma, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8032/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36521399,
+              "CONCEPT_NAME": "Adenosquamous carcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8560/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36526026,
+              "CONCEPT_NAME": "Glassy cell carcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8015/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36528550,
+              "CONCEPT_NAME": "Carcinoma, undifferentiated, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8020/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36530153,
+              "CONCEPT_NAME": "Pleomorphic carcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8022/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36530664,
+              "CONCEPT_NAME": "Polygonal cell carcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8034/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36534359,
+              "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8021/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36538413,
+              "CONCEPT_NAME": "Large cell carcinoma, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8012/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36543183,
+              "CONCEPT_NAME": "Intraductal papillary adenocarcinoma with invasion of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8503/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36544042,
+              "CONCEPT_NAME": "Scirrhous adenocarcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8141/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36545311,
+              "CONCEPT_NAME": "Epithelioma, malignant of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8011/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36548976,
+              "CONCEPT_NAME": "Lymphoepithelial carcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8082/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36551545,
+              "CONCEPT_NAME": "Infiltrating duct carcinoma, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8500/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36554673,
+              "CONCEPT_NAME": "Mucin-producing adenocarcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8481/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36554731,
+              "CONCEPT_NAME": "Basal cell adenocarcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8147/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36556399,
+              "CONCEPT_NAME": "Myoepithelial carcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8982/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36560799,
+              "CONCEPT_NAME": "Mucinous cystic neoplasm with high grade dysplasia of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8470/2-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36560819,
+              "CONCEPT_NAME": "Squamous cell carcinoma, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8070/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36562678,
+              "CONCEPT_NAME": "Superficial spreading adenocarcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8143/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36564124,
+              "CONCEPT_NAME": "Adenocarcinoma with mixed subtypes of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8255/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36674832,
+              "CONCEPT_NAME": "Undifferentiated carcinoma of liver and intrahepatic biliary tract",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "770685009",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 42512483,
+              "CONCEPT_NAME": "Acinar cell carcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8550/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44498958,
+              "CONCEPT_NAME": "Papillary cystadenocarcinoma, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8450/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44500029,
+              "CONCEPT_NAME": "Clear cell adenocarcinoma, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8310/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44501569,
+              "CONCEPT_NAME": "Adenocarcinoma, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8140/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44502340,
+              "CONCEPT_NAME": "Mucinous adenocarcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8480/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44502616,
+              "CONCEPT_NAME": "Trabecular adenocarcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8190/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44502704,
+              "CONCEPT_NAME": "Papillary adenocarcinoma, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8260/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44503830,
+              "CONCEPT_NAME": "Carcinoma, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8010/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4252535,
+              "CONCEPT_NAME": "Adenocarcinoma of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "408646000",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 37204022,
+              "CONCEPT_NAME": "Adenocarcinoma of liver and intrahepatic biliary tract",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "787091002",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44502053,
+              "CONCEPT_NAME": "Choriocarcinoma, NOS, of liver",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "9100/3-C22.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          }
+        ]
+      }
+    }
+  ],
+  "PrimaryCriteria": {
+    "CriteriaList": [
+      {
+        "ConditionOccurrence": {
+          "CodesetId": 0
+        }
+      }
+    ],
+    "ObservationWindow": {
+      "PriorDays": 0,
+      "PostDays": 0
+    },
+    "PrimaryCriteriaLimit": {
+      "Type": "First"
+    }
+  },
+  "QualifiedLimit": {
+    "Type": "First"
+  },
+  "ExpressionLimit": {
+    "Type": "First"
+  },
+  "InclusionRules": [],
+  "CensoringCriteria": [],
+  "CollapseSettings": {
+    "CollapseType": "ERA",
+    "EraPad": 0
+  },
+  "CensorWindow": {},
+  "cdmVersionRange": ">=5.0.0"
+}

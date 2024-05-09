@@ -1,0 +1,943 @@
+{
+  "ConceptSets": [
+    {
+      "id": 0,
+      "name": "rectal_cancer",
+      "expression": {
+        "items": [
+          {
+            "concept": {
+              "CONCEPT_ID": 443390,
+              "CONCEPT_NAME": "Malignant tumor of rectum",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "363351006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4196256,
+              "CONCEPT_NAME": "Local recurrence of malignant tumor of rectum",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "314966008",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36683531,
+              "CONCEPT_NAME": "Malignant neoplasm of colon and/or rectum",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "781382000",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 74582,
+              "CONCEPT_NAME": "Primary malignant neoplasm of rectum",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "93984006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4095430,
+              "CONCEPT_NAME": "Malignant neoplasm of rectum, rectosigmoid junction and anus",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187760008",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4287939,
+              "CONCEPT_NAME": "Rectum involved by direct extension of malignant neoplasm",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "397229005",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 40481902,
+              "CONCEPT_NAME": "Malignant neoplasm of anorectum",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "443488001",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4089667,
+              "CONCEPT_NAME": "Malignant neoplasm of mesorectum",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187811009",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4110575,
+              "CONCEPT_NAME": "Adenocarcinoma of rectum",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "254582000",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4112730,
+              "CONCEPT_NAME": "Malignant tumor of anorectal junction",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "254586002",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36518156,
+              "CONCEPT_NAME": "Carcinoma, diffuse type of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8145/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36519990,
+              "CONCEPT_NAME": "Superficial spreading adenocarcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8143/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36524866,
+              "CONCEPT_NAME": "Myoepithelial carcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8982/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36525823,
+              "CONCEPT_NAME": "Papillary adenocarcinoma, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8260/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36525852,
+              "CONCEPT_NAME": "Hepatoid adenocarcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8576/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36528818,
+              "CONCEPT_NAME": "Pleomorphic carcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8022/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36530154,
+              "CONCEPT_NAME": "Schneiderian carcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8121/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36530988,
+              "CONCEPT_NAME": "Metaplastic carcinoma, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8575/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36533386,
+              "CONCEPT_NAME": "Adenocarcinoma with apocrine metaplasia of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8573/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36534066,
+              "CONCEPT_NAME": "Tubular adenocarcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8211/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36534456,
+              "CONCEPT_NAME": "Adenocarcinoma with squamous metaplasia of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8570/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36536333,
+              "CONCEPT_NAME": "Carcinoma simplex of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8231/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36540503,
+              "CONCEPT_NAME": "Cystadenocarcinoma, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8440/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36544156,
+              "CONCEPT_NAME": "Adenocarcinoma with cartilaginous and osseous metaplasia of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8571/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36545794,
+              "CONCEPT_NAME": "Papillary carcinoma, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8050/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36546634,
+              "CONCEPT_NAME": "Epithelial-myoepithelial carcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8562/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36551689,
+              "CONCEPT_NAME": "Adenocarcinoma in adenomatous polyposis coli of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8220/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36552163,
+              "CONCEPT_NAME": "Solid carcinoma, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8230/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36553700,
+              "CONCEPT_NAME": "Adenocarcinoma in multiple adenomatous polyps of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8221/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36554294,
+              "CONCEPT_NAME": "Villous adenocarcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8262/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36555713,
+              "CONCEPT_NAME": "Epithelioma, malignant of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8011/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36556793,
+              "CONCEPT_NAME": "Mucoepidermoid carcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8430/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36559065,
+              "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8021/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36561333,
+              "CONCEPT_NAME": "Serrated adenocarcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8213/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36566220,
+              "CONCEPT_NAME": "Verrucous carcinoma, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8051/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36566952,
+              "CONCEPT_NAME": "Adenocarcinoid tumor of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8245/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 40492939,
+              "CONCEPT_NAME": "Carcinoma of upper rectum",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "448994001",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 42512189,
+              "CONCEPT_NAME": "Micropapillary carcinoma, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8265/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44499480,
+              "CONCEPT_NAME": "Carcinoma, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8010/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44499501,
+              "CONCEPT_NAME": "Adenocarcinoma in adenomatous polyp of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8210/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44499865,
+              "CONCEPT_NAME": "Carcinoma, undifferentiated, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8020/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44499893,
+              "CONCEPT_NAME": "Adenocarcinoma in tubulovillous adenoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8263/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44500071,
+              "CONCEPT_NAME": "Mucinous adenocarcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8480/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44500130,
+              "CONCEPT_NAME": "Adenocarcinoma, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8140/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44500461,
+              "CONCEPT_NAME": "Medullary carcinoma, NOS, of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8510/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44500640,
+              "CONCEPT_NAME": "Cloacogenic carcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8124/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44500642,
+              "CONCEPT_NAME": "Scirrhous adenocarcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8141/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44501148,
+              "CONCEPT_NAME": "Mucin-producing adenocarcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8481/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44501495,
+              "CONCEPT_NAME": "Adenocarcinoma with mixed subtypes of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8255/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44501660,
+              "CONCEPT_NAME": "Adenosquamous carcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8560/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44501798,
+              "CONCEPT_NAME": "Adenocarcinoma in villous adenoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8261/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44502326,
+              "CONCEPT_NAME": "Basaloid carcinoma of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8123/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44504421,
+              "CONCEPT_NAME": "Adenocarcinoma, intestinal type of rectum, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8144/3-C20.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          }
+        ]
+      }
+    }
+  ],
+  "PrimaryCriteria": {
+    "CriteriaList": [
+      {
+        "ConditionOccurrence": {
+          "CodesetId": 0
+        }
+      }
+    ],
+    "ObservationWindow": {
+      "PriorDays": 0,
+      "PostDays": 0
+    },
+    "PrimaryCriteriaLimit": {
+      "Type": "First"
+    }
+  },
+  "QualifiedLimit": {
+    "Type": "First"
+  },
+  "ExpressionLimit": {
+    "Type": "First"
+  },
+  "InclusionRules": [],
+  "CensoringCriteria": [],
+  "CollapseSettings": {
+    "CollapseType": "ERA",
+    "EraPad": 0
+  },
+  "CensorWindow": {},
+  "cdmVersionRange": ">=5.0.0"
+}

@@ -1,0 +1,3935 @@
+{
+  "ConceptSets": [
+    {
+      "id": 0,
+      "name": "larynx_cancer",
+      "expression": {
+        "items": [
+          {
+            "concept": {
+              "CONCEPT_ID": 36533181,
+              "CONCEPT_NAME": "Adenocarcinoma in tubulovillous adenoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8263/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36550963,
+              "CONCEPT_NAME": "Adenocarcinoma in tubulovillous adenoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8263/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36567971,
+              "CONCEPT_NAME": "Adenocarcinoma in tubulovillous adenoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8263/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36521705,
+              "CONCEPT_NAME": "Adenocarcinoma in tubulovillous adenoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8263/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36526381,
+              "CONCEPT_NAME": "Adenocarcinoma in tubulovillous adenoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8263/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36552319,
+              "CONCEPT_NAME": "Adenocarcinoma in tubulovillous adenoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8263/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36542458,
+              "CONCEPT_NAME": "Adenocarcinoma in villous adenoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8261/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36528221,
+              "CONCEPT_NAME": "Adenocarcinoma in villous adenoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8261/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36567676,
+              "CONCEPT_NAME": "Adenocarcinoma in villous adenoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8261/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36564868,
+              "CONCEPT_NAME": "Adenocarcinoma in villous adenoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8261/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36557157,
+              "CONCEPT_NAME": "Adenocarcinoma in villous adenoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8261/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36561038,
+              "CONCEPT_NAME": "Adenocarcinoma in villous adenoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8261/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36533089,
+              "CONCEPT_NAME": "Adenocarcinoma with mixed subtypes of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8255/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36556261,
+              "CONCEPT_NAME": "Adenocarcinoma with mixed subtypes of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8255/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36553022,
+              "CONCEPT_NAME": "Adenocarcinoma with mixed subtypes of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8255/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36526039,
+              "CONCEPT_NAME": "Adenocarcinoma with mixed subtypes of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8255/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36543322,
+              "CONCEPT_NAME": "Adenocarcinoma with mixed subtypes of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8255/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36535322,
+              "CONCEPT_NAME": "Adenocarcinoma with mixed subtypes of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8255/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44501481,
+              "CONCEPT_NAME": "Adenocarcinoma, NOS, of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8140/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36565291,
+              "CONCEPT_NAME": "Adenocarcinoma, NOS, of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8140/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36537240,
+              "CONCEPT_NAME": "Adenocarcinoma, NOS, of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8140/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36522792,
+              "CONCEPT_NAME": "Adenocarcinoma, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8140/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36564745,
+              "CONCEPT_NAME": "Adenocarcinoma, NOS, of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8140/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36567105,
+              "CONCEPT_NAME": "Adenocarcinoma, NOS, of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8140/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36565178,
+              "CONCEPT_NAME": "Adenoid cystic carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8200/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36546261,
+              "CONCEPT_NAME": "Adenoid cystic carcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8200/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36533616,
+              "CONCEPT_NAME": "Adenoid cystic carcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8200/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36520522,
+              "CONCEPT_NAME": "Adenoid cystic carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8200/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44502821,
+              "CONCEPT_NAME": "Adenoid cystic carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8200/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36538373,
+              "CONCEPT_NAME": "Adenoid cystic carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8200/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44502242,
+              "CONCEPT_NAME": "Adenosquamous carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8560/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36543651,
+              "CONCEPT_NAME": "Adenosquamous carcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8560/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36550939,
+              "CONCEPT_NAME": "Adenosquamous carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8560/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36521624,
+              "CONCEPT_NAME": "Adenosquamous carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8560/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44501900,
+              "CONCEPT_NAME": "Adenosquamous carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8560/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36554221,
+              "CONCEPT_NAME": "Basal cell adenocarcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8147/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36565625,
+              "CONCEPT_NAME": "Basal cell adenocarcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8147/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36557008,
+              "CONCEPT_NAME": "Basaloid carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8123/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36534407,
+              "CONCEPT_NAME": "Basaloid carcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8123/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36555946,
+              "CONCEPT_NAME": "Basaloid carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8123/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36538951,
+              "CONCEPT_NAME": "Basaloid carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8123/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36517378,
+              "CONCEPT_NAME": "Basaloid carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8123/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36517178,
+              "CONCEPT_NAME": "Basaloid squamous cell carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8083/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4157451,
+              "CONCEPT_NAME": "Carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "372103002",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4172359,
+              "CONCEPT_NAME": "Carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "276975007",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4157452,
+              "CONCEPT_NAME": "Carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "372104008",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4162136,
+              "CONCEPT_NAME": "Carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "372105009",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4162999,
+              "CONCEPT_NAME": "Carcinoma of vocal cord",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "372141009",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36519560,
+              "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8021/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36535053,
+              "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8021/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36540225,
+              "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8021/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36532999,
+              "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8021/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36551239,
+              "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8021/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36534573,
+              "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8021/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44504895,
+              "CONCEPT_NAME": "Carcinoma, NOS, of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8010/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36553229,
+              "CONCEPT_NAME": "Carcinoma, NOS, of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8010/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44504915,
+              "CONCEPT_NAME": "Carcinoma, NOS, of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8010/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36524323,
+              "CONCEPT_NAME": "Carcinoma, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8010/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44504907,
+              "CONCEPT_NAME": "Carcinoma, NOS, of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8010/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44504901,
+              "CONCEPT_NAME": "Carcinoma, NOS, of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8010/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36527183,
+              "CONCEPT_NAME": "Carcinoma, undifferentiated, NOS, of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8020/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36540945,
+              "CONCEPT_NAME": "Carcinoma, undifferentiated, NOS, of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8020/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36525095,
+              "CONCEPT_NAME": "Carcinoma, undifferentiated, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8020/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36526894,
+              "CONCEPT_NAME": "Carcinoma, undifferentiated, NOS, of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8020/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36519250,
+              "CONCEPT_NAME": "Carcinoma, undifferentiated, NOS, of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8020/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 42512094,
+              "CONCEPT_NAME": "Clear cell adenocarcinoma, NOS, of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8310/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36532274,
+              "CONCEPT_NAME": "Cloacogenic carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8124/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36565659,
+              "CONCEPT_NAME": "Cloacogenic carcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8124/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36538259,
+              "CONCEPT_NAME": "Cloacogenic carcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8124/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36566757,
+              "CONCEPT_NAME": "Cloacogenic carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8124/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36534077,
+              "CONCEPT_NAME": "Cloacogenic carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8124/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36552757,
+              "CONCEPT_NAME": "Cloacogenic carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8124/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36552289,
+              "CONCEPT_NAME": "Cribriform carcinoma, NOS, of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8201/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36538624,
+              "CONCEPT_NAME": "Cribriform carcinoma, NOS, of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8201/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36519302,
+              "CONCEPT_NAME": "Cribriform carcinoma, NOS, of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8201/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36545886,
+              "CONCEPT_NAME": "Cribriform carcinoma, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8201/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36550788,
+              "CONCEPT_NAME": "Cribriform carcinoma, NOS, of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8201/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36532638,
+              "CONCEPT_NAME": "Cribriform carcinoma, NOS, of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8201/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36519453,
+              "CONCEPT_NAME": "Epithelial-myoepithelial carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8562/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36535388,
+              "CONCEPT_NAME": "Epithelial-myoepithelial carcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8562/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36567148,
+              "CONCEPT_NAME": "Epithelial-myoepithelial carcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8562/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36534937,
+              "CONCEPT_NAME": "Epithelial-myoepithelial carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8562/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36558611,
+              "CONCEPT_NAME": "Epithelial-myoepithelial carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8562/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36530266,
+              "CONCEPT_NAME": "Epithelial-myoepithelial carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8562/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36564755,
+              "CONCEPT_NAME": "Epithelioma, malignant of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8011/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36553390,
+              "CONCEPT_NAME": "Epithelioma, malignant of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8011/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36547551,
+              "CONCEPT_NAME": "Epithelioma, malignant of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8011/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36519223,
+              "CONCEPT_NAME": "Epithelioma, malignant of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8011/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36542153,
+              "CONCEPT_NAME": "Epithelioma, malignant of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8011/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36530038,
+              "CONCEPT_NAME": "Epithelioma, malignant of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8011/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36538100,
+              "CONCEPT_NAME": "Glassy cell carcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8015/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36537944,
+              "CONCEPT_NAME": "Glassy cell carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8015/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36523226,
+              "CONCEPT_NAME": "Large cell carcinoma, NOS, of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8012/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36555371,
+              "CONCEPT_NAME": "Large cell carcinoma, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8012/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36529801,
+              "CONCEPT_NAME": "Lymphoepithelial carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8082/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36519680,
+              "CONCEPT_NAME": "Lymphoepithelial carcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8082/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36555253,
+              "CONCEPT_NAME": "Lymphoepithelial carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8082/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36536536,
+              "CONCEPT_NAME": "Lymphoepithelial carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8082/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44501780,
+              "CONCEPT_NAME": "Lymphoepithelial carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8082/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4092213,
+              "CONCEPT_NAME": "Malignant neoplasm of arytenoid cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187843009",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4095446,
+              "CONCEPT_NAME": "Malignant neoplasm of cricoid cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187844003",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4092214,
+              "CONCEPT_NAME": "Malignant neoplasm of cuneiform cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187845002",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4091932,
+              "CONCEPT_NAME": "Malignant neoplasm of epiglottis, free border",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187682009",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4095309,
+              "CONCEPT_NAME": "Malignant neoplasm of glossoepiglottic fold",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187683004",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4089646,
+              "CONCEPT_NAME": "Malignant neoplasm of junctional region of epiglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187685006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4095447,
+              "CONCEPT_NAME": "Malignant neoplasm of thyroid cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187846001",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4110559,
+              "CONCEPT_NAME": "Malignant tumor of anterior commissure",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "254509006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4178978,
+              "CONCEPT_NAME": "Malignant tumor of aryepiglottic fold - laryngeal aspect",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "363487003",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4181340,
+              "CONCEPT_NAME": "Malignant tumor of branchial cleft",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "363396004",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4177237,
+              "CONCEPT_NAME": "Malignant tumor of false cord",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "363488008",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4092211,
+              "CONCEPT_NAME": "Malignant tumor of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187841006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4110566,
+              "CONCEPT_NAME": "Malignant tumor of infrahyoid epiglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "254520006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4181349,
+              "CONCEPT_NAME": "Malignant tumor of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "363431006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4110567,
+              "CONCEPT_NAME": "Malignant tumor of laryngeal ventricle",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "254526000",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4178968,
+              "CONCEPT_NAME": "Malignant tumor of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "363429002",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4110562,
+              "CONCEPT_NAME": "Malignant tumor of posterior commissure",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "254513004",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4177111,
+              "CONCEPT_NAME": "Malignant tumor of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "363430007",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4092212,
+              "CONCEPT_NAME": "Malignant tumor of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "187842004",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4110565,
+              "CONCEPT_NAME": "Malignant tumor of suprahyoid epiglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "254517003",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4180910,
+              "CONCEPT_NAME": "Malignant tumor of vocal cord",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "363486007",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36541087,
+              "CONCEPT_NAME": "Mucinous adenocarcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8480/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36546864,
+              "CONCEPT_NAME": "Mucinous adenocarcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8480/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36565237,
+              "CONCEPT_NAME": "Mucinous adenocarcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8480/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36531807,
+              "CONCEPT_NAME": "Mucinous adenocarcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8480/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36533331,
+              "CONCEPT_NAME": "Mucinous adenocarcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8480/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36517215,
+              "CONCEPT_NAME": "Mucinous adenocarcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8480/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36549419,
+              "CONCEPT_NAME": "Mucin-producing adenocarcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8481/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36558452,
+              "CONCEPT_NAME": "Mucin-producing adenocarcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8481/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36524725,
+              "CONCEPT_NAME": "Mucin-producing adenocarcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8481/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36543538,
+              "CONCEPT_NAME": "Mucin-producing adenocarcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8481/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36562927,
+              "CONCEPT_NAME": "Mucin-producing adenocarcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8481/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36542067,
+              "CONCEPT_NAME": "Mucin-producing adenocarcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8481/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36545768,
+              "CONCEPT_NAME": "Mucoepidermoid carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8430/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36552734,
+              "CONCEPT_NAME": "Mucoepidermoid carcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8430/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36544335,
+              "CONCEPT_NAME": "Mucoepidermoid carcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8430/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36545701,
+              "CONCEPT_NAME": "Mucoepidermoid carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8430/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36529693,
+              "CONCEPT_NAME": "Mucoepidermoid carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8430/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36531553,
+              "CONCEPT_NAME": "Mucoepidermoid carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8430/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36543415,
+              "CONCEPT_NAME": "Myoepithelial carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8982/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36536565,
+              "CONCEPT_NAME": "Myoepithelial carcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8982/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36554204,
+              "CONCEPT_NAME": "Myoepithelial carcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8982/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36555318,
+              "CONCEPT_NAME": "Myoepithelial carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8982/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36519289,
+              "CONCEPT_NAME": "Myoepithelial carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8982/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36537079,
+              "CONCEPT_NAME": "Myoepithelial carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8982/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36553816,
+              "CONCEPT_NAME": "Neoplasm, malignant of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8000/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 22839,
+              "CONCEPT_NAME": "Overlapping malignant neoplasm of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "109369002",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45768899,
+              "CONCEPT_NAME": "Overlapping squamous cell carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707429002",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36539744,
+              "CONCEPT_NAME": "Papillary adenocarcinoma, NOS, of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8260/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36563206,
+              "CONCEPT_NAME": "Papillary adenocarcinoma, NOS, of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8260/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36536985,
+              "CONCEPT_NAME": "Papillary adenocarcinoma, NOS, of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8260/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36546001,
+              "CONCEPT_NAME": "Papillary adenocarcinoma, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8260/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36554100,
+              "CONCEPT_NAME": "Papillary adenocarcinoma, NOS, of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8260/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36559355,
+              "CONCEPT_NAME": "Papillary adenocarcinoma, NOS, of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8260/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36564357,
+              "CONCEPT_NAME": "Papillary carcinoma, NOS, of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8050/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36540983,
+              "CONCEPT_NAME": "Papillary carcinoma, NOS, of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8050/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36546186,
+              "CONCEPT_NAME": "Papillary carcinoma, NOS, of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8050/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36535617,
+              "CONCEPT_NAME": "Papillary carcinoma, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8050/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36521108,
+              "CONCEPT_NAME": "Papillary carcinoma, NOS, of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8050/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36565942,
+              "CONCEPT_NAME": "Papillary carcinoma, NOS, of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8050/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36548250,
+              "CONCEPT_NAME": "Papillary squamous cell carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8052/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36541662,
+              "CONCEPT_NAME": "Pleomorphic carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8022/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36540861,
+              "CONCEPT_NAME": "Pleomorphic carcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8022/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36561978,
+              "CONCEPT_NAME": "Pleomorphic carcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8022/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36547499,
+              "CONCEPT_NAME": "Pleomorphic carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8022/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36527898,
+              "CONCEPT_NAME": "Pleomorphic carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8022/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36531658,
+              "CONCEPT_NAME": "Pleomorphic carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8022/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36522675,
+              "CONCEPT_NAME": "Polygonal cell carcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8034/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36517326,
+              "CONCEPT_NAME": "Polygonal cell carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8034/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45768940,
+              "CONCEPT_NAME": "Primary adenocarcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707479004",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45768896,
+              "CONCEPT_NAME": "Primary adenoid squamous cell carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707425008",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45771018,
+              "CONCEPT_NAME": "Primary adenosquamous cell carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707424007",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45768895,
+              "CONCEPT_NAME": "Primary basaloid carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707423001",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45769089,
+              "CONCEPT_NAME": "Primary basaloid squamous cell carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707662004",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45772928,
+              "CONCEPT_NAME": "Primary lymphoepithelial carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707360003",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 436643,
+              "CONCEPT_NAME": "Primary malignant neoplasm of anterior aspect of epiglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "93670003",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4246922,
+              "CONCEPT_NAME": "Primary malignant neoplasm of epiglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "93784003",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4155169,
+              "CONCEPT_NAME": "Primary malignant neoplasm of false vocal cord",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "371988005",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 260336,
+              "CONCEPT_NAME": "Primary malignant neoplasm of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "93816002",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4155170,
+              "CONCEPT_NAME": "Primary malignant neoplasm of laryngeal aspect of aryepiglottic fold",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "371994002",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 436352,
+              "CONCEPT_NAME": "Primary malignant neoplasm of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "109370001",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4247830,
+              "CONCEPT_NAME": "Primary malignant neoplasm of laryngeal commissure",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "93857009",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 26052,
+              "CONCEPT_NAME": "Primary malignant neoplasm of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "371995001",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 259755,
+              "CONCEPT_NAME": "Primary malignant neoplasm of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "94075002",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 261514,
+              "CONCEPT_NAME": "Primary malignant neoplasm of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "94080006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4162122,
+              "CONCEPT_NAME": "Primary malignant neoplasm of vocal cord",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "372030009",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45768897,
+              "CONCEPT_NAME": "Primary papillary squamous cell carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707426009",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45768894,
+              "CONCEPT_NAME": "Primary spindle cell squamous cell carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707422006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45768840,
+              "CONCEPT_NAME": "Primary squamous cell carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707358000",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45768893,
+              "CONCEPT_NAME": "Primary undifferentiated carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707421004",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 45768898,
+              "CONCEPT_NAME": "Primary verrucous carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "707427000",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36534422,
+              "CONCEPT_NAME": "Schneiderian carcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8121/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36521059,
+              "CONCEPT_NAME": "Schneiderian carcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8121/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36535010,
+              "CONCEPT_NAME": "Schneiderian carcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8121/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36551379,
+              "CONCEPT_NAME": "Schneiderian carcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8121/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36549892,
+              "CONCEPT_NAME": "Scirrhous adenocarcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8141/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36525637,
+              "CONCEPT_NAME": "Scirrhous adenocarcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8141/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36546500,
+              "CONCEPT_NAME": "Scirrhous adenocarcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8141/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36557643,
+              "CONCEPT_NAME": "Scirrhous adenocarcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8141/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36532782,
+              "CONCEPT_NAME": "Spindle cell carcinoma, NOS, of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8032/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 4237016,
+              "CONCEPT_NAME": "Squamous cell carcinoma of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "405822008",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36540468,
+              "CONCEPT_NAME": "Squamous cell carcinoma, microinvasive of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8076/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36523607,
+              "CONCEPT_NAME": "Squamous cell carcinoma, microinvasive of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8076/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36532878,
+              "CONCEPT_NAME": "Squamous cell carcinoma, spindle cell of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8074/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36553855,
+              "CONCEPT_NAME": "Superficial spreading adenocarcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8143/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36525187,
+              "CONCEPT_NAME": "Superficial spreading adenocarcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8143/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36543770,
+              "CONCEPT_NAME": "Superficial spreading adenocarcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8143/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 40490009,
+              "CONCEPT_NAME": "Transglottic malignant neoplasm of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "448509007",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36525058,
+              "CONCEPT_NAME": "Verrucous carcinoma, NOS, of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8051/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36519628,
+              "CONCEPT_NAME": "Verrucous carcinoma, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8051/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36546434,
+              "CONCEPT_NAME": "Villous adenocarcinoma of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8262/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36539937,
+              "CONCEPT_NAME": "Villous adenocarcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8262/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36535138,
+              "CONCEPT_NAME": "Villous adenocarcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8262/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36554174,
+              "CONCEPT_NAME": "Villous adenocarcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8262/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36520157,
+              "CONCEPT_NAME": "Villous adenocarcinoma of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8262/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36563783,
+              "CONCEPT_NAME": "Schneiderian carcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8121/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36563585,
+              "CONCEPT_NAME": "Schneiderian carcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8121/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36547556,
+              "CONCEPT_NAME": "Scirrhous adenocarcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8141/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36551557,
+              "CONCEPT_NAME": "Scirrhous adenocarcinoma of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8141/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36529030,
+              "CONCEPT_NAME": "Spindle cell carcinoma, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8032/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36528270,
+              "CONCEPT_NAME": "Squamous cell carcinoma, adenoid of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8075/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44504922,
+              "CONCEPT_NAME": "Squamous cell carcinoma, NOS, of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8070/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36527855,
+              "CONCEPT_NAME": "Squamous cell carcinoma, NOS, of overlapping lesion of larynx",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8070/3-C32.8",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36546226,
+              "CONCEPT_NAME": "Superficial spreading adenocarcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8143/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36532375,
+              "CONCEPT_NAME": "Superficial spreading adenocarcinoma of larynx, NOS",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8143/3-C32.9",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36563353,
+              "CONCEPT_NAME": "Superficial spreading adenocarcinoma of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8143/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 44502512,
+              "CONCEPT_NAME": "Verrucous carcinoma, NOS, of glottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8051/3-C32.0",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36566106,
+              "CONCEPT_NAME": "Verrucous carcinoma, NOS, of subglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8051/3-C32.2",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36562644,
+              "CONCEPT_NAME": "Verrucous carcinoma, NOS, of supraglottis",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8051/3-C32.1",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
+              "CONCEPT_ID": 36546845,
+              "CONCEPT_NAME": "Villous adenocarcinoma of laryngeal cartilage",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "8262/3-C32.3",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "ICDO3",
+              "CONCEPT_CLASS_ID": "ICDO Condition"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          }
+        ]
+      }
+    }
+  ],
+  "PrimaryCriteria": {
+    "CriteriaList": [
+      {
+        "ConditionOccurrence": {
+          "CodesetId": 0
+        }
+      }
+    ],
+    "ObservationWindow": {
+      "PriorDays": 0,
+      "PostDays": 0
+    },
+    "PrimaryCriteriaLimit": {
+      "Type": "First"
+    }
+  },
+  "QualifiedLimit": {
+    "Type": "First"
+  },
+  "ExpressionLimit": {
+    "Type": "First"
+  },
+  "InclusionRules": [],
+  "CensoringCriteria": [],
+  "CollapseSettings": {
+    "CollapseType": "ERA",
+    "EraPad": 0
+  },
+  "CensorWindow": {},
+  "cdmVersionRange": ">=5.0.0"
+}
