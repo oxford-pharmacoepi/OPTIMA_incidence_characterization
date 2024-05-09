@@ -891,57 +891,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36403024,
-              "CONCEPT_NAME": "Bronchio-alveolar carcinoma, non-mucinous in situ (C34._) of upper lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8252/2-C34.1",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36403081,
-              "CONCEPT_NAME": "Adenocarcinoma in situ of lung, non-mucinous of upper lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8250/2-C34.1",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36403149,
-              "CONCEPT_NAME": "Adenocarcinoma in situ of lung, non-mucinous of lower lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8250/2-C34.3",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36517557,
               "CONCEPT_NAME": "Epithelioma, malignant of middle lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -7198,23 +7147,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44505002,
-              "CONCEPT_NAME": "Carcinomatosis of lung, NOS",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8010/9-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44505017,
               "CONCEPT_NAME": "Adenocarcinoma, metastatic, NOS, of lung, NOS",
               "STANDARD_CONCEPT": "S",
@@ -7225,23 +7157,6 @@
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 252840,
-              "CONCEPT_NAME": "Primary malignant neoplasm of upper respiratory tract",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "94118008",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
             },
             "isExcluded": false,
             "includeDescendants": false,
