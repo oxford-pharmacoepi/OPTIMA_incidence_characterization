@@ -772,23 +772,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 4110591,
-              "CONCEPT_NAME": "Small cell carcinoma of lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "254632001",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 4110705,
               "CONCEPT_NAME": "Squamous cell carcinoma of lung",
               "STANDARD_CONCEPT": "S",
@@ -915,57 +898,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8140/9-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36403024,
-              "CONCEPT_NAME": "Bronchio-alveolar carcinoma, non-mucinous in situ (C34._) of upper lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8252/2-C34.1",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36403081,
-              "CONCEPT_NAME": "Adenocarcinoma in situ of lung, non-mucinous of upper lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8250/2-C34.1",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36403149,
-              "CONCEPT_NAME": "Adenocarcinoma in situ of lung, non-mucinous of lower lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8250/2-C34.3",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -1282,23 +1214,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36521732,
-              "CONCEPT_NAME": "Small cell carcinoma, NOS, of overlapping lesion of lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8041/3-C34.8",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36522300,
               "CONCEPT_NAME": "Papillary carcinoma, NOS, of middle lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -1391,23 +1306,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8123/3-C34.1",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36524072,
-              "CONCEPT_NAME": "Combined small cell carcinoma of middle lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8045/3-C34.2",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -2115,23 +2013,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36534024,
-              "CONCEPT_NAME": "Small cell carcinoma, fusiform cell of lung, NOS",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8043/3-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36534747,
               "CONCEPT_NAME": "Cribriform carcinoma, NOS, of middle lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -2224,23 +2105,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8231/3-C34.1",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36536294,
-              "CONCEPT_NAME": "Small cell carcinoma, fusiform cell of middle lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8043/3-C34.2",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -2795,23 +2659,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36543689,
-              "CONCEPT_NAME": "Small cell carcinoma, fusiform cell of lower lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8043/3-C34.3",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36543960,
               "CONCEPT_NAME": "Adenocarcinoma with apocrine metaplasia of middle lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -3322,23 +3169,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36550125,
-              "CONCEPT_NAME": "Small cell carcinoma, fusiform cell of overlapping lesion of lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8043/3-C34.8",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36550225,
               "CONCEPT_NAME": "Epithelial-myoepithelial carcinoma of middle lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -3397,23 +3227,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8570/3-C34.2",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36552316,
-              "CONCEPT_NAME": "Small cell carcinoma, fusiform cell of upper lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8043/3-C34.1",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -3873,23 +3686,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8052/3-C34.8",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36560247,
-              "CONCEPT_NAME": "Combined small cell carcinoma of overlapping lesion of lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8045/3-C34.8",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -4954,23 +4750,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44498940,
-              "CONCEPT_NAME": "Combined small cell carcinoma of lung, NOS",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8045/3-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44498975,
               "CONCEPT_NAME": "Mesothelioma, malignant of lung, NOS",
               "STANDARD_CONCEPT": "S",
@@ -5056,23 +4835,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44499626,
-              "CONCEPT_NAME": "Combined small cell carcinoma of upper lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8045/3-C34.1",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44499676,
               "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of lower lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -5080,23 +4842,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8021/3-C34.3",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 44499678,
-              "CONCEPT_NAME": "Small cell carcinoma, NOS, of lower lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8041/3-C34.3",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -5267,23 +5012,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8310/3-C34.1",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 44500000,
-              "CONCEPT_NAME": "Small cell carcinoma, NOS, of middle lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8041/3-C34.2",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -5532,23 +5260,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44500542,
-              "CONCEPT_NAME": "Small cell carcinoma, NOS, of lung, NOS",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8041/3-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44500577,
               "CONCEPT_NAME": "Papillary carcinoma, NOS, of upper lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -5590,23 +5301,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8010/3-C34.2",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 44500712,
-              "CONCEPT_NAME": "Combined small cell carcinoma of lower lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8045/3-C34.3",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -6134,23 +5828,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8230/3-C34.3",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 44502427,
-              "CONCEPT_NAME": "Small cell carcinoma, NOS, of upper lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8041/3-C34.1",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -8218,23 +7895,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36536644,
-              "CONCEPT_NAME": "Small cell carcinoma, fusiform cell of main bronchus",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8043/3-C34.0",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36537230,
               "CONCEPT_NAME": "Verrucous carcinoma, NOS, of main bronchus",
               "STANDARD_CONCEPT": "S",
@@ -8276,23 +7936,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8230/3-C34.0",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36542225,
-              "CONCEPT_NAME": "Combined small cell carcinoma of main bronchus",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8045/3-C34.0",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -9034,23 +8677,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44502159,
-              "CONCEPT_NAME": "Small cell carcinoma, NOS, of main bronchus",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8041/3-C34.0",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44502436,
               "CONCEPT_NAME": "Basaloid squamous cell carcinoma of main bronchus",
               "STANDARD_CONCEPT": "S",
@@ -9425,23 +9051,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44505002,
-              "CONCEPT_NAME": "Carcinomatosis of lung, NOS",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8010/9-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44505017,
               "CONCEPT_NAME": "Adenocarcinoma, metastatic, NOS, of lung, NOS",
               "STANDARD_CONCEPT": "S",
@@ -9452,23 +9061,6 @@
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 252840,
-              "CONCEPT_NAME": "Primary malignant neoplasm of upper respiratory tract",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "94118008",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
             },
             "isExcluded": false,
             "includeDescendants": false,
