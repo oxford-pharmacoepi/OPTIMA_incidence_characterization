@@ -83,12 +83,12 @@ ui <- dashboardPage(
         menuSubItem(
           text = "Attrition Table",
           tabName = "inc_attrition"
-        ),
-        menuSubItem(
-          text = "Attrition Figure",
-          tabName = "inc_attrition_fig"
         )
-        
+        # menuSubItem(
+        #   text = "Attrition Figure",
+        #   tabName = "inc_attrition_fig"
+        # )
+
       ),
       
       menuItem(
@@ -106,12 +106,12 @@ ui <- dashboardPage(
         menuSubItem(
           text = "Attrition Table",
           tabName = "prev_attrition"
-        ),
-        menuSubItem(
-          text = "Attrition Figure",
-          tabName = "prev_attrition_fig"
         )
-        
+        # menuSubItem(
+        #   text = "Attrition Figure",
+        #   tabName = "prev_attrition_fig"
+        # )
+
       ),
       
       menuItem(
@@ -476,7 +476,7 @@ ui <- dashboardPage(
             inputId = "comorb_cohort_selector",
             label = "Cohort Name",
             choices = unique(comorb_characteristics$group_level),
-            selected = unique(comorb_characteristics$group_level)[1],
+            selected = unique(comorb_characteristics$group_level)[2],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1402,7 +1402,7 @@ ui <- dashboardPage(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "attrition_cohort_name_selector1",
-            label = "COhort Name",
+            label = "Cohort Name",
             choices = unique(incidence_attrition$outcome_cohort_name),
             selected = unique(incidence_attrition$outcome_cohort_name)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
