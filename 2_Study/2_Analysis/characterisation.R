@@ -4,49 +4,17 @@ if(isTRUE(run_characterisation)){
 # demographics ----
 cli::cli_alert_info("Summarising Demographics")
 
-
-# run this part if user has said TRUE to survival analysis
-if(isTRUE(run_survival)){
-  
-  # and if user has not run incidence analysis
-  if(isFALSE(run_incidence)){
-  
-suppressWarnings(
-
-summaryDemographics <- cdm$outcome %>%
-  summariseCharacteristics(
-    strata = list(c("sex"),
-                  c("age_group"),
-                  c("age_group", "sex"),
-                  c("diag_yr_gp"),
-                  c("diag_yr_gp", "sex")),
-    ageGroup = list( "18 to 49" = c(18, 49),
-                     "50 to 59" = c(50, 59),
-                     "60 to 69" = c(60, 69),
-                     "70 to 79" = c(70, 79),
-                     "80 +" = c(80, 150)),
-    tableIntersect = list()
-  )
-
-)
-  }
-  
-}
-
-# run this part if user has said FALSE to survival analysis
-if(isFALSE(run_survival)){
-  
-  # take the participants from the incidence analysis
-  if(isTRUE(run_incidence)){
+# if the survival is not run (FALSE) and incidence has been run (TRUE)
+if(isFALSE(run_survival) & isTRUE(run_incidence)){  
     
-    # get participants from incidence analysis to feed into survival analysis
+    # get participants from incidence analysis
     cdm$outcome_participants <- participants(inc_overall_parts, 1) %>% 
       select("subject_id", "outcome_start_date") %>% 
       filter(!is.na(outcome_start_date)) %>% 
       rename("cohort_start_date" = "outcome_start_date") %>% 
       compute(name = "outcome_participants")
     
-    # filter out participants not present in this and record in attrition
+    # filter out participants not present in this
     cdm$outcome <- cdm$outcome %>% 
       dplyr::right_join(cdm$outcome_participants %>%
                           select("subject_id") %>% 
@@ -72,7 +40,7 @@ if(isFALSE(run_survival)){
   suppressWarnings(
     
     summaryDemographics <- cdm$outcome %>%
-      summariseCharacteristics(
+      CohortCharacteristics::summariseCharacteristics(
         strata = list(c("sex"),
                       c("age_group"),
                       c("age_group", "sex")),
@@ -80,21 +48,46 @@ if(isFALSE(run_survival)){
                          "50 to 59" = c(50, 59),
                          "60 to 69" = c(60, 69),
                          "70 to 79" = c(70, 79),
-                         "80 +" = c(80, 150)),
-        tableIntersect = list()
+                         "80 +" = c(80, 150))
+      )
+  )
+  
+  }
+  
+
+# if survival has been run (TRUE) (does not matter if incidence has been run)
+if(isTRUE(run_survival) & isTRUE(run_incidence) |
+   isTRUE(run_survival) & isFALSE(run_incidence)){  
+  
+  suppressWarnings(
+    
+    summaryDemographics <- cdm$outcome %>%
+      CohortCharacteristics::summariseCharacteristics(
+        strata = list(c("diag_yr_gp", "sex"),
+                      c("diag_yr_gp"),
+                      c("sex"),
+                      c("age_group"),
+                      c("age_group", "sex")),
+        ageGroup = list( "18 to 49" = c(18, 49),
+                         "50 to 59" = c(50, 59),
+                         "60 to 69" = c(60, 69),
+                         "70 to 79" = c(70, 79),
+                         "80 +" = c(80, 150))
       )
     
   )
-  }
-  
     
+
 }
+  
+cli::cli_alert_info("Exporting demographics characteristics results")
 
-
-write_csv(summaryDemographics %>%
-            omopgenerics::suppress(minCellCount = 5), here("Results",db_name, paste0(cdmName(cdm),
-                                                                             "_summary_demographics.csv"
-            )))
+omopgenerics::exportSummarisedResult(summaryDemographics,
+                                       minCellCount = 5,
+                                       path = here("Results",db_name),
+                                       fileName = paste0(cdmName(cdm),
+                                                         "_summary_demographics.csv")
+  )
 
 cli::cli_alert_success("Summarising Demographics Complete")
 
@@ -108,61 +101,15 @@ cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm,
                                               name = "conditions",
                                               overwrite = TRUE)
 
-
 cli::cli_alert_info("Summarising Comorbidities")
 
-
-# run this part if user has said TRUE to survival analysis
-if(isTRUE(run_survival)){
+# run if survival not run but incidence has been run
+if(isFALSE(run_survival) & isTRUE(run_incidence)){  
   
-  
-  # take the participants from the incidence analysis
-  if(isTRUE(run_incidence)){
-
-suppressWarnings(
-  
-summaryComorbidity <- cdm$outcome %>%
-  summariseCharacteristics(
-    strata = list(c("sex"),
-                  c("age_group"),
-                  c("age_group", "sex"),
-                  c("diag_yr_gp"),
-                  c("diag_yr_gp", "sex")),
-    ageGroup = list( "18 to 49" = c(18, 49),
-                     "50 to 59" = c(50, 59),
-                     "60 to 69" = c(60, 69),
-                     "70 to 79" = c(70, 79),
-                     "80 +" = c(80, 150)),
-    tableIntersect = list(),
-    cohortIntersect = list("Comorbidities" = list(
-      targetCohortTable = "conditions",
-      value = "flag",
-      window = list(c(-999999, -1) ,
-                   c(-999999, -366),
-                    c(-365, -31),
-                    c(-30, -1),
-                    c(0, 0))
-    )
-    )
-  )
-
-)
-  
-  }
-  
-}
-
-
-# run this part if user has said FALSE to survival analysis
-if(isFALSE(run_survival)){
-  
-  # using incidence analysis
-  if(isTRUE(run_incidence)){
-    
   suppressWarnings(
     
     summaryComorbidity <- cdm$outcome %>%
-      summariseCharacteristics(
+      CohortCharacteristics::summariseCharacteristics(
         strata = list(c("sex"),
                       c("age_group"),
                       c("age_group", "sex")),
@@ -171,32 +118,85 @@ if(isFALSE(run_survival)){
                          "60 to 69" = c(60, 69),
                          "70 to 79" = c(70, 79),
                          "80 +" = c(80, 150)),
-        tableIntersect = list(),
-        cohortIntersect = list("Comorbidities" = list(
-          targetCohortTable = "conditions",
-          value = "flag",
-          window = list(c(-999999, -1) ,
-                        c(-999999, -366),
-                        c(-365, -31),
-                        c(-30, -1),
-                        c(0, 0))
-        )
+        cohortIntersectFlag = list(
+          "Conditions prior to index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-Inf, -1)
+          ),
+          "Conditions prior and up to 365 days before index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-Inf, -366)
+          ),
+          "Conditions 365 and up to 31 days before index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-365, -31)
+          ),
+          "Conditions 30 and up to 1 day before index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-31, -1)
+          ),
+          "Conditions on index date" = list(
+            targetCohortTable = "conditions",
+            window = c(0, 0)
+          )
         )
       )
-    
   )
   
-  }
+}
   
-  # using prevalence analysis 
-  # TBC
+# runs if survival has been run
+if(isTRUE(run_survival) & isTRUE(run_incidence) | 
+   isTRUE(run_survival) & isFALSE(run_incidence)){ 
+  
+  suppressWarnings(
+    
+    summaryComorbidity <- cdm$outcome %>%
+      CohortCharacteristics::summariseCharacteristics(
+        strata = list(c("diag_yr_gp", "sex"),
+                      c("diag_yr_gp"),
+                      c("sex"),
+                      c("age_group"),
+                      c("age_group", "sex")),
+        ageGroup = list( "18 to 49" = c(18, 49),
+                         "50 to 59" = c(50, 59),
+                         "60 to 69" = c(60, 69),
+                         "70 to 79" = c(70, 79),
+                         "80 +" = c(80, 150)),
+        cohortIntersectFlag = list(
+          "Conditions prior to index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-Inf, -1)
+          ),
+          "Conditions prior and up to 365 days before index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-Inf, -366)
+          ),
+          "Conditions 365 and up to 31 days before index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-365, -31)
+          ),
+          "Conditions 30 and up to 1 day before index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-31, -1)
+          ),
+          "Conditions on index date" = list(
+            targetCohortTable = "conditions",
+            window = c(0, 0)
+          )
+        )
+      )
+  )
   
 }
 
-write_csv(summaryComorbidity %>%
-            omopgenerics::suppress(minCellCount = 5), here("Results",db_name, paste0(cdmName(cdm),
-              "_summary_comorbidity.csv"
-            )))
+cli::cli_alert_info("Exporting comorbidities characteristics results")
+omopgenerics::exportSummarisedResult(summaryComorbidity,
+            minCellCount = 5,
+            path = here("Results",db_name),
+            fileName = paste0(cdmName(cdm),
+              "_summary_comorbidity.csv")
+            )
 
 cli::cli_alert_success("Summarising Comorbidities Complete")
 
@@ -210,57 +210,14 @@ cdm <- DrugUtilisation::generateDrugUtilisationCohortSet(cdm = cdm,
                                                          conceptSet = codelistMedications, 
                                                          name = "medications")
 
-
-# run this part if user has said TRUE to survival analysis
-if(isTRUE(run_survival)){
-  
-  
-  # take the participants from the incidence analysis
-  if(isTRUE(run_incidence)){
-  
-suppressWarnings(
-summaryMedications <- cdm$outcome %>%
-  summariseCharacteristics(
-    strata = list(c("sex"),
-                  c("age_group"),
-                  c("age_group", "sex"),
-                  c("diag_yr_gp"),
-                  c("diag_yr_gp", "sex")),
-    ageGroup = list( "18 to 49" = c(18, 49),
-                     "50 to 59" = c(50, 59),
-                     "60 to 69" = c(60, 69),
-                     "70 to 79" = c(70, 79),
-                     "80 +" = c(80, 150)),
-    tableIntersect = list(),
-    cohortIntersect = list(
-      "Medications" = list(
-        targetCohortTable = "medications",
-        value = "flag",
-        window = list(c(-365, -1),
-                      c(-365, -31),
-                      c(-30, -1),
-                      c(0, 0),
-                      c(1, 30),
-                      c(1, 90),
-                      c(1, 365))
-      ))
-  )
-
-)
-
-  }
-  
-}
-
-# run this part if user has said FALSE to survival analysis
-if(isFALSE(run_survival)){
-  
-  # using incidence analysis
-  if(isTRUE(run_incidence)){
+cli::cli_alert_info("Summarising Medications")
+# runs if survival has not been run but incidence has
+if(isFALSE(run_survival) & isTRUE(run_incidence)){  
   
   suppressWarnings(
+    
     summaryMedications <- cdm$outcome %>%
-      summariseCharacteristics(
+      CohortCharacteristics::summariseCharacteristics(
         strata = list(c("sex"),
                       c("age_group"),
                       c("age_group", "sex")),
@@ -269,35 +226,104 @@ if(isFALSE(run_survival)){
                          "60 to 69" = c(60, 69),
                          "70 to 79" = c(70, 79),
                          "80 +" = c(80, 150)),
-        tableIntersect = list(),
-        cohortIntersect = list(
-          "Medications" = list(
+        cohortIntersectFlag = list(
+          "Medications 365 days prior to index date" = list(
             targetCohortTable = "medications",
-            value = "flag",
-            window = list(c(-365, -1),
-                          c(-365, -31),
-                          c(-30, -1),
-                          c(0, 0),
-                          c(1, 30),
-                          c(1, 90),
-                          c(1, 365))
-          ))
+            window = c(-365, -1)
+          ),
+          "Medications 365 to 31 days prior to index date" = list(
+            targetCohortTable = "medications",
+            window = c(-365, -31)
+          ),
+          "Medications 30 to 1 day prior to index date" = list(
+            targetCohortTable = "medications",
+            window = c(-30, -1)
+          ),
+          "Medications on index date" = list(
+            targetCohortTable = "medications",
+            window = c(0, 0)
+          ),
+          "Medications 1 to 30 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(1, 30)
+          ),
+          "Medications 1 to 30 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(1, 90)
+          ),
+          "Medications 1 to 30 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(1, 365)
+          )
+          
+        )
       )
+  )
+
+  
+}
+
+# runs if survival has been run 
+if(isTRUE(run_survival) & isTRUE(run_incidence) | 
+   isTRUE(run_survival) & isFALSE(run_incidence)){  
+  
+  suppressWarnings(
     
+    summaryMedications <- cdm$outcome %>%
+      CohortCharacteristics::summariseCharacteristics(
+        strata = list(c("diag_yr_gp", "sex"),
+                      c("diag_yr_gp"),
+                      c("sex"),
+                      c("age_group"),
+                      c("age_group", "sex")),
+        ageGroup = list( "18 to 49" = c(18, 49),
+                         "50 to 59" = c(50, 59),
+                         "60 to 69" = c(60, 69),
+                         "70 to 79" = c(70, 79),
+                         "80 +" = c(80, 150)),
+        cohortIntersectFlag = list(
+          "Medications 365 days prior to index date" = list(
+            targetCohortTable = "medications",
+            window = c(-365, -1)
+          ),
+          "Medications 365 to 31 days prior to index date" = list(
+            targetCohortTable = "medications",
+            window = c(-365, -31)
+          ),
+          "Medications 30 to 1 day prior to index date" = list(
+            targetCohortTable = "medications",
+            window = c(-30, -1)
+          ),
+          "Medications on index date" = list(
+            targetCohortTable = "medications",
+            window = c(0, 0)
+          ),
+          "Medications 1 to 30 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(1, 30)
+          ),
+          "Medications 1 to 30 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(1, 90)
+          ),
+          "Medications 1 to 30 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(1, 365)
+          )
+          
+        )
+      )
   )
   
 }
-  
-  # using prevalence analysis 
-  #TBC
 
-}
-
-write_csv(summaryMedications %>%
-            omopgenerics::suppress(minCellCount = 5),
-          here("Results", db_name, paste0(cdmName(cdm),
-            "_summary_medications.csv"
-          )))
+cli::cli_alert_info("Exporting medications characteristics results")
+omopgenerics::exportSummarisedResult(summaryMedications,
+                                     minCellCount = 5,
+                                     path = here("Results",db_name),
+                                     fileName = paste0(cdmName(cdm),
+                                                       "_summary_medications.csv")
+)
 
 cli::cli_alert_success("Summarising Medications Complete")
 
