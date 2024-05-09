@@ -27,6 +27,7 @@ library(RPostgres)
 library(CodelistGenerator)
 library(DrugUtilisation)
 library(dsr)
+library(CohortCharacteristics)
 
 # database metadata and connection details -----
 # The name/ acronym for the database
