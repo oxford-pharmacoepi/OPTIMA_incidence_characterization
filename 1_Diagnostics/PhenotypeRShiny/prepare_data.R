@@ -217,7 +217,8 @@ cdm_snapshot_files<-result_files[stringr::str_detect(result_files, "cdm_snapshot
 cdm_snapshot_estimates <- list()
 for(i in seq_along(cdm_snapshot_files)){
   cdm_snapshot_estimates[[i]]<-readr::read_csv(cdm_snapshot_files[[i]], 
-                                      show_col_types = FALSE)  
+                                      show_col_types = FALSE)  %>% 
+    mutate(cdm_version = as.character(cdm_version)) 
 }
 
 data$cdm_snapshot <- bind_rows(cdm_snapshot_estimates)
