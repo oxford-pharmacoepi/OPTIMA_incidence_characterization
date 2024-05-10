@@ -43,16 +43,33 @@ data <- vector("list", length(result_names)) |> setNames(result_names)
 # Read files and join equal outputs
 # read in the files we need and read them into the data
 # cohort definitions
-cohort_definitions_files<-result_files[stringr::str_detect(result_files, ".csv")]
-cohort_definitions_files<-result_files[stringr::str_detect(result_files, "cohort_definitions")]
+# cohort_definitions_files<-result_files[stringr::str_detect(result_files, ".csv")]
+# cohort_definitions_files<-result_files[stringr::str_detect(result_files, "cohort_definitions")]
+# 
+# cohort_definitions_estimates <- list()
+# for(i in seq_along(cohort_definitions_files)){
+#   cohort_definitions_estimates[[i]]<-readr::read_csv(cohort_definitions_files[[i]], 
+#                                              show_col_types = FALSE)  
+# }
+# 
+# data$cohort_definitions <- bind_rows(cohort_definitions_estimates)
 
-cohort_definitions_estimates <- list()
-for(i in seq_along(cohort_definitions_files)){
-  cohort_definitions_estimates[[i]]<-readr::read_csv(cohort_definitions_files[[i]], 
-                                             show_col_types = FALSE)  
-}
+cohort_set <- CDMConnector::read_cohort_set(here::here(
+  "Cohorts" ))
 
-data$cohort_definitions <- bind_rows(cohort_definitions_estimates)
+cohort_set$markdown <- ""
+
+for (n in  row_number(cohort_set) ) {
+  
+  cohort <- cohort_set$cohort_name[n]  
+  json <- paste0(cohort_set$json[n]  )
+  cohortExpresion <- CirceR::cohortExpressionFromJson(json)
+  markdown <- CirceR::cohortPrintFriendly(cohortExpresion)
+  cohort_set$markdown[n] <-  markdown
+  
+} 
+
+data$cohort_definitions <- cohort_set
 
 # cohort count
 cohort_count_files<-result_files[stringr::str_detect(result_files, ".csv")]

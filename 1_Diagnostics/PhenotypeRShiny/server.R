@@ -1,26 +1,38 @@
 server <- function(input, output, session) { 
   # Markdown ----
   output$markdown <- renderUI({
-    filterData(data$cohort_definitions, "definitions", input) %>% 
+    
+    table <- cohort_set %>% 
+      filter(cohort_name %in% input$cohort_set_input) %>% 
       pull(markdown) %>% 
       formatMarkdown()
   })
   # JSON ----
   output$verb <- renderPrint({
-    cat(filterData(data$cohort_definitions, "definitions", input) %>%
-          pull(json) %>%
-          unlist())
+    
+    json_content <- cohort_set %>% 
+      filter(cohort_name %in% input$cohort_set_input) %>%
+      pull(json) %>%
+      unlist()
+    
+    cat(json_content)
+    
   })
+  
   output$clip <- renderUI({
     rclipButton(
       inputId = "clipbtn",
       label = "Copy to clipboard",
-      clipText = input$json, 
+      clipText = isolate(cohort_set %>%
+                           filter(cohort_name %in% input$cohort_set_input) %>%
+                           pull(json) %>%
+                           unlist()),
       icon = icon("clipboard"),
       placement = "top",
       options = list(delay = list(show = 800, hide = 100), trigger = "hover")
     )
   })
+  
   # Cohort counts ----
   output$tidy_counts <- renderDataTable({
     datatable(

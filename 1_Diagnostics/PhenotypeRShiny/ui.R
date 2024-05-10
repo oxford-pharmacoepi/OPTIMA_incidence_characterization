@@ -84,7 +84,15 @@ ui <- dashboardPage(
       tabItem(
         tabName = "cohorts",
         # h4("Cohort definitions."),
-        selectors(data$cohort_definitions, "definitions", c("cdm_name", "cohort_name"), multiple = FALSE, default = list()),
+        pickerInput(
+          inputId = "cohort_set_input",
+          label = "Cohort Set",
+          choices = unique(cohort_set$cohort_name),
+          selected = unique(cohort_set$cohort_name)[1],
+          options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+          multiple = FALSE
+        ),
+        #selectors(data$cohort_definitions, "definitions", c("cdm_name", "cohort_name"), multiple = FALSE, default = list()),
         tabsetPanel(
           type = "tabs",
           tabPanel(
