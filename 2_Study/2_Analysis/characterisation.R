@@ -80,6 +80,46 @@ if(isTRUE(run_survival) & isTRUE(run_incidence) |
 
 }
   
+  
+# if only characterisation is being run
+if(isFALSE(run_survival) & isFALSE(run_incidence)
+   & isFALSE(run_prevalence) & isTRUE(run_characterisation)){ 
+  
+  cli::cli_alert_info("Add demographics to cohort")
+  cdm$outcome <- cdm$outcome %>% 
+    PatientProfiles::addDemographics(
+      ageGroup = list(
+        "age_group" =
+          list(
+            "18 to 49" = c(18, 49),
+            "50 to 39" = c(50, 59),
+            "60 to 59" = c(60, 69),
+            "70 to 79" = c(70, 79),
+            "80 +" = c(80, 150)
+          )
+      )) 
+  
+  
+  suppressWarnings(
+    
+    summaryDemographics <- cdm$outcome %>%
+      CohortCharacteristics::summariseCharacteristics(
+        strata = list(c("sex"),
+                      c("age_group"),
+                      c("age_group", "sex")),
+        ageGroup = list( "18 to 49" = c(18, 49),
+                         "50 to 59" = c(50, 59),
+                         "60 to 69" = c(60, 69),
+                         "70 to 79" = c(70, 79),
+                         "80 +" = c(80, 150))
+      )
+    
+  )
+  
+  }
+  
+  
+  
 cli::cli_alert_info("Exporting demographics characteristics results")
 
 omopgenerics::exportSummarisedResult(summaryDemographics,
@@ -103,8 +143,10 @@ cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm,
 
 cli::cli_alert_info("Summarising Comorbidities")
 
-# run if survival not run but incidence has been run
-if(isFALSE(run_survival) & isTRUE(run_incidence)){  
+# run if survival not run but incidence has been run OR if only running characterisation
+if(isFALSE(run_survival) & isTRUE(run_incidence) |
+   isFALSE(run_survival) & isFALSE(run_incidence)
+   & isFALSE(run_prevalence) & isTRUE(run_characterisation)){  
   
   suppressWarnings(
     
@@ -212,7 +254,9 @@ cdm <- DrugUtilisation::generateDrugUtilisationCohortSet(cdm = cdm,
 
 cli::cli_alert_info("Summarising Medications")
 # runs if survival has not been run but incidence has
-if(isFALSE(run_survival) & isTRUE(run_incidence)){  
+if(isFALSE(run_survival) & isTRUE(run_incidence) |
+   isFALSE(run_survival) & isFALSE(run_incidence)
+   & isFALSE(run_prevalence) & isTRUE(run_characterisation)){  
   
   suppressWarnings(
     
