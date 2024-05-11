@@ -18,23 +18,7 @@ server <- function(input, output, session) {
     cat(json_content)
     
   })
-  
-  # clinical descriptions ----
-  # v <- reactiveValues(data = NULL)
-  # 
-  # observeEvent(input$renderSmallCell, {
-  #   v$data <- runif(100)
-  # })
-  # 
-  # observeEvent(input$renderLungCancer, {
-  #   v$data <- rnorm(100)
-  # })
-  # 
-  # output$content <- renderPlot({
-  #   if (is.null(v$data)) return()
-  #   hist(v$data)
-  # })
-  # 
+
 
   
   output$downloadSmallCell <- downloadHandler(
