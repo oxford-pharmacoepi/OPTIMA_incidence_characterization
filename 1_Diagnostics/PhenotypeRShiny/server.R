@@ -19,6 +19,43 @@ server <- function(input, output, session) {
     
   })
   
+  # clinical descriptions ----
+  # v <- reactiveValues(data = NULL)
+  # 
+  # observeEvent(input$renderSmallCell, {
+  #   v$data <- runif(100)
+  # })
+  # 
+  # observeEvent(input$renderLungCancer, {
+  #   v$data <- rnorm(100)
+  # })
+  # 
+  # output$content <- renderPlot({
+  #   if (is.null(v$data)) return()
+  #   hist(v$data)
+  # })
+  # 
+
+  
+  output$downloadSmallCell <- downloadHandler(
+    filename = function() {
+      "small_cell_lung_cancer.docx"
+    },
+    content = function(file) {
+      file.copy("www/small_cell_lung_cancer.docx", file)
+    }
+  )
+  
+  output$downloadLungCancer <- downloadHandler(
+    filename = function() {
+      "lung_cancer.docx"
+    },
+    content = function(file) {
+      file.copy("www/lung_cancer.docx", file)
+    }
+  )
+
+  
   output$clip <- renderUI({
     rclipButton(
       inputId = "clipbtn",

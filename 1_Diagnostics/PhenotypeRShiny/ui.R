@@ -105,12 +105,18 @@ ui <- dashboardPage(
             rclipboardSetup(),
             uiOutput("clip"),
             verbatimTextOutput("verb"),
-          )
-          # tabPanel(
-          #   "Concept sets",
-          # )
+          ) ,
+          
+          tabPanel(
+            "Clinical Definition",
+            h4(),
+            downloadButton("downloadSmallCell", "Small Cell Lung Cancer"),
+            downloadButton("downloadLungCancer", "Lung Cancer"),
+          ) ,
+
         )
       ),
+      
       # cohort_counts ----
       tabItem(
         tabName = "counts",
