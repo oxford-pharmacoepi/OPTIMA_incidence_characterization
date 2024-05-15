@@ -33,11 +33,8 @@ ui <- dashboardPage(
         menuSubItem(
           text = "Cohort Concepts",
           tabName = "cohort_concepts"
-        ),
-        menuSubItem(
-          text = "Clinical Cohort Descriptions",
-          tabName = "cohort_description"
         )
+
 
       ),
      
@@ -96,6 +93,7 @@ ui <- dashboardPage(
         tabName = "prevalence",
         icon = shiny::icon("bath") ,
         menuSubItem(
+          
           text = "Plots",
           tabName = "prev_plots"
         ),
@@ -978,6 +976,7 @@ ui <- dashboardPage(
       
       tabItem(
         tabName = "prev_plots",
+        tags$h5("Below are the prevalence results for the different databases. Yearly estimates have been calculated in three different scenarios 1) Full prevalence: Those diagnosed with lung cancer are followed to the end of their observation period and remain in the numerator, 2) Partial prevalence: where patients diagnosed with lung cancer are followed until 2 or 5 years before they are then returned to the background population (denominator). ") ,
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
@@ -1252,6 +1251,7 @@ ui <- dashboardPage(
       
       tabItem(
         tabName = "inc_plots_std",
+        tags$h5("In order to compare results across different data sources with different age population structures we have age standardized incidence rates to 1) European Standard Population 2013 and 2) World Standard Population (WHO 2000-2025).") ,
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
@@ -1497,8 +1497,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "survival_demo_selector",
             label = "Demographics",
-            choices = unique(demo_characteristics$group_level),
-            selected = "Overall",
+            choices = unique(survival_estimates$strata_name),
+            selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )

@@ -323,7 +323,7 @@ server <-	function(input, output, session) {
       filter(group_level %in% input$med_cohort_selector) %>% 
       filter(window %in% input$med_time_selector) %>% 
       filter(cdm_name %in% input$med_database_name_selector) %>% 
-      select(-c(sex, age_group, table, window, value))
+      select(-c(sex, age_group, table, window, value, diag_yr_gp))
     
     med_characteristics
     
@@ -331,7 +331,7 @@ server <-	function(input, output, session) {
   
   
   output$gt_med_characteristics  <- render_gt({
-    PatientProfiles::tableCharacteristics(get_med_characteristics(),
+    CohortCharacteristics::tableCharacteristics(get_med_characteristics(),
                                           header = c("group", "cdm_name", "strata", "Window"),
                                           split = c("group", "strata", "additional"),
                                           excludeColumns = c("result_id", "estimate_type",
