@@ -320,12 +320,17 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                       c("age_group", "sex"),
                                                       c("diag_yr_gp"),
                                                       c("diag_yr_gp", "sex")),
-                                        eventGap = c(30) ,
+                                        eventGap = c(365) ,
                                         estimateGap = c(1) ,
                                         restrictedMeanFollowUp = NULL,
                                         minimumSurvivalDays = 1,
                                         minCellCount = 5,
                                         returnParticipants = FALSE) )
+  
+  
+ 
+ 
+
   
   # Analysis 2 
   # follow up not truncated and not carrying out stratification by diagnosis year
@@ -375,19 +380,25 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
   # export survival results ----
   # this will be exported as a using omopgenerics exportSummarisedResult argument
-  # then in the shiny we can read this in and then use TableSurvival to make a nice table
-  # analysis 1
+  # then in the shiny we can read this in and then use TableSurvival to make a nice table (not working bug)
+  # analysis 1 with follow up time reduced
   cli::cli_alert_info("Exporting survival results")
   omopgenerics::exportSummarisedResult(surv,
                                        fileName = paste0(cdmName(cdm), "_survival_results_analysis1.csv"),
                                        path = here("Results",db_name))  
+  # n events n risk for study
+  readr::write_csv(attr(surv %>% asSurvivalResult(), "events"), paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_events_analysis1.csv")))
   
-  # analysis 2
+  # analysis 2 with no truncation of follow up time and no diag year analysis
   cli::cli_alert_info("Exporting survival results")
   omopgenerics::exportSummarisedResult(surv1,
                                        fileName = paste0(cdmName(cdm), "_survival_results_analysis2.csv"),
                                        path = here("Results",db_name))  
   
+  # n events n risk for study
+  readr::write_csv(attr(surv1 %>% asSurvivalResult(), "events"), paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_events_analysis2.csv")))
+  
+
   # export survival summary ----
   cli::cli_alert_info("Exporting survival summary")
 
