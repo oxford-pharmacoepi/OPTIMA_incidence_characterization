@@ -433,7 +433,10 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "demographics_sex_selector",
             label = "Sex",
-            choices = unique(demo_characteristics$sex),
+            choices = demo_characteristics %>%
+              filter(strata_name == "sex" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
             selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -445,7 +448,10 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "demographics_age_selector",
             label = "Age Group",
-            choices = unique(demo_characteristics$age_group),
+            choices = demo_characteristics %>%
+              filter(strata_name == "age_group" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
             selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -474,7 +480,7 @@ ui <- dashboardPage(
             inputId = "comorb_cohort_selector",
             label = "Cohort Name",
             choices = unique(comorb_characteristics$group_level),
-            selected = unique(comorb_characteristics$group_level)[2],
+            selected = unique(comorb_characteristics$group_level)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -498,7 +504,10 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "comorb_sex_selector",
             label = "Sex",
-            choices = unique(comorb_characteristics$sex),
+            choices = comorb_characteristics %>%
+              filter(strata_name == "sex" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
             selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -510,7 +519,10 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "comorb_age_selector",
             label = "Age Group",
-            choices = unique(comorb_characteristics$age_group),
+            choices = comorb_characteristics %>%
+              filter(strata_name == "age_group" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
             selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -524,6 +536,7 @@ ui <- dashboardPage(
             inputId = "comorb_time_selector",
             label = "Time",
             choices = comorb_characteristics %>%
+              splitAdditional() %>% 
               filter(window != "overall") %>%
               pull(window) %>%
               unique(),
@@ -578,7 +591,10 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "med_sex_selector",
             label = "Sex",
-            choices = unique(med_characteristics$sex),
+            choices = med_characteristics %>%
+              filter(strata_name == "sex" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
             selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -590,7 +606,10 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "med_age_selector",
             label = "Age Group",
-            choices = unique(med_characteristics$age_group),
+            choices = comorb_characteristics %>%
+              filter(strata_name == "age_group" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
             selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -603,6 +622,7 @@ ui <- dashboardPage(
             inputId = "med_time_selector",
             label = "Time Window",
             choices = med_characteristics %>%
+              splitAdditional() %>% 
               filter(window != "overall") %>%
               pull(window) %>%
               unique(),

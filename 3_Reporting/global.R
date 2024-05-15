@@ -33,9 +33,6 @@ library(omopgenerics)
 library(dplyr)
 library(readr)
 
-# install.packages("devtools")
-# devtools::install_github("darwin-eu-dev/omopgenerics", force = T)
-
 mytheme <- create_theme(
   adminlte_color(
     light_blue = "#605ca8"
@@ -408,30 +405,7 @@ survival_attrition <- dplyr::bind_rows(survival_attrition) %>%
 # 
 # }
 
-# tableone demographics (Marti)
-
-x <- list.files(here::here("data"))
-y <- x[tools::file_ext(x) == "zip"]
-results <- list()
-ik <- 1
-for (k in seq_along(y)) {
-  folder <- tempdir()
-  files <- unzip(zipfile = here("data", y[k]), exdir = folder)
-  files <- files[tools::file_ext(files) == "csv"]
-  for (i in seq_along(files)) {
-    xx <- read_csv(files[i], show_col_types = FALSE, col_types = cols(.default = "c"))
-    if ("result_id" %in% colnames(xx)) {
-      results[[ik]] <- xx |> omopgenerics::newSummarisedResult()
-      ik <- ik + 1
-    }
-  }
-  unlink(folder)
-
-}
-
-result <- Reduce(omopgenerics::bind, results)
-
-# table one demographics------ OLD WAY
+# table one demographics------
 tableone_demo_files <- results[stringr::str_detect(results, ".csv")]
 tableone_demo_files <- results[stringr::str_detect(results, "demographics")]
 
@@ -462,7 +436,7 @@ for(i in seq_along(tableone_demo_files)){
       package_version = settings_demo[[i]]$estimate_value[2],
       value = 5)
     )
-  
+
 
 }
 
@@ -472,53 +446,85 @@ demo_characteristics <- Reduce(omopgenerics::bind, tableone_demo) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 
-
-
-
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
 tableone_med_files <- results[stringr::str_detect(results, "medications")]
-tableone_med <- list()
 
-for(i in seq_along(tableone_med_files)){
-  tableone_med[[i]] <- readr::read_csv(tableone_med_files[[i]],
-                                        show_col_types = FALSE)  
+if(length(tableone_med_files > 0)){
+  
+  tableone_med <- list()
+  settings_med <- list()
+  
+  for(i in seq_along(tableone_med_files)){
+    #read in the files
+    tableone_med[[i]] <- readr::read_csv(tableone_med_files[[i]],
+                                          show_col_types = FALSE)
+    # get the settings (at the end of each file)
+    settings_med[[i]] <- tableone_med[[i]] %>%
+      dplyr::filter(variable_name == "settings")
+    
+    # remove from the summarised results
+    tableone_med[[i]] <- tableone_med[[i]] %>%
+      dplyr::filter(variable_name != "settings")
+    
+    #turn back into a summarised result
+    tableone_med[[i]] <- tableone_med[[i]] %>%
+      omopgenerics::newSummarisedResult(
+        settings = tibble(
+          result_id = 1L,
+          result_type = settings_med[[i]]$estimate_value[3],
+          package_name = settings_med[[i]]$estimate_value[1],
+          package_version = settings_med[[i]]$estimate_value[2],
+          value = 5)
+      )
+    
+    
+  }
+  
 }
 
-med_characteristics <- dplyr::bind_rows(tableone_med)  %>% 
-  filter(!(group_level %in% remove_outcomes ) ) %>%
-  visOmopResults::splitStrata(
-    keep = TRUE,
-    fill = "overall"
-  )  %>%
-  visOmopResults::splitAdditional(
-  keep = TRUE,
-  fill = "overall"
-)  %>% 
+med_characteristics <- Reduce(omopgenerics::bind, tableone_med) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 
 # table one comorbidities ------
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
 tableone_comorb_files <- results[stringr::str_detect(results, "comorbidity")]
-tableone_comorb <- list()
-for(i in seq_along(tableone_comorb_files)){
-  tableone_comorb[[i]] <- readr::read_csv(tableone_comorb_files[[i]],
-                                       show_col_types = FALSE)  
+
+if(length(tableone_comorb_files > 0)){
+  
+  tableone_comorb <- list()
+  settings_comorb <- list()
+  
+  for(i in seq_along(tableone_comorb_files)){
+    #read in the files
+    tableone_comorb[[i]] <- readr::read_csv(tableone_comorb_files[[i]],
+                                         show_col_types = FALSE)
+    # get the settings (at the end of each file)
+    settings_comorb[[i]] <- tableone_comorb[[i]] %>%
+      dplyr::filter(variable_name == "settings")
+    
+    # remove from the summarised results
+    tableone_comorb[[i]] <- tableone_comorb[[i]] %>%
+      dplyr::filter(variable_name != "settings")
+    
+    #turn back into a summarised result
+    tableone_comorb[[i]] <- tableone_comorb[[i]] %>%
+      omopgenerics::newSummarisedResult(
+        settings = tibble(
+          result_id = 1L,
+          result_type = settings_comorb[[i]]$estimate_value[3],
+          package_name = settings_comorb[[i]]$estimate_value[1],
+          package_version = settings_comorb[[i]]$estimate_value[2],
+          value = 5)
+      )
+    
+    
+  }
+  
 }
 
-comorb_characteristics <- dplyr::bind_rows(tableone_comorb) %>% 
-  filter(!(group_level %in% remove_outcomes ) ) %>%
-  mutate(variable_level = if_else(variable_level == "Loss of small", "loss of smell", variable_level)) %>% 
-  mutate(variable_level = if_else(variable_level == "Cancerexcludnonmelaskincancer", "Malignant neoplasm disease", variable_level)) %>% 
-  visOmopResults::splitStrata(
-    keep = TRUE,
-    fill = "overall"
-  )  %>%
-  visOmopResults::splitAdditional(
-    keep = TRUE,
-    fill = "overall"
-  )  %>% 
+comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 
