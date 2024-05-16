@@ -175,6 +175,54 @@ server <-	function(input, output, session) {
   )
   
   
+  #concepts_sets ----
+  get_concepts_sets <- reactive({
+    
+    validate(
+      need(input$cohort_set_input != "", "Please select a cohort")
+    )
+    
+  concept_sets_final <- concept_sets_final %>% 
+    filter(name %in% input$cohort_set_input) 
+    
+  concept_sets_final
+  
+  })
+  
+  
+  output$tbl_concept_sets <- renderText(kable(get_concepts_sets()) %>%
+                                                  kable_styling("striped", full_width = F) )
+  
+  output$dt_concept_sets_word <- downloadHandler(
+    filename = function() {
+      "concept_sets.docx"
+    },
+    content = function(file) {
+      x <- gt(get_concepts_sets())
+      gtsave(x, file)
+    }
+  )
+  
+  
+  # output$gt_demo_characteristics  <- render_gt({
+  #   CohortCharacteristics::tableCharacteristics(get_demo_characteristics(),
+  #                                               header = c("group", "cdm_name", "strata"))
+  # })
+  # 
+  
+  # output$gt_demo_characteristics_word <- downloadHandler(
+  #   filename = function() {
+  #     "demographics_characteristics.docx"
+  #   },
+  #   content = function(file) {
+  #     gtsave(CohortCharacteristics::tableCharacteristics(get_demo_characteristics(),
+  #                                                        header = c("group", "cdm_name", "strata")), file)
+  #   }
+  # )
+  # 
+  
+  
+  
   #patient_demographics ----
   get_demo_characteristics <- reactive({
 

@@ -176,7 +176,9 @@ if(length(json_files > 0)){
   
 }
 
-
+  concept_sets_final <- concept_sets_final %>% 
+  mutate(name = ifelse(name == "lung_cancer_broad_inc", "lung_cancer_incident_broad", name)) %>% 
+  mutate(name = ifelse(name == "lung_cancer_narrow_inc", "lung_cancer_incident_narrow", name)) 
   
 # incidence estimates not standardized -----
 incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
