@@ -29,7 +29,7 @@ library(CodelistGenerator)
 library(CohortSurvival)
 library(CohortCharacteristics)
 library(rjson)
-library(omopgenerics)
+#library(omopgenerics)
 library(dplyr)
 library(readr)
 
