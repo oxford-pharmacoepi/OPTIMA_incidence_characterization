@@ -33,6 +33,9 @@ library(omopgenerics)
 library(dplyr)
 library(readr)
 
+# install.packages("devtools")
+# devtools::install_github("darwin-eu-dev/omopgenerics", force = T)
+
 mytheme <- create_theme(
   adminlte_color(
     light_blue = "#605ca8"
@@ -58,7 +61,15 @@ mytheme <- create_theme(
   )
 )
 
-
+# format markdown
+formatMarkdown <- function(x) {
+  lines <- strsplit(x, "\r\n\r\n") |> unlist()
+  getFormat <- function(line) {
+    if (grepl("###", line)) {return(h3(gsub("###", "", line)))} 
+    else {h4(line)} 
+  }
+  purrr::map(lines, ~ getFormat(.))
+}
 
 # Data prep functions -----
 # printing numbers with 1 decimal place and commas 
@@ -82,15 +93,6 @@ nice.num.count<-function(x) {
   trimws(format(x,
                 big.mark=",", nsmall = 0, digits=1, scientific=FALSE))}
 
-# format markdown
-formatMarkdown <- function(x) {
-  lines <- strsplit(x, "\r\n\r\n") |> unlist()
-  getFormat <- function(line) {
-    if (grepl("###", line)) {return(h3(gsub("###", "", line)))} 
-    else {h4(line)} 
-  }
-  purrr::map(lines, ~ getFormat(.))
-}
 
 
 # Load, prepare, and merge results -----
@@ -155,7 +157,6 @@ if(length(json_files > 0)){
     
   } 
 
-  
   for(i in 1:length(concept_lists_temp)){
     
     for(k in 1:length(concept_lists_temp[[i]]$ConceptSets[[1]]$expression$items)){  
@@ -418,23 +419,25 @@ for(i in seq_along(tableone_demo_files)){
   #read in the files
   tableone_demo[[i]] <- readr::read_csv(tableone_demo_files[[i]],
                                                  show_col_types = FALSE)
-  # get the settings (at the end of each file)
+  
+  
   settings_demo[[i]] <- tableone_demo[[i]] %>%
     dplyr::filter(variable_name == "settings")
-
+  
   # remove from the summarised results
   tableone_demo[[i]] <- tableone_demo[[i]] %>%
     dplyr::filter(variable_name != "settings")
-
+  
   #turn back into a summarised result
+  
   tableone_demo[[i]] <- tableone_demo[[i]] %>%
     omopgenerics::newSummarisedResult(
       settings = tibble(
-      result_id = 1L,
-      result_type = settings_demo[[i]]$estimate_value[3],
-      package_name = settings_demo[[i]]$estimate_value[1],
-      package_version = settings_demo[[i]]$estimate_value[2],
-      value = 5)
+        result_id = 1L,
+        result_type = settings_demo[[i]]$estimate_value[3],
+        package_name = settings_demo[[i]]$estimate_value[1],
+        package_version = settings_demo[[i]]$estimate_value[2],
+        value = 5)
     )
 
 
@@ -445,6 +448,7 @@ for(i in seq_along(tableone_demo_files)){
 demo_characteristics <- Reduce(omopgenerics::bind, tableone_demo) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
+rm(tableone_demo)
 
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
@@ -459,7 +463,8 @@ if(length(tableone_med_files > 0)){
     #read in the files
     tableone_med[[i]] <- readr::read_csv(tableone_med_files[[i]],
                                           show_col_types = FALSE)
-    # get the settings (at the end of each file)
+    
+    
     settings_med[[i]] <- tableone_med[[i]] %>%
       dplyr::filter(variable_name == "settings")
     
@@ -468,17 +473,17 @@ if(length(tableone_med_files > 0)){
       dplyr::filter(variable_name != "settings")
     
     #turn back into a summarised result
+    
     tableone_med[[i]] <- tableone_med[[i]] %>%
       omopgenerics::newSummarisedResult(
         settings = tibble(
           result_id = 1L,
-          result_type = settings_med[[i]]$estimate_value[3],
-          package_name = settings_med[[i]]$estimate_value[1],
-          package_version = settings_med[[i]]$estimate_value[2],
+          result_type = settings_demo[[i]]$estimate_value[3],
+          package_name = settings_demo[[i]]$estimate_value[1],
+          package_version = settings_demo[[i]]$estimate_value[2],
           value = 5)
       )
-    
-    
+
   }
   
 }
@@ -486,6 +491,7 @@ if(length(tableone_med_files > 0)){
 med_characteristics <- Reduce(omopgenerics::bind, tableone_med) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
+rm(tableone_med)
 
 # table one comorbidities ------
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
@@ -500,7 +506,8 @@ if(length(tableone_comorb_files > 0)){
     #read in the files
     tableone_comorb[[i]] <- readr::read_csv(tableone_comorb_files[[i]],
                                          show_col_types = FALSE)
-    # get the settings (at the end of each file)
+    
+    
     settings_comorb[[i]] <- tableone_comorb[[i]] %>%
       dplyr::filter(variable_name == "settings")
     
@@ -518,15 +525,17 @@ if(length(tableone_comorb_files > 0)){
           package_version = settings_comorb[[i]]$estimate_value[2],
           value = 5)
       )
-    
+
     
   }
   
 }
 
+
 comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
+rm(tableone_comorb)
 
 # risk tables ----------
 survival_risk_table_files<-results[stringr::str_detect(results, ".csv")]

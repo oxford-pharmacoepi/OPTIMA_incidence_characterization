@@ -407,8 +407,15 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "demographics_cohort_selector",
             label = "Cohort Name",
-            choices = unique(demo_characteristics$group_level),
-            selected = unique(demo_characteristics$group_level)[1],
+            choices = demo_characteristics %>%
+              visOmopResults::splitAll() %>% 
+              distinct(cohort_name) %>% 
+              pull(),
+            selected = demo_characteristics %>%
+              visOmopResults::splitAll() %>% 
+              distinct(cohort_name) %>% 
+              pull()%>%
+              first(),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -458,6 +465,21 @@ ui <- dashboardPage(
           )
         ),
         
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "demo_diag_yr_selector",
+            label = "Diagnosis Year Group",
+            choices = demo_characteristics %>%
+              filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
        # tags$hr(),
         gt_output("gt_demo_characteristics") %>% 
           withSpinner() ,
@@ -479,8 +501,15 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "comorb_cohort_selector",
             label = "Cohort Name",
-            choices = unique(comorb_characteristics$group_level),
-            selected = unique(comorb_characteristics$group_level)[1],
+            choices = comorb_characteristics %>%
+              visOmopResults::splitAll() %>% 
+              distinct(cohort_name) %>% 
+              pull(),
+            selected = comorb_characteristics %>%
+              visOmopResults::splitAll() %>% 
+              distinct(cohort_name) %>% 
+              pull() %>% 
+              first(),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -536,11 +565,27 @@ ui <- dashboardPage(
             inputId = "comorb_time_selector",
             label = "Time",
             choices = comorb_characteristics %>%
-              splitAdditional() %>% 
+              visOmopResults::splitAdditional() %>% 
               filter(window != "overall") %>%
               pull(window) %>%
               unique(),
-            selected = "-999999 to -1",
+            selected = "-Inf to -1",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "comorb_diag_yr_selector",
+            label = "Diagnosis Year Group",
+            choices = comorb_characteristics %>%
+              filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
+            selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -567,8 +612,15 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "med_cohort_selector",
             label = "Cohort Name",
-            choices = unique(med_characteristics$group_level),
-            selected = unique(med_characteristics$group_level)[1],
+            choices = med_characteristics %>%
+              visOmopResults::splitAll() %>% 
+              distinct(cohort_name) %>% 
+              pull(),
+            selected = demo_characteristics %>%
+              visOmopResults::splitAll() %>% 
+              distinct(cohort_name) %>% 
+              pull() %>% 
+              first(),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -622,11 +674,26 @@ ui <- dashboardPage(
             inputId = "med_time_selector",
             label = "Time Window",
             choices = med_characteristics %>%
-              splitAdditional() %>% 
+              visOmopResults::splitAdditional() %>% 
               filter(window != "overall") %>%
               pull(window) %>%
               unique(),
             selected = "-365 to -1",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "med_diag_yr_selector",
+            label = "Diagnosis Year Group",
+            choices = med_characteristics %>%
+              filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
+            selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
