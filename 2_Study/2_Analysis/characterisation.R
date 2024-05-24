@@ -4,118 +4,100 @@ if(isTRUE(run_characterisation)){
 # demographics ----
 cli::cli_alert_info("Summarising Demographics")
 
-# if the survival is not run (FALSE) and incidence has been run (TRUE)
-if(isFALSE(run_survival) & isTRUE(run_incidence)){  
+  # if the survival is not run (FALSE) and incidence has been run (TRUE)
+  if(isFALSE(run_survival) & isTRUE(run_incidence)){  
     
     # get participants from incidence analysis
-    cdm$outcome_participants <- participants(inc_overall_parts, 1) %>% 
-      select("subject_id", "outcome_start_date") %>% 
-      filter(!is.na(outcome_start_date)) %>% 
-      rename("cohort_start_date" = "outcome_start_date") %>% 
-      compute(name = "outcome_participants")
+    # make a list to put each set of participants
+    pops <- list()
     
-    # filter out participants not present in this
-    cdm$outcome <- cdm$outcome %>% 
-      dplyr::right_join(cdm$outcome_participants %>%
-                          select("subject_id") %>% 
-                          distinct(),
-                        by = c("subject_id")) %>%
-      dplyr::compute()
+    # loop over each outcome pulling out the participants
+    for (i in 1:nrow(inc_overall_parts)){
+      
+      #extract the participants for each cancer
+      pops[[i]] <- participants(inc_overall_parts, as.numeric(inc_overall_parts$analysis_id[i])) %>% 
+        select("subject_id", "outcome_start_date", "cohort_end_date") %>%
+        filter(!is.na(outcome_start_date)) %>% 
+        collect()
+      
+      pops[[i]] <- pops[[i]]  %>% 
+        mutate(cohort_definition_id = inc_overall_parts$outcome_cohort_id[i]) %>%
+        mutate(cohort_name = inc_overall_parts$outcome_cohort_name[i]) %>%
+        rename(cohort_start_date = outcome_start_date) %>%
+        collect()
+      
+    }  
     
-  
-  cli::cli_alert_info("Add demographics to cohort")
-  cdm$outcome <- cdm$outcome %>% 
-    PatientProfiles::addDemographics(
-      ageGroup = list(
-        "age_group" =
-          list(
-            "18 to 49" = c(18, 49),
-            "50 to 39" = c(50, 59),
-            "60 to 59" = c(60, 69),
-            "70 to 79" = c(70, 79),
-            "80 +" = c(80, 150)
-          )
-      )) 
-  
-  suppressWarnings(
+    #bind the participants for all outcomes
+    pops_all <- bind_rows(pops) 
     
-    summaryDemographics <- cdm$outcome %>%
-      CohortCharacteristics::summariseCharacteristics(
-        strata = list(c("sex"),
-                      c("age_group"),
-                      c("age_group", "sex")),
-        ageGroup = list( "18 to 49" = c(18, 49),
-                         "50 to 59" = c(50, 59),
-                         "60 to 69" = c(60, 69),
-                         "70 to 79" = c(70, 79),
-                         "80 +" = c(80, 150))
-      )
-  )
-  
+    #create a new cdm ref object of participants
+    cdm <- insertTable(cdm = cdm, name = "outcome_participants", table = pops_all, overwrite = TRUE)
+    
+    #create new cohort table
+    cdm$outcome_participants <- newCohortTable(table = cdm$outcome_participants,
+                                               cohortSetRef = tibble(cancer_concepts_inc[,c(1,2)])
+    )
+    
+    cli::cli_alert_info("Add demographics to cohort")
+    cdm$outcome <- cdm$outcome_participants %>% 
+      PatientProfiles::addDemographics(
+        ageGroup = list(
+          "age_group" =
+            list(
+              "18 to 49" = c(18, 49),
+              "50 to 39" = c(50, 59),
+              "60 to 59" = c(60, 69),
+              "70 to 79" = c(70, 79),
+              "80 +" = c(80, 150)
+            )
+        )) %>% 
+      mutate(year = year(cohort_start_date)) 
+    
+    suppressWarnings(
+      
+      summaryDemographics <- cdm$outcome %>%
+        CohortCharacteristics::summariseCharacteristics(
+          strata = list(c("sex"),
+                        c("age_group"),
+                        c("age_group", "sex")),
+          ageGroup = list( "18 to 49" = c(18, 49),
+                           "50 to 59" = c(50, 59),
+                           "60 to 69" = c(60, 69),
+                           "70 to 79" = c(70, 79),
+                           "80 +" = c(80, 150))
+        )
+    )
+    
   }
   
-
-# if survival has been run (TRUE) (does not matter if incidence has been run)
-if(isTRUE(run_survival) & isTRUE(run_incidence) |
-   isTRUE(run_survival) & isFALSE(run_incidence)){  
   
-  suppressWarnings(
+  # if survival has been run (TRUE) (does not matter if incidence has been run)
+  if(isTRUE(run_survival) & isTRUE(run_incidence) |
+     isTRUE(run_survival) & isFALSE(run_incidence)){  
     
-    summaryDemographics <- cdm$outcome %>%
-      CohortCharacteristics::summariseCharacteristics(
-        strata = list(c("diag_yr_gp", "sex"),
-                      c("diag_yr_gp"),
-                      c("sex"),
-                      c("age_group"),
-                      c("age_group", "sex")),
-        ageGroup = list( "18 to 49" = c(18, 49),
-                         "50 to 59" = c(50, 59),
-                         "60 to 69" = c(60, 69),
-                         "70 to 79" = c(70, 79),
-                         "80 +" = c(80, 150))
-      )
+    suppressWarnings(
+      
+      summaryDemographics <- cdm$outcome %>%
+        CohortCharacteristics::summariseCharacteristics(
+          strata = list(c("diag_yr_gp", "sex"),
+                        c("diag_yr_gp"),
+                        c("sex"),
+                        c("age_group"),
+                        c("age_group", "sex"),
+                        c("year"),
+                        c("year", "sex"),
+                        c("year", "sex", "age_group")),
+          ageGroup = list( "18 to 49" = c(18, 49),
+                           "50 to 59" = c(50, 59),
+                           "60 to 69" = c(60, 69),
+                           "70 to 79" = c(70, 79),
+                           "80 +" = c(80, 150))
+        )
+      
+    )
     
-  )
     
-
-}
-  
-  
-# if only characterisation is being run
-if(isFALSE(run_survival) & isFALSE(run_incidence)
-   & isFALSE(run_prevalence) & isTRUE(run_characterisation)){ 
-  
-  cli::cli_alert_info("Add demographics to cohort")
-  cdm$outcome <- cdm$outcome %>% 
-    PatientProfiles::addDemographics(
-      ageGroup = list(
-        "age_group" =
-          list(
-            "18 to 49" = c(18, 49),
-            "50 to 39" = c(50, 59),
-            "60 to 59" = c(60, 69),
-            "70 to 79" = c(70, 79),
-            "80 +" = c(80, 150)
-          )
-      )) 
-  
-  
-  suppressWarnings(
-    
-    summaryDemographics <- cdm$outcome %>%
-      CohortCharacteristics::summariseCharacteristics(
-        strata = list(c("sex"),
-                      c("age_group"),
-                      c("age_group", "sex")),
-        ageGroup = list( "18 to 49" = c(18, 49),
-                         "50 to 59" = c(50, 59),
-                         "60 to 69" = c(60, 69),
-                         "70 to 79" = c(70, 79),
-                         "80 +" = c(80, 150))
-      )
-    
-  )
-  
   }
   
   
@@ -154,7 +136,10 @@ if(isFALSE(run_survival) & isTRUE(run_incidence) |
       CohortCharacteristics::summariseCharacteristics(
         strata = list(c("sex"),
                       c("age_group"),
-                      c("age_group", "sex")),
+                      c("age_group", "sex"),
+                      c("year"),
+                      c("year", "sex"),
+                      c("year", "sex", "age_group")),
         ageGroup = list( "18 to 49" = c(18, 49),
                          "50 to 59" = c(50, 59),
                          "60 to 69" = c(60, 69),
@@ -199,7 +184,10 @@ if(isTRUE(run_survival) & isTRUE(run_incidence) |
                       c("diag_yr_gp"),
                       c("sex"),
                       c("age_group"),
-                      c("age_group", "sex")),
+                      c("age_group", "sex"),
+                      c("year"),
+                      c("year", "sex"),
+                      c("year", "sex", "age_group")),
         ageGroup = list( "18 to 49" = c(18, 49),
                          "50 to 59" = c(50, 59),
                          "60 to 69" = c(60, 69),
@@ -264,7 +252,10 @@ if(isFALSE(run_survival) & isTRUE(run_incidence) |
       CohortCharacteristics::summariseCharacteristics(
         strata = list(c("sex"),
                       c("age_group"),
-                      c("age_group", "sex")),
+                      c("age_group", "sex"),
+                      c("year"),
+                      c("year", "sex"),
+                      c("year", "sex", "age_group")),
         ageGroup = list( "18 to 49" = c(18, 49),
                          "50 to 59" = c(50, 59),
                          "60 to 69" = c(60, 69),
@@ -319,7 +310,10 @@ if(isTRUE(run_survival) & isTRUE(run_incidence) |
                       c("diag_yr_gp"),
                       c("sex"),
                       c("age_group"),
-                      c("age_group", "sex")),
+                      c("age_group", "sex"),
+                      c("year"),
+                      c("year", "sex"),
+                      c("year", "sex", "age_group")),
         ageGroup = list( "18 to 49" = c(18, 49),
                          "50 to 59" = c(50, 59),
                          "60 to 69" = c(60, 69),
