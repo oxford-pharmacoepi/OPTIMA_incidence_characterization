@@ -634,3 +634,17 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,broa
 4278365,From orphan,Langerhans cell histiocytosis,Condition,SNOMED,standard,n,n,n,n,n
 4311499,From orphan,Primary malignant neoplasm of respiratory tract,Condition,SNOMED,standard,y,n,n,y,n
 4112739,From orphan,Oat cell carcinoma of lung,Condition,SNOMED,standard,n,n,y,n,n
+44499726,From orphan,"Squamous cell carcinoma, large cell, nonkeratinizing, NOS, of lung, NOS",Condition,ICDO3,standard,y,y,n,y,y
+44499794,From orphan,"Squamous cell carcinoma, large cell, nonkeratinizing, NOS, of upper lobe, lung",Condition,ICDO3,standard,y,y,n,y,y
+44500190,From orphan,"Squamous cell carcinoma, keratinizing, NOS, of lower lobe, lung",Condition,ICDO3,standard,y,y,n,y,y
+44500433,From orphan,"	Squamous cell carcinoma, large cell, nonkeratinizing, NOS, of main bronchus",Condition,ICDO3,standard,y,y,n,y,y
+44501188,From orphan,"	Squamous cell carcinoma, keratinizing, NOS, of main bronchus",Condition,ICDO3,standard,y,y,n,y,y
+44501707,From orphan,"Squamous cell carcinoma, keratinizing, NOS, of lung, NOS",Condition,ICDO3,standard,y,y,n,y,y
+44502921,From orphan,"Squamous cell carcinoma, keratinizing, NOS, of middle lobe, lung",Condition,ICDO3,standard,y,y,n,y,y
+44503136,From orphan,"Squamous cell carcinoma, keratinizing, NOS, of upper lobe, lung",Condition,ICDO3,standard,y,y,n,y,y
+44503138,From orphan,"Squamous cell carcinoma, large cell, nonkeratinizing, NOS, of lower lobe, lung",Condition,ICDO3,standard,y,y,n,y,y
+36520827,From orphan,"	Squamous cell carcinoma, large cell, nonkeratinizing, NOS, of overlapping lesion of lung",Condition,ICDO3,standard,y,y,n,y,y
+36547553,From orphan,"Tumor cells, malignant of upper lobe, lung",Condition,ICDO3,standard,y,y,n,y,y
+36564290,From orphan,"Tumor cells, malignant of lower lobe, lung",Condition,ICDO3,standard,y,y,n,y,y
+36568135,From orphan,"Tumor cells, malignant of main bronchus",Condition,ICDO3,standard,y,y,n,y,y
+36568204,From orphan,"Tumor cells, malignant of lung, NOS",Condition,ICDO3,standard,y,y,n,y,y
