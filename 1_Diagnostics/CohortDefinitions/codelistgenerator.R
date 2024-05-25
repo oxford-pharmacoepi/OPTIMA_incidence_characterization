@@ -137,182 +137,182 @@ write.csv(lungcancer_orphan_codes, here::here("preliminary_cohorts" ,
 
 # get codes for staging/grade
 
-#Stage 1
-stage1_codes <- getCandidateCodes(
-  cdm = cdm,
-  keywords = c("TNM stage 1",
-               "Stage 1"
-               ) ,
-  exclude = c("stage 2",
-              "Ann Arbor Stage",
-              "Eye fundus" ,
-              "Newborn",
-              "ISS Stage",
-              "ENSAT",
-              "Evans" ,
-              "Enneking",
-              "Lugano",
-              "FIGO", #
-              "Rai Stage" ,
-              "RISS Stage",
-              "Antibody detection",
-              "Node stage",
-              "retinoblastoma" ,
-              "WR stage",
-              "Stage M1" ,
-              "Stage D1" ,
-              "Durie/Salmon Stage 1" ,
-              "SEER Summary Stage",
-              "PRETEXT Stage" ,
-              "INRG Stage" ,
-              "COG Stage" ,
-              "Clotting",
-              "INSS" ,
-              "Masaoka_Koga Stage 1" ,
-              "Antibody identification" ,
-              "stage 3",
-              "stage 4") ,
-  domains = "Measurement")
-
-write.csv(stage1_codes, here::here("preliminary_cohorts" ,
-                                              paste0(cdmName(cdm), "_stage1_codes.csv")), row.names = FALSE)
-
-
-#Stage 2
-stage2_codes <- getCandidateCodes(
-  cdm = cdm,
-  keywords = c("TNM stage 2",
-               "Stage 2"
-  ) ,
-  exclude = c("stage 1",
-              "Ann Arbor Stage",
-              "Masaoka_Koga Stage 2a",
-              "Masaoka_Koga Stage 2",
-              "Durie/Salmon Stage 2",
-              "Masaoka_Koga Stage 2b",
-              "Coagulation factor VIII",
-              "Antibody identification",
-              "Eye fundus" ,
-              "Newborn",
-              "ISS Stage",
-              "ENSAT",
-              "Evans" ,
-              "Enneking",
-              "Lugano",
-              "FIGO", #
-              "Rai Stage" ,
-              "RISS Stage",
-              "Antibody detection",
-              "Node stage",
-              "retinoblastoma" ,
-              "WR stage",
-              "Stage M1" ,
-              "Stage D1" ,
-              "Durie/Salmon" ,
-              "SEER Summary Stage",
-              "PRETEXT Stage" ,
-              "INRG Stage" ,
-              "COG Stage" ,
-              "Clotting",
-              "INSS" ,
-              "Masaoka_Koga" ,
-              "stage 3",
-              "stage 4") ,
-  domains = "Measurement")
-
-write.csv(stage2_codes, here::here("preliminary_cohorts" ,
-                                              paste0(cdmName(cdm), "_stage2_codes.csv")), row.names = FALSE)
-
-#Stage 3
-stage3_codes <- getCandidateCodes(
-  cdm = cdm,
-  keywords = c("TNM stage 3",
-               "Stage 3"
-  ) ,
-  exclude = c("stage 2",
-              "stage 1",
-              "Ann Arbor Stage",
-              "Eye fundus" ,
-              "Newborn",
-              "ISS Stage",
-              "ENSAT",
-              "Evans" ,
-              "Enneking",
-              "Lugano",
-              "FIGO",
-              "Rai Stage" ,
-              "RISS Stage",
-              "Antibody detection",
-              "Node stage",
-              "retinoblastoma" ,
-              "WR stage",
-              "Stage M1" ,
-              "Stage D1" ,
-              "Durie/Salmon" ,
-              "SEER Summary Stage",
-              "PRETEXT Stage" ,
-              "INRG Stage" ,
-              "COG Stage" ,
-              "Clotting",
-              "INSS" ,
-              "Durie/Salmon Stage 3",
-              "Masaoka_Koga Stage 3",
-              "stage 4") ,
-  domains = "Measurement")
-
-write.csv(stage3_codes, here::here("preliminary_cohorts" ,
-                                              paste0(cdmName(cdm), "_stage3_codes.csv")), row.names = FALSE)
-
-#Stage 4
-stage4_codes <- getCandidateCodes(
-  cdm = cdm,
-  keywords = c("TNM stage 4",
-               "Stage 4",
-               "Stage M1" ,
-               "Stage D1",
-               "Metastasis"
-  ) ,
-  exclude = c("stage 2",
-              "stage 1",
-              "Ann Arbor Stage",
-              "Eye fundus" ,
-              "Newborn",
-              "ISS Stage",
-              "ENSAT",
-              "Evans" ,
-              "Enneking",
-              "Lugano",
-              "FIGO", #
-              "Rai Stage" ,
-              "RISS Stage",
-              "Antibody detection",
-              "Node stage",
-              "retinoblastoma" ,
-              "WR stage",
-              "SEER Summary Stage",
-              "PRETEXT Stage" ,
-              "INRG Stage" ,
-              "COG Stage" ,
-              "Clotting",
-              "INSS" ,
-              "Masaoka_Koga Stage 4" ,
-              "Masaoka_Koga Stage 4a",
-              "Site of distant metastasis in Breast tumor",
-              "Collaborative staging metastasis evaluation Cancer",
-              "Tumor size, largest metastasis, additional dimension",
-              "Circulating tumor cell test",
-              "Circulating tumor cells",
-              "Malignant pleural effusion",
-              "Malignant ascites" ,
-              "KISS1",
-              "MTA1 ",
-              "MTA3",
-              "stage 3") ,
-  domains = "Measurement")
-
-write.csv(stage4_codes, here::here("preliminary_cohorts" ,
-                                              paste0(cdmName(cdm), "_stage4_codes.csv")), row.names = FALSE)
-
+# #Stage 1
+# stage1_codes <- getCandidateCodes(
+#   cdm = cdm,
+#   keywords = c("TNM stage 1",
+#                "Stage 1"
+#                ) ,
+#   exclude = c("stage 2",
+#               "Ann Arbor Stage",
+#               "Eye fundus" ,
+#               "Newborn",
+#               "ISS Stage",
+#               "ENSAT",
+#               "Evans" ,
+#               "Enneking",
+#               "Lugano",
+#               "FIGO", #
+#               "Rai Stage" ,
+#               "RISS Stage",
+#               "Antibody detection",
+#               "Node stage",
+#               "retinoblastoma" ,
+#               "WR stage",
+#               "Stage M1" ,
+#               "Stage D1" ,
+#               "Durie/Salmon Stage 1" ,
+#               "SEER Summary Stage",
+#               "PRETEXT Stage" ,
+#               "INRG Stage" ,
+#               "COG Stage" ,
+#               "Clotting",
+#               "INSS" ,
+#               "Masaoka_Koga Stage 1" ,
+#               "Antibody identification" ,
+#               "stage 3",
+#               "stage 4") ,
+#   domains = "Measurement")
+#
+# write.csv(stage1_codes, here::here("preliminary_cohorts" ,
+#                                               paste0(cdmName(cdm), "_stage1_codes.csv")), row.names = FALSE)
+#
+#
+# #Stage 2
+# stage2_codes <- getCandidateCodes(
+#   cdm = cdm,
+#   keywords = c("TNM stage 2",
+#                "Stage 2"
+#   ) ,
+#   exclude = c("stage 1",
+#               "Ann Arbor Stage",
+#               "Masaoka_Koga Stage 2a",
+#               "Masaoka_Koga Stage 2",
+#               "Durie/Salmon Stage 2",
+#               "Masaoka_Koga Stage 2b",
+#               "Coagulation factor VIII",
+#               "Antibody identification",
+#               "Eye fundus" ,
+#               "Newborn",
+#               "ISS Stage",
+#               "ENSAT",
+#               "Evans" ,
+#               "Enneking",
+#               "Lugano",
+#               "FIGO", #
+#               "Rai Stage" ,
+#               "RISS Stage",
+#               "Antibody detection",
+#               "Node stage",
+#               "retinoblastoma" ,
+#               "WR stage",
+#               "Stage M1" ,
+#               "Stage D1" ,
+#               "Durie/Salmon" ,
+#               "SEER Summary Stage",
+#               "PRETEXT Stage" ,
+#               "INRG Stage" ,
+#               "COG Stage" ,
+#               "Clotting",
+#               "INSS" ,
+#               "Masaoka_Koga" ,
+#               "stage 3",
+#               "stage 4") ,
+#   domains = "Measurement")
+#
+# write.csv(stage2_codes, here::here("preliminary_cohorts" ,
+#                                               paste0(cdmName(cdm), "_stage2_codes.csv")), row.names = FALSE)
+#
+# #Stage 3
+# stage3_codes <- getCandidateCodes(
+#   cdm = cdm,
+#   keywords = c("TNM stage 3",
+#                "Stage 3"
+#   ) ,
+#   exclude = c("stage 2",
+#               "stage 1",
+#               "Ann Arbor Stage",
+#               "Eye fundus" ,
+#               "Newborn",
+#               "ISS Stage",
+#               "ENSAT",
+#               "Evans" ,
+#               "Enneking",
+#               "Lugano",
+#               "FIGO",
+#               "Rai Stage" ,
+#               "RISS Stage",
+#               "Antibody detection",
+#               "Node stage",
+#               "retinoblastoma" ,
+#               "WR stage",
+#               "Stage M1" ,
+#               "Stage D1" ,
+#               "Durie/Salmon" ,
+#               "SEER Summary Stage",
+#               "PRETEXT Stage" ,
+#               "INRG Stage" ,
+#               "COG Stage" ,
+#               "Clotting",
+#               "INSS" ,
+#               "Durie/Salmon Stage 3",
+#               "Masaoka_Koga Stage 3",
+#               "stage 4") ,
+#   domains = "Measurement")
+#
+# write.csv(stage3_codes, here::here("preliminary_cohorts" ,
+#                                               paste0(cdmName(cdm), "_stage3_codes.csv")), row.names = FALSE)
+#
+# #Stage 4
+# stage4_codes <- getCandidateCodes(
+#   cdm = cdm,
+#   keywords = c("TNM stage 4",
+#                "Stage 4",
+#                "Stage M1" ,
+#                "Stage D1",
+#                "Metastasis"
+#   ) ,
+#   exclude = c("stage 2",
+#               "stage 1",
+#               "Ann Arbor Stage",
+#               "Eye fundus" ,
+#               "Newborn",
+#               "ISS Stage",
+#               "ENSAT",
+#               "Evans" ,
+#               "Enneking",
+#               "Lugano",
+#               "FIGO", #
+#               "Rai Stage" ,
+#               "RISS Stage",
+#               "Antibody detection",
+#               "Node stage",
+#               "retinoblastoma" ,
+#               "WR stage",
+#               "SEER Summary Stage",
+#               "PRETEXT Stage" ,
+#               "INRG Stage" ,
+#               "COG Stage" ,
+#               "Clotting",
+#               "INSS" ,
+#               "Masaoka_Koga Stage 4" ,
+#               "Masaoka_Koga Stage 4a",
+#               "Site of distant metastasis in Breast tumor",
+#               "Collaborative staging metastasis evaluation Cancer",
+#               "Tumor size, largest metastasis, additional dimension",
+#               "Circulating tumor cell test",
+#               "Circulating tumor cells",
+#               "Malignant pleural effusion",
+#               "Malignant ascites" ,
+#               "KISS1",
+#               "MTA1 ",
+#               "MTA3",
+#               "stage 3") ,
+#   domains = "Measurement")
+#
+# write.csv(stage4_codes, here::here("preliminary_cohorts" ,
+#                                               paste0(cdmName(cdm), "_stage4_codes.csv")), row.names = FALSE)
+#
 
 # #staging codes 1 NSCLC
 # stage1_nsclungcancer_codes <- getCandidateCodes(
@@ -520,23 +520,23 @@ write.csv(stage4_codes, here::here("preliminary_cohorts" ,
 
 # smoking related phenotypes
 
-smoking_codes <- getCandidateCodes(
-  cdm = cdm,
-  keywords = c("smoking",
-               "smoker",
-               "tobacco",
-               "pipe",
-               "cigar"
-  ) ,
-  #exclude = c("non smoker") ,
-  domains = c("condition", "observation", "measurement")
-)
-
-write.csv(smoking_codes, here::here("preliminary_cohorts" , "other_cancers",
-                                    paste0(cdmName(cdm), "_smokingBroad.csv")), row.names = FALSE)
-
-
-
+# smoking_codes <- getCandidateCodes(
+#   cdm = cdm,
+#   keywords = c("smoking",
+#                "smoker",
+#                "tobacco",
+#                "pipe",
+#                "cigar"
+#   ) ,
+#   #exclude = c("non smoker") ,
+#   domains = c("condition", "observation", "measurement")
+# )
+#
+# write.csv(smoking_codes, here::here("preliminary_cohorts" , "other_cancers",
+#                                     paste0(cdmName(cdm), "_smokingBroad.csv")), row.names = FALSE)
+#
+#
+#
 
 # Creating cohort files ------------
 
