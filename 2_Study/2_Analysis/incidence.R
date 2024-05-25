@@ -68,7 +68,7 @@ cli::cli_alert_info("- Carry out age standardization for incidence using europea
 # age standardization by european 13
 
 # read in ESP13 values
-ESP13 <- readr::read_csv(here("4_Age_standards", "ESP13.csv"), 
+ESP13 <- readr::read_csv(here("2_Analysis", "Age_standards", "ESP13.csv"), 
                          show_col_types = FALSE) 
 
 #collapse ESP13 
@@ -298,7 +298,7 @@ cli::cli_alert_info("- Age standardization for incidence using european standard
 cli::cli_alert_info("- Carry out age standardization for incidence using world standard population")
 # age standardization by world standard population
 # read in WSP2000_2025 values
-WSP2000_2025 <- readr::read_csv(here("4_Age_standards", "WSP_2000_2025.csv"), 
+WSP2000_2025 <- readr::read_csv(here("2_Analysis", "Age_standards", "WSP_2000_2025.csv"), 
                          show_col_types = FALSE) 
 
 WSP2000_2025$WSP2000_2025 <- WSP2000_2025$WSP2000_2025/ 10

@@ -32,7 +32,7 @@ if (instantiatedCohorts == TRUE) {
 } else {
 
 cli::cli_alert_info("- Cohort generation")
-source(here("2_Study", "1_InstantiateCohorts","InstantiateStudyCohorts.R"))
+source(here("1_InstantiateCohorts","InstantiateStudyCohorts.R"))
 cli::cli_alert_success("- Cohorts generated")
 
 }
@@ -41,7 +41,7 @@ cli::cli_alert_success("- Cohorts generated")
 if(isTRUE(run_incidence)){
   cli::cli_alert_info("- Running incidence")
   tryCatch({
-    source(here("2_Study", "2_Analysis", "incidence.R"))
+    source(here("2_Analysis", "incidence.R"))
   }, error = function(e) {
     writeLines(as.character(e),
                here("Results", paste0(db_name,
@@ -56,7 +56,7 @@ if(isTRUE(run_incidence)){
 if(isTRUE(run_prevalence)){
   cli::cli_alert_info("- Running prevalence")
   tryCatch({
-    source(here("2_Study", "2_Analysis", "prevalence.R"))
+    source(here("2_Analysis", "prevalence.R"))
   }, error = function(e) {
     writeLines(as.character(e),
                here("Results", paste0(db_name,
@@ -70,7 +70,7 @@ if(isTRUE(run_prevalence)){
 if(isTRUE(run_survival)){
   cli::cli_alert_info("- Running survival analysis")
   tryCatch({
-    source(here("2_Study", "2_Analysis", "survival.R"))
+    source(here("2_Analysis", "survival.R"))
   }, error = function(e) {
     writeLines(as.character(e),
                here("Results", paste0(db_name,
@@ -83,7 +83,7 @@ if(isTRUE(run_survival)){
 if(isTRUE(run_characterisation)){
 cli::cli_alert_info("- Running Characterisation")
   tryCatch({
-    source(here("2_Study", "2_Analysis", "characterisation.R"))
+    source(here("2_Analysis", "characterisation.R"))
   }, error = function(e) {
     writeLines(as.character(e),
                here("Results", paste0(db_name,

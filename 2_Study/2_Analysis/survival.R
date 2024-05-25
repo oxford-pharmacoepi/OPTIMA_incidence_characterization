@@ -4,22 +4,39 @@ cli::cli_alert_info("- Getting participants for survival")
   
 if(isTRUE(run_incidence)){
   
-# get participants from incidence analysis to feed into survival analysis
-cdm$outcome_participants <- participants(inc_overall_parts, 1) %>% 
-  select("subject_id", "outcome_start_date") %>% 
-  filter(!is.na(outcome_start_date)) %>% 
-  rename("cohort_start_date" = "outcome_start_date") %>% 
-  compute(name = "outcome_participants")
+  # get participants from incidence analysis
+  # make a list to put each set of participants
+  pops <- list()
+  
+  # loop over each outcome pulling out the participants
+  for (i in 1:nrow(inc_overall_parts)){
+    
+    #extract the participants for each cancer
+    pops[[i]] <- participants(inc_overall_parts, as.numeric(inc_overall_parts$analysis_id[i])) %>% 
+      select("subject_id", "outcome_start_date", "cohort_end_date") %>%
+      filter(!is.na(outcome_start_date)) %>% 
+      collect()
+    
+    pops[[i]] <- pops[[i]]  %>% 
+      mutate(cohort_definition_id = inc_overall_parts$outcome_cohort_id[i]) %>%
+      mutate(cohort_name = inc_overall_parts$outcome_cohort_name[i]) %>%
+      rename(cohort_start_date = outcome_start_date) %>%
+      collect()
+    
+  }  
+  
+  #bind the participants for all outcomes
+  pops_all <- bind_rows(pops) 
+  
+  #create a new cdm ref object of participants
+  cdm <- insertTable(cdm = cdm, name = "outcome_participants", table = pops_all, overwrite = TRUE)
+  
+  #create new cohort table
+  cdm$outcome_participants <- newCohortTable(table = cdm$outcome_participants,
+                                             cohortSetRef = tibble(cancer_concepts_inc[,c(1,2)])
+  )
 
-# filter out participants not present in this and record in attrition
-cdm$outcome <- cdm$outcome %>% 
-  dplyr::right_join(cdm$outcome_participants %>%
-                      select("subject_id") %>% 
-                      distinct(),
-                    by = c("subject_id")) %>%
-  dplyr::compute()
-
-cdm$outcome <- cdm$outcome %>% 
+cdm$outcome <- cdm$outcome_participants %>% 
   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   recordCohortAttrition(reason="Excluding cases from excluded from incidence analysis")
 
@@ -47,9 +64,9 @@ cdm$outcome <- cdm$outcome %>%
 
 
 # remove people with any history of cancer (apart from skin cancer) -------
-codelistExclusion <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
+codelistExclusion <- CodelistGenerator::codesFromConceptSet(here::here("1_InstantiateCohorts", "Exclusion"), cdm)
 # get codelists for cancers in question
-cancer_codes_inc <- CodelistGenerator::codesFromCohort(here::here("2_Study" ,  "1_InstantiateCohorts", "Cohorts", "incidence"), cdm)
+cancer_codes_inc <- CodelistGenerator::codesFromCohort(here::here("1_InstantiateCohorts", "Cohorts", "incidence"), cdm)
 
 # add cancer concepts to exclusion concepts to make sure we capture all exclusions
 codelistExclusion <- list(unique(Reduce(union_all, c(cancer_codes_inc, codelistExclusion))))
@@ -83,7 +100,7 @@ cdm$outcome <- cdm$outcome %>%
 
 # remove any patients with other cancers on same date not in our list of cancers -----
 # get the any malignancy codelist
-codelistExclusion1 <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
+codelistExclusion1 <- CodelistGenerator::codesFromConceptSet(here::here("1_InstantiateCohorts", "Exclusion"), cdm)
 
 # merge all concepts for all cancers together
 codes2remove <- list(unique(Reduce(union_all, c(cancer_codes_inc))))
@@ -196,9 +213,9 @@ cdm$outcome <- CDMConnector::recordCohortAttrition(cohort = cdm$outcome,
 
 
 # remove people with any history of cancer (apart from skin cancer) -------
-codelistExclusion <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
+codelistExclusion <- CodelistGenerator::codesFromConceptSet(here::here("1_InstantiateCohorts", "Exclusion"), cdm)
 # get codelists for cancers in question
-cancer_codes_inc <- CodelistGenerator::codesFromCohort(here::here("2_Study" ,  "1_InstantiateCohorts", "Cohorts", "incidence"), cdm)
+cancer_codes_inc <- CodelistGenerator::codesFromCohort(here::here("1_InstantiateCohorts", "Cohorts", "incidence"), cdm)
 # add cancer concepts to exclusion concepts to make sure we capture all exclusions
 codelistExclusion <- list(unique(Reduce(union_all, c(cancer_codes_inc, codelistExclusion))))
 
@@ -232,7 +249,7 @@ cdm$outcome <- cdm$outcome %>%
 
 # remove any patients with other cancers on same date not in our list of cancers -----
 # get the any malignancy codelist
-codelistExclusion1 <- CodelistGenerator::codesFromConceptSet(here::here("2_Study" ,  "1_InstantiateCohorts", "Exclusion"), cdm)
+codelistExclusion1 <- CodelistGenerator::codesFromConceptSet(here::here("1_InstantiateCohorts", "Exclusion"), cdm)
 
 # merge all concepts for all cancers together
 codes2remove <- list(unique(Reduce(union_all, c(cancer_codes_inc))))

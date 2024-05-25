@@ -116,7 +116,7 @@ cli::cli_alert_success("Summarising Demographics Complete")
 # comorbidities --------
 cli::cli_alert_info("Instantiating Comorbidities")
 
-codelistConditions <- CodelistGenerator::codesFromConceptSet(here("2_Study", "1_InstantiateCohorts", "Conditions"), cdm)
+codelistConditions <- CodelistGenerator::codesFromConceptSet(here("1_InstantiateCohorts", "Conditions"), cdm)
 
 cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm, 
                                               conceptSet = codelistConditions,
@@ -234,7 +234,7 @@ cli::cli_alert_success("Summarising Comorbidities Complete")
 cli::cli_alert_info("Summarising Medications")
 
 # instantiate medications
-codelistMedications <- CodelistGenerator::codesFromConceptSet(here("2_Study" ,"1_InstantiateCohorts", "Medications"), cdm)
+codelistMedications <- CodelistGenerator::codesFromConceptSet(here("1_InstantiateCohorts", "Medications"), cdm)
 
 cdm <- DrugUtilisation::generateDrugUtilisationCohortSet(cdm = cdm, 
                                                          conceptSet = codelistMedications, 
