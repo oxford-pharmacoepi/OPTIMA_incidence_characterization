@@ -1,4 +1,9 @@
-
+CodeToRunLocal.R
+.Rproj.user*
 .Rhistory
-/.Rproj.user
+Results*
+.Rprofile
+.Rproj.user
+3_Reporting\data*
+/3_Reporting/data
 1_Diagnostics/PhenotypeRShiny/rsconnect/shinyapps.io/dpa-pde-oxford/PhenotypeR_OPTIMA_lung_cancer.dcf
