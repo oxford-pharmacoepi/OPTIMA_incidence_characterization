@@ -8,6 +8,7 @@
 /Cohorts/*.csv
 /Phoebe/*.csv
 /renv/.gitignore
+CodeToRunLocal.R
 Results/*
   *.rda
 *.dcf
