@@ -101,6 +101,51 @@ cli::cli_alert_info("Summarising Demographics")
   }
   
   
+  if(isFALSE(run_survival) & isFALSE(run_incidence)
+     & isFALSE(run_prevalence) & isTRUE(run_characterisation)){  
+      
+      # remove people outside the study period
+      cdm$outcome <- cdm$outcome %>%
+        dplyr::filter(cohort_start_date >= as.Date(study_start)) %>% 
+        dplyr::filter(cohort_start_date <= as.Date("2023-01-01"))
+      
+      # make outcome a perm table and update the attrition
+      cdm$outcome <- cdm$outcome %>% 
+        compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+        recordCohortAttrition(reason="Exclude patients outside study period")
+      
+      # add demographics
+      cdm$outcome <- cdm$outcome %>% 
+        PatientProfiles::addDemographics(
+          ageGroup = list(
+            "age_group" =
+              list(
+                "18 to 49" = c(18, 49),
+                "50 to 39" = c(50, 59),
+                "60 to 59" = c(60, 69),
+                "70 to 79" = c(70, 79),
+                "80 +" = c(80, 150)
+              )
+          )) %>% 
+        mutate(year = year(cohort_start_date))
+      
+suppressWarnings(
+      summaryDemographics <- cdm$outcome %>%
+        CohortCharacteristics::summariseCharacteristics(
+          strata = list(c("sex"),
+                        c("age_group"),
+                        c("age_group", "sex")),
+          ageGroup = list( "18 to 49" = c(18, 49),
+                           "50 to 59" = c(50, 59),
+                           "60 to 69" = c(60, 69),
+                           "70 to 79" = c(70, 79),
+                           "80 +" = c(80, 150))
+        )
+      )
+      
+    }
+  
+  
   
 cli::cli_alert_info("Exporting demographics characteristics results")
 
@@ -130,34 +175,34 @@ if(isFALSE(run_survival) & isTRUE(run_incidence) |
    isFALSE(run_survival) & isFALSE(run_incidence)
    & isFALSE(run_prevalence) & isTRUE(run_characterisation)){  
   
-  if(isFALSE(run_survival) & isFALSE(run_incidence)
-     & isFALSE(run_prevalence) & isTRUE(run_characterisation)){
-    
-    # remove people outside the study period
-  cdm$outcome <- cdm$outcome %>%
-    dplyr::filter(cohort_start_date >= as.Date(study_start)) %>% 
-    dplyr::filter(cohort_start_date <= as.Date("2023-01-01"))
+  # if(isFALSE(run_survival) & isFALSE(run_incidence)
+  #    & isFALSE(run_prevalence) & isTRUE(run_characterisation)){
+  #   
+  #   # remove people outside the study period
+  # cdm$outcome <- cdm$outcome %>%
+  #   dplyr::filter(cohort_start_date >= as.Date(study_start)) %>% 
+  #   dplyr::filter(cohort_start_date <= as.Date("2023-01-01"))
+  # 
+  # # make outcome a perm table and update the attrition
+  # cdm$outcome <- cdm$outcome %>% 
+  #   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+  #   recordCohortAttrition(reason="Exclude patients outside study period")
+  # 
+  # }
   
-  # make outcome a perm table and update the attrition
-  cdm$outcome <- cdm$outcome %>% 
-    compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
-    recordCohortAttrition(reason="Exclude patients outside study period")
-  
-  }
-  
-  cdm$outcome <- cdm$outcome %>% 
-    PatientProfiles::addDemographics(
-      ageGroup = list(
-        "age_group" =
-          list(
-            "18 to 49" = c(18, 49),
-            "50 to 39" = c(50, 59),
-            "60 to 59" = c(60, 69),
-            "70 to 79" = c(70, 79),
-            "80 +" = c(80, 150)
-          )
-      )) %>% 
-    mutate(year = year(cohort_start_date))
+  # cdm$outcome <- cdm$outcome %>% 
+  #   PatientProfiles::addDemographics(
+  #     ageGroup = list(
+  #       "age_group" =
+  #         list(
+  #           "18 to 49" = c(18, 49),
+  #           "50 to 39" = c(50, 59),
+  #           "60 to 59" = c(60, 69),
+  #           "70 to 79" = c(70, 79),
+  #           "80 +" = c(80, 150)
+  #         )
+  #     )) %>% 
+  #   mutate(year = year(cohort_start_date))
   
   suppressWarnings(
     
