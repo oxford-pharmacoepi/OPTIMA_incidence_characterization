@@ -130,6 +130,21 @@ if(isFALSE(run_survival) & isTRUE(run_incidence) |
    isFALSE(run_survival) & isFALSE(run_incidence)
    & isFALSE(run_prevalence) & isTRUE(run_characterisation)){  
   
+  if(isFALSE(run_survival) & isFALSE(run_incidence)
+     & isFALSE(run_prevalence) & isTRUE(run_characterisation)){
+    
+    # remove people outside the study period
+  cdm$outcome <- cdm$outcome %>%
+    dplyr::filter(cohort_start_date >= as.Date(study_start)) %>% 
+    dplyr::filter(cohort_start_date <= as.Date("2023-01-01"))
+  
+  # make outcome a perm table and update the attrition
+  cdm$outcome <- cdm$outcome %>% 
+    compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+    recordCohortAttrition(reason="Exclude patients outside study period")
+  
+  }
+  
   cdm$outcome <- cdm$outcome %>% 
     PatientProfiles::addDemographics(
       ageGroup = list(
