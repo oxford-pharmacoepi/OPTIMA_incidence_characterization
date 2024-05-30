@@ -378,6 +378,8 @@ data$lsc_table <- data$lsc_matched %>%
     difference_integer, difference_percentage
   )
 
+cohort_set <- data$cohort_definitions
+
 # Shiny theme ----
 DUtheme <- create_theme(
   adminlte_color(
