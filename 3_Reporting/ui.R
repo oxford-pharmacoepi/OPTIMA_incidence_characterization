@@ -1468,7 +1468,7 @@ ui <- dashboardPage(
           div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
           div(
             style = "display: inline-block;",
-            textInput("incidence_download_widthstd", "", 35, width = "50px")
+            textInput("incidence_download_widthstd", "", 55, width = "50px")
           ),
           div("cm", style = "display: inline-block; margin-right: 25px;"),
           div("dpi:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
@@ -1476,7 +1476,7 @@ ui <- dashboardPage(
             style = "display: inline-block; margin-right:",
             textInput("incidence_download_dpistd", "", 600, width = "50px")
           ),
-          downloadButton("incidence_download_plotstd", "Download plot")
+          downloadButton("incidence_download_plot_std", "Download plot")
         )
         
         

@@ -199,7 +199,20 @@ for(i in seq_along(incidence_estimates_files)){
 
 
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))  %>% 
+  mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer",
+    TRUE ~ outcome_cohort_name
+  )) %>% 
+  mutate(cdm_name = case_when(
+    cdm_name == "THIN es" ~ "THIN Spain",
+    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN fr" ~ "THIN France",
+    cdm_name == "THIN it" ~ "THIN Italy",
+    cdm_name == "THIN ro" ~ "THIN Romania",
+    cdm_name == "THIN uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  )) 
 
 
 # perform a filter to remove data with no values ie small cell lung cancer
@@ -214,7 +227,11 @@ remove_outcomes <- incidence_estimates %>%
 
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
   filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) 
+
+
+
+
 
 # age standardized incidence estimates -----
 incidence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
@@ -230,7 +247,16 @@ for(i in seq_along(incidence_estimates_files_std)){
 
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
   filter(!(outcome_cohort_name %in% remove_outcomes) ) %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  mutate(cdm_name = case_when(
+    cdm_name == "THIN es" ~ "THIN Spain",
+    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN fr" ~ "THIN France",
+    cdm_name == "THIN it" ~ "THIN Italy",
+    cdm_name == "THIN ro" ~ "THIN Romania",
+    cdm_name == "THIN uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  )) 
 
 # incidence attrition -----
 incidence_attrition_files<-results[stringr::str_detect(results, ".csv")]

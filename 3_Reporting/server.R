@@ -1068,10 +1068,11 @@ server <-	function(input, output, session) {
                             ymax = "incidence_100000_pys_95CI_upper",
                             group = "Group",
                             colour = "Group", fill = "Group")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_line(size = 0.5, colour = "black") +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
           geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
-                      alpha = 0.1) + 
-          geom_line(size = 0.25) +
+                      alpha = 0.1,colour = NA) + 
+
           labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
           facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
           scale_y_continuous(limits = c(0, NA)) +
@@ -1081,7 +1082,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15))
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30))
 
         
       } else if (!is.null(input$incidence_plot_group) && is.null(input$incidence_plot_facet)) {
@@ -1591,12 +1594,14 @@ server <-	function(input, output, session) {
                           ymax = "incidence_100000_pys_95CI_upper",
                           group = "Group",
                           colour = "Group", fill = "Group")) +
-        geom_point(position=position_dodge(width=1))+
+        
+        geom_line(size = 0.5, colour = "black") +
+        geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
         geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
-                    alpha = 0.1) + 
-        geom_line(size = 0.25) +
+                    alpha = 0.1, colour = NA) + 
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
-        facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
+        #facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
+        facet_wrap(vars(facet_var),ncol = 3)+
         scale_y_continuous(limits = c(0, NA)) +
         theme(axis.text.x = element_text(angle = 45, hjust=1),
               panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
@@ -1604,7 +1609,9 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              text = element_text(size = 15))
+              strip.text.x = element_text(face = "bold", size = 30),
+              legend.key = element_rect(fill = "white"),
+              text = element_text(size = 30))
       
       
     } else if (!is.null(input$incidence_plot_group_std) && is.null(input$incidence_plot_facet_std)) {
