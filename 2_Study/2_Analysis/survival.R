@@ -55,13 +55,31 @@ cdm$outcome <- cdm$outcome %>%
     )) %>% 
   mutate(year = year(cohort_start_date))
 
-# create diagnosis age band groups
-cdm$outcome <- cdm$outcome %>%
-  mutate(diag_yr_gp = cut(year,
-                        breaks = c(2003, 2007, 2011, 2015, 2019, 2024),
-                        labels = c("2003-2006", "2007-2010", "2011-2014", "2015-2018", "2019-2023"),
-                        include.lowest = TRUE))
 
+# create diagnosis age band groups
+cdm$outcome <- cdm$outcome %>% 
+  PatientProfiles::addCategories(
+    variable = "cohort_start_date",
+    categories = list("diag_yr_gp" = list(
+      "2003 to 2006" = as.Date(c("2003-01-01", "2006-12-31")),
+      "2007 to 2010" = as.Date(c("2007-01-01", "2010-12-31")),
+      "2011 to 2014" = as.Date(c("2011-01-01", "2014-12-31")),
+      "2015 to 2018" = as.Date(c("2015-01-01", "2018-12-31")),
+      "2019 to 2022" = as.Date(c("2019-01-01", "2023-01-01"))
+    )
+    )
+  )
+
+# rename categories
+cdm$outcome <- cdm$outcome %>% 
+  mutate(diag_yr_gp = case_when(
+    grepl("^2003-01-01 to 2003-01-01$", diag_yr_gp) ~ "2003-2006",
+    grepl("^2007-01-01 to 2007-01-01$", diag_yr_gp) ~ "2007-2010",
+    grepl("^2011-01-01 to 2011-01-01$", diag_yr_gp) ~ "2011-2014",
+    grepl("^2015-01-01 to 2015-01-01$", diag_yr_gp) ~ "2015-2018",
+    grepl("^2019-01-01 to 2019-01-01$", diag_yr_gp) ~ "2019-2022",
+    TRUE ~ diag_yr_gp  # Keep the original value if it doesn't match the specific pattern
+  ))
 
 # remove people with any history of cancer (apart from skin cancer) -------
 codelistExclusion <- CodelistGenerator::codesFromConceptSet(here::here("1_InstantiateCohorts", "Exclusion"), cdm)
@@ -169,8 +187,8 @@ cdm$outcome <- cdm$outcome %>%
                             "age_group" =
                               list(
                                 "18 to 49" = c(18, 49),
-                                "50 to 39" = c(50, 59),
-                                "60 to 59" = c(60, 69),
+                                "50 to 59" = c(50, 59),
+                                "60 to 69" = c(60, 69),
                                 "70 to 79" = c(70, 79),
                                 "80+" = c(80, 150)
                               )
@@ -178,17 +196,34 @@ cdm$outcome <- cdm$outcome %>%
   mutate(year = year(cohort_start_date))
   
 # create diagnosis age band groups
-cdm$outcome <- cdm$outcome %>%
-  mutate(diag_yr_gp = cut(year,
-                          breaks = c(2003, 2007, 2011, 2015, 2019, 2024),
-                          labels = c("2003-2006", "2007-2010", "2011-2014", "2015-2018", "2019-2023"),
-                          include.lowest = TRUE))
+cdm$outcome <- cdm$outcome %>% 
+  PatientProfiles::addCategories(
+    variable = "cohort_start_date",
+    categories = list("diag_yr_gp" = list(
+      "2003 to 2006" = as.Date(c("2003-01-01", "2006-12-31")),
+      "2007 to 2010" = as.Date(c("2007-01-01", "2010-12-31")),
+      "2011 to 2014" = as.Date(c("2011-01-01", "2014-12-31")),
+      "2015 to 2018" = as.Date(c("2015-01-01", "2018-12-31")),
+      "2019 to 2022" = as.Date(c("2019-01-01", "2023-01-01"))
+    )
+    )
+  )
+
+# rename categories
+cdm$outcome <- cdm$outcome %>% 
+  mutate(diag_yr_gp = case_when(
+    grepl("^2003-01-01 to 2003-01-01$", diag_yr_gp) ~ "2003-2006",
+    grepl("^2007-01-01 to 2007-01-01$", diag_yr_gp) ~ "2007-2010",
+    grepl("^2011-01-01 to 2011-01-01$", diag_yr_gp) ~ "2011-2014",
+    grepl("^2015-01-01 to 2015-01-01$", diag_yr_gp) ~ "2015-2018",
+    grepl("^2019-01-01 to 2019-01-01$", diag_yr_gp) ~ "2019-2022",
+    TRUE ~ diag_yr_gp  # Keep the original value if it doesn't match the specific pattern
+  ))
 
 
 # remove those outside the study period ------
 cdm$outcome <- cdm$outcome %>%
-  dplyr::filter(!is.na(diag_yr_gp)) %>% 
-  dplyr::filter(cohort_start_date <= as.Date("2023-01-01"))
+  dplyr::filter(diag_yr_gp != "None") 
 
 # make outcome a perm table and update the attrition
 cdm$outcome <- cdm$outcome %>% 
