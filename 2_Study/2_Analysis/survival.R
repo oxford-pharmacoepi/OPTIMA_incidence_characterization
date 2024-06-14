@@ -351,6 +351,7 @@ cdm <- cdmSubsetCohort(cdm, cohortTable = "outcome")
 if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   # generate death cohort ----
   cli::cli_alert_info("Generating death cohort")
+  
   cdm <- generateDeathCohortSet(cdm = cdm,
                                 name = "cancer_death")
   # estimate survival ----
@@ -374,16 +375,12 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                       c("diag_yr_gp", "sex")),
                                         eventGap = c(365) ,
                                         estimateGap = c(1) ,
-                                        restrictedMeanFollowUp = NULL,
+                                        restrictedMeanFollowUp = 1825,
                                         minimumSurvivalDays = 1,
                                         minCellCount = 5,
                                         returnParticipants = FALSE) )
   
-  
- 
- 
 
-  
   # Analysis 2 
   # follow up not truncated and not carrying out stratification by diagnosis year
   # also includes restricted mean survival
@@ -448,7 +445,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                        path = here("Results",db_name))  
   
   # n events n risk for study
-  readr::write_csv(attr(surv1 %>% asSurvivalResult(), "events"), paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_events_analysis2.csv")))
+  readr::write_csv(attr(surv1 %>% asSurvivalResult(), c("events","risk")), paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_events_analysis2.csv")))
   
 
   # export survival summary ----
