@@ -375,7 +375,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                                       c("diag_yr_gp", "sex")),
                                         eventGap = c(365) ,
                                         estimateGap = c(1) ,
-                                        restrictedMeanFollowUp = 1825,
+                                        restrictedMeanFollowUp = NULL,
                                         minimumSurvivalDays = 1,
                                         minCellCount = 5,
                                         returnParticipants = FALSE) )
