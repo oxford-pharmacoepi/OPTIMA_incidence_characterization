@@ -345,12 +345,13 @@ for(i in seq_along(survival_estimates_files)){
 
 survival_estimates <- dplyr::bind_rows(survival_estimates) %>% 
   omopgenerics::newSummarisedResult() %>% 
+  filter(variable_name != "settings",
+         variable_name == "survival_probability") %>% 
   visOmopResults::splitAll(
     keep = TRUE,
     fill = "overall") %>%
   mutate(time = as.numeric(time)) %>%
   pivot_wider(names_from = estimate_name, values_from = estimate_value) 
-
 
 # # works
 # plotSurvival(survival_estimates)
