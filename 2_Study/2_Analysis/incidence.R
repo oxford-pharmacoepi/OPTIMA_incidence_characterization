@@ -21,14 +21,16 @@ cdm <- generateDenominatorCohortSet(
 )
 
 # add year of birth onto denominator
-cdm$denominator <- cdm$denominator %>% 
+cdm$denominator <- cdm$denominator %>%
   dplyr::left_join(cdm$person %>%
                      select("person_id",  "year_of_birth") %>%
                      distinct(),
                    by = c("subject_id"= "person_id"))
+# patient profiles add birth year
+#addDateOfBirth()
 
 # create groups based on year of birth
-cdm$denominator <- cdm$denominator %>% 
+cdm$denominator <- cdm$denominator %>%
   PatientProfiles::addCategories(
     variable = "year_of_birth",
     categories = list("birth_year_group" = list(
@@ -58,8 +60,8 @@ cdm$denominator <- cdm$denominator %>%
       "2004 to 2008" = c(2004, 2008),
       "2009 to 2013" = c(2009, 2013),
       "2014 to 2018" = c(2014, 2018),
-      "2019 to 2023" = c(2019, 2023)                            
-      
+      "2019 to 2023" = c(2019, 2023)
+
     )
     )
   )
@@ -98,14 +100,14 @@ cdm <- generateDenominatorCohortSet(
 )
 
 # add year of birth onto denominator
-cdm$denominator_parts <- cdm$denominator_parts %>% 
+cdm$denominator_parts <- cdm$denominator_parts %>%
   dplyr::left_join(cdm$person %>%
                      select("person_id",  "year_of_birth") %>%
                      distinct(),
                    by = c("subject_id"= "person_id"))
 
 # create groups based on year of birth
-cdm$denominator_parts <- cdm$denominator_parts %>% 
+cdm$denominator_parts <- cdm$denominator_parts %>%
   PatientProfiles::addCategories(
     variable = "year_of_birth",
     categories = list("birth_year_group" = list(
@@ -135,8 +137,8 @@ cdm$denominator_parts <- cdm$denominator_parts %>%
       "2004 to 2008" = c(2004, 2008),
       "2009 to 2013" = c(2009, 2013),
       "2014 to 2018" = c(2014, 2018),
-      "2019 to 2023" = c(2019, 2023)                            
-      
+      "2019 to 2023" = c(2019, 2023)
+
     )
     )
   )
@@ -151,6 +153,7 @@ inc_overall_parts <- estimateIncidence(
   repeatedEvents = FALSE,
   completeDatabaseIntervals = TRUE,
   minCellCount = 0,
+  strata = list("birth_year_group") ,
   returnParticipants = TRUE
 )
 
@@ -158,29 +161,29 @@ cli::cli_alert_info("- Carry out age standardization for incidence using europea
 # age standardization by european 13
 
 # read in ESP13 values
-ESP13 <- readr::read_csv(here("2_Analysis", "Age_standards", "ESP13.csv"), 
-                         show_col_types = FALSE) 
+ESP13 <- readr::read_csv(here("2_Analysis", "Age_standards", "ESP13.csv"),
+                         show_col_types = FALSE)
 
-#collapse ESP13 
-ESP13_updated <- ESP13 %>% 
+#collapse ESP13
+ESP13_updated <- ESP13 %>%
   filter(Agegroup != "0-4",
          Agegroup != "5-9",
          Agegroup != "10-14",
-         Agegroup != "15-19" ) %>% 
+         Agegroup != "15-19" ) %>%
   add_row(Agegroup = "18 to 49", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '20-24'| Agegroup == '25-29' |
                                                                      Agegroup == '30-34' | Agegroup == '35-39' |
                                                                      Agegroup == '35-39' | Agegroup == '40-44' |
-                                                                     Agegroup == '45-49']))) %>% 
-  add_row(Agegroup = "50 to 59", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '50-54'| Agegroup == '55-59']))) %>% 
-  add_row(Agegroup = "60 to 69", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '60-64'| Agegroup == '65-69']))) %>% 
-  add_row(Agegroup = "70 to 79", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '70-74'| Agegroup == '75-79']))) %>% 
-  add_row(Agegroup = "80 to 150", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '80-84'| Agegroup == '85-89'|Agegroup == '90+']))) %>% 
+                                                                     Agegroup == '45-49']))) %>%
+  add_row(Agegroup = "50 to 59", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '50-54'| Agegroup == '55-59']))) %>%
+  add_row(Agegroup = "60 to 69", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '60-64'| Agegroup == '65-69']))) %>%
+  add_row(Agegroup = "70 to 79", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '70-74'| Agegroup == '75-79']))) %>%
+  add_row(Agegroup = "80 to 150", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '80-84'| Agegroup == '85-89'|Agegroup == '90+']))) %>%
   filter(Agegroup == "18 to 49" | Agegroup == "50 to 59" | Agegroup == "60 to 69" |
            Agegroup == "70 to 79" |
-           Agegroup == "80 to 150" ) 
+           Agegroup == "80 to 150" )
 
 #rename ESP column to pop (needs to be pop otherwise will not work)
-ESP13_updated <- ESP13_updated %>% 
+ESP13_updated <- ESP13_updated %>%
   rename(pop = ESP2013,
          denominator_age_group = Agegroup)
 
@@ -189,44 +192,44 @@ ESP13_updated <- ESP13_updated %>%
 agestandardizedinc <- list()
 
 # filter out to only include rates
-inc_std <- inc %>% 
+inc_std <- inc %>%
   filter(denominator_age_group != "18 to 150",
          denominator_sex == "Both",
          strata_name == "Overall" ,
-         analysis_interval == "years") %>% 
-  mutate(age_standard = "Crude") %>% 
+         analysis_interval == "years") %>%
+  mutate(age_standard = "Crude") %>%
   select(c(
-    incidence_start_date,            
-    n_events ,                       
-    person_years,                
+    incidence_start_date,
+    n_events ,
+    person_years,
     incidence_100000_pys ,
     incidence_100000_pys_95CI_lower,
     incidence_100000_pys_95CI_upper,
-    outcome_cohort_name    ,            
-    cdm_name  ,                  
-    denominator_sex     ,                   
+    outcome_cohort_name    ,
+    cdm_name  ,
+    denominator_sex     ,
     denominator_age_group ,
     age_standard ))
 
 #create a loop for each cancer phenotype
 agestandardizedincf <- list()
 
-inc_std_F <- inc %>% 
+inc_std_F <- inc %>%
   filter(denominator_age_group != "18 to 150",
          denominator_sex == "Female",
          strata_name == "Overall" ,
-         analysis_interval == "years") %>% 
-  mutate(age_standard = "Crude") %>% 
+         analysis_interval == "years") %>%
+  mutate(age_standard = "Crude") %>%
   select(c(
-    incidence_start_date,            
-    n_events ,                       
-    person_years,                
+    incidence_start_date,
+    n_events ,
+    person_years,
     incidence_100000_pys ,
     incidence_100000_pys_95CI_lower,
     incidence_100000_pys_95CI_upper,
-    outcome_cohort_name    ,            
-    cdm_name  ,                  
-    denominator_sex     ,                   
+    outcome_cohort_name    ,
+    cdm_name  ,
+    denominator_sex     ,
     denominator_age_group ,
     age_standard ))
 
@@ -234,151 +237,151 @@ inc_std_F <- inc %>%
 #create a loop for each cancer phenotype
 agestandardizedincm <- list()
 
-inc_std_M <- inc %>% 
+inc_std_M <- inc %>%
   filter(denominator_age_group != "18 to 150",
          denominator_sex == "Male",
          strata_name == "Overall" ,
-         analysis_interval == "years") %>% 
-  mutate(age_standard = "Crude") %>% 
+         analysis_interval == "years") %>%
+  mutate(age_standard = "Crude") %>%
   select(c(
-    incidence_start_date,            
-    n_events ,                       
-    person_years,                
+    incidence_start_date,
+    n_events ,
+    person_years,
     incidence_100000_pys ,
     incidence_100000_pys_95CI_lower,
     incidence_100000_pys_95CI_upper,
-    outcome_cohort_name    ,            
-    cdm_name  ,                  
-    denominator_sex     ,                   
+    outcome_cohort_name    ,
+    cdm_name  ,
+    denominator_sex     ,
     denominator_age_group ,
     age_standard ))
 
 # overall population
 for(i in 1:length(table(inc_std$outcome_cohort_name))){
-  
+
   incidence_estimates_i <- inc_std %>%
     filter(outcome_cohort_name == names(table(inc_std$outcome_cohort_name)[i]))
-  
+
   agestandardizedinc[[i]] <- dsr::dsr(
     data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-    event = n_events,       # column containing number of deaths per stratum 
+    event = n_events,       # column containing number of deaths per stratum
     fu = person_years , # column containing number of population per stratum person years
-    subgroup = incidence_start_date,   
+    subgroup = incidence_start_date,
     refdata = ESP13_updated, # reference population data frame, with column called pop
     method = "gamma",      # method to calculate 95% CI
     sig = 0.95,            # significance level
     mp = 100000,           # we want rates per 100.000 population
-    decimals = 2) 
-  
-  agestandardizedinc[[i]] <- agestandardizedinc[[i]] %>% 
-    mutate(outcome_cohort_name = names(table(inc_std$outcome_cohort_name)[i])) 
-  
+    decimals = 2)
+
+  agestandardizedinc[[i]] <- agestandardizedinc[[i]] %>%
+    mutate(outcome_cohort_name = names(table(inc_std$outcome_cohort_name)[i]))
+
   cli::cli_alert_info(paste0("- european age standardization for ", names(table(inc_std$outcome_cohort_name)[i]), " complete"))
-  
+
 }
 
 # females
 for(i in 1:length(table(inc_std_F$outcome_cohort_name))){
-  
+
   incidence_estimates_i <- inc_std_F %>%
     filter(outcome_cohort_name == names(table(inc_std_M$outcome_cohort_name)[i]))
-  
+
   agestandardizedincf[[i]] <- dsr::dsr(
     data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-    event = n_events,       # column containing number of deaths per stratum 
+    event = n_events,       # column containing number of deaths per stratum
     fu = person_years , # column containing number of population per stratum person years
-    subgroup = incidence_start_date,   
+    subgroup = incidence_start_date,
     refdata = ESP13_updated, # reference population data frame, with column called pop
     method = "gamma",      # method to calculate 95% CI
     sig = 0.95,            # significance level
     mp = 100000,           # we want rates per 100.000 population
-    decimals = 2) 
-  
-  agestandardizedincf[[i]] <- agestandardizedincf[[i]] %>% 
-    mutate(outcome_cohort_name = names(table(inc_std_F$outcome_cohort_name)[i])) 
-  
+    decimals = 2)
+
+  agestandardizedincf[[i]] <- agestandardizedincf[[i]] %>%
+    mutate(outcome_cohort_name = names(table(inc_std_F$outcome_cohort_name)[i]))
+
   cli::cli_alert_info(paste0("- european age standardization for ", names(table(inc_std_F$outcome_cohort_name)[i]), " FEMALES complete"))
-  
+
 }
 
 # males
 for(i in 1:length(table(inc_std_M$outcome_cohort_name))){
-  
+
   incidence_estimates_i <- inc_std_M %>%
     filter(outcome_cohort_name == names(table(inc_std_M$outcome_cohort_name)[i]))
-  
+
   agestandardizedincm[[i]] <- dsr::dsr(
     data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-    event = n_events,       # column containing number of deaths per stratum 
+    event = n_events,       # column containing number of deaths per stratum
     fu = person_years , # column containing number of population per stratum person years
-    subgroup = incidence_start_date,   
+    subgroup = incidence_start_date,
     refdata = ESP13_updated, # reference population data frame, with column called pop
     method = "gamma",      # method to calculate 95% CI
     sig = 0.95,            # significance level
     mp = 100000,           # we want rates per 100.000 population
-    decimals = 2) 
-  
-  agestandardizedincm[[i]] <- agestandardizedincm[[i]] %>% 
-    mutate(outcome_cohort_name = names(table(inc_std_M$outcome_cohort_name)[i])) 
-  
+    decimals = 2)
+
+  agestandardizedincm[[i]] <- agestandardizedincm[[i]] %>%
+    mutate(outcome_cohort_name = names(table(inc_std_M$outcome_cohort_name)[i]))
+
   cli::cli_alert_info(paste0("- european age standardization for ", names(table(inc_std_M$outcome_cohort_name)[i]), " MALES complete"))
-  
+
 }
 
 
-agestandardizedinc_final_esp <- bind_rows(agestandardizedinc) %>% 
-  mutate(cdm_name = db_name) %>% 
+agestandardizedinc_final_esp <- bind_rows(agestandardizedinc) %>%
+  mutate(cdm_name = db_name) %>%
   rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
          incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
          incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
          incidence_start_date = Subgroup,
          person_years = Denominator ,
-         n_events = Numerator ) %>% 
+         n_events = Numerator ) %>%
   mutate(denominator_sex = "Both",
          denominator_age_group = "18 to 150",
-         cdm_name = db_name ) %>% 
-  as_tibble() %>% 
+         cdm_name = db_name ) %>%
+  as_tibble() %>%
   select(!c(
     `Crude Rate (per 1e+05)`,
     `95% LCL (Crude)`,
-    `95% UCL (Crude)`)) %>% 
+    `95% UCL (Crude)`)) %>%
   mutate(age_standard = "European Standard Population")
 
 
-agestandardizedinc_final_espf <- bind_rows(agestandardizedincf) %>% 
-  mutate(cdm_name = db_name) %>% 
+agestandardizedinc_final_espf <- bind_rows(agestandardizedincf) %>%
+  mutate(cdm_name = db_name) %>%
   rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
          incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
          incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
          incidence_start_date = Subgroup,
          person_years = Denominator ,
-         n_events = Numerator ) %>% 
+         n_events = Numerator ) %>%
   mutate(denominator_sex = "Female",
          denominator_age_group = "18 to 150",
-         cdm_name = db_name ) %>% 
-  as_tibble() %>% 
+         cdm_name = db_name ) %>%
+  as_tibble() %>%
   select(!c(
     `Crude Rate (per 1e+05)`,
     `95% LCL (Crude)`,
-    `95% UCL (Crude)`)) %>% 
+    `95% UCL (Crude)`)) %>%
   mutate(age_standard = "European Standard Population")
 
-agestandardizedinc_final_espm <- bind_rows(agestandardizedincm) %>% 
-  mutate(cdm_name = db_name) %>% 
+agestandardizedinc_final_espm <- bind_rows(agestandardizedincm) %>%
+  mutate(cdm_name = db_name) %>%
   rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
          incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
          incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
          incidence_start_date = Subgroup,
          person_years = Denominator ,
-         n_events = Numerator ) %>% 
+         n_events = Numerator ) %>%
   mutate(denominator_sex = "Male",
          denominator_age_group = "18 to 150",
-         cdm_name = db_name ) %>% 
-  as_tibble() %>% 
+         cdm_name = db_name ) %>%
+  as_tibble() %>%
   select(!c(
     `Crude Rate (per 1e+05)`,
     `95% LCL (Crude)`,
-    `95% UCL (Crude)`)) %>% 
+    `95% UCL (Crude)`)) %>%
   mutate(age_standard = "European Standard Population")
 
 agestandardizedinc_final_esp <- bind_rows(agestandardizedinc_final_esp,
@@ -391,31 +394,31 @@ cli::cli_alert_info("- Age standardization for incidence using european standard
 cli::cli_alert_info("- Carry out age standardization for incidence using world standard population")
 # age standardization by world standard population
 # read in WSP2000_2025 values
-WSP2000_2025 <- readr::read_csv(here("2_Analysis", "Age_standards", "WSP_2000_2025.csv"), 
-                         show_col_types = FALSE) 
+WSP2000_2025 <- readr::read_csv(here("2_Analysis", "Age_standards", "WSP_2000_2025.csv"),
+                         show_col_types = FALSE)
 
 WSP2000_2025$WSP2000_2025 <- WSP2000_2025$WSP2000_2025/ 10
 
 #collapse WSP_2000_2025
-WSP2000_2025_updated <- WSP2000_2025 %>% 
+WSP2000_2025_updated <- WSP2000_2025 %>%
   filter(Agegroup != "0-4",
          Agegroup != "5-9",
          Agegroup != "10-14",
-         Agegroup != "15-19" ) %>% 
+         Agegroup != "15-19" ) %>%
   add_row(Agegroup = "18 to 49", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '20-24'| Agegroup == '25-29' |
                                                                      Agegroup == '30-34' | Agegroup == '35-39' |
                                                                      Agegroup == '35-39' | Agegroup == '40-44' |
-                                                                     Agegroup == '45-49']))) %>% 
-  add_row(Agegroup = "50 to 59", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '50-54'| Agegroup == '55-59']))) %>% 
-  add_row(Agegroup = "60 to 69", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '60-64'| Agegroup == '65-69']))) %>% 
-  add_row(Agegroup = "70 to 79", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '70-74'| Agegroup == '75-79']))) %>% 
-  add_row(Agegroup = "80 to 150", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '80-84'| Agegroup == '85-89'|Agegroup == '90+']))) %>% 
+                                                                     Agegroup == '45-49']))) %>%
+  add_row(Agegroup = "50 to 59", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '50-54'| Agegroup == '55-59']))) %>%
+  add_row(Agegroup = "60 to 69", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '60-64'| Agegroup == '65-69']))) %>%
+  add_row(Agegroup = "70 to 79", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '70-74'| Agegroup == '75-79']))) %>%
+  add_row(Agegroup = "80 to 150", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '80-84'| Agegroup == '85-89'|Agegroup == '90+']))) %>%
   filter(Agegroup == "18 to 49" | Agegroup == "50 to 59" | Agegroup == "60 to 69" |
            Agegroup == "70 to 79" |
-           Agegroup == "80 to 150" ) 
+           Agegroup == "80 to 150" )
 
 #rename WSP column to pop (needs to be pop otherwise will not work)
-WSP2000_2025_updated <- WSP2000_2025_updated %>% 
+WSP2000_2025_updated <- WSP2000_2025_updated %>%
   rename(pop = WSP2000_2025,
          denominator_age_group = Agegroup)
 
@@ -424,26 +427,26 @@ agestandardizedinc_wsp <- list()
 
 # overall
 for(i in 1:length(table(inc_std$outcome_cohort_name))){
-  
+
   incidence_estimates_i <- inc_std %>%
     filter(outcome_cohort_name == names(table(inc_std$outcome_cohort_name)[i]))
-  
+
   agestandardizedinc_wsp[[i]] <- dsr::dsr(
     data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-    event = n_events,       # column containing number of deaths per stratum 
+    event = n_events,       # column containing number of deaths per stratum
     fu = person_years , # column containing number of population per stratum person years
-    subgroup = incidence_start_date,   
+    subgroup = incidence_start_date,
     refdata = WSP2000_2025_updated, # reference population data frame, with column called pop
     method = "gamma",      # method to calculate 95% CI
     sig = 0.95,            # significance level
     mp = 100000,           # we want rates per 100.000 population
-    decimals = 2) 
-  
-  agestandardizedinc_wsp[[i]] <- agestandardizedinc_wsp[[i]] %>% 
-    mutate(outcome_cohort_name = names(table(inc_std$outcome_cohort_name)[i])) 
-  
+    decimals = 2)
+
+  agestandardizedinc_wsp[[i]] <- agestandardizedinc_wsp[[i]] %>%
+    mutate(outcome_cohort_name = names(table(inc_std$outcome_cohort_name)[i]))
+
   cli::cli_alert_info(paste0("- world age standardization for ", names(table(inc_std$outcome_cohort_name)[i]), " complete"))
-  
+
 }
 
 # females
@@ -451,104 +454,104 @@ for(i in 1:length(table(inc_std$outcome_cohort_name))){
 agestandardizedinc_wspf <- list()
 
 for(i in 1:length(table(inc_std_F$outcome_cohort_name))){
-  
+
   incidence_estimates_i <- inc_std_F %>%
     filter(outcome_cohort_name == names(table(inc_std_F$outcome_cohort_name)[i]))
-  
+
   agestandardizedinc_wspf[[i]] <- dsr::dsr(
     data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-    event = n_events,       # column containing number of deaths per stratum 
+    event = n_events,       # column containing number of deaths per stratum
     fu = person_years , # column containing number of population per stratum person years
-    subgroup = incidence_start_date,   
+    subgroup = incidence_start_date,
     refdata = WSP2000_2025_updated, # reference population data frame, with column called pop
     method = "gamma",      # method to calculate 95% CI
     sig = 0.95,            # significance level
     mp = 100000,           # we want rates per 100.000 population
-    decimals = 2) 
-  
-  agestandardizedinc_wspf[[i]] <- agestandardizedinc_wspf[[i]] %>% 
-    mutate(outcome_cohort_name = names(table(inc_std_F$outcome_cohort_name)[i])) 
-  
+    decimals = 2)
+
+  agestandardizedinc_wspf[[i]] <- agestandardizedinc_wspf[[i]] %>%
+    mutate(outcome_cohort_name = names(table(inc_std_F$outcome_cohort_name)[i]))
+
   cli::cli_alert_info(paste0("- world age standardization for ", names(table(inc_std_F$outcome_cohort_name)[i]), " FEMALES complete"))
-  
+
 }
 
 # males
 agestandardizedinc_wspm <- list()
 
 for(i in 1:length(table(inc_std_M$outcome_cohort_name))){
-  
+
   incidence_estimates_i <- inc_std_M %>%
     filter(outcome_cohort_name == names(table(inc_std_M$outcome_cohort_name)[i]))
-  
+
   agestandardizedinc_wspm[[i]] <- dsr::dsr(
     data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-    event = n_events,       # column containing number of deaths per stratum 
+    event = n_events,       # column containing number of deaths per stratum
     fu = person_years , # column containing number of population per stratum person years
-    subgroup = incidence_start_date,   
+    subgroup = incidence_start_date,
     refdata = WSP2000_2025_updated, # reference population data frame, with column called pop
     method = "gamma",      # method to calculate 95% CI
     sig = 0.95,            # significance level
     mp = 100000,           # we want rates per 100.000 population
-    decimals = 2) 
-  
-  agestandardizedinc_wspm[[i]] <- agestandardizedinc_wspm[[i]] %>% 
-    mutate(outcome_cohort_name = names(table(inc_std_M$outcome_cohort_name)[i])) 
-  
+    decimals = 2)
+
+  agestandardizedinc_wspm[[i]] <- agestandardizedinc_wspm[[i]] %>%
+    mutate(outcome_cohort_name = names(table(inc_std_M$outcome_cohort_name)[i]))
+
   cli::cli_alert_info(paste0("- world age standardization for ", names(table(inc_std_M$outcome_cohort_name)[i]), " MALES complete"))
-  
+
 }
 
 
-agestandardizedinc_wsp_final <- bind_rows(agestandardizedinc_wsp) %>% 
+agestandardizedinc_wsp_final <- bind_rows(agestandardizedinc_wsp) %>%
   rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
          incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
          incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
          incidence_start_date = Subgroup,
          person_years = Denominator ,
-         n_events = Numerator ) %>% 
+         n_events = Numerator ) %>%
   mutate(denominator_sex = "Both",
          denominator_age_group = "18 to 150",
-         cdm_name = db_name ) %>% 
-  as_tibble() %>% 
+         cdm_name = db_name ) %>%
+  as_tibble() %>%
   select(!c(
     `Crude Rate (per 1e+05)`,
     `95% LCL (Crude)`,
-    `95% UCL (Crude)`))  %>% 
+    `95% UCL (Crude)`))  %>%
   mutate(age_standard = "World Standard Population")
 
-agestandardizedinc_wsp_finalf <- bind_rows(agestandardizedinc_wspf) %>% 
+agestandardizedinc_wsp_finalf <- bind_rows(agestandardizedinc_wspf) %>%
   rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
          incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
          incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
          incidence_start_date = Subgroup,
          person_years = Denominator ,
-         n_events = Numerator ) %>% 
+         n_events = Numerator ) %>%
   mutate(denominator_sex = "Female",
          denominator_age_group = "18 to 150",
-         cdm_name = db_name ) %>% 
-  as_tibble() %>% 
+         cdm_name = db_name ) %>%
+  as_tibble() %>%
   select(!c(
     `Crude Rate (per 1e+05)`,
     `95% LCL (Crude)`,
-    `95% UCL (Crude)`))  %>% 
+    `95% UCL (Crude)`))  %>%
   mutate(age_standard = "World Standard Population")
 
-agestandardizedinc_wsp_finalm <- bind_rows(agestandardizedinc_wspm) %>% 
+agestandardizedinc_wsp_finalm <- bind_rows(agestandardizedinc_wspm) %>%
   rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
          incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
          incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
          incidence_start_date = Subgroup,
          person_years = Denominator ,
-         n_events = Numerator ) %>% 
+         n_events = Numerator ) %>%
   mutate(denominator_sex = "Male",
          denominator_age_group = "18 to 150",
-         cdm_name = db_name ) %>% 
-  as_tibble() %>% 
+         cdm_name = db_name ) %>%
+  as_tibble() %>%
   select(!c(
     `Crude Rate (per 1e+05)`,
     `95% LCL (Crude)`,
-    `95% UCL (Crude)`))  %>% 
+    `95% UCL (Crude)`))  %>%
   mutate(age_standard = "World Standard Population")
 
 
@@ -562,20 +565,20 @@ cli::cli_alert_success("- Age standardization for incidence using world standard
 
 # bind the results from the age standardisation together with crude estimates
 
-inc_crude <- inc %>% 
+inc_crude <- inc %>%
   filter(denominator_age_group == "18 to 150",
-         analysis_interval == "years") %>% 
-  mutate(age_standard = "Crude") %>% 
+         analysis_interval == "years") %>%
+  mutate(age_standard = "Crude") %>%
   select(c(
-    incidence_start_date,            
-    n_events ,                       
-    person_years,                
+    incidence_start_date,
+    n_events ,
+    person_years,
     incidence_100000_pys ,
     incidence_100000_pys_95CI_lower,
     incidence_100000_pys_95CI_upper,
-    outcome_cohort_name    ,            
-    cdm_name  ,                  
-    denominator_sex     ,                   
+    outcome_cohort_name    ,
+    cdm_name  ,
+    denominator_sex     ,
     denominator_age_group  ,
     age_standard ))
 
@@ -586,86 +589,86 @@ agestandardized_results <- bind_rows(
   agestandardizedinc_wsp_final
 )
 
-
+###############################################################
 # age standardization per year of birth cohorts
 agestandardizedinc_birth <- list()
 
 # filter out to only include rates
-inc_std_birth <- inc %>% 
+inc_std_birth <- inc %>%
   filter(denominator_age_group != "18 to 150",
          denominator_sex == "Both",
          strata_name != "Overall" ,
-         analysis_interval == "years") %>% 
-  mutate(age_standard = "Crude") %>% 
+         analysis_interval == "years") %>%
+  mutate(age_standard = "Crude") %>%
   select(c(
-    incidence_start_date,            
-    n_events ,                       
-    person_years,                
+    incidence_start_date,
+    n_events ,
+    person_years,
     incidence_100000_pys ,
     incidence_100000_pys_95CI_lower,
     incidence_100000_pys_95CI_upper,
-    outcome_cohort_name    ,            
-    cdm_name  ,  
+    outcome_cohort_name    ,
+    cdm_name  ,
     strata_level ,
-    denominator_sex     ,                   
+    denominator_sex     ,
     denominator_age_group ,
     age_standard ))
 
 # overall population
 for(i in 1:length(table(inc_std_birth$outcome_cohort_name))){
-  
+
   incidence_estimates_i <- inc_std_birth %>%
     filter(outcome_cohort_name == names(table(inc_std_birth$outcome_cohort_name)[i]))
-  
+
   birthcohort_temp <- list()
-  
-  for(j in 1:length(table(inc_std_birth$strata_level))){ 
-    
+
+  for(j in 1:length(table(inc_std_birth$strata_level))){
+
   incidence_estimates_ii <- incidence_estimates_i %>%
       filter(strata_level == names(table(inc_std_birth$strata_level)[j]))
-  
+
   birthcohort_temp[[j]] <- dsr::dsr(
     data = incidence_estimates_ii,  # specify object containing number of deaths per stratum
-    event = n_events,       # column containing number of deaths per stratum 
+    event = n_events,       # column containing number of deaths per stratum
     fu = person_years , # column containing number of population per stratum person years
-    subgroup = incidence_start_date,   
+    subgroup = incidence_start_date,
     refdata = ESP13_updated, # reference population data frame, with column called pop
     method = "gamma",      # method to calculate 95% CI
     sig = 0.95,            # significance level
     mp = 100000,           # we want rates per 100.000 population
-    decimals = 2) 
-  
-  birthcohort_temp[[j]] <- birthcohort_temp[[j]] %>% 
-    mutate(strata_level = names(table(inc_std_birth$strata_level)[j])) 
-  
+    decimals = 2)
+
+  birthcohort_temp[[j]] <- birthcohort_temp[[j]] %>%
+    mutate(strata_level = names(table(inc_std_birth$strata_level)[j]))
+
   cli::cli_alert_info(paste0("- european age standardization for birth cohorts ", names(table(inc_std_birth$strata_level)[j]), " complete"))
-  
+
   }
-  
+
   birthcohort_temp <- bind_rows(birthcohort_temp)
-  
-  agestandardizedinc_birth[[i]] <- birthcohort_temp %>% 
-    mutate(outcome_cohort_name = names(table(inc_std_birth$outcome_cohort_name)[i])) 
-  
+
+  agestandardizedinc_birth[[i]] <- birthcohort_temp %>%
+    mutate(outcome_cohort_name = names(table(inc_std_birth$outcome_cohort_name)[i]))
+
   cli::cli_alert_info(paste0("- european age standardization for birth cohorts ", names(table(inc_std_birth$outcome_cohort_name)[i]), " complete"))
-  
+
 }
 
-agestandardizedinc_esp__birthfinal <- bind_rows(agestandardizedinc_birth) %>% 
+agestandardizedinc_esp__birthfinal <- bind_rows(agestandardizedinc_birth) %>%
   rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
          incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
          incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
          incidence_start_date = Subgroup,
          person_years = Denominator ,
-         n_events = Numerator ) %>% 
+         n_events = Numerator ) %>%
   mutate(denominator_sex = "Both",
          denominator_age_group = "18 to 150",
-         cdm_name = db_name ) %>% 
-  as_tibble() %>% 
+         cdm_name = db_name ) %>%
+  as_tibble() %>%
   select(!c(
     `Crude Rate (per 1e+05)`,
     `95% LCL (Crude)`,
-    `95% UCL (Crude)`))  %>% 
+    `95% UCL (Crude)`))  %>%
   mutate(age_standard = "European Standard Population")
 
 # to add in other results from wsp and crude and bind
