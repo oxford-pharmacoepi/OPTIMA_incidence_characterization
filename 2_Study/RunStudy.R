@@ -51,7 +51,6 @@ if(isTRUE(run_incidence)){
   })
 }
 
-
 # prevalence ----
 if(isTRUE(run_prevalence)){
   cli::cli_alert_info("- Running prevalence")

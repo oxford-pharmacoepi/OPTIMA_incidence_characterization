@@ -35,9 +35,35 @@ if(isTRUE(run_incidence)){
   cdm$outcome_participants <- newCohortTable(table = cdm$outcome_participants,
                                              cohortSetRef = tibble(cancer_concepts_inc[,c(1,2)])
   )
+  
+  
+# do the intersect between outcome and outcome_participants  
+cdm$outcome <- cdm$outcome %>%
+    PatientProfiles::addCohortIntersectFlag(
+      targetCohortTable = "outcome_participants",
+      targetStartDate = "cohort_start_date",
+      targetEndDate = NULL,
+      window = list(c(0, 0))
+    )
 
-cdm$outcome <- cdm$outcome_participants %>% 
-  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+# remove any 0's 
+cdm$outcome <- cdm$outcome %>%
+  mutate(across(contains("lung"), ~ na_if(., 0)))
+
+# coalesce to one column
+lung_columns <- colnames(cdm$outcome)[grepl("lung", colnames(cdm$outcome))]
+
+# Creating the coalesced column
+cdm$outcome <- cdm$outcome %>%
+  mutate(lung_combined = coalesce(!!!rlang::syms(lung_columns)))
+
+# remove any rows with na
+cdm$outcome <- cdm$outcome %>%
+  filter(!is.na(lung_combined))
+
+# compute the table and update attrition
+cdm$outcome <- cdm$outcome %>%
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>%
   recordCohortAttrition(reason="Excluding cases from excluded from incidence analysis")
 
 cli::cli_alert_info("Add demographics to cohort")
@@ -156,26 +182,26 @@ cdm$outcome <- cdm$outcome %>%
   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
   CDMConnector::recordCohortAttrition(reason="Exclude patients with multiple cancers on different sites diagnosed on same day" )
 
-#remove people with date of death outside of their observation period end -----
-cdm$outcome <- cdm$outcome %>% 
-  dplyr::left_join(cdm$death %>%
-                     select("person_id",  "death_date") %>%
-                     distinct(),
-                   by = c("subject_id"= "person_id")) %>%
-  dplyr::left_join(cdm$observation_period %>%
-                     select("person_id",  "observation_period_end_date") %>%
-                     distinct(),
-                   by = c("subject_id"= "person_id")) %>%
-  dplyr::compute()
-
-
-cdm$outcome <- cdm$outcome %>% 
-  filter(is.na(death_date) | death_date <= observation_period_end_date)
-
-#update the attrition
-cdm$outcome <- cdm$outcome %>% 
-  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
-  CDMConnector::recordCohortAttrition(reason="Exclude patients where death occurs outside of observation end date" )
+# #remove people with date of death outside of their observation period end -----
+# cdm$outcome <- cdm$outcome %>% 
+#   dplyr::left_join(cdm$death %>%
+#                      select("person_id",  "death_date") %>%
+#                      distinct(),
+#                    by = c("subject_id"= "person_id")) %>%
+#   dplyr::left_join(cdm$observation_period %>%
+#                      select("person_id",  "observation_period_end_date") %>%
+#                      distinct(),
+#                    by = c("subject_id"= "person_id")) %>%
+#   dplyr::compute()
+# 
+# 
+# cdm$outcome <- cdm$outcome %>% 
+#   filter(is.na(death_date) | death_date <= observation_period_end_date)
+# 
+# #update the attrition
+# cdm$outcome <- cdm$outcome %>% 
+#   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+#   CDMConnector::recordCohortAttrition(reason="Exclude patients where death occurs outside of observation end date" )
 
 
 } else {
@@ -322,26 +348,26 @@ cdm$outcome <- cdm$outcome %>%
   CDMConnector::recordCohortAttrition(reason="Exclude patients with multiple cancers on different sites diagnosed on same day" )
 
 
-#remove people with date of death outside of their observation period end -----
-cdm$outcome <- cdm$outcome %>% 
-  dplyr::left_join(cdm$death %>%
-                     select("person_id",  "death_date") %>%
-                     distinct(),
-                   by = c("subject_id"= "person_id")) %>%
-  dplyr::left_join(cdm$observation_period %>%
-                     select("person_id",  "observation_period_end_date") %>%
-                     distinct(),
-                   by = c("subject_id"= "person_id")) %>%
-  dplyr::compute()
-
-
-cdm$outcome <- cdm$outcome %>% 
-  filter(is.na(death_date) | death_date <= observation_period_end_date)
-
-#update the attrition
-cdm$outcome <- cdm$outcome %>% 
-  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
-  CDMConnector::recordCohortAttrition(reason="Exclude patients where death occurs outside of observation end date" )
+# # #remove people with date of death outside of their observation period end -----
+# cdm$outcome <- cdm$outcome %>%
+#   dplyr::left_join(cdm$death %>%
+#                      select("person_id",  "death_date") %>%
+#                      distinct(),
+#                    by = c("subject_id"= "person_id")) %>%
+#   dplyr::left_join(cdm$observation_period %>%
+#                      select("person_id",  "observation_period_end_date") %>%
+#                      distinct(),
+#                    by = c("subject_id"= "person_id")) %>%
+#   dplyr::compute()
+# 
+# 
+# cdm$outcome <- cdm$outcome %>%
+#   filter(is.na(death_date) | death_date <= observation_period_end_date)
+# 
+# #update the attrition
+# cdm$outcome <- cdm$outcome %>%
+#   compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>%
+#   CDMConnector::recordCohortAttrition(reason="Exclude patients where death occurs outside of observation end date" )
 
 }
   
@@ -360,9 +386,9 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   # Analysis 1 
   # this creates survival stratified by diagnosis groups with follow up truncated at 5 years
   suppressWarnings(
-    
     surv <- estimateSingleEventSurvival(cdm = cdm,
                                         targetCohortTable = "outcome",
+                                        targetCohortId = 1,
                                         outcomeCohortTable = "cancer_death",
                                         outcomeWashout = Inf,
                                         censorOnCohortExit = TRUE ,
@@ -399,8 +425,51 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                          strata = list(c("sex"),
                                                        c("age_group"),
                                                        c("age_group", "sex")),
-                                         minCellCount = 5)
+                                         minCellCount = 5,
+                                         returnParticipants = TRUE)
   )
+  
+  # get the participants from the survival analysis (we remove people who have dod on same date as cancer diagnosis)
+  # we need to do this for characterisation which should be on the final population after removal of the above
+  
+  #get the participants for all outcomes
+  surv_participants <- survivalParticipants(surv1)
+  #create a new cdm ref object of participants
+  cdm <- insertTable(cdm = cdm, name = "outcome_surv_participants", table = surv_participants, overwrite = TRUE)
+  
+  #create new cohort table
+  cdm$outcome_surv_participants <- newCohortTable(table = cdm$outcome_surv_participants,
+                                             cohortSetRef = tibble(cancer_concepts_inc[,c(1,2)])
+  )
+  
+  # do the intersect between outcome and outcome_surv_participants  
+  cdm$outcome <- cdm$outcome %>%
+    PatientProfiles::addCohortIntersectFlag(
+      targetCohortTable = "outcome_surv_participants",
+      targetStartDate = "cohort_start_date",
+      targetEndDate = NULL,
+      window = list(c(0, 0))
+    )
+  
+  # remove any 0's 
+  cdm$outcome <- cdm$outcome %>%
+    mutate(across(contains("lung"), ~ na_if(., 0)))
+  
+  # coalesce to one column
+  lung_columns <- colnames(cdm$outcome)[grepl("lung", colnames(cdm$outcome))]
+  
+  # Creating the coalesced column
+  cdm$outcome <- cdm$outcome %>%
+    mutate(lung_combined = coalesce(!!!rlang::syms(lung_columns)))
+  
+  # this needs to be in the characterisation step 
+  # if the person only looks at survival it will remove those with
+  # dod and cancer diagnosis on the same date
+  if(isTRUE(run_survival) & isFALSE(run_incidence)){  
+  # remove any rows with na
+  cdm$outcome <- cdm$outcome %>%
+    filter(!is.na(lung_combined))
+  }
   
 
   cli::cli_alert_info("Exporting survival attrition")
@@ -438,6 +507,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   # n events n risk for study
   readr::write_csv(attr(surv %>% asSurvivalResult(), "events"), paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_events_analysis1.csv")))
   
+  
   # analysis 2 with no truncation of follow up time and no diag year analysis
   cli::cli_alert_info("Exporting survival results")
   omopgenerics::exportSummarisedResult(surv1,
@@ -445,7 +515,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                        path = here("Results",db_name))  
   
   # n events n risk for study
-  readr::write_csv(attr(surv1 %>% asSurvivalResult(), c("events","risk")), paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_events_analysis2.csv")))
+  readr::write_csv(attr(surv1 %>% asSurvivalResult(), "events"), paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_events_analysis2.csv")))
   
 
   # export survival summary ----

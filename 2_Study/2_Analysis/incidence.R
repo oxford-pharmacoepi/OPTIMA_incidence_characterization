@@ -19,6 +19,51 @@ cdm <- generateDenominatorCohortSet(
   sex = c("Male", "Female", "Both"),
   daysPriorObservation = 365
 )
+
+# add year of birth onto denominator
+cdm$denominator <- cdm$denominator %>% 
+  dplyr::left_join(cdm$person %>%
+                     select("person_id",  "year_of_birth") %>%
+                     distinct(),
+                   by = c("subject_id"= "person_id"))
+
+# create groups based on year of birth
+cdm$denominator <- cdm$denominator %>% 
+  PatientProfiles::addCategories(
+    variable = "year_of_birth",
+    categories = list("birth_year_group" = list(
+      "1889 to 1893" = c(1889, 1893),
+      "1894 to 1898" = c(1894, 1898),
+      "1899 to 1903" = c(1899, 1903),
+      "1904 to 1908" = c(1904, 1908),
+      "1909 to 1913" = c(1909, 1913),
+      "1914 to 1918" = c(1914, 1918),
+      "1919 to 1923" = c(1919, 1923),
+      "1924 to 1928" = c(1924, 1928),
+      "1929 to 1933" = c(1929, 1933),
+      "1934 to 1938" = c(1934, 1938),
+      "1939 to 1943" = c(1939, 1943),
+      "1944 to 1948" = c(1944, 1948),
+      "1949 to 1953" = c(1949, 1953),
+      "1954 to 1958" = c(1954, 1958),
+      "1959 to 1963" = c(1959, 1963),
+      "1964 to 1968" = c(1964, 1968),
+      "1969 to 1973" = c(1969, 1973),
+      "1974 to 1978" = c(1974, 1978),
+      "1979 to 1983" = c(1979, 1983),
+      "1984 to 1988" = c(1984, 1988),
+      "1989 to 1993" = c(1989, 1993),
+      "1994 to 1998" = c(1994, 1998),
+      "1999 to 2003" = c(1999, 2003),
+      "2004 to 2008" = c(2004, 2008),
+      "2009 to 2013" = c(2009, 2013),
+      "2014 to 2018" = c(2014, 2018),
+      "2019 to 2023" = c(2019, 2023)                            
+      
+    )
+    )
+  )
+
 cli::cli_alert_success("- Got denominator")
 
 # Estimate incidence -------
@@ -35,9 +80,10 @@ inc <- estimateIncidence(
   repeatedEvents = FALSE,
   completeDatabaseIntervals = TRUE,
   minCellCount = 0,
-  returnParticipants = FALSE
+  returnParticipants = FALSE,
+  strata = list("birth_year_group") ,
+  includeOverallStrata = TRUE
 )
-
 
 cli::cli_alert_info("- Getting participants from incidence")
 #getting participants for survival analysis
@@ -50,6 +96,50 @@ cdm <- generateDenominatorCohortSet(
   sex = c("Both"),
   daysPriorObservation = 365
 )
+
+# add year of birth onto denominator
+cdm$denominator_parts <- cdm$denominator_parts %>% 
+  dplyr::left_join(cdm$person %>%
+                     select("person_id",  "year_of_birth") %>%
+                     distinct(),
+                   by = c("subject_id"= "person_id"))
+
+# create groups based on year of birth
+cdm$denominator_parts <- cdm$denominator_parts %>% 
+  PatientProfiles::addCategories(
+    variable = "year_of_birth",
+    categories = list("birth_year_group" = list(
+      "1889 to 1893" = c(1889, 1893),
+      "1894 to 1898" = c(1894, 1898),
+      "1899 to 1903" = c(1899, 1903),
+      "1904 to 1908" = c(1904, 1908),
+      "1909 to 1913" = c(1909, 1913),
+      "1914 to 1918" = c(1914, 1918),
+      "1919 to 1923" = c(1919, 1923),
+      "1924 to 1928" = c(1924, 1928),
+      "1929 to 1933" = c(1929, 1933),
+      "1934 to 1938" = c(1934, 1938),
+      "1939 to 1943" = c(1939, 1943),
+      "1944 to 1948" = c(1944, 1948),
+      "1949 to 1953" = c(1949, 1953),
+      "1954 to 1958" = c(1954, 1958),
+      "1959 to 1963" = c(1959, 1963),
+      "1964 to 1968" = c(1964, 1968),
+      "1969 to 1973" = c(1969, 1973),
+      "1974 to 1978" = c(1974, 1978),
+      "1979 to 1983" = c(1979, 1983),
+      "1984 to 1988" = c(1984, 1988),
+      "1989 to 1993" = c(1989, 1993),
+      "1994 to 1998" = c(1994, 1998),
+      "1999 to 2003" = c(1999, 2003),
+      "2004 to 2008" = c(2004, 2008),
+      "2009 to 2013" = c(2009, 2013),
+      "2014 to 2018" = c(2014, 2018),
+      "2019 to 2023" = c(2019, 2023)                            
+      
+    )
+    )
+  )
 
 inc_overall_parts <- estimateIncidence(
   cdm = cdm,
@@ -102,6 +192,7 @@ agestandardizedinc <- list()
 inc_std <- inc %>% 
   filter(denominator_age_group != "18 to 150",
          denominator_sex == "Both",
+         strata_name == "Overall" ,
          analysis_interval == "years") %>% 
   mutate(age_standard = "Crude") %>% 
   select(c(
@@ -123,6 +214,7 @@ agestandardizedincf <- list()
 inc_std_F <- inc %>% 
   filter(denominator_age_group != "18 to 150",
          denominator_sex == "Female",
+         strata_name == "Overall" ,
          analysis_interval == "years") %>% 
   mutate(age_standard = "Crude") %>% 
   select(c(
@@ -145,6 +237,7 @@ agestandardizedincm <- list()
 inc_std_M <- inc %>% 
   filter(denominator_age_group != "18 to 150",
          denominator_sex == "Male",
+         strata_name == "Overall" ,
          analysis_interval == "years") %>% 
   mutate(age_standard = "Crude") %>% 
   select(c(
@@ -492,6 +585,94 @@ agestandardized_results <- bind_rows(
   agestandardizedinc_final_esp,
   agestandardizedinc_wsp_final
 )
+
+
+# age standardization per year of birth cohorts
+agestandardizedinc_birth <- list()
+
+# filter out to only include rates
+inc_std_birth <- inc %>% 
+  filter(denominator_age_group != "18 to 150",
+         denominator_sex == "Both",
+         strata_name != "Overall" ,
+         analysis_interval == "years") %>% 
+  mutate(age_standard = "Crude") %>% 
+  select(c(
+    incidence_start_date,            
+    n_events ,                       
+    person_years,                
+    incidence_100000_pys ,
+    incidence_100000_pys_95CI_lower,
+    incidence_100000_pys_95CI_upper,
+    outcome_cohort_name    ,            
+    cdm_name  ,  
+    strata_level ,
+    denominator_sex     ,                   
+    denominator_age_group ,
+    age_standard ))
+
+# overall population
+for(i in 1:length(table(inc_std_birth$outcome_cohort_name))){
+  
+  incidence_estimates_i <- inc_std_birth %>%
+    filter(outcome_cohort_name == names(table(inc_std_birth$outcome_cohort_name)[i]))
+  
+  birthcohort_temp <- list()
+  
+  for(j in 1:length(table(inc_std_birth$strata_level))){ 
+    
+  incidence_estimates_ii <- incidence_estimates_i %>%
+      filter(strata_level == names(table(inc_std_birth$strata_level)[j]))
+  
+  birthcohort_temp[[j]] <- dsr::dsr(
+    data = incidence_estimates_ii,  # specify object containing number of deaths per stratum
+    event = n_events,       # column containing number of deaths per stratum 
+    fu = person_years , # column containing number of population per stratum person years
+    subgroup = incidence_start_date,   
+    refdata = ESP13_updated, # reference population data frame, with column called pop
+    method = "gamma",      # method to calculate 95% CI
+    sig = 0.95,            # significance level
+    mp = 100000,           # we want rates per 100.000 population
+    decimals = 2) 
+  
+  birthcohort_temp[[j]] <- birthcohort_temp[[j]] %>% 
+    mutate(strata_level = names(table(inc_std_birth$strata_level)[j])) 
+  
+  cli::cli_alert_info(paste0("- european age standardization for birth cohorts ", names(table(inc_std_birth$strata_level)[j]), " complete"))
+  
+  }
+  
+  birthcohort_temp <- bind_rows(birthcohort_temp)
+  
+  agestandardizedinc_birth[[i]] <- birthcohort_temp %>% 
+    mutate(outcome_cohort_name = names(table(inc_std_birth$outcome_cohort_name)[i])) 
+  
+  cli::cli_alert_info(paste0("- european age standardization for birth cohorts ", names(table(inc_std_birth$outcome_cohort_name)[i]), " complete"))
+  
+}
+
+agestandardizedinc_esp__birthfinal <- bind_rows(agestandardizedinc_birth) %>% 
+  rename(incidence_100000_pys = `Std Rate (per 1e+05)`,
+         incidence_100000_pys_95CI_lower = `95% LCL (Std)`,
+         incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
+         incidence_start_date = Subgroup,
+         person_years = Denominator ,
+         n_events = Numerator ) %>% 
+  mutate(denominator_sex = "Both",
+         denominator_age_group = "18 to 150",
+         cdm_name = db_name ) %>% 
+  as_tibble() %>% 
+  select(!c(
+    `Crude Rate (per 1e+05)`,
+    `95% LCL (Crude)`,
+    `95% UCL (Crude)`))  %>% 
+  mutate(age_standard = "European Standard Population")
+
+# to add in other results from wsp and crude and bind
+
+
+cli::cli_alert_success("- Age standardization for incidence completed")
+
 
 
 # Export the results -----
