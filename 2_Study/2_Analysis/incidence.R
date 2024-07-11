@@ -80,7 +80,6 @@ if(isTRUE(run_incidence)){
   inc_std <- inc %>% 
     filter(denominator_age_group != "18 to 150",
            denominator_sex == "Both",
-           strata_name == "Overall" ,
            analysis_interval == "years") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
@@ -102,7 +101,6 @@ if(isTRUE(run_incidence)){
   inc_std_F <- inc %>% 
     filter(denominator_age_group != "18 to 150",
            denominator_sex == "Female",
-           strata_name == "Overall" ,
            analysis_interval == "years") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
@@ -125,7 +123,6 @@ if(isTRUE(run_incidence)){
   inc_std_M <- inc %>% 
     filter(denominator_age_group != "18 to 150",
            denominator_sex == "Male",
-           strata_name == "Overall" ,
            analysis_interval == "years") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
