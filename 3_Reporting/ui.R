@@ -1572,8 +1572,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "survival_database_selector",
             label = "Database",
-            choices = unique(incidence_attrition$cdm_name),
-            selected = unique(incidence_attrition$cdm_name),
+            choices = unique(survival_estimates$cdm_name),
+            selected = unique(survival_estimates$cdm_name),
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1585,8 +1585,21 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "survival_cohort_name_selector",
             label = "Cohort Name",
-            choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = unique(incidence_attrition$outcome_cohort_name)[1],
+            choices = unique(survival_estimates$cohort),
+            selected = unique(survival_estimates$cohort),
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "survival_sex_selector",
+            label = "Sex",
+            choices = unique(survival_estimates$sex),
+            selected = unique(survival_estimates$sex)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1595,9 +1608,22 @@ ui <- dashboardPage(
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
-            inputId = "survival_demo_selector",
-            label = "Demographics",
-            choices = unique(survival_estimates$strata_name),
+            inputId = "survival_age_selector",
+            label = "Age",
+            choices = unique(survival_estimates$age_group),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "survival_year_selector",
+            label = "Year",
+            choices = unique(survival_estimates$diag_yr_gp),
             selected = "overall",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
@@ -1607,9 +1633,12 @@ ui <- dashboardPage(
         div(style="display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(inputId = "surv_plot_facet",
                         label = "Facet by",
-                        choices = c("group_level",
-                                    "strata_level"),
-                        selected = c("group_level" ),
+                        choices = c("cohort", 
+                                    "sex",
+                                    "cdm_name" ,
+                                    "diag_yr_gp",
+                                    "age_group"),
+                        selected = c("cohort"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
@@ -1619,8 +1648,12 @@ ui <- dashboardPage(
         div(style="display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(inputId = "surv_plot_group",
                         label = "Colour by",
-                        choices = c("group_level", "strata_level"),
-                        selected = c("group_level", "strata_level"),
+                        choices = c("cohort", 
+                                    "sex",
+                                    "cdm_name" ,
+                                    "diag_yr_gp",
+                                    "age_group"),
+                        selected = c("cohort", "cdm_name"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,

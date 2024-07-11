@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+=======
+
+.Rhistory
+/1_Diagnostics/PhenotypeRShiny/rsconnect
+/.Rproj.user
+>>>>>>> 5cfe0ff5d3f4c0f63d12a57fb374c3985ac53020

@@ -744,18 +744,19 @@ server <-	function(input, output, session) {
   # survival plots -------
   get_surv_plot <- reactive({
     
-    validate(need(input$survival_cohort_name_selector != "", "Please select a cohort") )
-    validate(need(input$survival_database_selector != "", "Please select a database"))
-    validate(need(input$survival_demo_selector != "", "Please select a demographic"))
-    validate(need(input$surv_plot_group != "", "Please select a group to colour by"))
-    validate(need(input$surv_plot_facet != "", "Please select a group to facet by")
-    )
+    # validate(need(input$survival_cohort_name_selector != "", "Please select a cohort") )
+    # validate(need(input$survival_database_selector != "", "Please select a database"))
+    # validate(need(input$surv_plot_group != "", "Please select a group to colour by"))
+    # validate(need(input$surv_plot_facet != "", "Please select a group to facet by"))
 
     
     plot_data <- survival_estimates %>%
+      filter(cohort %in% input$survival_cohort_name_selector) %>%
       filter(cdm_name %in% input$survival_database_selector) %>%
-      filter(group_level %in% input$survival_cohort_name_selector) %>% 
-      filter(strata_level %in% input$survival_demo_selector) 
+      filter(sex %in% input$survival_sex_selector) %>% 
+      filter(age_group %in% input$survival_age_selector) %>% 
+      filter(diag_yr_gp %in% input$survival_year_selector )
+
     
     if (input$show_ci) {
       
