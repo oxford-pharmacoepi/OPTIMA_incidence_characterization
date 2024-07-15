@@ -112,7 +112,7 @@ omopgenerics::exportSummarisedResult(summaryDemographics,
                                        minCellCount = 5,
                                        path = here("Results",db_name),
                                        fileName = paste0(cdmName(cdm),
-                                                         "_summary_demographics.csv")
+                                                         "_summary_demographics_analysis1.csv")
   )
 
 cli::cli_alert_success("Summarising Demographics Complete")
@@ -177,7 +177,7 @@ omopgenerics::exportSummarisedResult(summaryComorbidity,
             minCellCount = 5,
             path = here("Results",db_name),
             fileName = paste0(cdmName(cdm),
-              "_summary_comorbidity.csv")
+              "_summary_comorbidity_analysis1.csv")
             )
 
 cli::cli_alert_success("Summarising Comorbidities Complete")
@@ -250,11 +250,197 @@ omopgenerics::exportSummarisedResult(summaryMedications,
                                      minCellCount = 5,
                                      path = here("Results",db_name),
                                      fileName = paste0(cdmName(cdm),
-                                                       "_summary_medications.csv")
+                                                       "_summary_medications_analysis1.csv")
 )
 
 cli::cli_alert_success("Summarising Medications Complete")
 
 cli::cli_alert_success("Characterisation Analysis Complete")
+
+
+
+# run for the subset of survival patients removing cases with any prior cancers
+if(isTRUE(run_survival)){  
+  
+  
+  suppressWarnings(
+    
+    summaryDemographics <- cdm$survival %>%
+      CohortCharacteristics::summariseCharacteristics(
+        strata = list(c("diag_yr_gp", "sex"),
+                      c("diag_yr_gp"),
+                      c("sex"),
+                      c("age_group"),
+                      c("age_group", "sex"),
+                      c("year"),
+                      c("year", "sex"),
+                      c("year", "sex", "age_group")),
+        ageGroup = list( "18 to 49" = c(18, 49),
+                         "50 to 59" = c(50, 59),
+                         "60 to 69" = c(60, 69),
+                         "70 to 79" = c(70, 79),
+                         "80 +" = c(80, 150))
+      )
+    
+  )
+  
+  
+  
+  
+  cli::cli_alert_info("Exporting demographics characteristics results")
+  
+  omopgenerics::exportSummarisedResult(summaryDemographics,
+                                       minCellCount = 5,
+                                       path = here("Results",db_name),
+                                       fileName = paste0(cdmName(cdm),
+                                                         "_summary_demographics_analysis2.csv")
+  )
+  
+  cli::cli_alert_success("Summarising Demographics Complete")
+  
+  # comorbidities --------
+  cli::cli_alert_info("Instantiating Comorbidities")
+  
+  codelistConditions <- CodelistGenerator::codesFromConceptSet(here("1_InstantiateCohorts", "Conditions"), cdm)
+  
+  cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm, 
+                                                conceptSet = codelistConditions,
+                                                name = "conditions",
+                                                overwrite = TRUE)
+  
+  cli::cli_alert_info("Summarising Comorbidities")
+  
+  suppressWarnings(
+    
+    summaryComorbidity <- cdm$survival %>%
+      CohortCharacteristics::summariseCharacteristics(
+        strata = list(c("diag_yr_gp", "sex"),
+                      c("diag_yr_gp"),
+                      c("sex"),
+                      c("age_group"),
+                      c("age_group", "sex"),
+                      c("year"),
+                      c("year", "sex"),
+                      c("year", "sex", "age_group")),
+        ageGroup = list( "18 to 49" = c(18, 49),
+                         "50 to 59" = c(50, 59),
+                         "60 to 69" = c(60, 69),
+                         "70 to 79" = c(70, 79),
+                         "80 +" = c(80, 150)),
+        cohortIntersectFlag = list(
+          "Conditions prior to index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-Inf, -1)
+          ),
+          "Conditions prior and up to 365 days before index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-Inf, -366)
+          ),
+          "Conditions 365 and up to 31 days before index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-365, -31)
+          ),
+          "Conditions 30 and up to 1 day before index date" = list(
+            targetCohortTable = "conditions",
+            window = c(-31, -1)
+          ),
+          "Conditions on index date" = list(
+            targetCohortTable = "conditions",
+            window = c(0, 0)
+          )
+        )
+      )
+  )
+  
+  
+  cli::cli_alert_info("Exporting comorbidities characteristics results")
+  omopgenerics::exportSummarisedResult(summaryComorbidity,
+                                       minCellCount = 5,
+                                       path = here("Results",db_name),
+                                       fileName = paste0(cdmName(cdm),
+                                                         "_summary_comorbidity_analysis2.csv")
+  )
+  
+  cli::cli_alert_success("Summarising Comorbidities Complete")
+  
+  # medications -----
+  cli::cli_alert_info("Summarising Medications")
+  
+  # instantiate medications
+  codelistMedications <- CodelistGenerator::codesFromConceptSet(here("1_InstantiateCohorts", "Medications"), cdm)
+  
+  cdm <- DrugUtilisation::generateDrugUtilisationCohortSet(cdm = cdm, 
+                                                           conceptSet = codelistMedications, 
+                                                           name = "medications")
+  
+  cli::cli_alert_info("Summarising Medications")
+  
+  suppressWarnings(
+    
+    summaryMedications <- cdm$survival %>%
+      CohortCharacteristics::summariseCharacteristics(
+        strata = list(c("diag_yr_gp", "sex"),
+                      c("diag_yr_gp"),
+                      c("sex"),
+                      c("age_group"),
+                      c("age_group", "sex"),
+                      c("year"),
+                      c("year", "sex"),
+                      c("year", "sex", "age_group")),
+        ageGroup = list( "18 to 49" = c(18, 49),
+                         "50 to 59" = c(50, 59),
+                         "60 to 69" = c(60, 69),
+                         "70 to 79" = c(70, 79),
+                         "80 +" = c(80, 150)),
+        cohortIntersectFlag = list(
+          "Medications 365 days prior to index date" = list(
+            targetCohortTable = "medications",
+            window = c(-365, -1)
+          ),
+          "Medications 365 to 31 days prior to index date" = list(
+            targetCohortTable = "medications",
+            window = c(-365, -31)
+          ),
+          "Medications 30 to 1 day prior to index date" = list(
+            targetCohortTable = "medications",
+            window = c(-30, -1)
+          ),
+          "Medications on index date" = list(
+            targetCohortTable = "medications",
+            window = c(0, 0)
+          ),
+          "Medications 1 to 30 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(1, 30)
+          ),
+          "Medications 1 to 30 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(1, 90)
+          ),
+          "Medications 1 to 30 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(1, 365)
+          )
+          
+        )
+      )
+  )
+  
+  cli::cli_alert_info("Exporting medications characteristics results")
+  omopgenerics::exportSummarisedResult(summaryMedications,
+                                       minCellCount = 5,
+                                       path = here("Results",db_name),
+                                       fileName = paste0(cdmName(cdm),
+                                                         "_summary_medications_analysis2.csv")
+  )
+  
+  cli::cli_alert_success("Summarising Medications Complete")
+  
+  cli::cli_alert_success("Characterisation Analysis Complete") 
+  
+  
+}
+
+
 
 }
