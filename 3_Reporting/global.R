@@ -343,8 +343,15 @@ survival_estimates <- dplyr::bind_rows(survival_estimates) %>%
   visOmopResults::splitAll(
     keep = TRUE,
     fill = "overall") %>%
-  mutate(time = as.numeric(time)) %>%
+  mutate(time = as.numeric(time) ) %>%
   pivot_wider(names_from = estimate_name, values_from = estimate_value)
+
+
+survival_estimates <- survival_estimates %>% 
+mutate(
+estimate = as.numeric(estimate),
+estimate_95CI_lower = as.numeric(estimate_95CI_lower),
+estimate_95CI_upper = as.numeric(estimate_95CI_upper))
 
 # summary results
 #readr::write_csv(surv1_result, paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_summary_analysis1.csv
