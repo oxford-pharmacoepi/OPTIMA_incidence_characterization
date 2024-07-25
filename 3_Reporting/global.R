@@ -33,9 +33,6 @@ library(omopgenerics)
 library(dplyr)
 library(readr)
 
-# install.packages("devtools")
-# devtools::install_github("darwin-eu-dev/omopgenerics", force = T)
-
 mytheme <- create_theme(
   adminlte_color(
     light_blue = "#605ca8"
@@ -117,9 +114,6 @@ results <- list.files(
 )
 
 # cohort concept code lists -----
-# cohort_set <- CDMConnector::read_cohort_set(
-# gsub("3_Reporting/", "", here("2_study", "1_InstantiateCohorts", "Cohorts", "incidence") ))
-
 cohort_set <- CDMConnector::read_cohort_set(here::here(
   "www", "Cohorts" , "incidence" ))
 
@@ -345,24 +339,21 @@ for(i in seq_along(survival_estimates_files)){
 
 survival_estimates <- dplyr::bind_rows(survival_estimates) %>% 
   omopgenerics::newSummarisedResult() %>% 
-  filter(variable_name != "settings",
-         variable_name == "survival_probability") %>% 
+  filter(variable_name == "survival_probability") %>% 
   visOmopResults::splitAll(
     keep = TRUE,
     fill = "overall") %>%
   mutate(time = as.numeric(time)) %>%
-  pivot_wider(names_from = estimate_name, values_from = estimate_value) 
+  pivot_wider(names_from = estimate_name, values_from = estimate_value)
 
-# # works
-# plotSurvival(survival_estimates)
-# 
-# 
-# 
-#   #mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
-# 
-# # doesnt work
-# asd <- tableSurvival(survival_estimates, times = c(365))
-  
+# summary results
+#readr::write_csv(surv1_result, paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_summary_analysis1.csv
+
+# risk table
+#readr::write_csv(attr(surv1 %>% asSurvivalResult(), "events"), paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_events_analysis1.csv")))
+
+
+
 }
 
 # survival attrition ------
