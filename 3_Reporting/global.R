@@ -435,7 +435,7 @@ survival_attrition <- dplyr::bind_rows(survival_attrition) %>%
 
 # table one demographics------
 tableone_demo_files <- results[stringr::str_detect(results, ".csv")]
-tableone_demo_files <- results[stringr::str_detect(results, "demographics")]
+tableone_demo_files <- results[stringr::str_detect(results, "demographics_analysis1")]
 
 if(length(tableone_demo_files > 0)){
 
@@ -446,17 +446,17 @@ for(i in seq_along(tableone_demo_files)){
   #read in the files
   tableone_demo[[i]] <- readr::read_csv(tableone_demo_files[[i]],
                                                  show_col_types = FALSE)
-  
-  
+
+
   settings_demo[[i]] <- tableone_demo[[i]] %>%
     dplyr::filter(variable_name == "settings")
-  
+
   # remove from the summarised results
   tableone_demo[[i]] <- tableone_demo[[i]] %>%
     dplyr::filter(variable_name != "settings")
-  
+
   #turn back into a summarised result
-  
+
   tableone_demo[[i]] <- tableone_demo[[i]] %>%
     omopgenerics::newSummarisedResult(
       settings = tibble(
@@ -479,28 +479,28 @@ rm(tableone_demo)
 
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
-tableone_med_files <- results[stringr::str_detect(results, "medications")]
+tableone_med_files <- results[stringr::str_detect(results, "medications_analysis1")]
 
 if(length(tableone_med_files > 0)){
-  
+
   tableone_med <- list()
   settings_med <- list()
-  
+
   for(i in seq_along(tableone_med_files)){
     #read in the files
     tableone_med[[i]] <- readr::read_csv(tableone_med_files[[i]],
                                           show_col_types = FALSE)
-    
-    
+
+
     settings_med[[i]] <- tableone_med[[i]] %>%
       dplyr::filter(variable_name == "settings")
-    
+
     # remove from the summarised results
     tableone_med[[i]] <- tableone_med[[i]] %>%
       dplyr::filter(variable_name != "settings")
-    
+
     #turn back into a summarised result
-    
+
     tableone_med[[i]] <- tableone_med[[i]] %>%
       omopgenerics::newSummarisedResult(
         settings = tibble(
@@ -512,7 +512,7 @@ if(length(tableone_med_files > 0)){
       )
 
   }
-  
+
 }
 
 med_characteristics <- Reduce(omopgenerics::bind, tableone_med) %>%
@@ -522,26 +522,26 @@ rm(tableone_med)
 
 # table one comorbidities ------
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
-tableone_comorb_files <- results[stringr::str_detect(results, "comorbidity")]
+tableone_comorb_files <- results[stringr::str_detect(results, "comorbidity_analysis1")]
 
 if(length(tableone_comorb_files > 0)){
-  
+
   tableone_comorb <- list()
   settings_comorb <- list()
-  
+
   for(i in seq_along(tableone_comorb_files)){
     #read in the files
     tableone_comorb[[i]] <- readr::read_csv(tableone_comorb_files[[i]],
                                          show_col_types = FALSE)
-    
-    
+
+
     settings_comorb[[i]] <- tableone_comorb[[i]] %>%
       dplyr::filter(variable_name == "settings")
-    
+
     # remove from the summarised results
     tableone_comorb[[i]] <- tableone_comorb[[i]] %>%
       dplyr::filter(variable_name != "settings")
-    
+
     #turn back into a summarised result
     tableone_comorb[[i]] <- tableone_comorb[[i]] %>%
       omopgenerics::newSummarisedResult(
@@ -553,9 +553,9 @@ if(length(tableone_comorb_files > 0)){
           value = 5)
       )
 
-    
+
   }
-  
+
 }
 
 
@@ -566,7 +566,7 @@ rm(tableone_comorb)
 
 # risk tables ----------
 survival_risk_table_files<-results[stringr::str_detect(results, ".csv")]
-survival_risk_table_files<-results[stringr::str_detect(results, "risk_table_results")]
+survival_risk_table_files<-results[stringr::str_detect(results, "events_analysis1")]
 
 if(length(survival_risk_table_files > 0)){
 
@@ -587,25 +587,26 @@ survival_risk_table <- dplyr::bind_rows(survival_risk_table)  %>%
 snapshot_files <- results[stringr::str_detect(results, ".csv")]
 snapshot_files <- results[stringr::str_detect(results, "cdm_snapshot")]
 snapshotcdm <- list()
+
 for(i in seq_along(snapshot_files)){
   snapshotcdm[[i]] <- readr::read_csv(snapshot_files[[i]],
-                                      show_col_types = FALSE) %>% 
+                                      show_col_types = FALSE) %>%
     mutate_all(as.character)
-  
+
 }
-snapshotcdm <- bind_rows(snapshotcdm) %>% 
+snapshotcdm <- bind_rows(snapshotcdm) %>%
   select("cdm_name", "person_count", "observation_period_count" , "start_date",
-         "vocabulary_version", "cdm_version", "cdm_description",) %>% 
-  mutate(person_count = nice.num.count(person_count), 
-         observation_period_count = nice.num.count(observation_period_count)) %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+         "vocabulary_version", "cdm_version", "cdm_description",) %>%
+  mutate(person_count = nice.num.count(person_count),
+         observation_period_count = nice.num.count(observation_period_count)) %>%
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>%
   rename("Database name" = "cdm_name",
          "Study Start Date" = "start_date",
          "Persons in the database" = "person_count",
          "Number of observation periods" = "observation_period_count",
          "OMOP CDM vocabulary version" = "vocabulary_version",
          "Database CDM Version" = "cdm_version",
-         "Database Description" = "cdm_description" )  
+         "Database Description" = "cdm_description" )
 
 
 # attrition functions ----
