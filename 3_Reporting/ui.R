@@ -1074,7 +1074,7 @@ ui <- dashboardPage(
 
         
   
-        htmlOutput("dt_surv_stats"),
+        htmlOutput("dt_surv_stat"),
         
         div(style="display:inline-block",
             downloadButton(

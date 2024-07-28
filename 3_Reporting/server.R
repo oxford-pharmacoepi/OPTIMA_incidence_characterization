@@ -203,26 +203,7 @@ server <-	function(input, output, session) {
     }
   )
   
-  
-  # output$gt_demo_characteristics  <- render_gt({
-  #   CohortCharacteristics::tableCharacteristics(get_demo_characteristics(),
-  #                                               header = c("group", "cdm_name", "strata"))
-  # })
-  # 
-  
-  # output$gt_demo_characteristics_word <- downloadHandler(
-  #   filename = function() {
-  #     "demographics_characteristics.docx"
-  #   },
-  #   content = function(file) {
-  #     gtsave(CohortCharacteristics::tableCharacteristics(get_demo_characteristics(),
-  #                                                        header = c("group", "cdm_name", "strata")), file)
-  #   }
-  # )
-  # 
-  
-  
-  
+
   #patient_demographics ----
   get_demo_characteristics <- reactive({
 
