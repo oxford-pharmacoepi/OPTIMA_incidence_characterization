@@ -195,6 +195,7 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))  %>% 
   mutate(outcome_cohort_name = case_when(
     outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
     TRUE ~ outcome_cohort_name
   )) %>% 
   mutate(cdm_name = case_when(
@@ -209,18 +210,18 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
 
 
 # perform a filter to remove data with no values ie small cell lung cancer
-remove_outcomes <- incidence_estimates %>% 
-  filter(analysis_interval == "overall") %>% 
-  filter(denominator_sex == "Both") %>% 
-  filter(denominator_age_group == "18 to 150") %>% 
-  group_by(outcome_cohort_name) %>%
-  filter(sum(n_events) == 0) %>% 
-  distinct(outcome_cohort_name) %>% 
-  pull(outcome_cohort_name)
-
-incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
-  filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) 
+# remove_outcomes <- incidence_estimates %>% 
+#   filter(analysis_interval == "overall") %>% 
+#   filter(denominator_sex == "Both") %>% 
+#   filter(denominator_age_group == "18 to 150") %>% 
+#   group_by(outcome_cohort_name) %>%
+#   filter(sum(n_events) == 0) %>% 
+#   distinct(outcome_cohort_name) %>% 
+#   pull(outcome_cohort_name)
+# 
+# incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
+#   filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
+#   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) 
 
 
 # age standardized incidence estimates -----
@@ -236,7 +237,7 @@ for(i in seq_along(incidence_estimates_files_std)){
 }
 
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
-  filter(!(outcome_cohort_name %in% remove_outcomes) ) %>% 
+  #filter(!(outcome_cohort_name %in% remove_outcomes) ) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
@@ -259,7 +260,7 @@ for(i in seq_along(incidence_attrition_files)){
 }
 
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
-  filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
+ # filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 # incidence settings ------
@@ -272,7 +273,7 @@ for(i in seq_along(incidence_settings_files)){
 }
 
 incidence_settings <- dplyr::bind_rows(incidence_settings) %>% 
-  filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
+  #filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 }
@@ -309,7 +310,7 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
   }
   
   prevalence_estimates_std <- dplyr::bind_rows(prevalence_estimates_std) %>% 
-    filter(!(outcome_cohort_name %in% remove_outcomes) ) %>% 
+    #filter(!(outcome_cohort_name %in% remove_outcomes) ) %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
     mutate(cdm_name = case_when(
       cdm_name == "THIN es" ~ "THIN Spain",
@@ -334,7 +335,7 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
   }
   
   prevalence_attrition <- dplyr::bind_rows(prevalence_attrition) %>% 
-    filter(!(outcome_cohort_name %in% remove_outcomes )) %>% 
+    #filter(!(outcome_cohort_name %in% remove_outcomes )) %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
   
   # prevalence settings ------
@@ -379,8 +380,39 @@ estimate = as.numeric(estimate),
 estimate_95CI_lower = as.numeric(estimate_95CI_lower),
 estimate_95CI_upper = as.numeric(estimate_95CI_upper))
 
-# summary results
-#readr::write_csv(surv1_result, paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_summary_analysis1.csv
+# survival summaries ------
+survival_median_files <- results[stringr::str_detect(results, ".csv")]
+survival_median_files <- results[stringr::str_detect(results, "survival_summary_analysis1")]
+
+if(length(survival_median_files > 0)){
+  
+  survival_median_table <- list()
+  
+  for(i in seq_along(survival_median_files)){
+    survival_median_table[[i]]<-readr::read_csv(survival_median_files[[i]],
+                                                show_col_types = FALSE)
+  }
+  
+  survival_median_table <- dplyr::bind_rows(survival_median_table) %>% 
+    select(!c(
+      "[header_level]365 daysn_risk"     ,
+      "[header_level]365 daysn_events"    ,         
+      "[header_level]730 daysn_risk"     ,
+      "[header_level]730 daysn_events"     ,        
+      "[header_level]1095 daysn_risk"    ,
+      "[header_level]1095 daysn_events"   ,         
+      "[header_level]1460 daysn_risk"   ,
+      "[header_level]1460 daysn_events"      ,      
+      "[header_level]1825 daysn_risk"   ,
+      "[header_level]1825 daysn_events"       ,     
+      "[header_level]3650 daysn_risk"     ,
+      "[header_level]3650 daysn_events"      ,      
+      "[header_level]5475 daysn_risk"            ,
+      "[header_level]5475 daysn_events"   
+      
+    ))
+  
+}
 
 # risk table
 #readr::write_csv(attr(surv1 %>% asSurvivalResult(), "events"), paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_events_analysis1.csv")))
@@ -391,7 +423,7 @@ estimate_95CI_upper = as.numeric(estimate_95CI_upper))
 
 # survival attrition ------
 survival_attrition_files <- results[stringr::str_detect(results, ".csv")]
-survival_attrition_files <- results[stringr::str_detect(results, "survival_attrition")]
+survival_attrition_files <- results[stringr::str_detect(results, "survival_attrition_analysis1")]
 
 if(length(survival_attrition_files > 0)){
 survival_attrition <- list()
@@ -400,23 +432,13 @@ for(i in seq_along(survival_attrition_files)){
                                            show_col_types = FALSE)
 }
 survival_attrition <- dplyr::bind_rows(survival_attrition) %>% 
-  filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 }
 
-# survival summaries ------
-# survival_median_files <- results[stringr::str_detect(results, ".csv")]
-# survival_median_files <- results[stringr::str_detect(results, "survival_summary")]
-# 
-# if(length(survival_median_files > 0)){
-#   
-# survival_median_table <- list()
-# 
-# for(i in seq_along(survival_median_files)){
-#   survival_median_table[[i]]<-readr::read_csv(survival_median_files[[i]],
-#                                               show_col_types = FALSE)  
-# }
+
+
+
 # survival_median_table <- dplyr::bind_rows(survival_median_table) %>% 
 #   mutate(estimate_value = as.character(estimate_value)) %>% 
 #   filter(estimate_name == "number_records" |

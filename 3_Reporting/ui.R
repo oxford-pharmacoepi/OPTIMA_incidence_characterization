@@ -978,71 +978,100 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "median_cohort_name_selector",
             label = "Cohort Name",
-            choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = unique(incidence_attrition$outcome_cohort_name)[1],
+            choices = unique(survival_median_table$Cohort),
+            selected = unique(survival_median_table$Cohort)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
+
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "median_database_name_selector",
+            label = "Database",
+            choices = unique(survival_median_table$`CDM name`),
+            selected = unique(survival_median_table$`CDM name`)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "median_age_selector",
+            label = "Age Group",
+            choices = unique(survival_median_table$`Age group`),
+            selected = unique(survival_median_table$`Age group`)[1],
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "median_sex_selector",
+            label = "Sex",
+            choices = unique(survival_median_table$Sex),
+            selected = "Overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "median_diagyr_selector",
+            label = "Diagnosis Year Group",
+            choices = unique(survival_median_table$`Diag yr gp`),
+            selected = "Overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
         
         # div(
         #   style = "display: inline-block;vertical-align:top; width: 150px;",
         #   pickerInput(
         #     inputId = "median_demo_selector",
         #     label = "Demographics",
-        #     choices = unique(survival_median_table$strata_level),
-        #     selected = unique(survival_median_table$strata_level)[1],
+        #     choices = {
+        #       tryCatch({
+        #         unique_vals <- unique(survival_median_table$strata_level)
+        #         if (!is.null(unique_vals)) {
+        #           return(unique_vals)
+        #         } else {
+        #           return("No data available")
+        #         }
+        #       }, error = function(e) {
+        #         return("Error retrieving data")
+        #       })
+        #     },
+        #     selected = {
+        #       tryCatch({
+        #         unique_vals <- unique(survival_median_table$strata_level)
+        #         if (!is.null(unique_vals)) {
+        #           return(unique_vals[1])
+        #         } else {
+        #           return(NULL)
+        #         }
+        #       }, error = function(e) {
+        #         return(NULL)
+        #       })
+        #     },
         #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
         #     multiple = TRUE
         #   )
-        # ),
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "median_demo_selector",
-            label = "Demographics",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$strata_level)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
-            },
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$strata_level)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
-            },
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ) ,
+        # ) ,
         
         
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "median_database_name_selector",
-            label = "Database",
-            choices = unique(incidence_attrition$cdm_name),
-            selected = unique(incidence_attrition$cdm_name),
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
+
         
   
         htmlOutput("dt_surv_stats"),
