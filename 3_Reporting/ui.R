@@ -480,6 +480,21 @@ ui <- dashboardPage(
           )
         ),
         
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "demographics_year_selector",
+            label = "Diagnosis Year",
+            choices = demo_characteristics %>%
+              filter(strata_name == "year" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
        # tags$hr(),
         gt_output("gt_demo_characteristics") %>% 
           withSpinner() ,
@@ -591,6 +606,22 @@ ui <- dashboardPage(
           )
         ),
         
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "comorb_year_selector",
+            label = "Diagnosis Year",
+            choices = comorb_characteristics %>%
+              filter(strata_name == "year" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
         # tags$hr(),
         gt_output("gt_comorb_characteristics") %>% 
           withSpinner() ,
@@ -691,6 +722,21 @@ ui <- dashboardPage(
             label = "Diagnosis Year Group",
             choices = med_characteristics %>%
               filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
+              distinct(strata_level) %>% 
+              pull(),
+            selected = "overall",
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "med_year_selector",
+            label = "Diagnosis Year",
+            choices = med_characteristics %>%
+              filter(strata_name == "year" | strata_name == "overall") %>%
               distinct(strata_level) %>% 
               pull(),
             selected = "overall",

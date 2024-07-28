@@ -45,7 +45,6 @@ mytheme <- create_theme(
   ),
   adminlte_global(
     content_bg = "#eaebea"
-    #content_bg = "white"
   ),
   adminlte_vars(
     border_color = "black",
@@ -174,7 +173,7 @@ if(length(json_files > 0)){
   mutate(name = ifelse(name == "lung_cancer_broad_inc", "lung_cancer_incident_broad", name)) %>% 
   mutate(name = ifelse(name == "lung_cancer_narrow_inc", "lung_cancer_incident_narrow", name)) 
   
-# incidence estimates not standardized -----
+# incidence estimates -----
 incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
 incidence_estimates_files <-results[stringr::str_detect(results, "incidence_estimates")]
 
@@ -195,7 +194,7 @@ for(i in seq_along(incidence_estimates_files)){
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))  %>% 
   mutate(outcome_cohort_name = case_when(
-    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer",
+    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
     TRUE ~ outcome_cohort_name
   )) %>% 
   mutate(cdm_name = case_when(
@@ -222,9 +221,6 @@ remove_outcomes <- incidence_estimates %>%
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
   filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) 
-
-
-
 
 
 # age standardized incidence estimates -----
@@ -285,7 +281,10 @@ incidence_settings <- dplyr::bind_rows(incidence_settings) %>%
 # prevalence estimates -----
 prevalence_estimates_files <-results[stringr::str_detect(results, ".csv")]
 prevalence_estimates_files <-results[stringr::str_detect(results, "prevalence_estimates")]
+
 if(length(prevalence_estimates_files > 0)){
+  
+prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(prevalence_estimates_files, "age_std_"))]
   
   prevalence_estimates <- list()
   
@@ -296,6 +295,33 @@ if(length(prevalence_estimates_files > 0)){
   
   prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  
+  # age standardized prevalence estimates -----
+  prevalence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
+  prevalence_estimates_files_std<-results[stringr::str_detect(results, "prevalence_estimates")]
+  prevalence_estimates_files_std<-prevalence_estimates_files_std[(stringr::str_detect(prevalence_estimates_files_std, "age_std_"))]
+  
+  prevalence_estimates_std <- list()
+  
+  for(i in seq_along(prevalence_estimates_files_std)){
+    prevalence_estimates_std[[i]]<-readr::read_csv(prevalence_estimates_files_std[[i]], 
+                                                  show_col_types = FALSE)  
+  }
+  
+  prevalence_estimates_std <- dplyr::bind_rows(prevalence_estimates_std) %>% 
+    filter(!(outcome_cohort_name %in% remove_outcomes) ) %>% 
+    mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+    mutate(cdm_name = case_when(
+      cdm_name == "THIN es" ~ "THIN Spain",
+      cdm_name == "THIN be" ~ "THIN Belguim",
+      cdm_name == "THIN fr" ~ "THIN France",
+      cdm_name == "THIN it" ~ "THIN Italy",
+      cdm_name == "THIN ro" ~ "THIN Romania",
+      cdm_name == "THIN uk" ~ "THIN UK",
+      TRUE ~ cdm_name
+    )) 
+  
+  
     
   
   # prevalence attrition -----
@@ -434,48 +460,48 @@ survival_attrition <- dplyr::bind_rows(survival_attrition) %>%
 # }
 
 # table one demographics------
-tableone_demo_files <- results[stringr::str_detect(results, ".csv")]
-tableone_demo_files <- results[stringr::str_detect(results, "demographics_analysis1")]
+  tableone_demo_files <- results[stringr::str_detect(results, ".csv")]
+  tableone_demo_files <- results[stringr::str_detect(results, "demographics_analysis1")]
+  
+  if(length(tableone_demo_files > 0)){
+    
+    tableone_demo <- list()
+    settings_demo <- list()
+    
+    for(i in seq_along(tableone_demo_files)){
+      #read in the files
+      tableone_demo[[i]] <- readr::read_csv(tableone_demo_files[[i]],
+                                            show_col_types = FALSE)
+      
+      
+      settings_demo[[i]] <- tableone_demo[[i]] %>%
+        dplyr::filter(variable_name == "settings")
+      
+      # remove from the summarised results
+      tableone_demo[[i]] <- tableone_demo[[i]] %>%
+        dplyr::filter(variable_name != "settings")
+      
+      #turn back into a summarised result
 
-if(length(tableone_demo_files > 0)){
-
-tableone_demo <- list()
-settings_demo <- list()
-
-for(i in seq_along(tableone_demo_files)){
-  #read in the files
-  tableone_demo[[i]] <- readr::read_csv(tableone_demo_files[[i]],
-                                                 show_col_types = FALSE)
-
-
-  settings_demo[[i]] <- tableone_demo[[i]] %>%
-    dplyr::filter(variable_name == "settings")
-
-  # remove from the summarised results
-  tableone_demo[[i]] <- tableone_demo[[i]] %>%
-    dplyr::filter(variable_name != "settings")
-
-  #turn back into a summarised result
-
-  tableone_demo[[i]] <- tableone_demo[[i]] %>%
-    omopgenerics::newSummarisedResult(
-      settings = tibble(
-        result_id = 1L,
-        result_type = settings_demo[[i]]$estimate_value[3],
-        package_name = settings_demo[[i]]$estimate_value[1],
-        package_version = settings_demo[[i]]$estimate_value[2],
-        value = 5)
-    )
-
-
-}
-
-}
-
-demo_characteristics <- Reduce(omopgenerics::bind, tableone_demo) %>%
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
-
-rm(tableone_demo)
+      tableone_demo[[i]] <- tableone_demo[[i]] %>%
+        omopgenerics::newSummarisedResult(
+          settings = tibble(
+            result_id = as.integer(1),
+            result_type = settings_demo[[i]]$estimate_value[3],
+            package_name = settings_demo[[i]]$estimate_value[1],
+            package_version = settings_demo[[i]]$estimate_value[2],
+            value = 5)
+        )
+      
+      
+    }
+    
+  }
+  
+  demo_characteristics <- Reduce(omopgenerics::bind, tableone_demo) %>%
+    mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  
+  rm(tableone_demo)
 
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
@@ -557,7 +583,6 @@ if(length(tableone_comorb_files > 0)){
   }
 
 }
-
 
 comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))

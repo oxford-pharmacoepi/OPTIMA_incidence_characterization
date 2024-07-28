@@ -241,6 +241,16 @@ server <-	function(input, output, session) {
     validate(
       need(input$demographics_database_name_selector != "", "Please select a database")
     )
+    
+    
+    validate(
+      need(input$demo_diag_yr_selector != "", "Please select a diagnosis year group")
+    )
+    
+    
+    validate(
+      need(input$demographics_year_selector != "", "Please select a diagnosis year")
+    )
 
     demo_characteristics <- demo_characteristics %>%
       visOmopResults::splitStrata() %>% 
@@ -250,8 +260,9 @@ server <-	function(input, output, session) {
       filter(cohort_name %in% input$demographics_cohort_selector) %>% 
       filter(cdm_name %in% input$demographics_database_name_selector) %>% 
       filter(diag_yr_gp %in% input$demo_diag_yr_selector) %>% 
+      filter(year %in% input$demographics_year_selector) %>% 
       visOmopResults::uniteGroup("cohort_name") %>% 
-      visOmopResults::uniteStrata(c("sex", "age_group", "diag_yr_gp")) 
+      visOmopResults::uniteStrata(c("sex", "age_group", "diag_yr_gp", "year")) 
     
 
     demo_characteristics
@@ -307,9 +318,10 @@ server <-	function(input, output, session) {
       filter(window %in% input$comorb_time_selector) %>% 
       filter(cdm_name %in% input$comorb_database_name_selector) %>% 
       filter(diag_yr_gp %in% input$comorb_diag_yr_selector) %>% 
+      filter(year %in% input$comorb_year_selector) %>% 
       visOmopResults::uniteAdditional(c("table", "window", "value")) %>% 
       visOmopResults::uniteGroup("cohort_name") %>% 
-      visOmopResults::uniteStrata(c("sex", "age_group", "diag_yr_gp")) 
+      visOmopResults::uniteStrata(c("sex", "age_group", "diag_yr_gp", "year")) 
 
     
     comorb_characteristics
@@ -377,9 +389,10 @@ server <-	function(input, output, session) {
       filter(window %in% input$med_time_selector) %>% 
       filter(cdm_name %in% input$med_database_name_selector) %>% 
       filter(diag_yr_gp %in% input$med_diag_yr_selector) %>% 
+      filter(year %in% input$med_year_selector) %>% 
       visOmopResults::uniteAdditional(c("table", "window", "value")) %>% 
       visOmopResults::uniteGroup("cohort_name") %>% 
-      visOmopResults::uniteStrata(c("sex", "age_group", "diag_yr_gp")) 
+      visOmopResults::uniteStrata(c("sex", "age_group", "diag_yr_gp", "year")) 
     
     med_characteristics
     
