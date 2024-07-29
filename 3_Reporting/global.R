@@ -209,21 +209,6 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
   )) 
 
 
-# perform a filter to remove data with no values ie small cell lung cancer
-# remove_outcomes <- incidence_estimates %>% 
-#   filter(analysis_interval == "overall") %>% 
-#   filter(denominator_sex == "Both") %>% 
-#   filter(denominator_age_group == "18 to 150") %>% 
-#   group_by(outcome_cohort_name) %>%
-#   filter(sum(n_events) == 0) %>% 
-#   distinct(outcome_cohort_name) %>% 
-#   pull(outcome_cohort_name)
-# 
-# incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
-#   filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
-#   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) 
-
-
 # age standardized incidence estimates -----
 incidence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
 incidence_estimates_files_std<-results[stringr::str_detect(results, "incidence_estimates")]
@@ -237,7 +222,6 @@ for(i in seq_along(incidence_estimates_files_std)){
 }
 
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
-  #filter(!(outcome_cohort_name %in% remove_outcomes) ) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
@@ -273,7 +257,6 @@ for(i in seq_along(incidence_settings_files)){
 }
 
 incidence_settings <- dplyr::bind_rows(incidence_settings) %>% 
-  #filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 }
@@ -310,7 +293,6 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
   }
   
   prevalence_estimates_std <- dplyr::bind_rows(prevalence_estimates_std) %>% 
-    #filter(!(outcome_cohort_name %in% remove_outcomes) ) %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
     mutate(cdm_name = case_when(
       cdm_name == "THIN es" ~ "THIN Spain",
@@ -335,7 +317,6 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
   }
   
   prevalence_attrition <- dplyr::bind_rows(prevalence_attrition) %>% 
-    #filter(!(outcome_cohort_name %in% remove_outcomes )) %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
   
   # prevalence settings ------
@@ -410,7 +391,8 @@ if(length(survival_median_files > 0)){
       "[header_level]5475 daysn_risk"            ,
       "[header_level]5475 daysn_events"   
       
-    ))
+    )) %>% 
+    rename_with(~ gsub("\\[header_level\\]", "", .))
   
 }
 
