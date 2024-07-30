@@ -409,14 +409,14 @@ if(length(survival_events_files > 0)){
                                                 show_col_types = FALSE)
   }
   
-  survival_events_table <- dplyr::bind_rows(survival_events_table) 
+  survival_events_table <- dplyr::bind_rows(survival_events_table) %>% 
+    mutate(strata_level = str_replace_all(strata_level, "&&&", "&"))
 
   
 }
 
-
-
 }
+
 
 # survival attrition ------
 survival_attrition_files <- results[stringr::str_detect(results, ".csv")]
@@ -607,25 +607,6 @@ comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 rm(tableone_comorb)
-
-# risk tables ----------
-survival_risk_table_files<-results[stringr::str_detect(results, ".csv")]
-survival_risk_table_files<-results[stringr::str_detect(results, "events_analysis1")]
-
-if(length(survival_risk_table_files > 0)){
-
-survival_risk_table <- list()
-for(i in seq_along(survival_risk_table_files)){
-  survival_risk_table[[i]]<-readr::read_csv(survival_risk_table_files[[i]],
-                                            show_col_types = FALSE) %>%
-    mutate_if(is.double, as.character)
-
-}
-
-survival_risk_table <- dplyr::bind_rows(survival_risk_table)  %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
-
-}
 
 # cdm snapshot ------
 snapshot_files <- results[stringr::str_detect(results, ".csv")]

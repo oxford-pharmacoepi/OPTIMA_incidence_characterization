@@ -421,8 +421,9 @@ server <-	function(input, output, session) {
 
 
     table <- survival_risk_table %>%
-      filter(outcome_cohort_name %in% input$risk_table_cohort_name_selector) %>%
-      filter(cdm_name %in% input$risk_table_database_name_selector)
+      filter(cohort %in% input$risk_table_cohort_name_selector) %>%
+      filter(cdm_name %in% input$risk_table_database_name_selector) %>% 
+      filter(strata_level %in% input$risk_table_strata_selector )
 
     table
 
@@ -982,41 +983,8 @@ server <-	function(input, output, session) {
  
   
   
-  # surv risk table CY --------
-  get_risk_tablecy <- reactive({
-    
-    
-    validate(
-      need(input$risk_table_cohort_name_selectorcy != "", "Please select a cohort")
-    )
-    validate(
-      need(input$risk_table_database_name_selectorcy != "", "Please select a database")
-    )
 
-    
-    table <- survival_risk_cy_table %>%
-      filter(Cancer %in% input$risk_table_cohort_name_selectorcy) %>%
-      filter(Database %in% input$risk_table_database_name_selectorcy) 
-    
-    table
-    
-  })
-  
-  
-  output$dt_risk_tablecy <- renderText(kable(get_risk_tablecy()) %>%
-                                       kable_styling("striped", full_width = F) )
-  
-  
-  output$gt_risk_tablecy_word <- downloadHandler(
-    filename = function() {
-      "risk_table_calendar_year.docx"
-    },
-    content = function(file) {
-      x <- gt(get_risk_tablecy())
-      gtsave(x, file)
-    }
-  )  
-  
+# incidence plot ------  
   
   get_incidence_plot <- reactive({
     

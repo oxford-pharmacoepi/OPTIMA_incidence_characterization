@@ -939,8 +939,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "risk_table_cohort_name_selector",
             label = "Cohort Name",
-            choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = unique(incidence_attrition$outcome_cohort_name)[1],
+            choices = unique(survival_events_table$cohort),
+            selected = unique(survival_events_table$cohort)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -951,8 +951,20 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "risk_table_database_name_selector",
             label = "Database",
-            choices = unique(incidence_attrition$cdm_name),
-            selected = unique(incidence_attrition$cdm_name),
+            choices = unique(survival_events_table$cdm_name),
+            selected = unique(survival_events_table$cdm_name),
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+        
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "risk_table_strata_selector",
+            label = "Strata",
+            choices = unique(survival_events_table$strata_level),
+            selected = unique(survival_events_table$strata_level,
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
