@@ -396,9 +396,38 @@ if(length(survival_median_files > 0)){
   
 }
 
-# risk table
-#readr::write_csv(attr(surv1 %>% asSurvivalResult(), "events"), paste0(here("Results", db_name), paste0("/", cdmName(cdm), "_survival_events_analysis1.csv")))
+# risk table --------
+survival_events_files <- results[stringr::str_detect(results, ".csv")]
+survival_events_files <- results[stringr::str_detect(results, "survival_events_analysis1")]
 
+if(length(survival_events_files > 0)){
+  
+  survival_events_table <- list()
+  
+  for(i in seq_along(survival_events_files)){
+    survival_events_table[[i]]<-readr::read_csv(survival_events_files[[i]],
+                                                show_col_types = FALSE)
+  }
+  
+  # survival_median_table <- dplyr::bind_rows(survival_median_table) %>% 
+  #   select(!c(
+  #     "[header_level]365 daysn_risk"     ,
+  #     "[header_level]365 daysn_events"    ,         
+  #     "[header_level]730 daysn_risk"     ,
+  #     "[header_level]730 daysn_events"     ,        
+  #     "[header_level]1095 daysn_risk"    ,
+  #     "[header_level]1095 daysn_events"   ,         
+  #     "[header_level]1460 daysn_risk"   ,
+  #     "[header_level]1460 daysn_events"      ,      
+  #     "[header_level]1825 daysn_risk"   ,
+  #     "[header_level]1825 daysn_events"       ,     
+  #     "[header_level]3650 daysn_risk"     ,
+  #     "[header_level]3650 daysn_events"      ,      
+  #     "[header_level]5475 daysn_risk"            ,
+  #     "[header_level]5475 daysn_events"   
+  #     
+  #   )) %>% 
+  #   rename_with(~ gsub("\\[header_level\\]", "", .))
 
 
 }
