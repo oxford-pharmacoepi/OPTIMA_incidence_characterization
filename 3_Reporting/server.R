@@ -420,7 +420,7 @@ server <-	function(input, output, session) {
     )
 
 
-    table <- survival_risk_table %>%
+    table <- survival_events_table %>%
       filter(cohort %in% input$risk_table_cohort_name_selector) %>%
       filter(cdm_name %in% input$risk_table_database_name_selector) %>% 
       filter(strata_level %in% input$risk_table_strata_selector )
