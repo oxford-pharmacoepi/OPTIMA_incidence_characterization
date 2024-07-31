@@ -1148,11 +1148,11 @@ server <-	function(input, output, session) {
             ggplot(aes_string(x = "incidence_start_date", y = "incidence_100000_pys",
                               ymin = "incidence_100000_pys_95CI_lower",
                               ymax = "incidence_100000_pys_95CI_upper",
-                              group = "Group", colour = "Group")) +
+                              colour = "Group", fill = "Group")) +
             geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+            geom_errorbar(width = 0, position = position_dodge(width = 1)) +
             labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
             scale_y_continuous(limits = c(0, NA)) +
-            geom_errorbar(width = 0, position = position_dodge(width = 1)) +
             theme(axis.text.x = element_text(angle = 45, hjust=1),
                   panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
                   strip.background = element_rect(color = "black", size = 0.6) ,
@@ -1432,13 +1432,13 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
-                            group = "Group", colour = "Group")) +
+                            colour = "Group", fill = "Group")) +
           geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
             limits = c(0, NA)) +
-          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
                 strip.background = element_rect(color = "black", size = 0.6) ,
@@ -1456,13 +1456,13 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
-                            group = "Group", colour = "Group")) +
+                            colour = "Group", fill = "Group")) +
           geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
             limits = c(0, NA)) +
-          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
                 strip.background = element_rect(color = "black", size = 0.6) ,
@@ -1480,13 +1480,13 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
-                            group = "Group", colour = "Group")) +
+                            colour = "Group", fill = "Group")) +
           geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
             limits = c(0, NA)) +
-          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
                 strip.background = element_rect(color = "black", size = 0.6) ,
