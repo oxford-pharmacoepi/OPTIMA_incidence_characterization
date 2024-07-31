@@ -410,7 +410,15 @@ if(length(survival_events_files > 0)){
   }
   
   survival_events_table <- dplyr::bind_rows(survival_events_table) %>% 
-    mutate(strata_level = str_replace_all(strata_level, "&&&", "&"))
+    mutate(strata_level = str_replace_all(strata_level, "&&&", "&")) %>% 
+    select(-c(result_id,
+              strata_name,
+              variable_level,
+              outcome,
+              eventgap,
+              result_type,
+              analysis_type
+              ))
 
   
 }
