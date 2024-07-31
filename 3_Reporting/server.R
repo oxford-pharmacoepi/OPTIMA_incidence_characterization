@@ -1812,7 +1812,7 @@ get_attrition1 <- reactive({
   
   
   table <- survival_attrition %>%
-    filter(outcome_cohort_name %in% input$attrition_cohort_name_selector1) %>%
+    filter(cohort_name %in% input$attrition_cohort_name_selector1) %>%
     filter(cdm_name %in% input$attrition_database_name_selector1) 
   
   table
