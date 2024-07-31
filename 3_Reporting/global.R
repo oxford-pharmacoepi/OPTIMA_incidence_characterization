@@ -434,8 +434,13 @@ if(length(survival_events_files > 0)){
               eventgap,
               result_type,
               analysis_type
-              ))
-
+              )) %>% 
+  
+    mutate(estimate_value = case_when(
+      is.na(estimate_value) ~ "<5",
+      estimate_value > 0 & estimate_value <= 5 ~ "<5",
+      TRUE ~ as.character(estimate_value)
+    ))
   
 }
 
