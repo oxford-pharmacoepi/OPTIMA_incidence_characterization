@@ -741,10 +741,14 @@ server <-	function(input, output, session) {
   # survival plots -------
   get_surv_plot <- reactive({
     
-    # validate(need(input$survival_cohort_name_selector != "", "Please select a cohort") )
-    # validate(need(input$survival_database_selector != "", "Please select a database"))
-    # validate(need(input$surv_plot_group != "", "Please select a group to colour by"))
-    # validate(need(input$surv_plot_facet != "", "Please select a group to facet by"))
+    validate(need(input$survival_cohort_name_selector != "", "Please select a cohort") )
+    validate(need(input$survival_database_selector != "", "Please select a database"))
+    
+    validate(need(input$survival_sex_selector != "", "Please select a sex group"))
+    validate(need(input$survival_age_selector != "", "Please select an age group"))
+    validate(need(input$survival_year_selector != "", "Please select an diagnosis year group"))
+    validate(need(input$surv_plot_group != "", "Please select a group to colour by"))
+    validate(need(input$surv_plot_facet != "", "Please select a group to facet by"))
 
     
     plot_data <- survival_estimates %>%
@@ -768,7 +772,7 @@ server <-	function(input, output, session) {
                      group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
                       alpha = 0.1) +
           geom_line(size = 0.25) +
@@ -793,7 +797,7 @@ server <-	function(input, output, session) {
                      group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
                       alpha = 0.1) +
           geom_line(size = 0.25) +
@@ -815,7 +819,7 @@ server <-	function(input, output, session) {
                      ymax = estimate_95CI_upper)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
                       alpha = 0.1) +
           geom_line(size = 0.25) +
@@ -837,7 +841,7 @@ server <-	function(input, output, session) {
                        group = Group, colour = Group, fill = Group)) +
             scale_y_continuous( labels = label_percent() ) +
             xlab("Time (Years)") +
-            ylab("Survival Function (%)") +
+            ylab("Survival Function") +
             geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
                         alpha = 0.1) +
             geom_line(size = 0.25) +
@@ -871,7 +875,7 @@ server <-	function(input, output, session) {
                      group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_line(size = 0.25) +
           facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")+
           theme(
@@ -894,7 +898,7 @@ server <-	function(input, output, session) {
                      group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_line(size = 0.25) +
           theme(
             panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
@@ -914,7 +918,7 @@ server <-	function(input, output, session) {
                      ymax = estimate_95CI_upper)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_line(size = 0.25) +
           facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")+
           theme(
@@ -934,7 +938,7 @@ server <-	function(input, output, session) {
                      group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_line(size = 0.25) +
           theme(
             panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
@@ -1139,7 +1143,7 @@ server <-	function(input, output, session) {
                               ymin = "incidence_100000_pys_95CI_lower",
                               ymax = "incidence_100000_pys_95CI_upper",
                               group = "Group", colour = "Group")) +
-            geom_point(position = position_dodge(width = 1)) +
+            geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
             labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
             scale_y_continuous(limits = c(0, NA)) +
             geom_errorbar(width = 0, position = position_dodge(width = 1)) +
@@ -1159,7 +1163,7 @@ server <-	function(input, output, session) {
                               ymin = "incidence_100000_pys_95CI_lower",
                               ymax = "incidence_100000_pys_95CI_upper",
                               group = "Group", colour = "Group")) +
-            geom_point(position = position_dodge(width = 1)) +
+            geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
             labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
             scale_y_continuous(limits = c(0, NA)) +
             geom_errorbar(width = 0, position = position_dodge(width = 1)) +
@@ -1179,7 +1183,7 @@ server <-	function(input, output, session) {
                               ymin = "incidence_100000_pys_95CI_lower",
                               ymax = "incidence_100000_pys_95CI_upper",
                               group = "Group", colour = "Group")) +
-            geom_point(position = position_dodge(width = 1)) +
+            geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
             labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
             scale_y_continuous(limits = c(0, NA)) +
             geom_errorbar(width = 0, position = position_dodge(width = 1)) +
@@ -1198,7 +1202,7 @@ server <-	function(input, output, session) {
             ggplot(aes_string(x = "incidence_start_date", y = "incidence_100000_pys",
                               ymin = "incidence_100000_pys_95CI_lower",
                               ymax = "incidence_100000_pys_95CI_upper")) +
-            geom_point(position = position_dodge(width = 1)) +
+            geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
             labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
             scale_y_continuous(limits = c(0, NA)) +
             geom_errorbar(width = 0, position = position_dodge(width = 1)) +
@@ -1295,7 +1299,7 @@ server <-	function(input, output, session) {
                             ymax = "prevalence_95CI_upper",
                             group = "Group",
                             colour = "Group", fill = "Group")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
           geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
                       alpha = 0.1) + 
           geom_line(size = 0.25) +
@@ -1321,7 +1325,7 @@ server <-	function(input, output, session) {
                             ymax = "prevalence_95CI_upper",
                             group="Group",
                             colour="Group", fill = "Group")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
           geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
                       alpha = 0.1) + 
           geom_line(size = 0.25) +
@@ -1366,7 +1370,7 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x="prevalence_start_date", y="prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
           geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
                       alpha = 0.1) + 
           geom_line(size = 0.25) +
@@ -1406,7 +1410,7 @@ server <-	function(input, output, session) {
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
                             group = "Group", colour = "Group")) +
-          geom_point(position = position_dodge(width = 1)) +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
@@ -1428,7 +1432,7 @@ server <-	function(input, output, session) {
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
                             group = "Group", colour = "Group")) +
-          geom_point(position = position_dodge(width = 1)) +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
@@ -1450,7 +1454,7 @@ server <-	function(input, output, session) {
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
                             group = "Group", colour = "Group")) +
-          geom_point(position = position_dodge(width = 1)) +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,

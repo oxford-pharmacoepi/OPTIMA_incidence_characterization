@@ -92,19 +92,29 @@ ui <- dashboardPage(
         text = "Prevalence",
         tabName = "prevalence",
         icon = shiny::icon("bath") ,
+        
+        
         menuSubItem(
-          
-          text = "Plots",
+          text = "Crude Plots",
           tabName = "prev_plots"
         ),
         menuSubItem(
-          text = "Prevalence Estimates",
+          text = "Standardized Plots",
+          tabName = "prev_plots_std"
+        ),
+        menuSubItem(
+          text = "Crude Estimates",
           tabName = "prev_rates"
+        ),
+        menuSubItem(
+          text = "Age Standardized Estimates",
+          tabName = "prev_rates_std"
         ),
         menuSubItem(
           text = "Attrition Table",
           tabName = "prev_attrition"
         )
+        
         # menuSubItem(
         #   text = "Attrition Figure",
         #   tabName = "prev_attrition_fig"
