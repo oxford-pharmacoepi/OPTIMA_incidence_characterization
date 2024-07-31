@@ -72,6 +72,14 @@ cdm$outcome <- cdm$outcome %>%
   CDMConnector::recordCohortAttrition(reason="Excluded patients with less than 365 prior history" )
 
 
+#remove people with no sex ----
+cdm$outcome <- cdm$outcome %>% 
+  filter(sex != "Male" | sex != "Female" ) 
+
+cdm$outcome <- cdm$outcome %>% 
+  compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+  CDMConnector::recordCohortAttrition(reason="Excluded patients with no sex recorded" )
+
 
 # create a new survival object to carry on with survival we want to carry out characterisation on outcome table
 cdm$survival <- cdm$outcome %>% 
@@ -235,8 +243,8 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
   # attrition from survival with no cancer related attrition
   attrition1 <- attributes(surv2)$attrition %>% 
-    rename(cohort_definition_id  = outcome_id) %>% 
-    select(-c(exposure_id)) %>% 
+    rename(cohort_definition_id  = exposure_id) %>% 
+    select(-c(outcome_id)) %>% 
     dplyr::inner_join(settings(cdm$outcome) %>%   
                         select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
     mutate(cdm_name = db_name)
