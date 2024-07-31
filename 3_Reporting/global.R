@@ -172,6 +172,7 @@ if(length(json_files > 0)){
   concept_sets_final <- concept_sets_final %>% 
   mutate(name = ifelse(name == "lung_cancer_broad_inc", "lung_cancer_incident_broad", name)) %>% 
   mutate(name = ifelse(name == "lung_cancer_narrow_inc", "lung_cancer_incident_narrow", name)) 
+    
   
 # incidence estimates -----
 incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
@@ -196,6 +197,7 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
   mutate(outcome_cohort_name = case_when(
     outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
     outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
     TRUE ~ outcome_cohort_name
   )) %>% 
   mutate(cdm_name = case_when(
@@ -223,6 +225,12 @@ for(i in seq_along(incidence_estimates_files_std)){
 
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    TRUE ~ outcome_cohort_name
+  )) %>% 
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
     cdm_name == "THIN be" ~ "THIN Belguim",

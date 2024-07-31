@@ -964,7 +964,7 @@ ui <- dashboardPage(
             inputId = "risk_table_strata_selector",
             label = "Strata",
             choices = unique(survival_events_table$strata_level),
-            selected = unique(survival_events_table$strata_level),
+            selected = unique(survival_events_table$strata_level)[1],
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
