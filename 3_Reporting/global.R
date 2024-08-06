@@ -172,6 +172,7 @@ if(length(json_files > 0)){
   concept_sets_final <- concept_sets_final %>% 
   mutate(name = ifelse(name == "lung_cancer_broad_inc", "lung_cancer_incident_broad", name)) %>% 
   mutate(name = ifelse(name == "lung_cancer_narrow_inc", "lung_cancer_incident_narrow", name)) 
+    
   
 # incidence estimates -----
 incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
@@ -196,6 +197,7 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
   mutate(outcome_cohort_name = case_when(
     outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
     outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
     TRUE ~ outcome_cohort_name
   )) %>% 
   mutate(cdm_name = case_when(
@@ -223,6 +225,12 @@ for(i in seq_along(incidence_estimates_files_std)){
 
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    TRUE ~ outcome_cohort_name
+  )) %>% 
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
     cdm_name == "THIN be" ~ "THIN Belguim",
@@ -244,23 +252,15 @@ for(i in seq_along(incidence_attrition_files)){
 }
 
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
- # filter(!(outcome_cohort_name %in% remove_outcomes ))  %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
-
-# incidence settings ------
-incidence_settings_files<-results[stringr::str_detect(results, ".csv")]
-incidence_settings_files<-results[stringr::str_detect(results, "incidence_settings")]
-incidence_settings <- list()
-for(i in seq_along(incidence_settings_files)){
-  incidence_settings[[i]]<-readr::read_csv(incidence_settings_files[[i]], 
-                                            show_col_types = FALSE)  
-}
-
-incidence_settings <- dplyr::bind_rows(incidence_settings) %>% 
+  mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    TRUE ~ outcome_cohort_name
+  )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
 
 }
-
 
 # prevalence estimates -----
 prevalence_estimates_files <-results[stringr::str_detect(results, ".csv")]
@@ -278,7 +278,23 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
   }
   
   prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) %>% 
-    mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "broad_lung_cancer_2y" ~ "Lung Cancer Broad 2yrs",
+    outcome_cohort_name == "broad_lung_cancer_5y" ~ "Lung Cancer Broad 5yrs",
+    outcome_cohort_name == "broad_lung_cancer_end" ~ "Lung Cancer Broad End",
+    outcome_cohort_name == "narrow_lung_cancer_2y" ~ "Lung Cancer Narrow 2yrs",
+    outcome_cohort_name == "narrow_lung_cancer_5y" ~ "Lung Cancer Narrow 5yrs",
+    outcome_cohort_name == "narrow_lung_cancer_end" ~ "Lung Cancer Narrow End",
+    outcome_cohort_name == "small_cell_lung_cancer_2y" ~ "Small Cell Lung Cancer 2yrs",
+    outcome_cohort_name == "small_cell_lung_cancer_5y" ~ "Small Cell Lung Cancer 5yrs",
+    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer End",
+    
+    TRUE ~ outcome_cohort_name
+  ))
+  
+  
+  
   
   # age standardized prevalence estimates -----
   prevalence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
@@ -410,8 +426,21 @@ if(length(survival_events_files > 0)){
   }
   
   survival_events_table <- dplyr::bind_rows(survival_events_table) %>% 
-    mutate(strata_level = str_replace_all(strata_level, "&&&", "&"))
-
+    mutate(strata_level = str_replace_all(strata_level, "&&&", "&")) %>% 
+    select(-c(result_id,
+              strata_name,
+              variable_level,
+              outcome,
+              eventgap,
+              result_type,
+              analysis_type
+              )) %>% 
+  
+    mutate(estimate_value = case_when(
+      is.na(estimate_value) ~ "<5",
+      estimate_value > 0 & estimate_value <= 5 ~ "<5",
+      TRUE ~ as.character(estimate_value)
+    ))
   
 }
 
@@ -434,50 +463,6 @@ survival_attrition <- dplyr::bind_rows(survival_attrition) %>%
 
 }
 
-
-
-
-# survival_median_table <- dplyr::bind_rows(survival_median_table) %>% 
-#   mutate(estimate_value = as.character(estimate_value)) %>% 
-#   filter(estimate_name == "number_records" |
-#            estimate_name == "events" |
-#            estimate_name == "median_survival" |
-#          estimate_name == "median_survival_95CI_lower" |
-#          estimate_name == "median_survival_95CI_higher" )  %>% 
-#   mutate(result_type = "summarised_characteristics") %>% 
-#   mutate(group_name = "cohort_name") %>% 
-#   mutate(strata_name = case_when(
-#     strata_name == "Overall" ~ "overall",
-#              TRUE ~ strata_name
-#            )) %>% 
-#   mutate(strata_level = case_when(
-#     strata_level == "Overall" ~ "overall",
-#     TRUE ~ strata_level
-#   )) %>% 
-#   
-#   mutate(estimate_type = case_when(
-#     estimate_name == "number_records" ~ "integer",
-#     estimate_name == "events" ~ "integer",
-#     estimate_name == "median_survival" ~ "integer",
-#     estimate_name == "median_survival_95CI_lower" ~ "integer",
-#     estimate_name == "median_survival_95CI_higher" ~ "integer",
-#     
-#     
-#     TRUE ~ estimate_type
-#   )) %>% 
-#   pivot_wider(names_from = estimate_name, values_from = estimate_value) %>% 
-#   select(c("cdm_name",
-#            "group_level",
-#            "strata_level",
-#            "median_survival"       ,
-#            "median_survival_95CI_lower" ,
-#            "median_survival_95CI_higher"
-#            )) %>% 
-#   filter(!(group_level %in% remove_outcomes ))  %>% 
-#   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
-#   
-# 
-# }
 
 # table one demographics------
   tableone_demo_files <- results[stringr::str_detect(results, ".csv")]

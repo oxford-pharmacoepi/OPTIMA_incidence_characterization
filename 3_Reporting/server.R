@@ -741,10 +741,14 @@ server <-	function(input, output, session) {
   # survival plots -------
   get_surv_plot <- reactive({
     
-    # validate(need(input$survival_cohort_name_selector != "", "Please select a cohort") )
-    # validate(need(input$survival_database_selector != "", "Please select a database"))
-    # validate(need(input$surv_plot_group != "", "Please select a group to colour by"))
-    # validate(need(input$surv_plot_facet != "", "Please select a group to facet by"))
+    validate(need(input$survival_cohort_name_selector != "", "Please select a cohort") )
+    validate(need(input$survival_database_selector != "", "Please select a database"))
+    
+    validate(need(input$survival_sex_selector != "", "Please select a sex group"))
+    validate(need(input$survival_age_selector != "", "Please select an age group"))
+    validate(need(input$survival_year_selector != "", "Please select an diagnosis year group"))
+    validate(need(input$surv_plot_group != "", "Please select a group to colour by"))
+    validate(need(input$surv_plot_facet != "", "Please select a group to facet by"))
 
     
     plot_data <- survival_estimates %>%
@@ -768,7 +772,7 @@ server <-	function(input, output, session) {
                      group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
                       alpha = 0.1) +
           geom_line(size = 0.25) +
@@ -793,7 +797,7 @@ server <-	function(input, output, session) {
                      group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
                       alpha = 0.1) +
           geom_line(size = 0.25) +
@@ -815,7 +819,7 @@ server <-	function(input, output, session) {
                      ymax = estimate_95CI_upper)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
                       alpha = 0.1) +
           geom_line(size = 0.25) +
@@ -837,7 +841,7 @@ server <-	function(input, output, session) {
                        group = Group, colour = Group, fill = Group)) +
             scale_y_continuous( labels = label_percent() ) +
             xlab("Time (Years)") +
-            ylab("Survival Function (%)") +
+            ylab("Survival Function") +
             geom_ribbon(aes(ymin = estimate_95CI_lower, ymax = estimate_95CI_upper),
                         alpha = 0.1) +
             geom_line(size = 0.25) +
@@ -871,7 +875,7 @@ server <-	function(input, output, session) {
                      group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_line(size = 0.25) +
           facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")+
           theme(
@@ -894,7 +898,7 @@ server <-	function(input, output, session) {
                      group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_line(size = 0.25) +
           theme(
             panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
@@ -914,7 +918,7 @@ server <-	function(input, output, session) {
                      ymax = estimate_95CI_upper)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_line(size = 0.25) +
           facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")+
           theme(
@@ -934,7 +938,7 @@ server <-	function(input, output, session) {
                      group = Group, colour = Group, fill = Group)) +
           scale_y_continuous( labels = label_percent() ) +
           xlab("Time (Years)") +
-          ylab("Survival Function (%)") +
+          ylab("Survival Function") +
           geom_line(size = 0.25) +
           theme(
             panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
@@ -1060,7 +1064,7 @@ server <-	function(input, output, session) {
                             ymax = "incidence_100000_pys_95CI_upper",
                             group="Group",
                             colour="Group", fill = "Group")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_point(shape = 21, position = position_dodge(width = 1)) +
           geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                       alpha = 0.1) + 
           geom_line(size = 0.25) +
@@ -1072,7 +1076,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15))
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30))
         
       } else if (is.null(input$incidence_plot_group) && !is.null(input$incidence_plot_facet)) {
         plot <- plot_data %>%
@@ -1080,7 +1086,7 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                             ymin = "incidence_100000_pys_95CI_lower",
                             ymax = "incidence_100000_pys_95CI_upper")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_point(shape = 21, position = position_dodge(width = 1)) +
           geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                       alpha = 0.1) + 
           geom_line(size = 0.25) +
@@ -1093,7 +1099,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15))
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30))
         
       } else {
         plot <- plot_data %>%
@@ -1101,7 +1109,7 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                             ymin = "incidence_100000_pys_95CI_lower",
                             ymax = "incidence_100000_pys_95CI_upper")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_point(shape = 21, position = position_dodge(width = 1)) +
           geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                       alpha = 0.1) + 
           geom_line(size = 0.25) +
@@ -1113,7 +1121,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15))
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30))
         
       }
       
@@ -1138,18 +1148,20 @@ server <-	function(input, output, session) {
             ggplot(aes_string(x = "incidence_start_date", y = "incidence_100000_pys",
                               ymin = "incidence_100000_pys_95CI_lower",
                               ymax = "incidence_100000_pys_95CI_upper",
-                              group = "Group", colour = "Group")) +
-            geom_point(position = position_dodge(width = 1)) +
+                              colour = "Group", fill = "Group")) +
+            geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+            geom_errorbar(width = 0, position = position_dodge(width = 1)) +
             labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
             scale_y_continuous(limits = c(0, NA)) +
-            geom_errorbar(width = 0, position = position_dodge(width = 1)) +
-            theme(axis.text.x = element_text(angle = 45, hjust = 1),
+            theme(axis.text.x = element_text(angle = 45, hjust=1),
                   panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                  strip.background = element_rect(color = "black", size = 0.6),
-                  panel.background = element_blank(),
-                  axis.line = element_line(colour = "black", size = 0.6),
+                  strip.background = element_rect(color = "black", size = 0.6) ,
+                  panel.background = element_blank() ,
+                  axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  text = element_text(size = 15)) +
+                  strip.text.x = element_text(face = "bold", size = 30),
+                  legend.key = element_rect(fill = "white"),
+                  text = element_text(size = 30)) +
             facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
           
         } else if (!is.null(input$incidence_plot_group) && is.null(input$incidence_plot_facet)) {
@@ -1159,17 +1171,19 @@ server <-	function(input, output, session) {
                               ymin = "incidence_100000_pys_95CI_lower",
                               ymax = "incidence_100000_pys_95CI_upper",
                               group = "Group", colour = "Group")) +
-            geom_point(position = position_dodge(width = 1)) +
+            geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
             labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
             scale_y_continuous(limits = c(0, NA)) +
             geom_errorbar(width = 0, position = position_dodge(width = 1)) +
-            theme(axis.text.x = element_text(angle = 45, hjust = 1),
+            theme(axis.text.x = element_text(angle = 45, hjust=1),
                   panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                  strip.background = element_rect(color = "black", size = 0.6),
-                  panel.background = element_blank(),
-                  axis.line = element_line(colour = "black", size = 0.6),
+                  strip.background = element_rect(color = "black", size = 0.6) ,
+                  panel.background = element_blank() ,
+                  axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  text = element_text(size = 15)) 
+                  strip.text.x = element_text(face = "bold", size = 30),
+                  legend.key = element_rect(fill = "white"),
+                  text = element_text(size = 30))
             
           
         } else if (is.null(input$incidence_plot_group) && !is.null(input$incidence_plot_facet)) {
@@ -1179,17 +1193,19 @@ server <-	function(input, output, session) {
                               ymin = "incidence_100000_pys_95CI_lower",
                               ymax = "incidence_100000_pys_95CI_upper",
                               group = "Group", colour = "Group")) +
-            geom_point(position = position_dodge(width = 1)) +
+            geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
             labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
             scale_y_continuous(limits = c(0, NA)) +
             geom_errorbar(width = 0, position = position_dodge(width = 1)) +
-            theme(axis.text.x = element_text(angle = 45, hjust = 1),
+            theme(axis.text.x = element_text(angle = 45, hjust=1),
                   panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                  strip.background = element_rect(color = "black", size = 0.6),
-                  panel.background = element_blank(),
-                  axis.line = element_line(colour = "black", size = 0.6),
+                  strip.background = element_rect(color = "black", size = 0.6) ,
+                  panel.background = element_blank() ,
+                  axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  text = element_text(size = 15)) +
+                  strip.text.x = element_text(face = "bold", size = 30),
+                  legend.key = element_rect(fill = "white"),
+                  text = element_text(size = 30)) +
             facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
             
           
@@ -1198,17 +1214,19 @@ server <-	function(input, output, session) {
             ggplot(aes_string(x = "incidence_start_date", y = "incidence_100000_pys",
                               ymin = "incidence_100000_pys_95CI_lower",
                               ymax = "incidence_100000_pys_95CI_upper")) +
-            geom_point(position = position_dodge(width = 1)) +
+            geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
             labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
             scale_y_continuous(limits = c(0, NA)) +
             geom_errorbar(width = 0, position = position_dodge(width = 1)) +
-            theme(axis.text.x = element_text(angle = 45, hjust = 1),
+            theme(axis.text.x = element_text(angle = 45, hjust=1),
                   panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                  strip.background = element_rect(color = "black", size = 0.6),
-                  panel.background = element_blank(),
-                  axis.line = element_line(colour = "black", size = 0.6),
+                  strip.background = element_rect(color = "black", size = 0.6) ,
+                  panel.background = element_blank() ,
+                  axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  text = element_text(size = 15)) +
+                  strip.text.x = element_text(face = "bold", size = 30),
+                  legend.key = element_rect(fill = "white"),
+                  text = element_text(size = 30)) +
             facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
           
           
@@ -1295,10 +1313,11 @@ server <-	function(input, output, session) {
                             ymax = "prevalence_95CI_upper",
                             group = "Group",
                             colour = "Group", fill = "Group")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_line(size = 0.5, colour = "black") +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
           geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
-                      alpha = 0.1) + 
-          geom_line(size = 0.25) +
+                      alpha = 0.1, colour = NA) + 
+
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           facet_wrap(vars(facet_var),ncol = 3, scales = "free_y") +
           scale_y_continuous(
@@ -1310,7 +1329,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15))
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30))
         
         
       } else if (!is.null(input$prevalence_plot_group) && is.null(input$prevalence_plot_facet)) {
@@ -1321,10 +1342,10 @@ server <-	function(input, output, session) {
                             ymax = "prevalence_95CI_upper",
                             group="Group",
                             colour="Group", fill = "Group")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
           geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
                       alpha = 0.1) + 
-          geom_line(size = 0.25) +
+          geom_line(size = 0.5, colour = "black") +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
@@ -1335,7 +1356,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15))
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30))
         
       } else if (is.null(input$prevalence_plot_group) && !is.null(input$prevalence_plot_facet)) {
         plot <- plot_data %>%
@@ -1343,10 +1366,10 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x="prevalence_start_date", y="prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_point(shape = 21, position = position_dodge(width = 1)) +
           geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
                       alpha = 0.1) + 
-          geom_line(size = 0.25) +
+          geom_line(size = 0.5, colour = "black") +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           facet_wrap(vars(facet_var),ncol = 3, scales = "free_y") +
           scale_y_continuous(
@@ -1358,7 +1381,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15))
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30))
         
       } else {
         plot <- plot_data %>%
@@ -1366,10 +1391,10 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x="prevalence_start_date", y="prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper")) +
-          geom_point(position=position_dodge(width=1))+
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
           geom_ribbon(aes(ymin = prevalence_95CI_lower, ymax = prevalence_95CI_upper), 
                       alpha = 0.1) + 
-          geom_line(size = 0.25) +
+          geom_line(size = 0.5, colour = "black") +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
@@ -1380,7 +1405,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15))
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30))
         
       }
       
@@ -1405,20 +1432,22 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
-                            group = "Group", colour = "Group")) +
-          geom_point(position = position_dodge(width = 1)) +
+                            colour = "Group", fill = "Group")) +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
             limits = c(0, NA)) +
-          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
-          theme(axis.text.x = element_text(angle = 45, hjust = 1),
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6),
-                panel.background = element_blank(),
-                axis.line = element_line(colour = "black", size = 0.6),
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15)) +
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30)) +
           facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
         
       } else if (!is.null(input$prevalence_plot_group) && is.null(input$prevalence_plot_facet)) {
@@ -1427,20 +1456,22 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
-                            group = "Group", colour = "Group")) +
-          geom_point(position = position_dodge(width = 1)) +
+                            colour = "Group", fill = "Group")) +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
             limits = c(0, NA)) +
-          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
-          theme(axis.text.x = element_text(angle = 45, hjust = 1),
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6),
-                panel.background = element_blank(),
-                axis.line = element_line(colour = "black", size = 0.6),
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15)) 
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30))
         
         
       } else if (is.null(input$prevalence_plot_group) && !is.null(input$prevalence_plot_facet)) {
@@ -1449,20 +1480,22 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
-                            group = "Group", colour = "Group")) +
-          geom_point(position = position_dodge(width = 1)) +
+                            colour = "Group", fill = "Group")) +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
             limits = c(0, NA)) +
-          geom_errorbar(width = 0, position = position_dodge(width = 1)) +
-          theme(axis.text.x = element_text(angle = 45, hjust = 1),
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6),
-                panel.background = element_blank(),
-                axis.line = element_line(colour = "black", size = 0.6),
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15)) +
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30)) +
           facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
         
         
@@ -1471,19 +1504,21 @@ server <-	function(input, output, session) {
           ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper")) +
-          geom_point(position = position_dodge(width = 1)) +
+          geom_point(shape = 21, position = position_dodge(width = 1)) +
           labs(x = "Calendar Year", y = "Prevalence (%)") +
           scale_y_continuous(
             labels = scales::percent,
             limits = c(0, NA)) +
           geom_errorbar(width = 0, position = position_dodge(width = 1)) +
-          theme(axis.text.x = element_text(angle = 45, hjust = 1),
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
                 panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
-                strip.background = element_rect(color = "black", size = 0.6),
-                panel.background = element_blank(),
-                axis.line = element_line(colour = "black", size = 0.6),
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                text = element_text(size = 15)) +
+                strip.text.x = element_text(face = "bold", size = 30),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 30)) +
           facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
         
         
@@ -1565,7 +1600,6 @@ server <-	function(input, output, session) {
         geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                     alpha = 0.1, colour = NA) + 
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
-        #facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
         facet_wrap(vars(facet_var),ncol = 3)+
         scale_y_continuous(limits = c(0, NA)) +
         theme(axis.text.x = element_text(angle = 45, hjust=1),
@@ -1587,7 +1621,7 @@ server <-	function(input, output, session) {
                           ymax = "incidence_100000_pys_95CI_upper",
                           group = "Group",
                           colour = "Group", fill = "Group")) +
-        geom_point(position=position_dodge(width=1))+
+        geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
         geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                     alpha = 0.1) + 
         geom_line(size = 0.25) +
@@ -1599,7 +1633,9 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              text = element_text(size = 15))
+              strip.text.x = element_text(face = "bold", size = 30),
+              legend.key = element_rect(fill = "white"),
+              text = element_text(size = 30))
       
     } else if (is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
@@ -1609,7 +1645,7 @@ server <-	function(input, output, session) {
                           ymax = "incidence_100000_pys_95CI_upper",
                           group = "Group",
                           colour = "Group", fill = "Group")) +
-        geom_point(position=position_dodge(width=1))+
+        geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
         geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                     alpha = 0.1) + 
         geom_line(size = 0.25) +
@@ -1622,14 +1658,16 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              text = element_text(size = 15))
+              strip.text.x = element_text(face = "bold", size = 30),
+              legend.key = element_rect(fill = "white"),
+              text = element_text(size = 30))
       
     } else {
       plot <- plot_data %>%
         ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
                           ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(position=position_dodge(width=1))+
+        geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
         geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
                     alpha = 0.1) + 
         geom_line(size = 0.25) +
@@ -1641,7 +1679,9 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              text = element_text(size = 15))
+              strip.text.x = element_text(face = "bold", size = 30),
+              legend.key = element_rect(fill = "white"),
+              text = element_text(size = 30))
       
     }
     
@@ -1668,7 +1708,7 @@ server <-	function(input, output, session) {
                           ymax = "incidence_100000_pys_95CI_upper",
                           group = "Group",
                           colour = "Group", fill = "Group")) +
-        geom_point(position=position_dodge(width=1))+
+        geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
         geom_errorbar(width = 0, position = position_dodge(width = 1)) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
         facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
@@ -1679,7 +1719,9 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              text = element_text(size = 15))
+              strip.text.x = element_text(face = "bold", size = 30),
+              legend.key = element_rect(fill = "white"),
+              text = element_text(size = 30))
       
       
     } else if (!is.null(input$incidence_plot_group_std) && is.null(input$incidence_plot_facet_std)) {
@@ -1690,7 +1732,7 @@ server <-	function(input, output, session) {
                           ymax = "incidence_100000_pys_95CI_upper",
                           group = "Group",
                           colour = "Group", fill = "Group")) +
-        geom_point(position=position_dodge(width=1))+
+        geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
         geom_errorbar(width = 0, position = position_dodge(width = 1)) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
         scale_y_continuous(limits = c(0, NA)) +
@@ -1700,7 +1742,9 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              text = element_text(size = 15))
+              strip.text.x = element_text(face = "bold", size = 30),
+              legend.key = element_rect(fill = "white"),
+              text = element_text(size = 30))
       
       
     } else if (is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
@@ -1709,7 +1753,7 @@ server <-	function(input, output, session) {
         ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
                           ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(position=position_dodge(width=1))+
+        geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
         geom_errorbar(width = 0, position = position_dodge(width = 1)) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
         facet_wrap(vars(facet_var),ncol = 3, scales = "free_y")+
@@ -1720,7 +1764,9 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              text = element_text(size = 15))
+              strip.text.x = element_text(face = "bold", size = 30),
+              legend.key = element_rect(fill = "white"),
+              text = element_text(size = 30))
       
       
     } else {
@@ -1728,7 +1774,7 @@ server <-	function(input, output, session) {
         ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
                           ymin = "incidence_100000_pys_95CI_lower",
                           ymax = "incidence_100000_pys_95CI_upper")) +
-        geom_point(position=position_dodge(width=1))+
+        geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
         geom_errorbar(width = 0, position = position_dodge(width = 1)) +
         labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
         scale_y_continuous(limits = c(0, NA)) +
@@ -1738,7 +1784,9 @@ server <-	function(input, output, session) {
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              text = element_text(size = 15))
+              strip.text.x = element_text(face = "bold", size = 30),
+              legend.key = element_rect(fill = "white"),
+              text = element_text(size = 30))
       
       
     }
