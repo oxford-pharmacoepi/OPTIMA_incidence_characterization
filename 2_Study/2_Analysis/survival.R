@@ -216,7 +216,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
 
   
-  # pull out survival estimates at certain times (0.5  to 20 years)
+  # pull out survival estimates at certain times (0.5  to 20 years) -----
   times_sur <- c(183, 365, 730, 1095, 1460, 1825, 3650, 5475, 7300)
 
   
@@ -242,7 +242,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   cli::cli_alert_info("Exporting survival attrition")
   
   # attrition from survival with no cancer related attrition
-  attrition1 <- attributes(surv2)$attrition %>% 
+  attrition1 <- attributes(surv1)$attrition %>% 
     rename(cohort_definition_id  = exposure_id) %>% 
     select(-c(outcome_id)) %>% 
     dplyr::inner_join(settings(cdm$outcome) %>%   
