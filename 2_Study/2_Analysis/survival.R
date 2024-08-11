@@ -219,7 +219,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   # pull out survival estimates at certain times (0.5  to 20 years) -----
   times_sur <- c(183, 365, 730, 1095, 1460, 1825, 3650, 5475, 7300)
 
-  
+  # survival results from analysis with no exclusions
   surv1_result <- tableSurvival(
     surv1,
     times = times_sur ,
@@ -229,6 +229,8 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
     type = "tibble"
   )
   
+  
+  # survival results from analysis with exclusions
   surv2_result <- tableSurvival(
     surv2,
     times = times_sur ,
@@ -241,13 +243,28 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
 
   cli::cli_alert_info("Exporting survival attrition")
   
+  attrition1 <- attrition(cdm$outcome) %>% 
+    mutate(cdm_name = db_name) %>% 
+    dplyr::inner_join(settings(cdm$outcome) %>%   
+                        select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
+    rename(outcome_cohort_name = cohort_name) 
+  
+  
   # attrition from survival with no cancer related attrition
-  attrition1 <- attributes(surv1)$attrition %>% 
+  attrition1a <- attributes(surv1)$attrition %>% 
     rename(cohort_definition_id  = exposure_id) %>% 
     select(-c(outcome_id)) %>% 
     dplyr::inner_join(settings(cdm$outcome) %>%   
                         select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
-    mutate(cdm_name = db_name)
+    mutate(cdm_name = db_name) %>% 
+    rename(outcome_cohort_name = cohort_name) 
+  
+  combined_attrition <- bind_rows(attrition1, attrition1a)
+  
+  combined_attrition <- combined_attrition %>%
+    group_by(outcome_cohort_name) %>%
+    mutate(reason_id = row_number()) %>%
+    ungroup()
   
   
   # attrition (ie removing people with multiple cancers, previous history of cancer)
@@ -257,12 +274,29 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                         select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
     rename(outcome_cohort_name = cohort_name) 
 
+  # attrition from survival with cancer related attrition
+  attrition2a <- attributes(surv2)$attrition %>% 
+    rename(cohort_definition_id  = exposure_id) %>% 
+    select(-c(outcome_id)) %>% 
+    dplyr::inner_join(settings(cdm$outcome) %>%   
+                        select("cohort_definition_id",  "cohort_name"), by ="cohort_definition_id" ) %>% 
+    mutate(cdm_name = db_name) %>% 
+    rename(outcome_cohort_name = cohort_name) 
+  
+  combined_attrition2 <- bind_rows(attrition2, attrition2a)
+  
+  combined_attrition2 <- combined_attrition2 %>%
+    group_by(outcome_cohort_name) %>%
+    mutate(reason_id = row_number()) %>%
+    ungroup()
+  
+  
   
   #write the results
-  write_csv(attrition1, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_attrition_analysis1.csv"
+  write_csv(combined_attrition1, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_attrition_analysis1.csv"
   )))
   
-  write_csv(attrition2, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_attrition_analysis2.csv"
+  write_csv(combined_attrition2, here("Results", paste0(db_name, "/", cdmName(cdm), "_survival_attrition_analysis2.csv"
   )))
   
   
