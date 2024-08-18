@@ -928,17 +928,6 @@ ui <- dashboardPage(
       
       tabItem(
         tabName = "risk_results",
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "risk_table_cohort_name_selector",
-        #     label = "Cohort Name",
-        #     choices = unique(survival_events_table$cohort),
-        #     selected = unique(survival_events_table$cohort)[1],
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
@@ -975,20 +964,6 @@ ui <- dashboardPage(
         ),
         
         
-        
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "risk_table_database_name_selector",
-        #     label = "Database",
-        #     choices = unique(survival_events_table$cdm_name),
-        #     selected = unique(survival_events_table$cdm_name),
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
-        
-        
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
@@ -1022,18 +997,6 @@ ui <- dashboardPage(
             multiple = TRUE
           )
         ),
-        
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "risk_table_strata_selector",
-        #     label = "Strata",
-        #     choices = unique(survival_events_table$strata_level),
-        #     selected = unique(survival_events_table$strata_level)[1],
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
         
         
         div(
@@ -1085,18 +1048,7 @@ ui <- dashboardPage(
       tabItem(
       
         tabName = "stats_results",
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "median_cohort_name_selector",
-        #     label = "Cohort Name",
-        #     choices = unique(survival_median_table$Cohort),
-        #     selected = unique(survival_median_table$Cohort)[1],
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
-        
+
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
@@ -1132,18 +1084,6 @@ ui <- dashboardPage(
           )
         ),
 
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "median_database_name_selector",
-        #     label = "Database",
-        #     choices = unique(survival_median_table$`CDM name`),
-        #     selected = unique(survival_median_table$`CDM name`)[1],
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
-        
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
@@ -1180,19 +1120,6 @@ ui <- dashboardPage(
         ),
         
         
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "median_age_selector",
-        #     label = "Age Group",
-        #     choices = unique(survival_median_table$`Age group`),
-        #     selected = unique(survival_median_table$`Age group`)[1],
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
-        
-        
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
@@ -1227,19 +1154,7 @@ ui <- dashboardPage(
           )
         ),
         
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "median_sex_selector",
-        #     label = "Sex",
-        #     choices = unique(survival_median_table$Sex),
-        #     selected = "Overall",
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
-        
-        
+
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
@@ -1274,19 +1189,7 @@ ui <- dashboardPage(
           )
         ),
         
-        
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "median_diagyr_selector",
-        #     label = "Diagnosis Year Group",
-        #     choices = unique(survival_median_table$`Diag yr gp`),
-        #     selected = "Overall",
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
-        
+
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
@@ -1311,43 +1214,6 @@ ui <- dashboardPage(
           )
         ),
         
-        
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "median_demo_selector",
-        #     label = "Demographics",
-        #     choices = {
-        #       tryCatch({
-        #         unique_vals <- unique(survival_median_table$strata_level)
-        #         if (!is.null(unique_vals)) {
-        #           return(unique_vals)
-        #         } else {
-        #           return("No data available")
-        #         }
-        #       }, error = function(e) {
-        #         return("Error retrieving data")
-        #       })
-        #     },
-        #     selected = {
-        #       tryCatch({
-        #         unique_vals <- unique(survival_median_table$strata_level)
-        #         if (!is.null(unique_vals)) {
-        #           return(unique_vals[1])
-        #         } else {
-        #           return(NULL)
-        #         }
-        #       }, error = function(e) {
-        #         return(NULL)
-        #       })
-        #     },
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ) ,
-        
-        
-
         
   
         htmlOutput("dt_surv_stat"),
@@ -1916,20 +1782,6 @@ ui <- dashboardPage(
         
       ),
       
-      
-      # tabItem(
-      #   tabName = "survival_results",
-      #   div(
-      #     style = "display: inline-block;vertical-align:top; width: 150px;",
-      #     pickerInput(
-      #       inputId = "survival_database_selector",
-      #       label = "Database",
-      #       choices = unique(survival_estimates$cdm_name),
-      #       selected = unique(survival_estimates$cdm_name),
-      #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-      #       multiple = TRUE
-      #     )
-      #   ),
         
         
         tabItem(
@@ -1968,19 +1820,7 @@ ui <- dashboardPage(
             )
           ),
         
-        
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "survival_cohort_name_selector",
-        #     label = "Cohort Name",
-        #     choices = unique(survival_estimates$cohort),
-        #     selected = unique(survival_estimates$cohort)[1],
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
-        
+  
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
@@ -2018,20 +1858,6 @@ ui <- dashboardPage(
         
         
         
-
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "survival_sex_selector",
-        #     label = "Sex",
-        #     choices = unique(survival_estimates$sex),
-        #     selected = unique(survival_estimates$sex)[1],
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
-        
-        
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
@@ -2066,17 +1892,6 @@ ui <- dashboardPage(
           )
         ),
         
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "survival_age_selector",
-        #     label = "Age",
-        #     choices = unique(survival_estimates$age_group),
-        #     selected = "overall",
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
  
  div(
    style = "display: inline-block;vertical-align:top; width: 150px;",
@@ -2112,18 +1927,6 @@ ui <- dashboardPage(
    )
  ),
 
-        
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "survival_year_selector",
-        #     label = "Year",
-        #     choices = unique(survival_estimates$diag_yr_gp),
-        #     selected = "overall",
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
  
  
  div(
