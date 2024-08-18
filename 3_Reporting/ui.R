@@ -925,6 +925,58 @@ ui <- dashboardPage(
             style="display:inline-block; float:right")
         
       ),
+ 
+ 
+ tabItem(
+   tabName = "prev_rates_std",
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "prev_estimates_cohort_selector_std",
+       label = "Cohort Name",
+       choices = unique(prevalence_estimates_std$outcome_cohort_name),
+       selected = unique(prevalence_estimates_std$outcome_cohort_name)[1],
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "prev_estimates_sex_selector_std",
+       label = "Sex",
+       choices = unique(prevalence_estimates_std$denominator_sex),
+       selected = "Both",
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "prev_estimates_database_selector_std",
+       label = "Database",
+       choices = unique(prevalence_estimates_std$cdm_name),
+       selected = unique(prevalence_estimates_std$cdm_name)[1],
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   
+   htmlOutput('dt_prev_est_table_std'),
+   
+   div(style="display:inline-block",
+       downloadButton(
+         outputId = "dt_prev_est_table_word_std",
+         label = "Download table as word"
+       ), 
+       style="display:inline-block; float:right")
+   
+ ),
       
       tabItem(
         tabName = "risk_results",
@@ -1701,6 +1753,141 @@ ui <- dashboardPage(
         
       ),
       
+ 
+ tabItem(
+   tabName = "prev_plots_std",
+   tags$h5("In order to compare results across different data sources with different age population structures we have age standardized prevalence rates to 1) European Standard Population 2013 and 2) World Standard Population (WHO 2000-2025).") ,
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "prevalence_database_selector_std",
+       label = "Database",
+       choices = unique(prevalence_estimates_std$cdm_name),
+       selected = unique(prevalence_estimates_std$cdm_name),
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "prevalence_cohort_name_selector_std",
+       label = "Cohort Name",
+       choices = unique(prevalence_estimates_std$outcome_cohort_name),
+       selected = unique(prevalence_estimates_std$outcome_cohort_name)[1],
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "prevalence_start_date_selector_std",
+       label = "Prevalence Start Date",
+       choices = as.character(unique(prevalence_estimates_std$prevalence_start_date)),
+       selected = as.character(unique(prevalence_estimates_std$prevalence_start_date)),
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "prevalence_std_method",
+       label = "Standardization Method",
+       choices = unique(prevalence_estimates_std$age_standard),
+       selected = unique(prevalence_estimates_std$age_standard)[c(2,3)],
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "prevalence_sex_selector_std",
+       label = "Sex",
+       choices = unique(prevalence_estimates_std$denominator_sex),
+       selected = "Both",
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   
+   div(style="display: inline-block;vertical-align:top; width: 150px;",
+       pickerInput(inputId = "prevalence_plot_facet_std",
+                   label = "Facet by",
+                   choices = c("outcome_cohort_name", 
+                               "denominator_sex",
+                               "cdm_name",
+                               "age_standard"),
+                   selected = c("outcome_cohort_name", "age_standard"),
+                   options = list(
+                     `actions-box` = TRUE,
+                     size = 10,
+                     `selected-text-format` = "count > 3"),
+                   multiple = TRUE,)
+   ),
+   
+   div(style="display: inline-block;vertical-align:top; width: 150px;",
+       pickerInput(inputId = "prevalence_plot_group_std",
+                   label = "Colour by",
+                   choices = c("outcome_cohort_name", 
+                               "denominator_sex",
+                               "cdm_name",
+                               "age_standard"
+                   ),
+                   selected = c("cdm_name"),
+                   options = list(
+                     `actions-box` = TRUE,
+                     size = 10,
+                     `selected-text-format` = "count > 3"),
+                   multiple = TRUE,)
+       
+       
+   ),
+   
+   
+   
+   div(
+     style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
+     checkboxInput("show_error_bars_std", "Show Ribbons", value = TRUE)
+   ),
+   
+   div(
+     style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
+     plotOutput("prevalencePlot_std",
+                height = "800px"
+     ) %>%
+       withSpinner(),
+     h4("Download Figure"),
+     div("Height:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+     div(
+       style = "display: inline-block;",
+       textInput("prevalence_download_heightstd", "", 30, width = "50px")
+     ),
+     div("cm", style = "display: inline-block; margin-right: 25px;"),
+     div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+     div(
+       style = "display: inline-block;",
+       textInput("prevalence_download_widthstd", "", 55, width = "50px")
+     ),
+     div("cm", style = "display: inline-block; margin-right: 25px;"),
+     div("dpi:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+     div(
+       style = "display: inline-block; margin-right:",
+       textInput("prevalence_download_dpistd", "", 600, width = "50px")
+     ),
+     downloadButton("prevalence_download_plot_std", "Download plot")
+   )
+   
+   
+ ),
+ 
+ 
       
       tabItem(
         tabName = "cohort_attr_fig",

@@ -349,6 +349,37 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
   
 }
 
+# age standardized prev estimates -----
+prevalence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
+prevalence_estimates_files_std<-results[stringr::str_detect(results, "prevalence_estimates")]
+prevalence_estimates_files_std<-prevalence_estimates_files_std[(stringr::str_detect(prevalence_estimates_files_std, "age_std_"))]
+
+prevalence_estimates_std <- list()
+
+for(i in seq_along(prevalence_estimates_files_std)){
+  prevalence_estimates_std[[i]]<-readr::read_csv(prevalence_estimates_files_std[[i]], 
+                                                show_col_types = FALSE)  
+}
+
+prevalence_estimates_std <- dplyr::bind_rows(prevalence_estimates_std) %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    TRUE ~ outcome_cohort_name
+  )) %>% 
+  mutate(cdm_name = case_when(
+    cdm_name == "THIN es" ~ "THIN Spain",
+    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN fr" ~ "THIN France",
+    cdm_name == "THIN it" ~ "THIN Italy",
+    cdm_name == "THIN ro" ~ "THIN Romania",
+    cdm_name == "THIN uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  )) 
+
+
 # survival estimates1 -------
 survival_estimates_files <- results[stringr::str_detect(results, ".csv")]
 survival_estimates_files <- results[stringr::str_detect(results, "survival_results_analysis1")]
