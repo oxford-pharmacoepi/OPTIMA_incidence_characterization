@@ -1635,19 +1635,19 @@ server <-	function(input, output, session) {
     
     
     plot_data <- prevalence_estimates_std %>%
-      filter(cdm_name %in% input$prevalence_database_selector)  %>%
-      filter(as.character(prevalence_start_date) %in% input$prevalence_start_date_selector)  %>%
-      filter(outcome_cohort_name %in% input$prevalence_cohort_name_selector)  %>%
-      filter(denominator_sex %in% input$prevalence_sex_selector) %>% 
+      filter(cdm_name %in% input$prevalence_database_selector_std)  %>%
+      filter(as.character(prevalence_start_date) %in% input$prevalence_start_date_selector_std)  %>%
+      filter(outcome_cohort_name %in% input$prevalence_cohort_name_selector_std)  %>%
+      filter(denominator_sex %in% input$prevalence_sex_selector_std) %>% 
       filter(age_standard %in% input$prevalence_std_method)
     
     
-    if (input$show_error_bars) {
+    if (input$show_error_bars_std) {
       
-      if (!is.null(input$prevalence_plot_group) && !is.null(input$prevalence_plot_facet)) {
+      if (!is.null(input$prevalence_plot_group_std) && !is.null(input$prevalence_plot_facet_std)) {
         plot <- plot_data %>%
-          unite("Group", c(all_of(input$prevalence_plot_group)), remove = FALSE, sep = "; ") %>%
-          unite("facet_var", c(all_of(input$prevalence_plot_facet)), remove = FALSE, sep = "; ") %>%
+          unite("Group", c(all_of(input$prevalence_plot_group_std)), remove = FALSE, sep = "; ") %>%
+          unite("facet_var", c(all_of(input$prevalence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
           ggplot(aes_string(x="prevalence_start_date", y="prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
@@ -1674,9 +1674,9 @@ server <-	function(input, output, session) {
                 text = element_text(size = 30))
         
         
-      } else if (!is.null(input$prevalence_plot_group) && is.null(input$prevalence_plot_facet)) {
+      } else if (!is.null(input$prevalence_plot_group_std) && is.null(input$prevalence_plot_facet_std)) {
         plot <- plot_data %>%
-          unite("Group", c(all_of(input$prevalence_plot_group)), remove = FALSE, sep = "; ") %>%
+          unite("Group", c(all_of(input$prevalence_plot_group_std)), remove = FALSE, sep = "; ") %>%
           ggplot(aes_string(x="prevalence_start_date", y="prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
@@ -1700,9 +1700,9 @@ server <-	function(input, output, session) {
                 legend.key = element_rect(fill = "white"),
                 text = element_text(size = 30))
         
-      } else if (is.null(input$prevalence_plot_group) && !is.null(input$prevalence_plot_facet)) {
+      } else if (is.null(input$prevalence_plot_group_std) && !is.null(input$prevalence_plot_facet_std)) {
         plot <- plot_data %>%
-          unite("facet_var", c(all_of(input$prevalence_plot_facet)), remove = FALSE, sep = "; ") %>%
+          unite("facet_var", c(all_of(input$prevalence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
           ggplot(aes_string(x="prevalence_start_date", y="prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper")) +
@@ -1765,10 +1765,10 @@ server <-	function(input, output, session) {
     } else {
       
       
-      if (!is.null(input$prevalence_plot_group) && !is.null(input$prevalence_plot_facet)) {
+      if (!is.null(input$prevalence_plot_group_std) && !is.null(input$prevalence_plot_facet_std)) {
         plot <- plot_data %>%
-          unite("Group", c(all_of(input$prevalence_plot_group)), remove = FALSE, sep = "; ") %>%
-          unite("facet_var", c(all_of(input$prevalence_plot_facet)), remove = FALSE, sep = "; ") %>%
+          unite("Group", c(all_of(input$prevalence_plot_group_std)), remove = FALSE, sep = "; ") %>%
+          unite("facet_var", c(all_of(input$prevalence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
           ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
@@ -1790,9 +1790,9 @@ server <-	function(input, output, session) {
                 text = element_text(size = 30)) +
           facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
         
-      } else if (!is.null(input$prevalence_plot_group) && is.null(input$prevalence_plot_facet)) {
+      } else if (!is.null(input$prevalence_plot_group_std) && is.null(input$prevalence_plot_facet_std)) {
         plot <- plot_data %>%
-          unite("Group", c(all_of(input$prevalence_plot_group)), remove = FALSE, sep = "; ") %>%
+          unite("Group", c(all_of(input$prevalence_plot_group_std)), remove = FALSE, sep = "; ") %>%
           ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
@@ -1814,9 +1814,9 @@ server <-	function(input, output, session) {
                 text = element_text(size = 30))
         
         
-      } else if (is.null(input$prevalence_plot_group) && !is.null(input$prevalence_plot_facet)) {
+      } else if (is.null(input$prevalence_plot_group_std) && !is.null(input$prevalence_plot_facet_std)) {
         plot <- plot_data %>%
-          unite("facet_var", c(all_of(input$prevalence_plot_facet)), remove = FALSE, sep = "; ") %>%
+          unite("facet_var", c(all_of(input$prevalence_plot_facet_std)), remove = FALSE, sep = "; ") %>%
           ggplot(aes_string(x = "prevalence_start_date", y = "prevalence",
                             ymin = "prevalence_95CI_lower",
                             ymax = "prevalence_95CI_upper",
@@ -1891,7 +1891,7 @@ server <-	function(input, output, session) {
     content = function(file) {
       ggsave(
         file,
-        get_incidence_plot_std(),
+        get_prevalence_plot_std(),
         width = as.numeric(input$prevalence_download_widthstd),
         height = as.numeric(input$prevalence_download_heightstd),
         dpi = as.numeric(input$prevalence_download_dpistd),
