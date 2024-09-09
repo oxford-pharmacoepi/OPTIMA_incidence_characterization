@@ -261,7 +261,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
   
   combined_attrition <- bind_rows(attrition1, attrition1a)
   
-  combined_attrition <- combined_attrition %>%
+  combined_attrition1 <- combined_attrition %>%
     group_by(outcome_cohort_name) %>%
     mutate(reason_id = row_number()) %>%
     ungroup()
