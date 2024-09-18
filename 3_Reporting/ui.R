@@ -977,321 +977,209 @@ ui <- dashboardPage(
        style="display:inline-block; float:right")
    
  ),
-      
-      tabItem(
-        tabName = "risk_results",
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "risk_table_cohort_name_selector",
-            label = "Cohort Name",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_events_table$cohort)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
-            },
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_events_table$cohort)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
-            },
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "risk_table_database_name_selector",
-            label = "Database",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_events_table$cdm_name)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
-            },
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_events_table$cdm_name)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
-            },
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "risk_table_strata_selector",
-            label = "Strata",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_events_table$strata_level)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
-            },
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_events_table$strata_level)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
-            },
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
+    
+ 
+ tabItem(
+   tabName = "risk_results",
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "risk_table_cohort_name_selector",
+       label = "Cohort Name",
+       choices = if (exists("survival_events_table") && !is.null(survival_events_table$cohort)) {
+         unique(survival_events_table$cohort)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("survival_events_table") && !is.null(survival_events_table$cohort)) {
+         unique(survival_events_table$cohort)[1]
+       } else {
+         "No data available"
+       },
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "risk_table_database_name_selector",
+       label = "Database",
+       choices = if (exists("survival_events_table") && !is.null(survival_events_table$cdm_name)) {
+         unique(survival_events_table$cdm_name)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("survival_events_table") && !is.null(survival_events_table$cdm_name)) {
+         unique(survival_events_table$cdm_name)
+       } else {
+         "No data available"
+       },
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "risk_table_strata_selector",
+       label = "Strata",
+       choices = if (exists("survival_events_table") && !is.null(survival_events_table$strata_level)) {
+         unique(survival_events_table$strata_level)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("survival_events_table") && !is.null(survival_events_table$strata_level)) {
+         unique(survival_events_table$strata_level)[1]
+       } else {
+         "No data available"
+       },
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+ ),
+
+
         htmlOutput('dt_risk_table'),
-        
+
         div(style="display:inline-block",
             downloadButton(
               outputId = "gt_risk_table_word",
               label = "Download table as word"
-            ), 
+            ),
             style="display:inline-block; float:right")
-        
+
       ),
-      
-      
+
+
       tabItem(
-      
+
         tabName = "stats_results",
 
-        
+
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "median_cohort_name_selector",
             label = "Cohort Name",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$Cohort)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
+            choices = if (exists("survival_median_table") && !is.null(survival_median_table$Cohort)) {
+              unique(survival_median_table$Cohort)
+            } else {
+              c("No data available")
             },
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$Cohort)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
+            selected = if (exists("survival_median_table") && !is.null(survival_median_table$Cohort)) {
+              unique(survival_median_table$Cohort)[1]
+            } else {
+              "No data available"
+            },
+            
+            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+            multiple = TRUE
+          )
+        ),
+
+
+        div(
+          style = "display: inline-block;vertical-align:top; width: 150px;",
+          pickerInput(
+            inputId = "median_database_name_selector",
+            label = "Database",
+            choices = if (exists("survival_median_table") && !is.null(survival_median_table$`CDM name`)) {
+              unique(survival_median_table$`CDM name`)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("survival_median_table") && !is.null(survival_median_table$`CDM name`)) {
+              unique(survival_median_table$`CDM name`)[1]
+            } else {
+              "No data available"
             },
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
 
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "median_database_name_selector",
-            label = "Database",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$`CDM name`)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
-            },
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$`CDM name`)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
-            },
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        
+
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "median_age_selector",
             label = "Age Group",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$`Age group`)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
+            choices = if (exists("survival_median_table") && !is.null(survival_median_table$`Age group`)) {
+              unique(survival_median_table$`Age group`)
+            } else {
+              c("No data available")
             },
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$`Age group`)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
+            selected = if (exists("survival_median_table") && !is.null(survival_median_table$`Age group`)) {
+              unique(survival_median_table$`Age group`)[1]
+            } else {
+              "No data available"
             },
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
-        
+
 
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "median_sex_selector",
             label = "Sex",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$Sex)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
+            choices = if (exists("survival_median_table") && !is.null(survival_median_table$Sex)) {
+              unique(survival_median_table$Sex)
+            } else {
+              c("No data available")
             },
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$Sex)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
+            selected = if (exists("survival_median_table") && !is.null(survival_median_table$Sex)) {
+              unique(survival_median_table$Sex)[1]
+            } else {
+              "No data available"
             },
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
-        
 
-        
+
+
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "median_diagyr_selector",
             label = "Diagnosis Year Group",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$`Diag yr gp`)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
+            choices = if (exists("survival_median_table") && !is.null(survival_median_table$`Diag yr gp`)) {
+              unique(survival_median_table$`Diag yr gp`)
+            } else {
+              c("No data available")
             },
-            
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_median_table$`Diag yr gp`)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
+            selected = if (exists("survival_median_table") && !is.null(survival_median_table$`Diag yr gp`)) {
+              unique(survival_median_table$`Diag yr gp`)[1]
+            } else {
+              "No data available"
             },
-            
+
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
-        
-        
-  
+
+
+
         htmlOutput("dt_surv_stat"),
-        
+
         div(style="display:inline-block",
             downloadButton(
               outputId = "dt_surv_stat_word",
               label = "Download table as word"
-            ), 
+            ),
             style="display:inline-block; float:right")
-        
-      ),   
-      
+
+      ),
+
       
       tabItem(
         tabName = "prev_rates",
@@ -1980,6 +1868,8 @@ ui <- dashboardPage(
             ), 
             style="display:inline-block; float:right")
         
+    #  )
+        
       ),
       
         
@@ -1991,182 +1881,117 @@ ui <- dashboardPage(
             pickerInput(
               inputId = "survival_database_selector",
               label = "Database",
-              choices = {
-                      tryCatch({
-                        unique_vals <- unique(survival_estimates$cdm_name)
-                        if (!is.null(unique_vals)) {
-                          return(unique_vals)
-                        } else {
-                          return("No data available")
-                        }
-                      }, error = function(e) {
-                        return("Error retrieving data")
-                      })
-                    },
-                    selected = {
-                      tryCatch({
-                        unique_vals <- unique(survival_estimates$cdm_name)
-                        if (!is.null(unique_vals)) {
-                          return(unique_vals[1])
-                        } else {
-                          return(NULL)
-                        }
-                      }, error = function(e) {
-                        return(NULL)
-                      })
-                    },
+              choices = if (exists("survival_estimates") && !is.null(survival_estimates$cdm_name)) {
+                unique(survival_estimates$cdm_name)
+              } else {
+                c("No data available")
+              },
+              selected = if (exists("survival_estimates") && !is.null(survival_estimates$cdm_name)) {
+                unique(survival_estimates$cdm_name)[1]
+              } else {
+                "No data available"
+              },
+              
                     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
                     multiple = TRUE
             )
           ),
-        
-  
-        
+
+
+
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "survival_cohort_name_selector",
             label = "Cohort Name",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_estimates$cohort)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
+            choices = if (exists("survival_estimates") && !is.null(survival_estimates$cohort)) {
+              unique(survival_estimates$cohort)
+            } else {
+              c("No data available")
             },
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_estimates$cohort)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
+            selected = if (exists("survival_estimates") && !is.null(survival_estimates$cohort)) {
+              unique(survival_estimates$cohort)[1]
+            } else {
+              "No data available"
             },
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
-        
-        
-        
+
+
+
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "survival_sex_selector",
             label = "Sex",
-            choices = {
-              tryCatch({
-                unique_vals <- unique(survival_estimates$sex)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals)
-                } else {
-                  return("No data available")
-                }
-              }, error = function(e) {
-                return("Error retrieving data")
-              })
+            choices = if (exists("survival_estimates") && !is.null(survival_estimates$sex)) {
+              unique(survival_estimates$sex)
+            } else {
+              c("No data available")
             },
-            selected = {
-              tryCatch({
-                unique_vals <- unique(survival_estimates$sex)
-                if (!is.null(unique_vals)) {
-                  return(unique_vals[1])
-                } else {
-                  return(NULL)
-                }
-              }, error = function(e) {
-                return(NULL)
-              })
+            selected = if (exists("survival_estimates") && !is.null(survival_estimates$sex)) {
+              unique(survival_estimates$sex)[1]
+            } else {
+              "No data available"
             },
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
-        
- 
+
+
  div(
    style = "display: inline-block;vertical-align:top; width: 150px;",
    pickerInput(
      inputId = "survival_age_selector",
      label = "Age",
-     choices = {
-       tryCatch({
-         unique_vals <- unique(survival_estimates$age_group)
-         if (!is.null(unique_vals)) {
-           return(unique_vals)
-         } else {
-           return("No data available")
-         }
-       }, error = function(e) {
-         return("Error retrieving data")
-       })
+     choices = if (exists("survival_estimates") && !is.null(survival_estimates$age_group)) {
+       unique(survival_estimates$age_group)
+     } else {
+       c("No data available")
      },
-     selected = {
-       tryCatch({
-         unique_vals <- unique(survival_estimates$age_group)
-         if (!is.null(unique_vals)) {
-           return(unique_vals[1])
-         } else {
-           return(NULL)
-         }
-       }, error = function(e) {
-         return(NULL)
-       })
+     selected = if (exists("survival_estimates") && !is.null(survival_estimates$age_group)) {
+       unique(survival_estimates$age_group)[1]
+     } else {
+       "No data available"
      },
+     
      options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
      multiple = TRUE
    )
  ),
 
- 
- 
+
+
  div(
    style = "display: inline-block;vertical-align:top; width: 150px;",
    pickerInput(
      inputId = "survival_year_selector",
      label = "Year",
-     choices = {
-       tryCatch({
-         unique_vals <- unique(survival_estimates$diag_yr_gp)
-         if (!is.null(unique_vals)) {
-           return(unique_vals)
-         } else {
-           return("No data available")
-         }
-       }, error = function(e) {
-         return("Error retrieving data")
-       })
+     choices = if (exists("survival_estimates") && !is.null(survival_estimates$diag_yr_gp)) {
+       unique(survival_estimates$diag_yr_gp)
+     } else {
+       c("No data available")
      },
-     selected = {
-       tryCatch({
-         unique_vals <- unique(survival_estimates$age_group)
-         if (!is.null(unique_vals)) {
-           return(unique_vals[1])
-         } else {
-           return(NULL)
-         }
-       }, error = function(e) {
-         return(NULL)
-       })
+     selected = if (exists("survival_estimates") && !is.null(survival_estimates$diag_yr_gp)) {
+       unique(survival_estimates$diag_yr_gp)[1]
+     } else {
+       "No data available"
      },
+     
      options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
      multiple = TRUE
    )
  ),
-        
+
         div(style="display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(inputId = "surv_plot_facet",
                         label = "Facet by",
-                        choices = c("cohort", 
+                        choices = c("cohort",
                                     "sex",
                                     "cdm_name" ,
                                     "diag_yr_gp",
@@ -2178,11 +2003,11 @@ ui <- dashboardPage(
                           `selected-text-format` = "count > 3"),
                         multiple = TRUE,)
         ),
- 
+
         div(style="display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(inputId = "surv_plot_group",
                         label = "Colour by",
-                        choices = c("cohort", 
+                        choices = c("cohort",
                                     "sex",
                                     "cdm_name" ,
                                     "diag_yr_gp",
@@ -2201,7 +2026,7 @@ ui <- dashboardPage(
       checkboxInput("show_ci", "Show Confidence Intervals", value = TRUE)
     ),
 
-    
+
     div(
       style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
       plotOutput("survivalPlot",
@@ -2228,7 +2053,7 @@ ui <- dashboardPage(
       ),
       downloadButton("survival_download_plot", "Download plot")
     )
-    
+
 )
 
       

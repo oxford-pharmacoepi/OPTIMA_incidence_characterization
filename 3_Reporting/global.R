@@ -421,25 +421,9 @@ if(length(survival_median_files > 0)){
                                                 show_col_types = FALSE)
   }
   
-  survival_median_table <- dplyr::bind_rows(survival_median_table) %>% 
-    select(!c(
-      "[header_level]365 daysn_risk"     ,
-      "[header_level]365 daysn_events"    ,         
-      "[header_level]730 daysn_risk"     ,
-      "[header_level]730 daysn_events"     ,        
-      "[header_level]1095 daysn_risk"    ,
-      "[header_level]1095 daysn_events"   ,         
-      "[header_level]1460 daysn_risk"   ,
-      "[header_level]1460 daysn_events"      ,      
-      "[header_level]1825 daysn_risk"   ,
-      "[header_level]1825 daysn_events"       ,     
-      "[header_level]3650 daysn_risk"     ,
-      "[header_level]3650 daysn_events"      ,      
-      "[header_level]5475 daysn_risk"            ,
-      "[header_level]5475 daysn_events"   
-      
-    )) %>% 
-    rename_with(~ gsub("\\[header_level\\]", "", .))
+  survival_median_table <- dplyr::bind_rows(survival_median_table) %>%
+    select(-matches("daysn_risk|daysn_events")) %>%  # Remove any column with "daysn_risk" or "daysn_events"
+    rename_with(~ gsub("\\[header_level\\]", "", .))  # Rename columns by removing "[header_level]
   
 }
 
