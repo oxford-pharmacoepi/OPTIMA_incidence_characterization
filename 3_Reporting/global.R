@@ -387,13 +387,16 @@ survival_estimates_files <- results[stringr::str_detect(results, "survival_resul
 if(length(survival_estimates_files > 0)){
 
 survival_estimates <- list()
+
 for(i in seq_along(survival_estimates_files)){
   survival_estimates[[i]]<-readr::read_csv(survival_estimates_files[[i]],
-                                           show_col_types = FALSE)
+                                           show_col_types = FALSE) %>% 
+    omopgenerics::newSummarisedResult()
+  
+  
 }
 
 survival_estimates <- dplyr::bind_rows(survival_estimates) %>% 
-  omopgenerics::newSummarisedResult() %>% 
   filter(variable_name == "survival_probability") %>% 
   visOmopResults::splitAll(
     keep = TRUE,
