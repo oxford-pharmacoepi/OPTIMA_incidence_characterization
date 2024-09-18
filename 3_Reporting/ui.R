@@ -1000,7 +1000,7 @@ ui <- dashboardPage(
             },
             selected = {
               tryCatch({
-                unique_vals <- unique(survival_events_table$cohort)[1]
+                unique_vals <- unique(survival_events_table$cohort)
                 if (!is.null(unique_vals)) {
                   return(unique_vals[1])
                 } else {
@@ -1070,7 +1070,7 @@ ui <- dashboardPage(
             },
             selected = {
               tryCatch({
-                unique_vals <- unique(survival_events_table$strata_level)[1]
+                unique_vals <- unique(survival_events_table$strata_level)
                 if (!is.null(unique_vals)) {
                   return(unique_vals[1])
                 } else {
@@ -1121,7 +1121,7 @@ ui <- dashboardPage(
             },
             selected = {
               tryCatch({
-                unique_vals <- unique(survival_median_table$Cohort)[1]
+                unique_vals <- unique(survival_median_table$Cohort)
                 if (!is.null(unique_vals)) {
                   return(unique_vals[1])
                 } else {
@@ -1156,7 +1156,7 @@ ui <- dashboardPage(
             },
             selected = {
               tryCatch({
-                unique_vals <- unique(survival_median_table$`CDM name`)[1]
+                unique_vals <- unique(survival_median_table$`CDM name`)
                 if (!is.null(unique_vals)) {
                   return(unique_vals[1])
                 } else {
@@ -1191,7 +1191,7 @@ ui <- dashboardPage(
             },
             selected = {
               tryCatch({
-                unique_vals <- unique(survival_median_table$`Age group`)[1]
+                unique_vals <- unique(survival_median_table$`Age group`)
                 if (!is.null(unique_vals)) {
                   return(unique_vals[1])
                 } else {
@@ -1226,7 +1226,7 @@ ui <- dashboardPage(
             },
             selected = {
               tryCatch({
-                unique_vals <- unique(survival_median_table$Sex)[1]
+                unique_vals <- unique(survival_median_table$Sex)
                 if (!is.null(unique_vals)) {
                   return(unique_vals[1])
                 } else {
@@ -1260,7 +1260,20 @@ ui <- dashboardPage(
                 return("Error retrieving data")
               })
             },
-            selected = "Overall",
+            
+            selected = {
+              tryCatch({
+                unique_vals <- unique(survival_median_table$`Diag yr gp`)
+                if (!is.null(unique_vals)) {
+                  return(unique_vals[1])
+                } else {
+                  return(NULL)
+                }
+              }, error = function(e) {
+                return(NULL)
+              })
+            },
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -2028,7 +2041,7 @@ ui <- dashboardPage(
             },
             selected = {
               tryCatch({
-                unique_vals <- unique(survival_estimates$cohort)[1]
+                unique_vals <- unique(survival_estimates$cohort)
                 if (!is.null(unique_vals)) {
                   return(unique_vals[1])
                 } else {
@@ -2064,7 +2077,7 @@ ui <- dashboardPage(
             },
             selected = {
               tryCatch({
-                unique_vals <- unique(survival_estimates$sex)[1]
+                unique_vals <- unique(survival_estimates$sex)
                 if (!is.null(unique_vals)) {
                   return(unique_vals[1])
                 } else {
@@ -2099,7 +2112,7 @@ ui <- dashboardPage(
      },
      selected = {
        tryCatch({
-         unique_vals <- unique(survival_estimates$age_group)[1]
+         unique_vals <- unique(survival_estimates$age_group)
          if (!is.null(unique_vals)) {
            return(unique_vals[1])
          } else {
@@ -2135,7 +2148,7 @@ ui <- dashboardPage(
      },
      selected = {
        tryCatch({
-         unique_vals <- unique(survival_estimates$age_group)[1]
+         unique_vals <- unique(survival_estimates$age_group)
          if (!is.null(unique_vals)) {
            return(unique_vals[1])
          } else {
