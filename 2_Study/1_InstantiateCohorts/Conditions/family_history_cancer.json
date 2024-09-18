@@ -2,11 +2,11 @@
   "items": [
     {
       "concept": {
-        "CONCEPT_CLASS_ID": "Clinical Finding",
-        "CONCEPT_CODE": "71315007",
-        "CONCEPT_ID": 439080,
-        "CONCEPT_NAME": "Dyspareunia",
-        "DOMAIN_ID": "Condition",
+        "CONCEPT_CLASS_ID": "Context-dependent",
+        "CONCEPT_CODE": "275937001",
+        "CONCEPT_ID": 4171594,
+        "CONCEPT_NAME": "Family history of cancer",
+        "DOMAIN_ID": "Observation",
         "INVALID_REASON": "V",
         "INVALID_REASON_CAPTION": "Valid",
         "STANDARD_CONCEPT": "S",
