@@ -151,7 +151,7 @@ for(i in 1:length(table(prev_std$outcome_cohort_name))){
   prevalence_estimates_i <- prev_std %>%
     filter(outcome_cohort_name == names(table(prev_std$outcome_cohort_name)[i]))
   
-  agestandardizedprev[[i]] <- dsr::dsr(
+  agestandardizedprev[[i]] <- dsr(
     data = prevalence_estimates_i,  # specify object containing number of deaths per stratum
     event = n_cases,       # column containing number of events per stratum 
     fu = n_population , # column containing number of population per stratum
@@ -175,7 +175,7 @@ for(i in 1:length(table(prev_std_F$outcome_cohort_name))){
   prevalence_estimates_i <- prev_std_F %>%
     filter(outcome_cohort_name == names(table(prev_std_F$outcome_cohort_name)[i]))
   
-  agestandardizedprevf[[i]] <- dsr::dsr(
+  agestandardizedprevf[[i]] <- dsr(
     data = prevalence_estimates_i,  # specify object containing number of deaths per stratum
     event = n_cases,       # column containing number of events per stratum 
     fu = n_population , # column containing number of population per stratum
@@ -199,7 +199,7 @@ for(i in 1:length(table(prev_std_M$outcome_cohort_name))){
   prevalence_estimates_i <- prev_std_M %>%
     filter(outcome_cohort_name == names(table(prev_std_M$outcome_cohort_name)[i]))
   
-  agestandardizedprevm[[i]] <- dsr::dsr(
+  agestandardizedprevm[[i]] <- dsr(
     data = prevalence_estimates_i,  # specify object containing number of deaths per stratum
     event = n_cases,       # column containing number of events per stratum 
     fu = n_population , # column containing number of population per stratum
@@ -320,7 +320,7 @@ for(i in 1:length(table(prev_std$outcome_cohort_name))){
   prevalence_estimates_i <- prev_std %>%
     filter(outcome_cohort_name == names(table(prev_std$outcome_cohort_name)[i]))
   
-  agestandardizedprev_wsp[[i]] <- dsr::dsr(
+  agestandardizedprev_wsp[[i]] <- dsr(
     data = prevalence_estimates_i,  # specify object containing number of deaths per stratum
     event = n_cases,       # column containing number of deaths per stratum 
     fu = n_population , # column containing number of population per stratum person years
@@ -347,7 +347,7 @@ for(i in 1:length(table(prev_std_F$outcome_cohort_name))){
   prevalence_estimates_i <- prev_std_F %>%
     filter(outcome_cohort_name == names(table(prev_std_F$outcome_cohort_name)[i]))
   
-  agestandardizedprev_wspf[[i]] <- dsr::dsr(
+  agestandardizedprev_wspf[[i]] <- dsr(
     data = prevalence_estimates_i,  # specify object containing number of deaths per stratum
     event = n_cases,       # column containing number of deaths per stratum 
     fu = n_population , # column containing number of population per stratum person years
@@ -373,7 +373,7 @@ for(i in 1:length(table(prev_std_M$outcome_cohort_name))){
   prevalence_estimates_i <- prev_std_M %>%
     filter(outcome_cohort_name == names(table(prev_std_M$outcome_cohort_name)[i]))
   
-  agestandardizedprev_wspm[[i]] <- dsr::dsr(
+  agestandardizedprev_wspm[[i]] <- dsr(
     data = prevalence_estimates_i,  # specify object containing number of deaths per stratum
     event = n_cases,       # column containing number of deaths per stratum 
     fu = n_population , # column containing number of population per stratum person years

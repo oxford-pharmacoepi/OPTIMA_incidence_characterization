@@ -8,6 +8,9 @@ output_folder <- here("Results", db_name)
 if (!file.exists(output_folder)){
   dir.create(output_folder, recursive = TRUE)}
 
+# read in functions -----
+source(here("2_Analysis", "functions.R"))
+
 # get cdm snapshot
 cli::cli_alert_info("- Getting cdm snapshot")
 write_csv(snapshot(cdm) %>% 

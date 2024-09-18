@@ -144,7 +144,7 @@ if(isTRUE(run_incidence)){
     incidence_estimates_i <- inc_std %>%
       filter(outcome_cohort_name == names(table(inc_std$outcome_cohort_name)[i]))
     
-    agestandardizedinc[[i]] <- dsr::dsr(
+    agestandardizedinc[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
       event = n_events,       # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
@@ -168,7 +168,7 @@ if(isTRUE(run_incidence)){
     incidence_estimates_i <- inc_std_F %>%
       filter(outcome_cohort_name == names(table(inc_std_F$outcome_cohort_name)[i]))
     
-    agestandardizedincf[[i]] <- dsr::dsr(
+    agestandardizedincf[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
       event = n_events,       # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
@@ -192,7 +192,7 @@ if(isTRUE(run_incidence)){
     incidence_estimates_i <- inc_std_M %>%
       filter(outcome_cohort_name == names(table(inc_std_M$outcome_cohort_name)[i]))
     
-    agestandardizedincm[[i]] <- dsr::dsr(
+    agestandardizedincm[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
       event = n_events,       # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
@@ -313,7 +313,7 @@ if(isTRUE(run_incidence)){
     incidence_estimates_i <- inc_std %>%
       filter(outcome_cohort_name == names(table(inc_std$outcome_cohort_name)[i]))
     
-    agestandardizedinc_wsp[[i]] <- dsr::dsr(
+    agestandardizedinc_wsp[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
       event = n_events,       # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
@@ -340,7 +340,7 @@ if(isTRUE(run_incidence)){
     incidence_estimates_i <- inc_std_F %>%
       filter(outcome_cohort_name == names(table(inc_std_F$outcome_cohort_name)[i]))
     
-    agestandardizedinc_wspf[[i]] <- dsr::dsr(
+    agestandardizedinc_wspf[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
       event = n_events,       # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
@@ -366,7 +366,7 @@ if(isTRUE(run_incidence)){
     incidence_estimates_i <- inc_std_M %>%
       filter(outcome_cohort_name == names(table(inc_std_M$outcome_cohort_name)[i]))
     
-    agestandardizedinc_wspm[[i]] <- dsr::dsr(
+    agestandardizedinc_wspm[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
       event = n_events,       # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
