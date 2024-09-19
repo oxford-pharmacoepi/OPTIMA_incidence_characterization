@@ -867,13 +867,8 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "1.0.6",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "utils"
-      ],
-      "Hash": "9657a35efec183ca64a5bbd71468e97a"
+      "Version": "1.0.7",
+      "Source": "Repository"
     },
     "rlang": {
       "Package": "rlang",

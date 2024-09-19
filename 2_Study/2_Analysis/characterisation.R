@@ -77,6 +77,14 @@ cli::cli_alert_info("Summarising Demographics")
       CDMConnector::recordCohortAttrition(reason="Excluded patients with less than 365 prior history" )
     
     
+    #only keeping those with sex recorded
+    cdm$outcome <- cdm$outcome %>% 
+      filter(sex %in% c("male", "female"))
+    
+    # make outcome a perm table and update the attrition
+    cdm$outcome <- cdm$outcome %>% 
+      compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+      CDMConnector::recordCohortAttrition(reason="Excluded patients with no sex recorded" )
       
   }
 
@@ -166,7 +174,20 @@ cli::cli_alert_info("Summarising Comorbidities")
           "Conditions on index date" = list(
             targetCohortTable = "conditions",
             window = c(0, 0)
+          ),
+          "Conditions 1 to 30 days after index date" = list(
+            targetCohortTable = "conditions",
+            window = c(1, 30)
+          ),
+          "Conditions 31 to 365 days after index date" = list(
+            targetCohortTable = "conditions",
+            window = c(31, 365)
+          ),
+          "Conditions 1 to 365 days after index date" = list(
+            targetCohortTable = "conditions",
+            window = c(1, 365)
           )
+          
         )
       )
   )
@@ -232,11 +253,11 @@ cli::cli_alert_info("Summarising Medications")
             targetCohortTable = "medications",
             window = c(1, 30)
           ),
-          "Medications 1 to 30 days after index date" = list(
+          "Medications 1 to 90 days after index date" = list(
             targetCohortTable = "medications",
             window = c(1, 90)
           ),
-          "Medications 1 to 30 days after index date" = list(
+          "Medications 1 to 365 days after index date" = list(
             targetCohortTable = "medications",
             window = c(1, 365)
           )
@@ -347,7 +368,20 @@ if(isTRUE(run_survival)){
           "Conditions on index date" = list(
             targetCohortTable = "conditions",
             window = c(0, 0)
+          ),
+          "Conditions 1 to 30 days after index date" = list(
+            targetCohortTable = "conditions",
+            window = c(1, 30)
+          ),
+          "Conditions 31 to 365 days after index date" = list(
+            targetCohortTable = "conditions",
+            window = c(31, 365)
+          ),
+          "Conditions 1 to 365 days after index date" = list(
+            targetCohortTable = "conditions",
+            window = c(1, 365)
           )
+          
         )
       )
   )
@@ -413,11 +447,11 @@ if(isTRUE(run_survival)){
             targetCohortTable = "medications",
             window = c(1, 30)
           ),
-          "Medications 1 to 30 days after index date" = list(
+          "Medications 1 to 90 days after index date" = list(
             targetCohortTable = "medications",
             window = c(1, 90)
           ),
-          "Medications 1 to 30 days after index date" = list(
+          "Medications 1 to 365 days after index date" = list(
             targetCohortTable = "medications",
             window = c(1, 365)
           )
