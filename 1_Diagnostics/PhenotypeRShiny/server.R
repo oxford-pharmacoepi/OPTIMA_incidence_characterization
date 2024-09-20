@@ -8,17 +8,54 @@ server <- function(input, output, session) {
       formatMarkdown()
   })
   # JSON ----
-  output$verb <- renderPrint({
-    
-    json_content <- cohort_set %>% 
-      filter(cohort_name %in% input$cohort_set_input) %>%
-      pull(json) %>%
-      unlist()
-    
-    cat(json_content)
-    
-  })
+  # output$verb <- renderPrint({
+  #   
+  #   json_content <- cohort_set %>% 
+  #     filter(cohort_name %in% input$cohort_set_input) %>%
+  #     pull(json) %>%
+  #     unlist()
+  #   
+  #   cat(json_content)
+  #   
+  # })
 
+  
+  output$downloadLungCancerjson <- downloadHandler(
+    filename = function() {
+      "all_lung_cancer_end.json"
+    },
+    content = function(file) {
+      file.copy("www/Cohorts/all_lung_cancer_end.json", file)
+    }
+  )
+  
+  
+  output$downloadLungCancerbroadjson <- downloadHandler(
+    filename = function() {
+      "broad_lung_cancer_end.json"
+    },
+    content = function(file) {
+      file.copy("www/Cohorts/broad_lung_cancer_end.json", file)
+    }
+  )
+  
+  output$downloadLungCancernarrowjson <- downloadHandler(
+    filename = function() {
+      "narrow_lung_cancer_end.json.json"
+    },
+    content = function(file) {
+      file.copy("www/Cohorts/narrow_lung_cancer_end.json", file)
+    }
+  )
+  
+  output$downloadscLungCancerjson <- downloadHandler(
+    filename = function() {
+      "small_cell_lung_cancer.json.json"
+    },
+    content = function(file) {
+      file.copy("www/Cohorts/small_cell_lung_cancer.json", file)
+    }
+  )
 
   
   output$downloadSmallCell <- downloadHandler(
@@ -40,19 +77,53 @@ server <- function(input, output, session) {
   )
 
   
-  output$clip <- renderUI({
-    rclipButton(
-      inputId = "clipbtn",
-      label = "Copy to clipboard",
-      clipText = isolate(cohort_set %>%
-                           filter(cohort_name %in% input$cohort_set_input) %>%
-                           pull(json) %>%
-                           unlist()),
-      icon = icon("clipboard"),
-      placement = "top",
-      options = list(delay = list(show = 800, hide = 100), trigger = "hover")
+  # output$clip <- renderUI({
+  #   rclipButton(
+  #     inputId = "clipbtn",
+  #     label = "Copy to clipboard",
+  #     clipText = isolate(cohort_set %>%
+  #                          filter(cohort_name %in% input$cohort_set_input) %>%
+  #                          pull(json) %>%
+  #                          unlist()),
+  #     icon = icon("clipboard"),
+  #     placement = "top",
+  #     options = list(delay = list(show = 800, hide = 100), trigger = "hover")
+  #   )
+  # })
+  
+  
+  #concepts_sets ----
+  get_concepts_sets <- reactive({
+    
+    validate(
+      need(input$cohort_set_input != "", "Please select a cohort")
     )
+    
+    concept_sets_final <- concept_sets_final %>% 
+      filter(name %in% input$cohort_set_input) 
+    
+    concept_sets_final
+    
   })
+  
+  # output$tbl_concept_sets <- renderText(kable(get_concepts_sets()) %>%
+  #                                         kable_styling("striped", full_width = F) )
+  
+  
+  output$tbl_concept_sets <- DT::renderDataTable({
+    DT::datatable(concept_sets_final)
+  })
+  
+  
+  output$dt_concept_sets_word <- downloadHandler(
+    filename = function() {
+      "concept_sets.docx"
+    },
+    content = function(file) {
+      x <- gt(get_concepts_sets())
+      gtsave(x, file)
+    }
+  )
   
   # Cohort counts ----
   output$tidy_counts <- renderDataTable({
@@ -400,7 +471,8 @@ server <- function(input, output, session) {
   output$lsc_table <- renderDataTable({
 
     filterData(data$lsc_table, "lsc", input) %>% 
-      niceColumnNames() %>% 
+      niceColumnNames() %>%
+      arrange(`Cohort name`, `Cdm name`, desc(`Difference percentage`)) %>%
       select(input$select_lsc_columns)
   })
     

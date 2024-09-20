@@ -1,5 +1,16 @@
 ui <- dashboardPage(
-  dashboardHeader(title = "PhenotypeR"),
+  
+  dashboardHeader(
+    title = tags$div(
+      style = "display: flex; align-items: center;",
+      tags$a(href = "https://oxford-pharmacoepi.github.io/phenotypeR/",  # Replace with your desired URL
+             tags$img(src = "phenotypeR.png", height = "50px", style = "margin-right: 10px;")  # Adjusted height
+      ),
+      tags$span("PhenotypeR", style = "margin-left: 10px; font-size: 24px;")  # Optional: Adjust title font size
+    ),
+    titleWidth = "100%"
+  ),
+  
   ## menu ----
   dashboardSidebar(
     sidebarMenu(
@@ -59,8 +70,35 @@ ui <- dashboardPage(
         text = "Execution log",
         tabName = "log"
       )
+    ),
+    
+    tags$div(
+      style = "position: relative; margin-top: 20px; text-align: center; margin-bottom: 0;",
+      a(img(
+        src = "Logo_HDS.png",  # Replace with the correct file name and extension
+        height = "150px",  # Adjust the height as needed
+        width = "auto"     # Let the width adjust proportionally
+      ),
+      href = "https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology",
+      target = "_blank"
+      )
+    ) ,
+    
+    # Logo 
+    tags$div(
+      style = "position: relative; margin-top: -20px; text-align: center; margin-bottom: 0;",
+      a(img(
+        src = "logoOxford.png",  # Replace with the correct file name and extension
+        height = "150px",  # Adjust the height as needed
+        width = "auto"     # Let the width adjust proportionally
+      ),
+      href = "https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology",
+      target = "_blank"
+      )
     )
+    
   ),
+  
   
   # ## body ----
   dashboardBody(
@@ -70,15 +108,16 @@ ui <- dashboardPage(
       tabItem(
         tabName = "background",
         h3("PhenotypeR"),
-        h5("https://github.com/oxford-pharmacoepi/phenotypeR_project"),
+        h5("PhenotypeR is a package to assess feasibility of clinical phenotypes (cohorts and/or codelists) to be used for studies. The package is under developement however it relies on other publically available packages as a tool to help phenotyping. The developement version of the PhenotypeR package can be found " , a("here", href = "https://oxford-pharmacoepi.github.io/phenotypeR/")),
       ),
+      
       #cdm snapshot ------
       tabItem(
         tabName = "cdm_snapshot",
-        h4("Information about the databases."),
-      selectors(data$cdm_snapshot, "cdm_snapshot", c("cdm_name")),
-      #downloadButton("cdm_snapshot_tidy", "Download csv"),
-      DTOutput("cdm_snapshot_tidy") %>% withSpinner()
+        h4("Database Summary."),
+        selectors(data$cdm_snapshot, "cdm_snapshot", c("cdm_name")),
+        #downloadButton("cdm_snapshot_tidy", "Download csv"),
+        DTOutput("cdm_snapshot_tidy") %>% withSpinner()
       ),
       # cohort definition ------
       tabItem(
@@ -92,41 +131,60 @@ ui <- dashboardPage(
           options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
           multiple = FALSE
         ),
-        #selectors(data$cohort_definitions, "definitions", c("cdm_name", "cohort_name"), multiple = FALSE, default = list()),
+        
         tabsetPanel(
           type = "tabs",
           tabPanel(
             "Cohort definition",
+            h4("Below is the cohort definition"),
             uiOutput("markdown")
           ),
           tabPanel(
             "JSON",
-            h4(),
-            rclipboardSetup(),
-            uiOutput("clip"),
-            verbatimTextOutput("verb"),
+            h4("Below is the json files which can be downloaded and exported into ATLAS"),
+            downloadButton("downloadLungCancerjson", "All Lung Cancer"),
+            downloadButton("downloadLungCancerbroadjson", "Broad Lung Cancer"),
+            downloadButton("downloadLungCancernarrowjson", "Narrow Lung Cancer"),
+            downloadButton("downloadscLungCancerjson", "Small Cell Lung Cancer"),
+            # rclipboardSetup(),
+            # uiOutput("clip"),
+            # verbatimTextOutput("verb"),
           ) ,
           
           tabPanel(
             "Clinical Definition",
-            h4(),
-            downloadButton("downloadSmallCell", "Small Cell Lung Cancer"),
+            h4("The clinical description for each phenotype can be downloaded below and then reviewed:"),
             downloadButton("downloadLungCancer", "Lung Cancer"),
+            downloadButton("downloadSmallCell", "Small Cell Lung Cancer"),
           ) ,
-
+          
+          tabPanel(
+            "Concept sets",
+            h4("Below are the concept sets used for selected phenotype:"),
+            DT::dataTableOutput('tbl_concept_sets'),
+            div(style="display:inline-block",
+                downloadButton(
+                  outputId = "dt_concept_sets_word",
+                  label = "Download table as word"
+                ), 
+                style="display:inline-block; float:right")
+            
+          ),
+          
+          
         )
       ),
       
       # cohort_counts ----
       tabItem(
         tabName = "counts",
-        selectors(data$cohort_count, "counts", c("cdm_name", "cohort_name"), multiple = TRUE, default = list()),
+        selectors(data$cohort_count, "counts", c("cdm_name", "cohort_name" ), multiple = TRUE, default = list()),
+        #selectors(data$cohort_count, "counts", c("cohort_name"), multiple = FALSE, default = list()),
         DTOutput("tidy_counts")
       ),
       tabItem(
         tabName = "code_counts",
         selectors(data$code_counts, "code_counts", c("cdm_name", "cohort"), multiple = FALSE, default = list()),
-        # selectors(data$orphan_counts, "code_counts", c("domain_id"), multiple = TRUE, default = list()),
         pickerInput(
           inputId = "select_code_count_columns",
           label = "Columns to display",
@@ -147,7 +205,6 @@ ui <- dashboardPage(
       tabItem(
         tabName = "orphan",
         selectors(data$orphan_counts, "orphan", c("cdm_name", "cohort"), multiple = FALSE, default = list()),
-        # selectors(data$orphan_counts, "orphan", c("domain_id"), multiple = TRUE, default = list()),
         pickerInput(
           inputId = "select_orphan_count_columns",
           label = "Columns to display",
@@ -227,13 +284,13 @@ ui <- dashboardPage(
         tabsetPanel(
           type = "tabs",
           tabPanel(
-            "Tidy table",
+            "Table",
             DTOutput("age_tidy_table")
-          ),
-          tabPanel(
-            "Formatted table",
-            h4(),
-            gt_output("age_format_table")
+            # ),
+            # tabPanel(
+            #   "Formatted table",
+            #   h4(),
+            #   gt_output("age_format_table")
           )
         )
       ),
@@ -244,13 +301,13 @@ ui <- dashboardPage(
         tabsetPanel(
           type = "tabs",
           tabPanel(
-            "Tidy table",
+            "Table",
             DTOutput("time_tidy_table")
-          ),
-          tabPanel(
-            "Formatted table",
-            h4(),
-            gt_output("time_format_table")
+            # ),
+            # tabPanel(
+            #   "Formatted table",
+            #   h4(),
+            #   gt_output("time_format_table")
           )
         )
       ),
@@ -357,6 +414,7 @@ ui <- dashboardPage(
         )
       ),
       # large_scale_characterisation ----
+      
       tabItem(
         tabName = "large_scale_characterisation",
         selectors(data$lsc_table, "lsc", c("cdm_name", "cohort_name", "window")),
@@ -369,11 +427,19 @@ ui <- dashboardPage(
               inputId = "select_lsc_columns",
               label = "Columns to display",
               choices = c("Cdm name", "Cohort name", "Concept name",
-                          "Window", "Matched integer", "Matched percentage", "Sample integer", 
+                          "Window", "Matched integer", "Matched percentage", "Sample integer",
                           "Sample percentage", "Difference integer", "Difference percentage"),
               selected = c("Cdm name", "Cohort name", "Concept name",
-                           "Window", "Matched integer", "Matched percentage", "Sample integer", 
+                           "Window", "Matched integer", "Matched percentage", "Sample integer",
                            "Sample percentage", "Difference integer", "Difference percentage"),
+              
+              # 
+              # choices = c("cdm_name", "cohort_name", "concept_name",
+              #             "window", "matched_integer", "matched_percentage", "sample_integer",
+              #             "sample_percentage", "difference_integer", "difference_percentage"),
+              # selected = c("cdm_name", "cohort_name", "concept_name",
+              #              "window", "matched_integer", "matched_percentage", "sample_integer",
+              #              "sample_percentage", "difference_integer", "difference_percentage"),
               options = list(
                 `actions-box` = TRUE,
                 size = 10,
@@ -383,25 +449,22 @@ ui <- dashboardPage(
             ),
             DTOutput("lsc_table")
           ),
-          tabPanel(
-            "Plot",
-            h4(),
-            pickerInput(
-              inputId = "plsc_facet",
-              label = "facet_by",
-              choices = c("cohort_name", "cdm_name", "window"),
-              selected = c("cohort_name", "cdm_name", "window"),
-              options = list(
-                `actions-box` = TRUE,
-                size = 10,
-                `selected-text-format` = "count > 3"
-              ),
-              multiple = TRUE) ,
-            
-            plotlyOutput('lsc_plot', height = "800px") %>% withSpinner()
-          )
+          # tabPanel(
+          #   "Plot",
+          #   h4(),
+          # 
+          # 
+          #   plotSelectors1(prefix = "plot_lsc",
+          #                 choices = c("cdm_name", "cohort_name", "window"),
+          #                 default = list(facet_by = c("cdm_name", "cohort_name", "window"))),
+          # 
+          # 
+          # 
+          #   plotlyOutput('lsc_plot', height = "800px") %>% withSpinner()
+          # )
         )
       ),
+      
       # log ----
       tabItem(
         tabName = "log",
