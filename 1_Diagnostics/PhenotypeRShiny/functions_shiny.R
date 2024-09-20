@@ -64,14 +64,45 @@ formatMarkdown <- function(x) {
   }
   purrr::map(lines, ~ getFormat(.))
 }
+
+# formatLog <- function(x) {
+#   lines <- strsplit(x, "\n") |> unlist()
+#   getFormat <- function(line) {
+#     line <- strsplit(line, ":") |> unlist()
+#     return(list(h4(line[1]), h5(paste0(gsub(" elapsed", "", line[2])))))
+#   }
+#   purrr::map(lines, ~ getFormat(.))
+# }
+
 formatLog <- function(x) {
-  lines <- strsplit(x, "\n") |> unlist()
-  getFormat <- function(line) {
-    line <- strsplit(line, ":") |> unlist()
-    return(list(h4(line[1]), h5(paste0(gsub(" elapsed", "", line[2])))))
+  # Ensure that the last line is processed by appending a newline character if missing
+  if (substr(x, nchar(x), nchar(x)) != "\n") {
+    x <- paste0(x, "\n")
   }
-  purrr::map(lines, ~ getFormat(.))
+
+  # Split the input string into individual lines based on newline characters
+  lines <- strsplit(x, "\n")[[1]]
+
+  # Function to format each line
+  getFormat <- function(line) {
+    # Split the line by colon and remove excess spaces
+    line_parts <- strsplit(line, ":\\s*")[[1]]
+
+    # Check if the line was properly split into two parts
+    if (length(line_parts) == 2) {
+      # Remove "elapsed" and format the time value
+      time_value <- gsub(" sec elapsed", "", line_parts[2])
+      return(list(h4(line_parts[1]), h5(time_value)))
+    } else {
+      # If line is malformed, return an error message
+      return(list(h4(line), h5("Error parsing")))
+    }
+  }
+
+  # Apply the helper function to each line
+  purrr::map(lines, ~ getFormat(.x))
 }
+
 
 lscToSummarisedResult <- function(lsc) {
   lsc %>%
