@@ -23,7 +23,7 @@ if (!file.exists(here::here("Results", db_name))){
 
 tic.clearlog()
 tic.clear()
-tic(msg = "phenotypeR total time run: ")
+tic(msg = "phenotypeR total time run")
 
 # Options and set-up: directories and settings ------
 tic(msg = "Settings and loading of Phoebe")
