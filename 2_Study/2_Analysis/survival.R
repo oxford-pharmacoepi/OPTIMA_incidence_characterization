@@ -14,7 +14,7 @@ cdm$outcome <- cdm$outcome %>%
                                 "60 to 69" = c(60, 69),
                                 "70 to 79" = c(70, 79),
                                 "80 to 89" = c(80, 89),
-                                "90+" = c(80, 150)
+                                "90+" = c(90, 150)
                               )
                           )) %>% 
   mutate(year = year(cohort_start_date))

@@ -70,12 +70,11 @@ ESP13_updated <- ESP13 %>%
   add_row(Agegroup = "50 to 59", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '50-54'| Agegroup == '55-59']))) %>% 
   add_row(Agegroup = "60 to 69", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '60-64'| Agegroup == '65-69']))) %>% 
   add_row(Agegroup = "70 to 79", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '70-74'| Agegroup == '75-79']))) %>% 
-  add_row(Agegroup = "80 to 89", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '80-84'| Agegroup == '85-89'])))
-add_row(Agegroup = "90 to 150", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '90+']))) %>% 
+  add_row(Agegroup = "80 to 89", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '80-84'| Agegroup == '85-89']))) %>% 
   filter(Agegroup == "18 to 49" | Agegroup == "50 to 59" | Agegroup == "60 to 69" |
            Agegroup == "70 to 79" |
            Agegroup == "80 to 89" |
-           Agegroup == "90 to 150" ) 
+           Agegroup == "90+" ) 
 
 #rename ESP column to pop (needs to be pop otherwise will not work)
 ESP13_updated <- ESP13_updated %>% 
@@ -305,7 +304,7 @@ WSP2000_2025_updated <- WSP2000_2025 %>%
   add_row(Agegroup = "60 to 69", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '60-64'| Agegroup == '65-69']))) %>% 
   add_row(Agegroup = "70 to 79", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '70-74'| Agegroup == '75-79']))) %>% 
   add_row(Agegroup = "80 to 89", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '80-84'| Agegroup == '85-89']))) %>% 
-  add_row(Agegroup = "90 to 150", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '90+']))) %>% 
+  add_row(Agegroup = "90 to 150", WSP2000_2025 = with(WSP2000_2025, sum(WSP2000_2025[Agegroup == '90 +']))) %>% 
   filter(Agegroup == "18 to 49" | Agegroup == "50 to 59" | Agegroup == "60 to 69" |
            Agegroup == "70 to 79" |
            Agegroup == "80 to 89" |
