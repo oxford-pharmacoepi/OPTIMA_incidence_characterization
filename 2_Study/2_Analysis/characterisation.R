@@ -18,7 +18,8 @@ cli::cli_alert_info("Summarising Demographics")
               "50 to 59" = c(50, 59),
               "60 to 69" = c(60, 69),
               "70 to 79" = c(70, 79),
-              "80+" = c(80, 150)
+              "80 to 89" = c(80, 89),
+              "90+" = c(90, 150)
             )
         )) %>% 
       mutate(year = year(cohort_start_date))
@@ -98,15 +99,13 @@ suppressWarnings(
                     c("diag_yr_gp"),
                     c("sex"),
                     c("age_group"),
-                    c("age_group", "sex"),
-                    c("year"),
-                    c("year", "sex"),
-                    c("year", "sex", "age_group")),
+                    c("age_group", "sex")),
       ageGroup = list( "18 to 49" = c(18, 49),
                        "50 to 59" = c(50, 59),
                        "60 to 69" = c(60, 69),
                        "70 to 79" = c(70, 79),
-                       "80 +" = c(80, 150))
+                       "80 to 89" = c(80, 89),
+                       "90+" = c(90, 150))
     )
   
 )
@@ -145,15 +144,13 @@ cli::cli_alert_info("Summarising Comorbidities")
                       c("diag_yr_gp"),
                       c("sex"),
                       c("age_group"),
-                      c("age_group", "sex"),
-                      c("year"),
-                      c("year", "sex"),
-                      c("year", "sex", "age_group")),
+                      c("age_group", "sex")),
         ageGroup = list( "18 to 49" = c(18, 49),
                          "50 to 59" = c(50, 59),
                          "60 to 69" = c(60, 69),
                          "70 to 79" = c(70, 79),
-                         "80 +" = c(80, 150)),
+                         "80 to 89" = c(80, 89),
+                         "90+" = c(90, 150)),
         cohortIntersectFlag = list(
           "Conditions prior to index date" = list(
             targetCohortTable = "conditions",
@@ -223,15 +220,13 @@ cli::cli_alert_info("Summarising Medications")
                       c("diag_yr_gp"),
                       c("sex"),
                       c("age_group"),
-                      c("age_group", "sex"),
-                      c("year"),
-                      c("year", "sex"),
-                      c("year", "sex", "age_group")),
+                      c("age_group", "sex")),
         ageGroup = list( "18 to 49" = c(18, 49),
                          "50 to 59" = c(50, 59),
                          "60 to 69" = c(60, 69),
                          "70 to 79" = c(70, 79),
-                         "80 +" = c(80, 150)),
+                         "80 to 89" = c(80, 89),
+                         "90+" = c(90, 150)),
         cohortIntersectFlag = list(
           "Medications 365 days prior to index date" = list(
             targetCohortTable = "medications",
@@ -253,10 +248,20 @@ cli::cli_alert_info("Summarising Medications")
             targetCohortTable = "medications",
             window = c(1, 30)
           ),
-          "Medications 1 to 90 days after index date" = list(
+          "Medications 31 to 90 days after index date" = list(
             targetCohortTable = "medications",
-            window = c(1, 90)
+            window = c(31, 90)
           ),
+          "Medications 91 to 180 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(91, 180)
+          ),
+          
+          "Medications 181 to 365 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(181, 365)
+          ),
+          
           "Medications 1 to 365 days after index date" = list(
             targetCohortTable = "medications",
             window = c(1, 365)
@@ -292,15 +297,13 @@ if(isTRUE(run_survival)){
                       c("diag_yr_gp"),
                       c("sex"),
                       c("age_group"),
-                      c("age_group", "sex"),
-                      c("year"),
-                      c("year", "sex"),
-                      c("year", "sex", "age_group")),
+                      c("age_group", "sex")),
         ageGroup = list( "18 to 49" = c(18, 49),
                          "50 to 59" = c(50, 59),
                          "60 to 69" = c(60, 69),
                          "70 to 79" = c(70, 79),
-                         "80 +" = c(80, 150))
+                         "80 to 89" = c(80, 89),
+                         "90+" = c(90, 150))
       )
     
   )
@@ -339,15 +342,13 @@ if(isTRUE(run_survival)){
                       c("diag_yr_gp"),
                       c("sex"),
                       c("age_group"),
-                      c("age_group", "sex"),
-                      c("year"),
-                      c("year", "sex"),
-                      c("year", "sex", "age_group")),
+                      c("age_group", "sex")),
         ageGroup = list( "18 to 49" = c(18, 49),
                          "50 to 59" = c(50, 59),
                          "60 to 69" = c(60, 69),
                          "70 to 79" = c(70, 79),
-                         "80 +" = c(80, 150)),
+                         "80 to 89" = c(80, 89),
+                         "90+" = c(90, 150)),
         cohortIntersectFlag = list(
           "Conditions prior to index date" = list(
             targetCohortTable = "conditions",
@@ -417,15 +418,13 @@ if(isTRUE(run_survival)){
                       c("diag_yr_gp"),
                       c("sex"),
                       c("age_group"),
-                      c("age_group", "sex"),
-                      c("year"),
-                      c("year", "sex"),
-                      c("year", "sex", "age_group")),
+                      c("age_group", "sex")),
         ageGroup = list( "18 to 49" = c(18, 49),
                          "50 to 59" = c(50, 59),
                          "60 to 69" = c(60, 69),
                          "70 to 79" = c(70, 79),
-                         "80 +" = c(80, 150)),
+                         "80 to 89" = c(80, 89),
+                         "90+" = c(90, 150)),
         cohortIntersectFlag = list(
           "Medications 365 days prior to index date" = list(
             targetCohortTable = "medications",
@@ -447,10 +446,20 @@ if(isTRUE(run_survival)){
             targetCohortTable = "medications",
             window = c(1, 30)
           ),
-          "Medications 1 to 90 days after index date" = list(
+          "Medications 31 to 90 days after index date" = list(
             targetCohortTable = "medications",
-            window = c(1, 90)
+            window = c(31, 90)
           ),
+          "Medications 91 to 180 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(91, 180)
+          ),
+          
+          "Medications 181 to 365 days after index date" = list(
+            targetCohortTable = "medications",
+            window = c(181, 365)
+          ),
+          
           "Medications 1 to 365 days after index date" = list(
             targetCohortTable = "medications",
             window = c(1, 365)
