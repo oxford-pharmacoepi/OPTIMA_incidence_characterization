@@ -26,7 +26,6 @@ library(tictoc)
 library(RPostgres)
 library(CodelistGenerator)
 library(DrugUtilisation)
-library(dsr)
 library(CohortCharacteristics)
 
 # database metadata and connection details -----
@@ -94,7 +93,6 @@ study_start <- "..."
 # if a data partner does not have suitable mortality data then survival analysis will also be set to FALSE
 run_incidence <- TRUE
 run_prevalence <- FALSE
-run_survival <- FALSE
 run_characterisation <- TRUE
 
 source(here("RunStudy.R"))
