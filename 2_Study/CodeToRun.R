@@ -92,7 +92,8 @@ study_start <- "..."
 # will not have a background denominator population therefore run_incidence/run_prevalence will be set to FALSE also
 # if a data partner does not have suitable mortality data then survival analysis will also be set to FALSE
 run_incidence <- TRUE
-run_prevalence <- FALSE
+run_prevalence <- TRUE
+run_survival <- FALSE
 run_characterisation <- TRUE
 
 source(here("RunStudy.R"))
