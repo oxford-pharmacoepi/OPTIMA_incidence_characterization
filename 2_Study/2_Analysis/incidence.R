@@ -64,10 +64,11 @@ if(isTRUE(run_incidence)){
     add_row(Agegroup = "60 to 69", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '60-64'| Agegroup == '65-69']))) %>% 
     add_row(Agegroup = "70 to 79", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '70-74'| Agegroup == '75-79']))) %>% 
     add_row(Agegroup = "80 to 89", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '80-84'| Agegroup == '85-89']))) %>% 
+    add_row(Agegroup = "90 to 150", ESP2013 = with(ESP13, sum(ESP2013[Agegroup == '90+']))) %>% 
     filter(Agegroup == "18 to 49" | Agegroup == "50 to 59" | Agegroup == "60 to 69" |
              Agegroup == "70 to 79" |
              Agegroup == "80 to 89" |
-             Agegroup == "90+" ) 
+             Agegroup == "90 to 150" ) 
   
   #rename ESP column to pop (needs to be pop otherwise will not work)
   ESP13_updated <- ESP13_updated %>% 
