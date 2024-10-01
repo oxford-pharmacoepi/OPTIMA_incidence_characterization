@@ -186,8 +186,8 @@ sclc <- reviewed_code_list %>%
 
 # 4 definitions
 # All lung cancer
-# Broad lung cancer exc SCLC and malignant neoplasm of resp tract
-# Narrow lung cancer exc SCLC and malignant neoplasm of resp tract
+# Broad lung cancer exc SCLC and malignant neoplasm of resp tract (excluding codes SCLC)
+# Narrow lung cancer exc SCLC and malignant neoplasm of resp tract (excluding codes for SCLC)
 # Small cell
 
 # INCIDENCE ---------
@@ -223,7 +223,7 @@ lung_cancer_incident_broad <- cohort(
 )
 
 writeCohort(lung_cancer_incident_broad, here::here("preliminary_cohorts",
-                                                     "lung_cancer_incident_broadq.json"))
+                                                     "lung_cancer_incident_broad.json"))
 
 # 3 narrow incidence
 lung_cancer_incident_narrow <- cohort(
