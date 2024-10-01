@@ -132,12 +132,12 @@ ui <- dashboardPage(
       menuSubItem(
         text = "Attrition Table",
         tabName = "cohort_attrition"
-      ),
-      menuSubItem(
-        text = "Attrition Figure",
-        tabName = "cohort_attr_fig"
       )
-    ),
+    #   menuSubItem(
+    #     text = "Attrition Figure",
+    #     tabName = "cohort_attr_fig"
+    #   )
+     ),
       
     
     tags$div(
