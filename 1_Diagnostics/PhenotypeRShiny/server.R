@@ -41,7 +41,7 @@ server <- function(input, output, session) {
   
   output$downloadLungCancernarrowjson <- downloadHandler(
     filename = function() {
-      "narrow_lung_cancer_end.json.json"
+      "narrow_lung_cancer_end.json"
     },
     content = function(file) {
       file.copy("www/Cohorts/narrow_lung_cancer_end.json", file)
@@ -50,7 +50,7 @@ server <- function(input, output, session) {
   
   output$downloadscLungCancerjson <- downloadHandler(
     filename = function() {
-      "small_cell_lung_cancer.json.json"
+      "small_cell_lung_cancer.json"
     },
     content = function(file) {
       file.copy("www/Cohorts/small_cell_lung_cancer.json", file)
@@ -99,19 +99,17 @@ server <- function(input, output, session) {
       need(input$cohort_set_input != "", "Please select a cohort")
     )
     
-    concept_sets_final <- concept_sets_final %>% 
+    table <- concept_sets_final %>% 
       filter(name %in% input$cohort_set_input) 
     
-    concept_sets_final
+    table
     
   })
   
-  # output$tbl_concept_sets <- renderText(kable(get_concepts_sets()) %>%
-  #                                         kable_styling("striped", full_width = F) )
-  
   
   output$tbl_concept_sets <- DT::renderDataTable({
-    DT::datatable(concept_sets_final)
+    DT::datatable(get_concepts_sets(), 
+                  options = list(scrollX = TRUE))
   })
   
   

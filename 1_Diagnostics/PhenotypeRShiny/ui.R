@@ -161,7 +161,9 @@ ui <- dashboardPage(
           tabPanel(
             "Concept sets",
             h4("Below are the concept sets used for selected phenotype:"),
+            
             DT::dataTableOutput('tbl_concept_sets'),
+            
             div(style="display:inline-block",
                 downloadButton(
                   outputId = "dt_concept_sets_word",

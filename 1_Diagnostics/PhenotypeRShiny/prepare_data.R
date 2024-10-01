@@ -399,57 +399,23 @@ if(length(json_files > 0)){
   } 
   
   # for conditions
-  for(i in 1:length(concept_lists_temp)){
+ for(i in 1:length(concept_lists_temp)){
     
     for(k in 1:length(concept_lists_temp[[i]]$ConceptSets[[1]]$expression$items)){  
       
       concept_sets[[k]] <- bind_rows(concept_lists_temp[[i]]$ConceptSets[[1]]$expression$items[[k]]$concept)  
-      
+
     }
     
-    concept_lists[[i]] <- bind_rows(concept_sets) %>% 
+    concept_lists[[i]] <- bind_rows(concept_sets) %>%
       mutate(name = concept_lists_temp[[i]]$ConceptSets[[1]]$name)
     
+    concept_sets <- list()
     
   }
   
   concept_sets_final <- bind_rows(concept_lists)
   
-  concept_sets_final <- concept_sets_final %>%
-    mutate(name = ifelse(name == "breast_cond", "breastcancer", name)) %>%
-    mutate(name = ifelse(name == "lung_cond", "lungcancer", name)) %>% 
-    mutate(name = ifelse(name == "prostate_cond", "prostatecancer", name))
-  
-  
-  # for observations
-  # concept_lists1 <- list()
-  # concept_sets1 <- list()
-  # for(i in 1:length(concept_lists_temp)){
-  #   
-  #   for(b in 1:length(concept_lists_temp[[i]]$ConceptSets[[2]]$expression$items)){  
-  #     
-  #     concept_sets1[[b]] <- bind_rows(concept_lists_temp[[i]]$ConceptSets[[2]]$expression$items[[b]]$concept)  
-  #     
-  #   }
-  #   
-  #   concept_lists1[[i]] <- bind_rows(concept_sets1) %>% 
-  #     mutate(name = concept_lists_temp[[i]]$ConceptSets[[2]]$name)
-  #   
-  #   
-  # }
-  # 
-  # 
-  # concept_sets_final1 <- bind_rows(concept_lists1)
-  # 
-  # 
-  # 
-  # concept_sets_final1 <- concept_sets_final1 %>%
-  #   mutate(name = ifelse(name == "breast_obs", "breastcancer", name)) %>%
-  #   mutate(name = ifelse(name == "lung_obs", "lungcancer", name)) %>% 
-  #   mutate(name = ifelse(name == "prostate_obs", "prostatecancer", name)) 
-  # 
-  
-  #concept_sets_final <- bind_rows(concept_sets_final, concept_sets_final1)
   
 }
 
