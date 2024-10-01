@@ -766,7 +766,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 601967,From ancestor,Histologic type of primary malignant neoplasm,Observation,SNOMED,S,n,n,n,n,n,n,n
 37203775,From ancestor,Lower respiratory tract neoplasms,Condition,MedDRA,C,n,n,n,n,n,n,n
 440417,From ancestor,Pulmonary embolism,Condition,SNOMED,S,n,n,n,n,n,n,n
-4112739,From orphan,Oat cell carcinoma of lung,Condition,SNOMED,S,n,n,n,y,n,n,n
+4112739,From orphan,Oat cell carcinoma of lung,Condition,SNOMED,S,y,n,n,y,y,n,n
 44499726,From orphan,"Squamous cell carcinoma, large cell, nonkeratinizing, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 44499794,From orphan,"Squamous cell carcinoma, large cell, nonkeratinizing, NOS, of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44500190,From orphan,"Squamous cell carcinoma, keratinizing, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
