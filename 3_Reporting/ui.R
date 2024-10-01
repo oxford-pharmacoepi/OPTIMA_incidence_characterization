@@ -133,10 +133,6 @@ ui <- dashboardPage(
         text = "Attrition Table",
         tabName = "cohort_attrition"
       )
-    #   menuSubItem(
-    #     text = "Attrition Figure",
-    #     tabName = "cohort_attr_fig"
-    #   )
      ),
       
     
@@ -603,21 +599,6 @@ ui <- dashboardPage(
           )
         ),
         
-        # 
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "comorb_year_selector",
-        #     label = "Diagnosis Year",
-        #     choices = comorb_characteristics %>%
-        #       filter(strata_name == "year" | strata_name == "overall") %>%
-        #       distinct(strata_level) %>% 
-        #       pull(),
-        #     selected = "overall",
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
         
         # tags$hr(),
         gt_output("gt_comorb_characteristics") %>% 
@@ -727,20 +708,6 @@ ui <- dashboardPage(
           )
         ),
         
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "med_year_selector",
-        #     label = "Diagnosis Year",
-        #     choices = med_characteristics %>%
-        #       filter(strata_name == "year" | strata_name == "overall") %>%
-        #       distinct(strata_level) %>% 
-        #       pull(),
-        #     selected = "overall",
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
         
         # tags$hr(),
         gt_output("gt_med_characteristics") %>% 
