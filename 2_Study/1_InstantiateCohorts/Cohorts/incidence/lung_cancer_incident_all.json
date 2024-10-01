@@ -9085,6 +9085,23 @@
           },
           {
             "concept": {
+              "CONCEPT_ID": 4112739,
+              "CONCEPT_NAME": "Oat cell carcinoma of lung",
+              "STANDARD_CONCEPT": "S",
+              "STANDARD_CONCEPT_CAPTION": "Standard",
+              "INVALID_REASON": "V",
+              "INVALID_REASON_CAPTION": "Valid",
+              "CONCEPT_CODE": "254633006",
+              "DOMAIN_ID": "Condition",
+              "VOCABULARY_ID": "SNOMED",
+              "CONCEPT_CLASS_ID": "Clinical Finding"
+            },
+            "isExcluded": false,
+            "includeDescendants": false,
+            "includeMapped": false
+          },
+          {
+            "concept": {
               "CONCEPT_ID": 44499726,
               "CONCEPT_NAME": "Squamous cell carcinoma, large cell, nonkeratinizing, NOS, of lung, NOS",
               "STANDARD_CONCEPT": "S",
