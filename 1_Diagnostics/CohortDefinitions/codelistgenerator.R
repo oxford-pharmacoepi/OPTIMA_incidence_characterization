@@ -194,7 +194,8 @@ sclc <- reviewed_code_list %>%
 # 1 lung cancer all incidence
 lung_cancer_incident_all <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(all_inc, name = "lung_cancer_all_inc"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(all_inc,
+                                                name = "lung_cancer_all_inc"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -209,7 +210,10 @@ writeCohort(lung_cancer_incident_all, here::here("preliminary_cohorts",
 # 2 broad incidence
 lung_cancer_incident_broad <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_inc, name = "lung_cancer_inc_broad"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_inc,
+                                                name = "lung_cancer_inc_broad",
+                                                exclude(sclc)
+                                                ), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -219,12 +223,14 @@ lung_cancer_incident_broad <- cohort(
 )
 
 writeCohort(lung_cancer_incident_broad, here::here("preliminary_cohorts",
-                                                     "lung_cancer_incident_broad.json"))
+                                                     "lung_cancer_incident_broadq.json"))
 
 # 3 narrow incidence
 lung_cancer_incident_narrow <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(narrow_inc, name = "lung_cancer_narrow_inc"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(narrow_inc,
+                                                name = "lung_cancer_narrow_inc",
+                                                exclude(sclc)), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -271,7 +277,9 @@ writeCohort(total_prev_lung_cancer_all, here::here("preliminary_cohorts",
 # 2 broad prev end
 total_prev_lung_cancer_broad <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_prev, name = "broad_lung_cancer_end"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_prev,
+                                                name = "broad_lung_cancer_end",
+                                                exclude(sclc)), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -287,7 +295,9 @@ writeCohort(total_prev_lung_cancer_broad, here::here("preliminary_cohorts",
 # 3 narrow prev end
 total_prev_lung_cancer_narrow <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(narrow_prev, name = "narrow_lung_cancer_end"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(narrow_prev,
+                                                name = "narrow_lung_cancer_end",
+                                                exclude(sclc)), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -305,7 +315,8 @@ writeCohort(total_prev_lung_cancer_narrow, here::here("preliminary_cohorts",
 # 1 all prev 2 year
 partial_prev2y_lung_cancer_all <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(all_prev, name = "all_lung_cancer_2y"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(all_prev,
+                                                name = "all_lung_cancer_2y"), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -320,7 +331,10 @@ writeCohort(partial_prev2y_lung_cancer_all, here::here("preliminary_cohorts",
 # 2 broad prev 2 year
 partial_prev2y_lung_cancer_broad <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_prev, name = "broad_lung_cancer_2y"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_prev,
+                                                name = "broad_lung_cancer_2y",
+                                                exclude(sclc)
+                                                ), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -336,7 +350,10 @@ writeCohort(partial_prev2y_lung_cancer_broad, here::here("preliminary_cohorts",
 # 3 narrow prev 2 year
 partial_prev2y_lung_cancer_narrow <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(narrow_prev, name = "narrow_lung_cancer_2y"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(narrow_prev,
+                                                name = "narrow_lung_cancer_2y",
+                                                exclude(sclc)
+                                                ), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -382,7 +399,8 @@ writeCohort(partial_prev5y_lung_cancer_all, here::here("preliminary_cohorts",
 # 2 broad prev 5 year
 partial_prev5y_lung_cancer_broad <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(broad_prev, name = "broad_lung_cancer_5y"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(broad_prev, name = "broad_lung_cancer_5y",
+                                                exclude(sclc)), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
@@ -397,7 +415,8 @@ writeCohort(partial_prev5y_lung_cancer_broad, here::here("preliminary_cohorts",
 # 3 narrow prev 5 year
 partial_prev5y_lung_cancer_narrow <- cohort(
   entry = entry(
-    conditionOccurrence(getConceptSetDetails(cs(narrow_prev, name = "narrow_lung_cancer_5y"), db, vocabularyDatabaseSchema = "public")),
+    conditionOccurrence(getConceptSetDetails(cs(narrow_prev, name = "narrow_lung_cancer_5y",
+                                                exclude(sclc)), db, vocabularyDatabaseSchema = "public")),
     observationWindow = continuousObservation(0L, 0L),
     primaryCriteriaLimit = "First"
   ),
