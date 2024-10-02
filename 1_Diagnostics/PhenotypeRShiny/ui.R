@@ -136,7 +136,7 @@ ui <- dashboardPage(
           type = "tabs",
           tabPanel(
             "Cohort definition",
-            h4("Below is the cohort definition"),
+            h4("Below is the cohort definition. We created 4 definitions 1) All lung cancers - this includes all lung cancer codes 2) Broad lung cancer - this includes broad concept terms including maligant neoplasm of respiratory tract but excludes small cell lung cancer concepts 3) Narrow lung cancer - this excludes broad concepts such as malignant neoplasm of the respiratory tract and excludes concepts for small cell lung cancer 4) Small cell lung cancer"),
             uiOutput("markdown")
           ),
           tabPanel(
