@@ -69,7 +69,8 @@ for (n in  row_number(cohort_set) ) {
   
 } 
 
-data$cohort_definitions <- cohort_set
+data$cohort_definitions <- cohort_set %>%
+  distinct(cohort_definition_id, .keep_all = TRUE)
 
 # cohort count
 cohort_count_files<-result_files[stringr::str_detect(result_files, ".csv")]
@@ -378,7 +379,8 @@ data$lsc_table <- data$lsc_matched %>%
     difference_integer, difference_percentage
   )
 
-cohort_set <- data$cohort_definitions
+cohort_set <- data$cohort_definitions %>% 
+  distinct(cohort_definition_id, .keep_all = TRUE)
 
 
 
