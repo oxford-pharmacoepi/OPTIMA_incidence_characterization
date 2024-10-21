@@ -80,7 +80,7 @@ cli::cli_alert_info("Summarising Demographics")
     
     #only keeping those with sex recorded
     cdm$outcome <- cdm$outcome %>% 
-      filter(sex %in% c("male", "female"))
+      filter(sex %in% c("Male", "Female"))
     
     # make outcome a perm table and update the attrition
     cdm$outcome <- cdm$outcome %>% 
