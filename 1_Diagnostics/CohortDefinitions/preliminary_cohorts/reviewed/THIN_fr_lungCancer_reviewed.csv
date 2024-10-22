@@ -1,6 +1,6 @@
 concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung_cancer_all,lung_cancer_broad,lung_cancer_narrow,small_cell_lung_cancer,lung_cancer_all_prev,lung_cancer_broad_prev,lung_cancer_narrow_prev
 3188394,From initial search,ALK polysomy identified in excised malignant neoplasm of lung by molecular methods,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
-4094874,From initial search,Malignant neoplasm of cartilage of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+4094874,From initial search,Malignant neoplasm of cartilage of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 3177432,From initial search,Status of KRAS sequence variant identification in excised malignant neoplasm of lung,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
 37110034,From initial search,Malignant neoplasm of right upper lobe of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
 442139,From initial search,Primary malignant neoplasm of bronchus,Condition,SNOMED,S,y,y,y,n,y,y,y
@@ -27,12 +27,12 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 3187950,From initial search,Invasion of pulmonary air spaces by primary malignant neoplasm of lung,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
 4312567,From initial search,Primary malignant neoplasm of upper lobe of right lung,Condition,SNOMED,S,y,y,y,n,y,y,y
 44499479,From initial search,"Neoplasm, malignant of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-45769098,From initial search,Primary malignant epithelial neoplasm of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45769098,From initial search,Primary malignant epithelial neoplasm of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 4247727,From initial search,Primary malignant neoplasm of bronchus of right lower lobe,Condition,SNOMED,S,y,y,y,n,y,y,y
 3186101,From initial search,ERBB2 sequence variant identified in excised malignant neoplasm of lung,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
 3184339,From initial search,ALK gene rearrangement identified in excised malignant neoplasm of lung by molecular methods,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
 4157454,From initial search,"Primary malignant neoplasm of lower lobe, bronchus or lung",Condition,SNOMED,S,y,y,y,n,y,y,y
-4095449,From initial search,Malignant neoplasm of mucosa of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+4095449,From initial search,Malignant neoplasm of mucosa of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 3178287,From initial search,MET nucleotide sequence detected in excised malignant neoplasm of lung,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
 3180096,From initial search,Status of EGFR c.2573T>G (L858R) sequence variant detected in excised malignant neoplasm of lung by immunohistochemistry,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
 3171565,From initial search,KRAS nucleotide sequence detected in excised malignant neoplasm of lung,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
@@ -71,7 +71,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 3181223,From initial search,ERBB2 nucleotide sequence detected in excised malignant neoplasm of lung,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
 3185136,From initial search,Status of MET gene amplification detection in excised malignant neoplasm of lung,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
 3168259,From initial search,KRAS sequence variant identified in excised malignant neoplasm of lung,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
-432262,From initial search,Primary malignant neoplasm of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+432262,From initial search,Primary malignant neoplasm of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 3185986,From initial search,Status of ROS1 protein expression in excised malignant neoplasm of lung by immunohistochemistry,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
 4247832,From initial search,Primary malignant neoplasm of lower lobe of left lung,Condition,SNOMED,S,y,y,y,n,y,y,y
 3172257,From initial search,Status of BRAF sequence variant detection in excised malignant neoplasm of lung,Observation,Nebraska Lexicon,S,n,n,n,n,n,n,n
@@ -95,21 +95,21 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36564790,From descendants,"Solitary fibrous tumor, malignant of overlapping lesion of lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36521617,From descendants,"Adenocarcinoma with squamous metaplasia of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36536126,From descendants,"Carcinoma simplex of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-36563281,From descendants,"Carcinoma, anaplastic, NOS, of trachea",Condition,ICDO3,S,y,y,y,n,y,y,y
+36563281,From descendants,"Carcinoma, anaplastic, NOS, of trachea",Condition,ICDO3,S,y,y,n,n,y,y,n
 46272955,From descendants,Primary clear cell adenocarcinoma of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
 36561629,From descendants,"Malignant mastocytosis of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 44500712,From descendants,"Combined small cell carcinoma of lower lobe, lung",Condition,ICDO3,S,y,n,n,y,y,n,n
 36537460,From descendants,Mixed cell adenocarcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 44500730,From descendants,"Papillary adenocarcinoma, NOS, of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
 36558400,From descendants,Hepatoid adenocarcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
-4177112,From descendants,Malignant tumor of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+4177112,From descendants,Malignant tumor of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 42512752,From descendants,"Micropapillary carcinoma, NOS, of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36547678,From descendants,"Cribriform carcinoma, NOS, of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
 36558320,From descendants,"Malignant fibrous histiocytoma of middle lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
-45768869,From descendants,Primary adenosquamous carcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45768869,From descendants,Primary adenosquamous carcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 44500303,From descendants,"Mucin-producing adenocarcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 4119610,From descendants,Pulmonary tumor embolism,Condition,SNOMED,S,n,n,n,n,n,n,n
-36559822,From descendants,"Mesothelioma, malignant of overlapping lesion of lung",Condition,ICDO3,S,y,y,y,n,y,y,y
+36559822,From descendants,"Mesothelioma, malignant of overlapping lesion of lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36560457,From descendants,Basal cell adenocarcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 36552086,From descendants,"Adenocarcinoma with squamous metaplasia of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 40492938,From descendants,Carcinoma of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
@@ -131,7 +131,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44499898,From descendants,"Medullary carcinoma, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36549175,From descendants,"Scirrhous adenocarcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36525052,From descendants,"Scirrhous adenocarcinoma of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-36545159,From descendants,"Bronchiolo-alveolar carcinoma, non-mucinous of trachea",Condition,ICDO3,S,y,y,y,n,y,y,y
+36545159,From descendants,"Bronchiolo-alveolar carcinoma, non-mucinous of trachea",Condition,ICDO3,S,y,y,n,n,y,y,n
 36539497,From descendants,"Scirrhous adenocarcinoma of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36549979,From descendants,Adenocarcinoma with cartilaginous and osseous metaplasia of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 44502961,From descendants,Adenosquamous carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -145,7 +145,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44499508,From descendants,"Clear cell adenocarcinoma, NOS, of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
 4162252,From descendants,"Carcinoma of upper lobe, bronchus or lung",Condition,SNOMED,NA,y,y,y,n,y,y,y
 36523265,From descendants,"Basal cell adenocarcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-36543365,From descendants,"Fibrous mesothelioma, malignant of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
+36543365,From descendants,"Fibrous mesothelioma, malignant of middle lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 44499866,From descendants,"Pleomorphic carcinoma of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36565633,From descendants,Lepidic adenocarcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 42512505,From descendants,"Micropapillary carcinoma, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -159,7 +159,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 45772939,From descendants,Primary mucoepidermoid carcinoma of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
 36538432,From descendants,Epithelial-myoepithelial carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 36550125,From descendants,"Small cell carcinoma, fusiform cell of overlapping lesion of lung",Condition,ICDO3,S,y,n,n,y,y,n,n
-44500969,From descendants,"Carcinoma, NOS, of trachea",Condition,ICDO3,S,y,y,y,n,y,y,y
+44500969,From descendants,"Carcinoma, NOS, of trachea",Condition,ICDO3,S,y,y,n,n,y,y,n
 36556450,From descendants,Mucinous adenocarcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 36533557,From descendants,Myoepithelial carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 36530787,From descendants,"Teratoma, malignant, NOS, of middle lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
@@ -213,7 +213,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36538858,From descendants,"Schneiderian carcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44500359,From descendants,"Lepidic adenocarcinoma of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44500356,From descendants,"Lepidic adenocarcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-4112736,From descendants,Adenoid cystic carcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+4112736,From descendants,Adenoid cystic carcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 37111619,From descendants,Malignant carcinoid tumor of bronchus,Condition,SNOMED,S,y,y,y,n,y,y,y
 44505038,From descendants,"Myoepithelial carcinoma of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36521072,From descendants,"Fibrous mesothelioma, malignant of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
@@ -232,7 +232,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36554343,From descendants,"Adenocarcinoid tumor of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36560247,From descendants,Combined small cell carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,n,n,y,y,n,n
 4247821,From descendants,Primary malignant neoplasm of carina,Condition,SNOMED,S,y,y,y,n,y,y,y
-44498975,From descendants,"Mesothelioma, malignant of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
+44498975,From descendants,"Mesothelioma, malignant of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 42511979,From descendants,"Minimally invasive adenocarcinoma, non-mucinous of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44502436,From descendants,Basaloid squamous cell carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 36566204,From descendants,Basal cell adenocarcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -241,7 +241,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36533303,From descendants,"Malignant histiocytosis of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36403081,From descendants,"Adenocarcinoma in situ of lung, non-mucinous of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36546635,From descendants,"Adenocarcinoma, intestinal type of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
-44499963,From descendants,"Adenocarcinoma, NOS, of trachea",Condition,ICDO3,S,y,y,y,n,y,y,y
+44499963,From descendants,"Adenocarcinoma, NOS, of trachea",Condition,ICDO3,S,y,y,n,n,y,y,n
 36520186,From descendants,"Mucinous cystadenocarcinoma, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36530423,From descendants,"Solitary fibrous tumor, malignant of middle lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36519172,From descendants,"Granular cell carcinoma of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -250,7 +250,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 3181040,From descendants,Metastatic lung carcinoma,Condition,Nebraska Lexicon,S,y,y,y,n,y,y,y
 36530828,From descendants,Malignant histiocytosis of overlapping lesion of lung,Condition,ICDO3,S,n,n,n,n,n,n,n
 44505001,From descendants,"Carcinoma, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
-45768861,From descendants,Primary solid carcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45768861,From descendants,Primary solid carcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 44501061,From descendants,"Papillary squamous cell carcinoma of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44500201,From descendants,"Mucinous cystadenocarcinoma, NOS, of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36533051,From descendants,"Lymphoepithelial carcinoma of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -264,7 +264,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 42511869,From descendants,"Adenocarcinoma in situ of lung, mucinous of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 44505030,From descendants,"Mucinous adenocarcinoma of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36535188,From descendants,Lymphoepithelial carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
-36528931,From descendants,"Fibrous mesothelioma, malignant of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
+36528931,From descendants,"Fibrous mesothelioma, malignant of main bronchus",Condition,ICDO3,S,n,n,n,n,n,n,n
 36567995,From descendants,Malignant fibrous histiocytoma of trachea,Condition,ICDO3,S,n,n,n,n,n,n,n
 261236,From descendants,"Primary malignant neoplasm of upper lobe, bronchus or lung",Condition,SNOMED,NA,y,y,y,n,y,y,y
 36560854,From descendants,"Cribriform carcinoma, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -277,13 +277,13 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44501617,From descendants,"Lymphoepithelial carcinoma of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44502876,From descendants,"Mucin-producing adenocarcinoma of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 42511919,From descendants,"Adenocarcinoma, intestinal type of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-36543613,From descendants,Scirrhous adenocarcinoma of trachea,Condition,ICDO3,S,y,y,y,n,y,y,y
+36543613,From descendants,Scirrhous adenocarcinoma of trachea,Condition,ICDO3,S,y,y,n,n,y,y,n
 36555815,From descendants,Glassy cell carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 44500343,From descendants,"Papillary carcinoma, NOS, of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
 36532293,From descendants,"Mixed cell adenocarcinoma of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36531901,From descendants,"Bronchiolo-alveolar carcinoma, non-mucinous of overlapping lesion of lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36538056,From descendants,"Alveolar adenocarcinoma of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-36550624,From descendants,Lepidic adenocarcinoma of trachea,Condition,ICDO3,S,y,y,y,n,y,y,y
+36550624,From descendants,Lepidic adenocarcinoma of trachea,Condition,ICDO3,S,y,y,n,n,y,y,n
 42511704,From descendants,"Malignant peripheral nerve sheath tumor, NOS, of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36526155,From descendants,"Cloacogenic carcinoma of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36558877,From descendants,"Alveolar adenocarcinoma of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -326,7 +326,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 42512246,From descendants,"Minimally invasive adenocarcinoma, mucinous of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36551824,From descendants,Non-small cell carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 36563834,From descendants,Mixed cell adenocarcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
-45768936,From descendants,Primary adenocarcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45768936,From descendants,Primary adenocarcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 44499621,From descendants,"Spindle cell carcinoma, NOS, of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
 42512028,From descendants,"Adenocarcinoma in situ of lung, non-mucinous of overlapping lesion of lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 42512800,From descendants,"Adenocarcinoma in situ of lung, mucinous of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
@@ -341,10 +341,10 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36525541,From descendants,"Fibrous mesothelioma, malignant of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 36524040,From descendants,"Basaloid carcinoma of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 45768884,From descendants,Primary acinar cell carcinoma of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
-36558787,From descendants,"Adenocarcinoma of lung, mucinous of trachea",Condition,ICDO3,S,y,y,y,n,y,y,y
+36558787,From descendants,"Adenocarcinoma of lung, mucinous of trachea",Condition,ICDO3,S,y,y,n,n,y,y,n
 4110706,From descendants,Pancoast tumor,Condition,SNOMED,S,y,y,y,n,y,y,y
 44505023,From descendants,"Adenocarcinoma of lung, mixed mucinous and non-mucinous of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
-45768934,From descendants,Primary papillary adenocarcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45768934,From descendants,Primary papillary adenocarcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 36712709,From descendants,Primary adenocarcinoma of lower lobe of right lung,Condition,SNOMED,S,y,y,y,n,y,y,y
 36552385,From descendants,"Adenocarcinoma of lung, mixed mucinous and non-mucinous of overlapping lesion of lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36547828,From descendants,"Metaplastic carcinoma, NOS, of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -380,10 +380,10 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44500666,From descendants,"Germinoma of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36562727,From descendants,"Verrucous carcinoma, NOS, of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36559186,From descendants,"Verrucous carcinoma, NOS, of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-45768952,From descendants,Primary lymphoepithelial carcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45768952,From descendants,Primary lymphoepithelial carcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 44499584,From descendants,"Hemangiopericytoma, malignant of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 36565803,From descendants,"Metaplastic carcinoma, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-36541732,From descendants,Adenocarcinoma with mixed subtypes of trachea,Condition,ICDO3,S,y,y,y,n,y,y,y
+36541732,From descendants,Adenocarcinoma with mixed subtypes of trachea,Condition,ICDO3,S,y,y,n,n,y,y,n
 36558610,From descendants,"Cloacogenic carcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36543984,From descendants,"Squamous cell carcinoma, spindle cell of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36543960,From descendants,"Adenocarcinoma with apocrine metaplasia of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -391,7 +391,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36566369,From descendants,"Squamous cell carcinoma, adenoid of overlapping lesion of lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 42512286,From descendants,"Adenocarcinoma in situ of lung, non-mucinous of main bronchus",Condition,ICDO3,S,n,n,n,n,n,n,n
 36567811,From descendants,"Malignant fibrous histiocytoma of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
-42511671,From descendants,Epithelial-myoepithelial carcinoma of trachea,Condition,ICDO3,S,y,y,y,n,y,y,y
+42511671,From descendants,Epithelial-myoepithelial carcinoma of trachea,Condition,ICDO3,S,y,y,n,n,y,y,n
 44502764,From descendants,"Carcinoma, undifferentiated, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36549552,From descendants,"Metaplastic carcinoma, NOS, of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
 36564060,From descendants,"Epithelioid mesothelioma, malignant of overlapping lesion of lung",Condition,ICDO3,S,n,n,n,n,n,n,n
@@ -405,7 +405,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44501404,From descendants,"Adenocarcinoma, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44503093,From descendants,"Mucin-producing adenocarcinoma of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36536644,From descendants,"Small cell carcinoma, fusiform cell of main bronchus",Condition,ICDO3,S,y,n,n,y,y,n,n
-36526200,From descendants,"Epithelioid mesothelioma, malignant of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
+36526200,From descendants,"Epithelioid mesothelioma, malignant of middle lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36563105,From descendants,"Mixed cell adenocarcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44501585,From descendants,"Acinar cell carcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36561274,From descendants,"Papillary squamous cell carcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -417,7 +417,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36548201,From descendants,"Squamous cell carcinoma, adenoid of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36545785,From descendants,"Squamous cell carcinoma, adenoid of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44500713,From descendants,Non-small cell carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
-45772942,From descendants,Primary verrucous carcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45772942,From descendants,Primary verrucous carcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 36544100,From descendants,"Adenocarcinoid tumor of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36542965,From descendants,"Carcinoma, anaplastic, NOS, of overlapping lesion of lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36556624,From descendants,Schneiderian carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -426,14 +426,14 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36537885,From descendants,"Malignant mastocytosis of middle lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36526857,From descendants,"Medullary carcinoma, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36712707,From descendants,Primary adenocarcinoma of lower lobe of left lung,Condition,SNOMED,S,y,y,y,n,y,y,y
-44504982,From descendants,Myoepithelial carcinoma of trachea,Condition,ICDO3,S,y,y,y,n,y,y,y
+44504982,From descendants,Myoepithelial carcinoma of trachea,Condition,ICDO3,S,y,y,n,n,y,y,n
 45768921,From descendants,Primary spindle cell carcinoma of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
 44503115,From descendants,"Hemangiopericytoma, malignant of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36526433,From descendants,Scirrhous adenocarcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 36402516,From descendants,"Adenocarcinoma,uncertain whether primary or metastatic site of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36564894,From descendants,Myoepithelial carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 36560118,From descendants,Papillary squamous cell carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
-36550126,From descendants,"Adenocarcinoma of lung, mixed mucinous and non-mucinous of trachea",Condition,ICDO3,S,y,y,y,n,y,y,y
+36550126,From descendants,"Adenocarcinoma of lung, mixed mucinous and non-mucinous of trachea",Condition,ICDO3,S,y,y,n,n,y,y,n
 36558515,From descendants,"Cribriform carcinoma, NOS, of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36523297,From descendants,Polygonal cell carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 36559892,From descendants,Alveolar adenocarcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -451,7 +451,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44502543,From descendants,"Mucinous adenocarcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36526943,From descendants,"Myoepithelial carcinoma of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36524077,From descendants,"Epithelioid mesothelioma, malignant of main bronchus",Condition,ICDO3,S,n,n,n,n,n,n,n
-45768860,From descendants,Primary mucinous cystadenocarcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45768860,From descendants,Primary mucinous cystadenocarcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 36545372,From descendants,"Carcinoma, anaplastic, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36531543,From descendants,"Solid carcinoma, NOS, of overlapping lesion of lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 45768930,From descendants,Primary mixed mucinous and non-mucinous bronchiolo-alveolar carcinoma of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
@@ -460,7 +460,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 42512569,From descendants,"Minimally invasive adenocarcinoma, non-mucinous of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
 42512748,From descendants,"Perivascular epithelioid tumor, malignant of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 36565786,From descendants,"Cribriform carcinoma, NOS, of overlapping lesion of lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-36564244,From descendants,Adenocarcinoma in villous adenoma of trachea,Condition,ICDO3,S,y,y,y,n,y,y,y
+36564244,From descendants,Adenocarcinoma in villous adenoma of trachea,Condition,ICDO3,S,y,y,n,n,y,y,n
 44501567,From descendants,"Basaloid squamous cell carcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 4198434,From descendants,Local recurrence of malignant tumor of lung,Condition,SNOMED,S,n,n,n,n,y,y,y
 36567740,From descendants,"Carcinoma, undifferentiated, NOS, of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -469,9 +469,9 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36563562,From descendants,Granular cell carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 36518654,From descendants,"Adenocarcinoma with cartilaginous and osseous metaplasia of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36567150,From descendants,"Squamous cell carcinoma, spindle cell of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
-45768858,From descendants,Primary salivary gland type carcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45768858,From descendants,Primary salivary gland type carcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 36567491,From descendants,"Clear cell adenocarcinoma, NOS, of overlapping lesion of lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-36541009,From descendants,"Epithelioma, malignant of trachea",Condition,ICDO3,S,y,y,y,n,y,y,y
+36541009,From descendants,"Epithelioma, malignant of trachea",Condition,ICDO3,S,y,y,n,n,y,y,n
 36539661,From descendants,"Polygonal cell carcinoma of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 37109576,From descendants,Squamous non-small cell lung cancer,Condition,SNOMED,S,y,y,y,n,y,y,y
 44500415,From descendants,"Papillary adenocarcinoma, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -489,20 +489,20 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44501516,From descendants,"Squamous cell carcinoma, spindle cell of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44500448,From descendants,"Adenocarcinoma of lung, mucinous of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 42512456,From descendants,"Micropapillary carcinoma, NOS, of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
-45768856,From descendants,Primary myoepithelial carcinoma of trachea,Condition,SNOMED,S,n,n,n,n,n,n,n
+45768856,From descendants,Primary myoepithelial carcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 42511851,From descendants,"Cystadenocarcinoma, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 42511960,From descendants,"CNS embryonal tumor, NOS, of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 36529321,From descendants,"Polygonal cell carcinoma of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36551818,From descendants,Adenocarcinoma with apocrine metaplasia of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 36567589,From descendants,"Cloacogenic carcinoma of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36531398,From descendants,"Lymphoepithelial carcinoma of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-45768862,From descendants,Primary undifferentiated carcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45768862,From descendants,Primary undifferentiated carcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 44505002,From descendants,"Carcinomatosis of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 36526019,From descendants,"Adenocarcinoma with cartilaginous and osseous metaplasia of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36550920,From descendants,"Teratoma, malignant, NOS, of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 45768886,From descendants,Primary papillary adenocarcinoma of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
 4111805,From descendants,Squamous cell carcinoma of bronchus,Condition,SNOMED,S,y,y,y,n,y,y,y
-36520293,From descendants,"Epithelioid mesothelioma, malignant of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
+36520293,From descendants,"Epithelioid mesothelioma, malignant of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 42512133,From descendants,"Ossifying fibromyxoid tumor, malignant of overlapping lesion of lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36536294,From descendants,"Small cell carcinoma, fusiform cell of middle lobe, lung",Condition,ICDO3,S,y,n,n,y,y,n,n
 44501357,From descendants,"Acinar cell carcinoma of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -512,11 +512,11 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36556267,From descendants,"Schneiderian carcinoma of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 42512222,From descendants,"Minimally invasive adenocarcinoma, mucinous of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
 36566990,From descendants,"Teratoma, malignant, NOS, of overlapping lesion of lung",Condition,ICDO3,S,n,n,n,n,n,n,n
-36534394,From descendants,"Papillary carcinoma, NOS, of trachea",Condition,ICDO3,S,y,y,y,n,y,y,y
+36534394,From descendants,"Papillary carcinoma, NOS, of trachea",Condition,ICDO3,S,y,y,n,n,y,y,n
 36519384,From descendants,"Cribriform carcinoma, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36535081,From descendants,Adenosquamous carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 44499915,From descendants,"Clear cell adenocarcinoma, NOS, of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-36539579,From descendants,Adenocarcinoma in tubulovillous adenoma of trachea,Condition,ICDO3,S,y,y,y,n,y,y,y
+36539579,From descendants,Adenocarcinoma in tubulovillous adenoma of trachea,Condition,ICDO3,S,y,y,n,n,y,y,n
 602150,From descendants,Primary adenocarcinoma of middle lobe of right lung,Condition,SNOMED,S,y,y,y,n,y,y,y
 44502949,From descendants,"Clear cell adenocarcinoma, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44505027,From descendants,"Fetal adenocarcinoma of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -524,11 +524,11 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44502885,From descendants,"Adenosquamous carcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44505011,From descendants,"Squamous cell carcinoma, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 44501124,From descendants,"Large cell carcinoma, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-45768857,From descendants,Primary mucoepidermoid carcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45768857,From descendants,Primary mucoepidermoid carcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 44505025,From descendants,"Papillary adenocarcinoma, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 44499686,From descendants,"Adenoid cystic carcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 762426,From descendants,Primary malignant neoplasm of left lung,Condition,SNOMED,NA,y,y,y,n,y,y,y
-36527651,From descendants,"Mesothelioma, biphasic, malignant of overlapping lesion of lung",Condition,ICDO3,S,y,y,y,n,y,y,y
+36527651,From descendants,"Mesothelioma, biphasic, malignant of overlapping lesion of lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 42512620,From descendants,"Minimally invasive adenocarcinoma, mucinous of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 44502703,From descendants,"Adenocarcinoma with mixed subtypes of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44499688,From descendants,"Bronchiolo-alveolar carcinoma, non-mucinous of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -548,7 +548,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44501471,From descendants,"Non-small cell carcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36562007,From descendants,"Malignant histiocytosis of upper lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36564670,From descendants,"Medullary carcinoma, NOS, of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-45768935,From descendants,Primary mucinous adenocarcinoma of trachea,Condition,SNOMED,S,y,y,y,n,y,y,y
+45768935,From descendants,Primary mucinous adenocarcinoma of trachea,Condition,SNOMED,S,y,y,n,n,y,y,n
 45768931,From descendants,Primary non-mucinous bronchiolo-alveolar carcinoma of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
 42511836,From descendants,"Yolk sac tumor, NOS, of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 4092218,From descendants,Malignant neoplasm of middle lobe bronchus,Condition,SNOMED,S,y,y,y,n,y,y,y
@@ -567,7 +567,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36545761,From descendants,Hepatoid adenocarcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 36522427,From descendants,"Metaplastic carcinoma, NOS, of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36520883,From descendants,Malignant histiocytosis of main bronchus,Condition,ICDO3,S,n,n,n,n,n,n,n
-44500614,From descendants,"Epithelioid mesothelioma, malignant of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
+44500614,From descendants,"Epithelioid mesothelioma, malignant of upper lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36566002,From descendants,"Epithelioma, malignant of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
 44500183,From descendants,"Large cell carcinoma, NOS, of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36543615,From descendants,"Adenocarcinoma with apocrine metaplasia of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -575,7 +575,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36538582,From descendants,"Verrucous carcinoma, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36557631,From descendants,"Malignant mastocytosis of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 44501335,From descendants,"Squamous cell carcinoma, NOS, of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
-36518535,From descendants,"Epithelioid mesothelioma, malignant of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
+36518535,From descendants,"Epithelioid mesothelioma, malignant of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36541713,From descendants,Basaloid squamous cell carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 4157333,From descendants,Malignant neoplasm of main bronchus,Condition,SNOMED,S,y,y,y,n,y,y,y
 44503538,From descendants,"Carcinoma, undifferentiated, NOS, of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -584,15 +584,15 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36560845,From descendants,Acinar cell carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 4100540,From descendants,Carcinoid bronchial adenoma,Condition,SNOMED,S,n,n,n,n,n,n,n
 36562863,From descendants,"Hepatoid adenocarcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-44501136,From descendants,"Cribriform carcinoma, NOS, of trachea",Condition,ICDO3,S,y,y,y,n,y,y,y
+44501136,From descendants,"Cribriform carcinoma, NOS, of trachea",Condition,ICDO3,S,y,y,n,n,y,y,n
 44499676,From descendants,"Carcinoma, anaplastic, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36536437,From descendants,Adenoid cystic carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 42512859,From descendants,"Minimally invasive adenocarcinoma, non-mucinous of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44500971,From descendants,"Large cell carcinoma, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36525316,From descendants,Alveolar adenocarcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 36539915,From descendants,"Adenocarcinoma with apocrine metaplasia of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
-36550178,From descendants,Superficial spreading adenocarcinoma of trachea,Condition,ICDO3,S,y,y,y,n,y,y,y
-36535997,From descendants,Pleomorphic carcinoma of trachea,Condition,ICDO3,S,y,y,y,n,y,y,y
+36550178,From descendants,Superficial spreading adenocarcinoma of trachea,Condition,ICDO3,S,y,y,n,n,y,y,n
+36535997,From descendants,Pleomorphic carcinoma of trachea,Condition,ICDO3,S,y,y,n,n,y,y,n
 36567179,From descendants,Granular cell carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 36403024,From descendants,"Bronchio-alveolar carcinoma, non-mucinous in situ (C34._) of upper lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36526753,From descendants,"Metaplastic carcinoma, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -629,7 +629,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 36537230,From descendants,"Verrucous carcinoma, NOS, of main bronchus",Condition,ICDO3,S,y,y,y,n,y,y,y
 36539178,From descendants,"Myoepithelial carcinoma of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44505005,From descendants,"Spindle cell carcinoma, NOS, of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
-36539453,From descendants,Villous adenocarcinoma of trachea,Condition,ICDO3,S,y,y,y,n,y,y,y
+36539453,From descendants,Villous adenocarcinoma of trachea,Condition,ICDO3,S,y,y,n,n,y,y,n
 36546205,From descendants,"Mesothelioma, malignant of upper lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 44502109,From descendants,"Mucoepidermoid carcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 45768917,From descendants,Primary mucinous adenocarcinoma of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
