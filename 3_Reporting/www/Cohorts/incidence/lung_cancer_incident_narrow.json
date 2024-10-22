@@ -7,23 +7,6 @@
         "items": [
           {
             "concept": {
-              "CONCEPT_ID": 4094874,
-              "CONCEPT_NAME": "Malignant neoplasm of cartilage of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "187853005",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 37110034,
               "CONCEPT_NAME": "Malignant neoplasm of right upper lobe of lung",
               "STANDARD_CONCEPT": "S",
@@ -279,23 +262,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 45769098,
-              "CONCEPT_NAME": "Primary malignant epithelial neoplasm of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707674000",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 4247727,
               "CONCEPT_NAME": "Primary malignant neoplasm of bronchus of right lower lobe",
               "STANDARD_CONCEPT": "S",
@@ -320,23 +286,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "372110008",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 4095449,
-              "CONCEPT_NAME": "Malignant neoplasm of mucosa of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "187854004",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "SNOMED",
               "CONCEPT_CLASS_ID": "Clinical Finding"
@@ -626,23 +575,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "1090881000000100",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 432262,
-              "CONCEPT_NAME": "Primary malignant neoplasm of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "94104001",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "SNOMED",
               "CONCEPT_CLASS_ID": "Clinical Finding"
@@ -959,23 +891,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36563281,
-              "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8021/3-C33.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 46272955,
               "CONCEPT_NAME": "Primary clear cell adenocarcinoma of lung",
               "STANDARD_CONCEPT": "S",
@@ -1044,23 +959,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 4177112,
-              "CONCEPT_NAME": "Malignant tumor of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "363432004",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 42512752,
               "CONCEPT_NAME": "Micropapillary carcinoma, NOS, of upper lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -1095,23 +993,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 45768869,
-              "CONCEPT_NAME": "Primary adenosquamous carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707393007",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44500303,
               "CONCEPT_NAME": "Mucin-producing adenocarcinoma of middle lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -1119,23 +1000,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8481/3-C34.2",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36559822,
-              "CONCEPT_NAME": "Mesothelioma, malignant of overlapping lesion of lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "9050/3-C34.8",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -1435,23 +1299,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36545159,
-              "CONCEPT_NAME": "Bronchiolo-alveolar carcinoma, non-mucinous of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8252/3-C33.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36539497,
               "CONCEPT_NAME": "Scirrhous adenocarcinoma of lung, NOS",
               "STANDARD_CONCEPT": "S",
@@ -1673,23 +1520,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36543365,
-              "CONCEPT_NAME": "Fibrous mesothelioma, malignant of middle lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "9051/3-C34.2",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44499866,
               "CONCEPT_NAME": "Pleomorphic carcinoma of lower lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -1867,23 +1697,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8562/3-C34.8",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 44500969,
-              "CONCEPT_NAME": "Carcinoma, NOS, of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8010/3-C33.9",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -2676,23 +2489,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 4112736,
-              "CONCEPT_NAME": "Adenoid cystic carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "254619006",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 37111619,
               "CONCEPT_NAME": "Malignant carcinoid tumor of bronchus",
               "STANDARD_CONCEPT": "S",
@@ -2914,23 +2710,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44498975,
-              "CONCEPT_NAME": "Mesothelioma, malignant of lung, NOS",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "9050/3-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 42511979,
               "CONCEPT_NAME": "Minimally invasive adenocarcinoma, non-mucinous of middle lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -3050,23 +2829,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44499963,
-              "CONCEPT_NAME": "Adenocarcinoma, NOS, of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8140/3-C33.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36520186,
               "CONCEPT_NAME": "Mucinous cystadenocarcinoma, NOS, of lower lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -3145,23 +2907,6 @@
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 45768861,
-              "CONCEPT_NAME": "Primary solid carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707384006",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
             },
             "isExcluded": false,
             "includeDescendants": false,
@@ -3356,23 +3101,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36528931,
-              "CONCEPT_NAME": "Fibrous mesothelioma, malignant of main bronchus",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "9051/3-C34.0",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 261236,
               "CONCEPT_NAME": "Primary malignant neoplasm of upper lobe, bronchus or lung",
               "STANDARD_CONCEPT": "",
@@ -3492,23 +3220,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36543613,
-              "CONCEPT_NAME": "Scirrhous adenocarcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8141/3-C33.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36555815,
               "CONCEPT_NAME": "Glassy cell carcinoma of main bronchus",
               "STANDARD_CONCEPT": "S",
@@ -3584,23 +3295,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8251/3-C34.3",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36550624,
-              "CONCEPT_NAME": "Lepidic adenocarcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8250/3-C33.9",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -4104,23 +3798,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 45768936,
-              "CONCEPT_NAME": "Primary adenocarcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707475005",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44499621,
               "CONCEPT_NAME": "Spindle cell carcinoma, NOS, of main bronchus",
               "STANDARD_CONCEPT": "S",
@@ -4274,23 +3951,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36558787,
-              "CONCEPT_NAME": "Adenocarcinoma of lung, mucinous of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8253/3-C33.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 4110706,
               "CONCEPT_NAME": "Pancoast tumor",
               "STANDARD_CONCEPT": "S",
@@ -4318,23 +3978,6 @@
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 45768934,
-              "CONCEPT_NAME": "Primary papillary adenocarcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707472008",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
             },
             "isExcluded": false,
             "includeDescendants": false,
@@ -4818,23 +4461,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 45768952,
-              "CONCEPT_NAME": "Primary lymphoepithelial carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707493006",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36565803,
               "CONCEPT_NAME": "Metaplastic carcinoma, NOS, of lower lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -4842,23 +4468,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8575/3-C34.3",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36541732,
-              "CONCEPT_NAME": "Adenocarcinoma with mixed subtypes of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8255/3-C33.9",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -4944,23 +4553,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8075/3-C34.8",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 42511671,
-              "CONCEPT_NAME": "Epithelial-myoepithelial carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8562/3-C33.9",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -5097,23 +4689,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8481/3-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36526200,
-              "CONCEPT_NAME": "Epithelioid mesothelioma, malignant of middle lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "9052/3-C34.2",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -5294,23 +4869,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 45772942,
-              "CONCEPT_NAME": "Primary verrucous carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707494000",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36544100,
               "CONCEPT_NAME": "Adenocarcinoid tumor of upper lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -5430,23 +4988,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44504982,
-              "CONCEPT_NAME": "Myoepithelial carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8982/3-C33.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 45768921,
               "CONCEPT_NAME": "Primary spindle cell carcinoma of lung",
               "STANDARD_CONCEPT": "S",
@@ -5522,23 +5063,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8052/3-C34.8",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36550126,
-              "CONCEPT_NAME": "Adenocarcinoma of lung, mixed mucinous and non-mucinous of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8254/3-C33.9",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -5770,23 +5294,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 45768860,
-              "CONCEPT_NAME": "Primary mucinous cystadenocarcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707383000",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36545372,
               "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of lung, NOS",
               "STANDARD_CONCEPT": "S",
@@ -5906,23 +5413,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36564244,
-              "CONCEPT_NAME": "Adenocarcinoma in villous adenoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8261/3-C33.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44501567,
               "CONCEPT_NAME": "Basaloid squamous cell carcinoma of middle lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -6025,23 +5515,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 45768858,
-              "CONCEPT_NAME": "Primary salivary gland type carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707380002",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36567491,
               "CONCEPT_NAME": "Clear cell adenocarcinoma, NOS, of overlapping lesion of lung",
               "STANDARD_CONCEPT": "S",
@@ -6049,23 +5522,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8310/3-C34.8",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36541009,
-              "CONCEPT_NAME": "Epithelioma, malignant of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8011/3-C33.9",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -6399,23 +5855,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 45768862,
-              "CONCEPT_NAME": "Primary undifferentiated carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707385007",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36526019,
               "CONCEPT_NAME": "Adenocarcinoma with cartilaginous and osseous metaplasia of middle lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -6460,23 +5899,6 @@
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "SNOMED",
               "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36520293,
-              "CONCEPT_NAME": "Epithelioid mesothelioma, malignant of lung, NOS",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "9052/3-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
             },
             "isExcluded": false,
             "includeDescendants": false,
@@ -6586,23 +6008,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 36534394,
-              "CONCEPT_NAME": "Papillary carcinoma, NOS, of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8050/3-C33.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36519384,
               "CONCEPT_NAME": "Cribriform carcinoma, NOS, of lung, NOS",
               "STANDARD_CONCEPT": "S",
@@ -6644,23 +6049,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8310/3-C34.1",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36539579,
-              "CONCEPT_NAME": "Adenocarcinoma in tubulovillous adenoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8263/3-C33.9",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -6790,23 +6178,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 45768857,
-              "CONCEPT_NAME": "Primary mucoepidermoid carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707379000",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44505025,
               "CONCEPT_NAME": "Papillary adenocarcinoma, NOS, of lung, NOS",
               "STANDARD_CONCEPT": "S",
@@ -6851,23 +6222,6 @@
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "SNOMED",
               "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36527651,
-              "CONCEPT_NAME": "Mesothelioma, biphasic, malignant of overlapping lesion of lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "9053/3-C34.8",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
             },
             "isExcluded": false,
             "includeDescendants": false,
@@ -7147,23 +6501,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 45768935,
-              "CONCEPT_NAME": "Primary mucinous adenocarcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "707473003",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "SNOMED",
-              "CONCEPT_CLASS_ID": "Clinical Finding"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 45768931,
               "CONCEPT_NAME": "Primary non-mucinous bronchiolo-alveolar carcinoma of lung",
               "STANDARD_CONCEPT": "S",
@@ -7402,23 +6739,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44500614,
-              "CONCEPT_NAME": "Epithelioid mesothelioma, malignant of upper lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "9052/3-C34.1",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 36566002,
               "CONCEPT_NAME": "Epithelioma, malignant of main bronchus",
               "STANDARD_CONCEPT": "S",
@@ -7511,23 +6831,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8070/3-C34.0",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36518535,
-              "CONCEPT_NAME": "Epithelioid mesothelioma, malignant of lower lobe, lung",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "9052/3-C34.3",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -7657,23 +6960,6 @@
           },
           {
             "concept": {
-              "CONCEPT_ID": 44501136,
-              "CONCEPT_NAME": "Cribriform carcinoma, NOS, of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8201/3-C33.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
               "CONCEPT_ID": 44499676,
               "CONCEPT_NAME": "Carcinoma, anaplastic, NOS, of lower lobe, lung",
               "STANDARD_CONCEPT": "S",
@@ -7766,40 +7052,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8573/3-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36550178,
-              "CONCEPT_NAME": "Superficial spreading adenocarcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8143/3-C33.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36535997,
-              "CONCEPT_NAME": "Pleomorphic carcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8022/3-C33.9",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
@@ -8293,23 +7545,6 @@
               "INVALID_REASON": "V",
               "INVALID_REASON_CAPTION": "Valid",
               "CONCEPT_CODE": "8032/3-C34.9",
-              "DOMAIN_ID": "Condition",
-              "VOCABULARY_ID": "ICDO3",
-              "CONCEPT_CLASS_ID": "ICDO Condition"
-            },
-            "isExcluded": false,
-            "includeDescendants": false,
-            "includeMapped": false
-          },
-          {
-            "concept": {
-              "CONCEPT_ID": 36539453,
-              "CONCEPT_NAME": "Villous adenocarcinoma of trachea",
-              "STANDARD_CONCEPT": "S",
-              "STANDARD_CONCEPT_CAPTION": "Standard",
-              "INVALID_REASON": "V",
-              "INVALID_REASON_CAPTION": "Valid",
-              "CONCEPT_CODE": "8262/3-C33.9",
               "DOMAIN_ID": "Condition",
               "VOCABULARY_ID": "ICDO3",
               "CONCEPT_CLASS_ID": "ICDO Condition"
