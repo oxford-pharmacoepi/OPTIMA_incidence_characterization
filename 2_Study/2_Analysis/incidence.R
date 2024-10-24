@@ -6,7 +6,7 @@ if(isTRUE(run_incidence)){
   cdm <- generateDenominatorCohortSet(
     cdm = cdm,
     name = "denominator" ,
-    cohortDateRange = c(as.Date(study_start), as.Date("2023-01-01")),
+    cohortDateRange = c(as.Date(study_start), as.Date("2023-12-31")),
     requirementInteractions = TRUE,
     ageGroup =list(
       c(18, 150),
