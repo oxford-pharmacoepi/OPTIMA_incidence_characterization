@@ -422,8 +422,12 @@ if(length(survival_median_files > 0)){
   for(i in seq_along(survival_median_files)){
     survival_median_table[[i]]<-readr::read_csv(survival_median_files[[i]],
                                                 show_col_types = FALSE)
-  }
-  
+    
+    # Convert all columns to character using dplyr
+    survival_median_table[[i]] <- survival_median_table[[i]] %>%
+      mutate(across(everything(), as.character))
+  } 
+
   survival_median_table <- dplyr::bind_rows(survival_median_table) %>%
     select(-matches("daysn_risk|daysn_events")) %>%  # Remove any column with "daysn_risk" or "daysn_events"
     rename_with(~ gsub("\\[header_level\\]", "", .))  # Rename columns by removing "[header_level]
