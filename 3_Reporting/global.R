@@ -195,6 +195,7 @@ for(i in seq_along(incidence_estimates_files)){
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))  %>% 
   mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "lung_cancer_incident_all" ~ "Lung Cancer All",
     outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
     outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
     outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
@@ -226,6 +227,7 @@ for(i in seq_along(incidence_estimates_files_std)){
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
   mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "lung_cancer_incident_all" ~ "Lung Cancer All",
     outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
     outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
     outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
@@ -253,6 +255,7 @@ for(i in seq_along(incidence_attrition_files)){
 
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
   mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "lung_cancer_incident_all" ~ "Lung Cancer All",
     outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
     outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
     outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
@@ -299,6 +302,7 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
   # age standardized prevalence estimates -----
   prevalence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
   prevalence_estimates_files_std<-results[stringr::str_detect(results, "prevalence_estimates")]
+  
   prevalence_estimates_files_std<-prevalence_estimates_files_std[(stringr::str_detect(prevalence_estimates_files_std, "age_std_"))]
   
   prevalence_estimates_std <- list()
@@ -321,11 +325,10 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
     )) 
   
   
-    
-  
   # prevalence attrition -----
   prevalence_attrition_files<-results[stringr::str_detect(results, ".csv")]
   prevalence_attrition_files<-results[stringr::str_detect(results, "prevalence_attrition")]
+  
   prevalence_attrition <- list()
   for(i in seq_along(prevalence_attrition_files)){
     prevalence_attrition[[i]]<-readr::read_csv(prevalence_attrition_files[[i]], 
@@ -347,7 +350,7 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
   prevalence_settings <- dplyr::bind_rows(prevalence_settings)  %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
   
-}
+  
 
 # age standardized prev estimates -----
 prevalence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
@@ -378,7 +381,7 @@ prevalence_estimates_std <- dplyr::bind_rows(prevalence_estimates_std) %>%
     cdm_name == "THIN uk" ~ "THIN UK",
     TRUE ~ cdm_name
   )) 
-
+}
 
 # survival estimates1 -------
 survival_estimates_files <- results[stringr::str_detect(results, ".csv")]

@@ -334,20 +334,45 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_outcome_selectorp",
             label = "Cohort Name",
-            choices = unique(prevalence_attrition$outcome_cohort_name),
-            selected = unique(prevalence_attrition$outcome_cohort_name)[1],
+            # choices = unique(prevalence_attrition$outcome_cohort_name),
+            # selected = unique(prevalence_attrition$outcome_cohort_name)[1],
+            choices = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$outcome_cohort_name)) {
+              unique(prevalence_attrition$outcome_cohort_name)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$outcome_cohort_name)) {
+              unique(prevalence_attrition$outcome_cohort_name)[1]
+            } else {
+              "No data available"
+            },
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
         ),
+        
+        
+
+        
+        
         
         div(
           style = "display: inline-block;vertical-align:top; width: 150px;",
           pickerInput(
             inputId = "attrition_sex_selectorp",
             label = "Sex",
-            choices = unique(prevalence_attrition$denominator_sex),
-            selected = "Both",
+            # choices = unique(prevalence_attrition$denominator_sex),
+            # selected = "Both",
+            choices = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$denominator_sex)) {
+              unique(prevalence_attrition$denominator_sex)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$denominator_sex)) {
+              "Both"
+            } else {
+              "No data available"
+            },
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -359,8 +384,21 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_age_selectorp",
             label = "Age Group",
-            choices = unique(prevalence_attrition$denominator_age_group),
-            selected = unique(prevalence_attrition$denominator_age_group)[1],
+            # choices = unique(prevalence_attrition$denominator_age_group),
+            # selected = unique(prevalence_attrition$denominator_age_group)[1],
+            
+            choices = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$denominator_age_group)) {
+              unique(prevalence_attrition$denominator_age_group)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$denominator_age_group)) {
+              unique(prevalence_attrition$denominator_age_group)[1]
+            } else {
+              "No data available"
+            },
+            
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -371,8 +409,19 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_database_name_selectorp",
             label = "Database",
-            choices = unique(prevalence_attrition$cdm_name),
-            selected = unique(prevalence_attrition$cdm_name)[1],
+            # choices = unique(prevalence_attrition$cdm_name),
+            # selected = unique(prevalence_attrition$cdm_name)[1],
+            choices = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$cdm_name)) {
+              unique(prevalence_attrition$cdm_name)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$cdm_name)) {
+              unique(prevalence_attrition$cdm_name)[1]
+            } else {
+              "No data available"
+            },
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -472,21 +521,6 @@ ui <- dashboardPage(
             multiple = TRUE
           )
         ),
-        
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "demographics_year_selector",
-        #     label = "Diagnosis Year",
-        #     choices = demo_characteristics %>%
-        #       filter(strata_name == "year" | strata_name == "overall") %>%
-        #       distinct(strata_level) %>% 
-        #       pull(),
-        #     selected = "overall",
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
         
        # tags$hr(),
         gt_output("gt_demo_characteristics") %>% 
@@ -901,8 +935,23 @@ ui <- dashboardPage(
      pickerInput(
        inputId = "prev_estimates_cohort_selector_std",
        label = "Cohort Name",
-       choices = unique(prevalence_estimates_std$outcome_cohort_name),
-       selected = unique(prevalence_estimates_std$outcome_cohort_name)[1],
+       # choices = unique(prevalence_estimates_std$outcome_cohort_name),
+       # selected = unique(prevalence_estimates_std$outcome_cohort_name)[1],
+       
+       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$outcome_cohort_name)) {
+         unique(prevalence_estimates_std$outcome_cohort_name)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$outcome_cohort_name)) {
+         unique(prevalence_estimates_std$outcome_cohort_name)[1]
+       } else {
+         "No data available"
+       },
+       
+       
+       
+       
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
      )
@@ -914,8 +963,20 @@ ui <- dashboardPage(
      pickerInput(
        inputId = "prev_estimates_sex_selector_std",
        label = "Sex",
-       choices = unique(prevalence_estimates_std$denominator_sex),
-       selected = "Both",
+       # choices = unique(prevalence_estimates_std$denominator_sex),
+       # selected = "Both",
+       
+       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
+         unique(prevalence_estimates_std$denominator_sex)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
+         "Both"
+       } else {
+         "No data available"
+       },
+       
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
      )
@@ -926,8 +987,22 @@ ui <- dashboardPage(
      pickerInput(
        inputId = "prev_estimates_database_selector_std",
        label = "Database",
-       choices = unique(prevalence_estimates_std$cdm_name),
-       selected = unique(prevalence_estimates_std$cdm_name)[1],
+       # choices = unique(prevalence_estimates_std$cdm_name),
+       # selected = unique(prevalence_estimates_std$cdm_name)[1],
+       
+       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$cdm_name)) {
+         unique(prevalence_estimates_std$cdm_name)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$cdm_name)) {
+         unique(prevalence_estimates_std$cdm_name)[1]
+       } else {
+         "No data available"
+       },
+       
+       
+       
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
      )
@@ -1008,6 +1083,12 @@ ui <- dashboardPage(
        multiple = TRUE
      )
  ),
+ 
+# 
+#  div(
+#    style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
+#    checkboxInput("show_ci", "Show Sensitivity Analysis", value = FALSE)
+#  ),
 
 
         htmlOutput('dt_risk_table'),
@@ -1155,8 +1236,22 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "prev_estimates_cohort_selector",
             label = "Cohort Name",
-            choices = unique(prevalence_estimates$outcome_cohort_name),
-            selected = unique(prevalence_estimates$outcome_cohort_name)[1],
+            # choices = unique(prevalence_estimates$outcome_cohort_name),
+            # selected = unique(prevalence_estimates$outcome_cohort_name)[1],
+            
+            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
+              unique(prevalence_estimates$outcome_cohort_name)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
+              unique(prevalence_estimates$outcome_cohort_name)[1]
+            } else {
+              "No data available"
+            },
+            
+            
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1167,8 +1262,20 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "prev_estimates_cdm_selector",
             label = "Database",
-            choices = unique(prevalence_estimates$cdm_name),
-            selected = unique(prevalence_estimates$cdm_name)[1],
+            # choices = unique(prevalence_estimates$cdm_name),
+            # selected = unique(prevalence_estimates$cdm_name)[1],
+            
+            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
+              unique(prevalence_estimates$cdm_name)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
+              unique(prevalence_estimates$cdm_name)[1]
+            } else {
+              "No data available"
+            },
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1180,8 +1287,20 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "prev_estimates_sex_selector",
             label = "Sex",
-            choices = unique(prevalence_estimates$denominator_sex),
-            selected = "Both",
+            # choices = unique(prevalence_estimates$denominator_sex),
+            # selected = "Both",
+            
+            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
+              unique(prevalence_estimates$denominator_sex)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
+              "Both"
+            } else {
+              "No data available"
+            },
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1193,8 +1312,22 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "prev_estimates_age_selector",
             label = "Age Group",
-            choices = unique(prevalence_estimates$denominator_age_group),
-            selected = "18 to 150",
+            # choices = unique(prevalence_estimates$denominator_age_group),
+            # selected = "18 to 150",
+            
+            
+            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
+              unique(prevalence_estimates$denominator_age_group)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
+              "18 to 150"
+            } else {
+              "No data available"
+            },
+            
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1219,8 +1352,20 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "prevalence_database_selector",
             label = "Database",
-            choices = unique(prevalence_estimates$cdm_name),
-            selected = unique(prevalence_estimates$cdm_name),
+            # choices = unique(prevalence_estimates$cdm_name),
+            # selected = unique(prevalence_estimates$cdm_name),
+            
+            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
+              unique(prevalence_estimates$cdm_name)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
+              unique(prevalence_estimates$cdm_name)[1]
+            } else {
+              "No data available"
+            },
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1230,8 +1375,20 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "prevalence_cohort_name_selector",
             label = "Cohort Name",
-            choices = unique(prevalence_estimates$outcome_cohort_name),
-            selected = unique(prevalence_estimates$outcome_cohort_name)[1],
+            # choices = unique(prevalence_estimates$outcome_cohort_name),
+            # selected = unique(prevalence_estimates$outcome_cohort_name)[1],
+            
+            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
+              unique(prevalence_estimates$outcome_cohort_name)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
+              unique(prevalence_estimates$outcome_cohort_name)[1]
+            } else {
+              "No data available"
+            },
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1242,8 +1399,22 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "prevalence_start_date_selector",
             label = "Prevalence Start Date",
-            choices = as.character(unique(prevalence_estimates$prevalence_start_date)),
-            selected = as.character(unique(prevalence_estimates$prevalence_start_date)),
+            # choices = as.character(unique(prevalence_estimates$prevalence_start_date)),
+            # selected = as.character(unique(prevalence_estimates$prevalence_start_date)),
+            
+            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$prevalence_start_date)) {
+              as.character(unique(prevalence_estimates$prevalence_start_date))
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$prevalence_start_date)) {
+              as.character(unique(prevalence_estimates$prevalence_start_date))
+            } else {
+              "No data available"
+            },
+            
+            
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1254,8 +1425,19 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "prevalence_sex_selector",
             label = "Sex",
-            choices = unique(prevalence_estimates$denominator_sex),
-            selected = "Both",
+            # choices = unique(prevalence_estimates$denominator_sex),
+            # selected = "Both",
+            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
+              unique(prevalence_estimates$denominator_sex)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
+              "Both"
+            } else {
+              "No data available"
+            },
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1266,8 +1448,23 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "prevalence_age_selector",
             label = "Age Group",
-            choices = unique(prevalence_estimates$denominator_age_group),
-            selected = "18 to 150",
+            # choices = unique(prevalence_estimates$denominator_age_group),
+            # selected = "18 to 150",
+            
+            
+            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
+              unique(prevalence_estimates$denominator_age_group)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
+              "18 to 150"
+            } else {
+              "No data available"
+            },
+            
+            
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1630,8 +1827,20 @@ ui <- dashboardPage(
      pickerInput(
        inputId = "prevalence_database_selector_std",
        label = "Database",
-       choices = unique(prevalence_estimates_std$cdm_name),
-       selected = unique(prevalence_estimates_std$cdm_name),
+       # choices = unique(prevalence_estimates_std$cdm_name),
+       # selected = unique(prevalence_estimates_std$cdm_name),
+       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$cdm_name)) {
+         unique(prevalence_estimates_std$cdm_name)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$cdm_name)) {
+         unique(prevalence_estimates_std$cdm_name)[1]
+       } else {
+         "No data available"
+       },
+       
+       
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
      )
@@ -1641,8 +1850,21 @@ ui <- dashboardPage(
      pickerInput(
        inputId = "prevalence_cohort_name_selector_std",
        label = "Cohort Name",
-       choices = unique(prevalence_estimates_std$outcome_cohort_name),
-       selected = unique(prevalence_estimates_std$outcome_cohort_name)[1],
+       # choices = unique(prevalence_estimates_std$outcome_cohort_name),
+       # selected = unique(prevalence_estimates_std$outcome_cohort_name)[1],
+       
+       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$outcome_cohort_name)) {
+         unique(prevalence_estimates_std$outcome_cohort_name)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$outcome_cohort_name)) {
+         unique(prevalence_estimates_std$outcome_cohort_name)[1]
+       } else {
+         "No data available"
+       },
+       
+       
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
      )
@@ -1653,8 +1875,22 @@ ui <- dashboardPage(
      pickerInput(
        inputId = "prevalence_start_date_selector_std",
        label = "Prevalence Start Date",
-       choices = as.character(unique(prevalence_estimates_std$prevalence_start_date)),
-       selected = as.character(unique(prevalence_estimates_std$prevalence_start_date)),
+       # choices = as.character(unique(prevalence_estimates_std$prevalence_start_date)),
+       # selected = as.character(unique(prevalence_estimates_std$prevalence_start_date)),
+       
+       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$prevalence_start_date)) {
+         as.character(unique(prevalence_estimates_std$prevalence_start_date))
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$prevalence_start_date)) {
+         as.character(unique(prevalence_estimates_std$prevalence_start_date))
+       } else {
+         "No data available"
+       },
+       
+       
+       
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
      )
@@ -1665,8 +1901,21 @@ ui <- dashboardPage(
      pickerInput(
        inputId = "prevalence_std_method",
        label = "Standardization Method",
-       choices = unique(prevalence_estimates_std$age_standard),
-       selected = unique(prevalence_estimates_std$age_standard)[c(2,3)],
+       # choices = unique(prevalence_estimates_std$age_standard),
+       # selected = unique(prevalence_estimates_std$age_standard)[c(2,3)],
+       
+       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$age_standard)) {
+         unique(prevalence_estimates_std$age_standard)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$age_standard)) {
+         unique(prevalence_estimates_std$age_standard)[c(2,3)]
+       } else {
+         "No data available"
+       },
+       
+       
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
      )
@@ -1677,8 +1926,21 @@ ui <- dashboardPage(
      pickerInput(
        inputId = "prevalence_sex_selector_std",
        label = "Sex",
-       choices = unique(prevalence_estimates_std$denominator_sex),
-       selected = "Both",
+       # choices = unique(prevalence_estimates_std$denominator_sex),
+       # selected = "Both",
+       
+       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
+         unique(prevalence_estimates_std$outcome_cohort_name)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
+         "Both"
+       } else {
+         "No data available"
+       },
+       
+       
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
      )
@@ -1843,6 +2105,7 @@ ui <- dashboardPage(
         
         tabItem(
           tabName = "survival_results",
+          tags$h5("The survival results presented do not have addition exclusion criteria where we excluded and previous history of any malignancy (apart from skin cancer) if you wish to see the analysis please click sensitivity analysis button"),
           div(
             style = "display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(
