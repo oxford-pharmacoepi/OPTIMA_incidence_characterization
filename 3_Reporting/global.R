@@ -159,6 +159,7 @@ if(length(json_files > 0)){
     concept_lists[[i]] <- bind_rows(concept_sets) %>% 
       mutate(name = concept_lists_temp[[i]]$ConceptSets[[1]]$name)
       
+    concept_sets <- list()
     
   }
   
@@ -167,10 +168,11 @@ if(length(json_files > 0)){
   
 }
 
-  concept_sets_final <- concept_sets_final %>% 
-  mutate(name = ifelse(name == "lung_cancer_broad_inc", "lung_cancer_incident_broad", name)) %>% 
-  mutate(name = ifelse(name == "lung_cancer_narrow_inc", "lung_cancer_incident_narrow", name)) 
-    
+  concept_sets_final <- concept_sets_final  %>% 
+  mutate(name = ifelse(name == "lung_cancer_inc_broad", "lung_cancer_incident_broad", name)) %>%
+  mutate(name = ifelse(name == "lung_cancer_narrow_inc", "lung_cancer_incident_narrow", name)) %>% 
+  mutate(name = ifelse(name == "lung_cancer_all_inc", "lung_cancer_incident_all", name))
+
   
 # incidence estimates -----
 incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
