@@ -26,7 +26,7 @@ This repo is organized as follows:
 2) Open and work though the <i>CodeToRun.R</i> file which should be the only file that you need to interact with. Run the lines in the file, adding your database specific information and so on (see comments within the file for instructions). The last line of this file will run the study <i>(source(here("RunStudy.R"))</i>.     
 3) After running you should then have a zip folder with results to share in your results folder OR you can use the RData file to review your results locally.
 
-# Running main study
+## Running main study
 1) Open the [2_Study](https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival/tree/main/2_Study) folder and open <i>OPTIMACancerIncidenceSurvival.Rproj</i> in RStudio (when inside the project, you will see its name on the top-right of your RStudio session)
 2) Open and work though the <i>CodeToRun.R</i> file which should be the only file that you need to interact with. Run the lines in the file, adding your database specific information and so on (see comments within the file for instructions). The last line of this file will run the study <i>(source(here("RunStudy.R"))</i>.     
 3) After running you should then have a zip folder with results to share in your results folder.
