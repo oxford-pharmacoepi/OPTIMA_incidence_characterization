@@ -10,7 +10,7 @@ cli::cli_alert_info("- Getting denominator")
 cdm <- generateDenominatorCohortSet(
   cdm = cdm,
   name = "denominator" ,
-  cohortDateRange = c(as.Date(study_start), as.Date("2023-12-31")),
+  cohortDateRange = c(as.Date(study_start), as.Date("2022-12-31")),
   requirementInteractions = TRUE,
   ageGroup =list(
     c(18, 150),

@@ -98,7 +98,7 @@ if(cdm$death %>% head(5) %>% count() %>% pull("n") > 0){
                                         outcomeCohortTable = "cancer_death",
                                         outcomeWashout = Inf,
                                         censorOnCohortExit = TRUE ,
-                                        censorOnDate = as.Date("2023-01-01") ,
+                                        censorOnDate = as.Date("2022-12-31") ,
                                         strata = list(c("sex"),
                                                       c("age_group"),
                                                       c("age_group", "sex"),
