@@ -182,7 +182,37 @@ if(length(json_files > 0)){
   concept_sets_final <- concept_sets_final  %>% 
   mutate(name = ifelse(name == "lung_cancer_inc_broad", "lung_cancer_incident_broad", name)) %>%
   mutate(name = ifelse(name == "lung_cancer_narrow_inc", "lung_cancer_incident_narrow", name)) %>% 
-  mutate(name = ifelse(name == "lung_cancer_all_inc", "lung_cancer_incident_all", name))
+  mutate(name = ifelse(name == "lung_cancer_all_inc", "lung_cancer_incident_all", name)) %>% 
+  filter(isExcluded == "FALSE")
+  
+  
+  concept_sets_final1 <- concept_sets_final %>% 
+    mutate(name = ifelse(name == "lung_cancer_incident_all", "all_lung_cancer_2y", name)) %>% 
+    mutate(name = ifelse(name == "lung_cancer_incident_broad", "broad_lung_cancer_2y" , name)) %>%
+    mutate(name = ifelse(name == "lung_cancer_incident_narrow", "narrow_lung_cancer_2y" , name)) %>% 
+    mutate(name = ifelse(name == "small_cell_lung_cancer", "small_cell_lung_cancer_2y" , name)) 
+  
+  concept_sets_final2 <- concept_sets_final %>% 
+    mutate(name = ifelse(name == "lung_cancer_incident_all", "all_lung_cancer_5y", name)) %>% 
+    mutate(name = ifelse(name == "lung_cancer_incident_broad", "broad_lung_cancer_5y" , name)) %>%
+    mutate(name = ifelse(name == "lung_cancer_incident_narrow", "narrow_lung_cancer_5y" , name)) %>% 
+    mutate(name = ifelse(name == "small_cell_lung_cancer", "small_cell_lung_cancer_5y" , name)) 
+  
+  concept_sets_final3 <- concept_sets_final %>% 
+    mutate(name = ifelse(name == "lung_cancer_incident_all", "all_lung_cancer_end", name)) %>% 
+    mutate(name = ifelse(name == "lung_cancer_incident_broad", "broad_lung_cancer_end" , name)) %>%
+    mutate(name = ifelse(name == "lung_cancer_incident_narrow", "narrow_lung_cancer_end" , name))  
+  
+  
+  
+    
+  concept_sets_final <- bind_rows(concept_sets_final, 
+                                  concept_sets_final1,
+                                  concept_sets_final2,
+                                  concept_sets_final3 )
+  
+
+  
 
   
 # incidence estimates -----
