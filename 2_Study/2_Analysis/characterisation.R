@@ -166,7 +166,7 @@ cli::cli_alert_info("Summarising Comorbidities")
           ),
           "Conditions 30 and up to 1 day before index date" = list(
             targetCohortTable = "conditions",
-            window = c(-31, -1)
+            window = c(-30, -1)
           ),
           "Conditions on index date" = list(
             targetCohortTable = "conditions",
@@ -248,18 +248,9 @@ cli::cli_alert_info("Summarising Medications")
             targetCohortTable = "medications",
             window = c(1, 30)
           ),
-          "Medications 31 to 90 days after index date" = list(
+          "Medications 31 to 365 days after index date" = list(
             targetCohortTable = "medications",
-            window = c(31, 90)
-          ),
-          "Medications 91 to 180 days after index date" = list(
-            targetCohortTable = "medications",
-            window = c(91, 180)
-          ),
-          
-          "Medications 181 to 365 days after index date" = list(
-            targetCohortTable = "medications",
-            window = c(181, 365)
+            window = c(31, 365)
           ),
           
           "Medications 1 to 365 days after index date" = list(
@@ -291,7 +282,7 @@ if(isTRUE(run_survival)){
   
   suppressWarnings(
     
-    summaryDemographics <- cdm$survival %>%
+    summaryDemographics <- cdm$outcome %>%
       CohortCharacteristics::summariseCharacteristics(
         strata = list(c("diag_yr_gp", "sex"),
                       c("diag_yr_gp"),
@@ -446,18 +437,10 @@ if(isTRUE(run_survival)){
             targetCohortTable = "medications",
             window = c(1, 30)
           ),
-          "Medications 31 to 90 days after index date" = list(
-            targetCohortTable = "medications",
-            window = c(31, 90)
-          ),
-          "Medications 91 to 180 days after index date" = list(
-            targetCohortTable = "medications",
-            window = c(91, 180)
-          ),
           
-          "Medications 181 to 365 days after index date" = list(
+          "Medications 31 to 365 days after index date" = list(
             targetCohortTable = "medications",
-            window = c(181, 365)
+            window = c(31, 365)
           ),
           
           "Medications 1 to 365 days after index date" = list(
