@@ -33,27 +33,25 @@ library(omopgenerics)
 library(dplyr)
 library(readr)
 
+
 mytheme <- create_theme(
   adminlte_color(
-    light_blue = "#605ca8"
+    light_blue = "#E387EE"  # Pink for the top border
   ),
   adminlte_sidebar(
-    dark_bg = "#78B7C5", #  "#D8DEE9",
-    dark_hover_bg = "#3B9AB2", #"#81A1C1",
-    dark_color ="white" ,
-    dark_submenu_bg = "#605ca8"
-  ),
+    dark_bg = "#7683D6",        # Purple for the sidebar
+    dark_hover_bg = "#A9A9A9",  # Slightly darker grey for hover
+    dark_color = "white"        # White text color
+  ), 
   adminlte_global(
-    content_bg = "#eaebea"
+    content_bg = "#F5F5F5"      # Very light grey for the main background
   ),
   adminlte_vars(
-    border_color = "black",
-    active_link_hover_bg = "#FFF",
-    active_link_hover_color = "#112446",
-    active_link_hover_border_color = "#112446",
-    link_hover_border_color = "#112446",
-    table_border_color = "black"
-
+    border_color = "#E387EE",   # Pink for the border color
+    active_link_hover_bg = "#FFFFFF",  # White for active link hover background
+    active_link_hover_color = "#E387EE", # Pink for active link hover color
+    active_link_hover_border_color = "#E387EE", # Pink for active link hover border color
+    link_hover_border_color = "#E387EE"  # Pink for link hover border color
   )
 )
 
@@ -425,8 +423,12 @@ if(length(survival_median_files > 0)){
   for(i in seq_along(survival_median_files)){
     survival_median_table[[i]]<-readr::read_csv(survival_median_files[[i]],
                                                 show_col_types = FALSE)
-  }
-  
+    
+    # Convert all columns to character using dplyr
+    survival_median_table[[i]] <- survival_median_table[[i]] %>%
+      mutate(across(everything(), as.character))
+  } 
+
   survival_median_table <- dplyr::bind_rows(survival_median_table) %>%
     select(-matches("daysn_risk|daysn_events")) %>%  # Remove any column with "daysn_risk" or "daysn_events"
     rename_with(~ gsub("\\[header_level\\]", "", .))  # Rename columns by removing "[header_level]
