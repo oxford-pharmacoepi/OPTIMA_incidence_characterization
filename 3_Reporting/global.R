@@ -281,6 +281,11 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
   prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
   mutate(outcome_cohort_name = case_when(
+    
+    
+    outcome_cohort_name == "all_lung_cancer_2y" ~ "Lung Cancer All 2yrs",
+    outcome_cohort_name == "all_lung_cancer_5y" ~ "Lung Cancer All 5yrs",
+    outcome_cohort_name == "all_lung_cancer_end" ~ "Lung Cancer All End",
     outcome_cohort_name == "broad_lung_cancer_2y" ~ "Lung Cancer Broad 2yrs",
     outcome_cohort_name == "broad_lung_cancer_5y" ~ "Lung Cancer Broad 5yrs",
     outcome_cohort_name == "broad_lung_cancer_end" ~ "Lung Cancer Broad End",
@@ -312,6 +317,7 @@ prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(p
   
   prevalence_estimates_std <- dplyr::bind_rows(prevalence_estimates_std) %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+
     mutate(cdm_name = case_when(
       cdm_name == "THIN es" ~ "THIN Spain",
       cdm_name == "THIN be" ~ "THIN Belguim",
@@ -365,11 +371,20 @@ for(i in seq_along(prevalence_estimates_files_std)){
 prevalence_estimates_std <- dplyr::bind_rows(prevalence_estimates_std) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
   mutate(outcome_cohort_name = case_when(
-    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
-    outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
-    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    outcome_cohort_name == "all_lung_cancer_2y" ~ "Lung Cancer All 2yrs",
+    outcome_cohort_name == "all_lung_cancer_5y" ~ "Lung Cancer All 5yrs",
+    outcome_cohort_name == "all_lung_cancer_end" ~ "Lung Cancer All End",
+    outcome_cohort_name == "broad_lung_cancer_2y" ~ "Lung Cancer Broad 2yrs",
+    outcome_cohort_name == "broad_lung_cancer_5y" ~ "Lung Cancer Broad 5yrs",
+    outcome_cohort_name == "broad_lung_cancer_end" ~ "Lung Cancer Broad End",
+    outcome_cohort_name == "narrow_lung_cancer_2y" ~ "Lung Cancer Narrow 2yrs",
+    outcome_cohort_name == "narrow_lung_cancer_5y" ~ "Lung Cancer Narrow 5yrs",
+    outcome_cohort_name == "narrow_lung_cancer_end" ~ "Lung Cancer Narrow End",
+    outcome_cohort_name == "small_cell_lung_cancer_2y" ~ "Small Cell Lung Cancer 2yrs",
+    outcome_cohort_name == "small_cell_lung_cancer_5y" ~ "Small Cell Lung Cancer 5yrs",
+    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer End",
     TRUE ~ outcome_cohort_name
-  )) %>% 
+  )) %>%
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
     cdm_name == "THIN be" ~ "THIN Belguim",

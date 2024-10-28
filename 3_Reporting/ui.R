@@ -1930,7 +1930,7 @@ ui <- dashboardPage(
        # selected = "Both",
        
        choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
-         unique(prevalence_estimates_std$outcome_cohort_name)
+         unique(prevalence_estimates_std$denominator_sex)
        } else {
          c("No data available")
        },
