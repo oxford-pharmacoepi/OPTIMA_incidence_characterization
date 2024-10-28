@@ -148,20 +148,31 @@ if(length(json_files > 0)){
     
   } 
 
-  for(i in 1:length(concept_lists_temp)){
+  
+  for (i in 1:length(concept_lists_temp)) {
     
-    for(k in 1:length(concept_lists_temp[[i]]$ConceptSets[[1]]$expression$items)){  
+    for (k in 1:length(concept_lists_temp[[i]]$ConceptSets[[1]]$expression$items)) {  
       
+      # Extract concept details
       concept_sets[[k]] <- bind_rows(concept_lists_temp[[i]]$ConceptSets[[1]]$expression$items[[k]]$concept)  
       
+      # Extract isExcluded status
+      is_excluded <- concept_lists_temp[[i]]$ConceptSets[[1]]$expression$items[[k]]$isExcluded
+      
+      # Combine concept info and isExcluded status into a single data frame
+      concept_sets[[k]] <- concept_sets[[k]] %>% 
+        mutate(isExcluded = is_excluded)
+        
     }
-
+    
+    # Combine all concepts in the list and add the name field
     concept_lists[[i]] <- bind_rows(concept_sets) %>% 
       mutate(name = concept_lists_temp[[i]]$ConceptSets[[1]]$name)
-      
-    concept_sets <- list()
     
+    # Reset concept_sets for the next iteration
+    concept_sets <- list()
   }
+  
   
   
   concept_sets_final <- bind_rows(concept_lists)
