@@ -327,7 +327,7 @@ if(isTRUE(run_survival)){
   
   suppressWarnings(
     
-    summaryComorbidity <- cdm$survival %>%
+    summaryComorbidity <- cdm$outcome %>%
       CohortCharacteristics::summariseCharacteristics(
         strata = list(c("diag_yr_gp", "sex"),
                       c("diag_yr_gp"),
@@ -403,7 +403,7 @@ if(isTRUE(run_survival)){
   
   suppressWarnings(
     
-    summaryMedications <- cdm$survival %>%
+    summaryMedications <- cdm$outcome %>%
       CohortCharacteristics::summariseCharacteristics(
         strata = list(c("diag_yr_gp", "sex"),
                       c("diag_yr_gp"),
