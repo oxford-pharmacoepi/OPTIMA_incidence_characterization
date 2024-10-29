@@ -184,7 +184,7 @@ ui <- dashboardPage(
 
         tags$h5(
           tags$span(" Methods:", style = "font-weight: bold;"),
-          "We performed a population-based cohort study using the real world databases from primary care and claims. The study period was from January 1, 2003 (or the earliest available data) until database exit, death, or the end of the study on 1st January, 2023. Participants aged 18+ years, with a diagnoses of primary lung cancer, with one-year of prior data availability, were included. We estimated overall lung cancer incidence rates (IR) and stratified by sex and age groups using the",
+          "We performed a population-based cohort study using the real world databases from primary care and claims. The study period was from January 1, 2003 (or the earliest available data) until database exit, death, or the end of the study on 31st December, 2022. Participants aged 18+ years, with a diagnoses of primary lung cancer, with one-year of prior data availability, were included. We estimated overall lung cancer incidence rates (IR) and stratified by sex and age groups using the",
           tags$a(href="https://darwin-eu.github.io/IncidencePrevalence/", "IncidencePrevalence R package"),
  "Crude IRs were age standardized using European and World Standard populations."
           
@@ -1082,12 +1082,6 @@ ui <- dashboardPage(
      )
  ),
  
-# 
-#  div(
-#    style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
-#    checkboxInput("show_ci", "Show Sensitivity Analysis", value = FALSE)
-#  ),
-
 
         htmlOutput('dt_risk_table'),
 
@@ -2103,7 +2097,7 @@ ui <- dashboardPage(
         
         tabItem(
           tabName = "survival_results",
-          tags$h5("The survival results presented do not have addition exclusion criteria where we excluded and previous history of any malignancy (apart from skin cancer) if you wish to see the analysis please click sensitivity analysis button"),
+          tags$h5("The survival results are presented below only for data partners with approval and linkage to national death registries"),
           div(
             style = "display: inline-block;vertical-align:top; width: 150px;",
             pickerInput(
