@@ -1,4 +1,4 @@
-# Lung Cancer incidence and characterisation - OPTIMA
+# Lung Cancer Incidence and Characterisation - OPTIMA
 <img src="https://img.shields.io/badge/Study%20Status-Started-blue.svg" alt="Study Status: Started">
 
 - **Study title**: The Worldwide Incidence of Lung Cancer
