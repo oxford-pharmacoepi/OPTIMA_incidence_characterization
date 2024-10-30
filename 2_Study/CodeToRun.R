@@ -88,8 +88,8 @@ cdm$person %>%
 study_start <- "..."
 
 # Run the study ------
-# For some data partners they may not have be able to run certain studies i.e. a cancer registry
-# will not have a background denominator population therefore run_incidence will be set to FALSE
+# For some data partners they may not have be able to run incidence as they do not have a 
+# general background denominator population therefore run_incidence will be set to FALSE
 run_incidence <- TRUE
 run_characterisation <- TRUE
 

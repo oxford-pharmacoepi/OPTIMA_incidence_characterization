@@ -12,20 +12,4 @@ cdm <- CDMConnector::generateCohortSet(
   name = "outcome",
   overwrite = TRUE)
 
-if(isTRUE(run_prevalence)){
-  
-# instantiate 
-cancer_concepts_p <- CDMConnector::readCohortSet(
-  path = here::here("1_InstantiateCohorts", "Cohorts", "prevalence" ))
-
-# instantiate the cohorts
-cdm <- CDMConnector::generateCohortSet(
-  cdm,
-  cohortSet = cancer_concepts_p,
-  name = "outcome_p",
-  overwrite = TRUE )
-
-}
-
-
 cli::cli_alert_success("- Got cancer definitions")

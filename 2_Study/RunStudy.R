@@ -54,32 +54,6 @@ if(isTRUE(run_incidence)){
   })
 }
 
-# prevalence ----
-if(isTRUE(run_prevalence)){
-  cli::cli_alert_info("- Running prevalence")
-  tryCatch({
-    source(here("2_Analysis", "prevalence.R"))
-  }, error = function(e) {
-    writeLines(as.character(e),
-               here("Results", paste0(db_name,
-                                      "/", cdmName(cdm),
-                                      
-                                      "_error_prevalence.txt")))
-  })
-}
-
-# survival analysis ----
-if(isTRUE(run_survival)){
-  cli::cli_alert_info("- Running survival analysis")
-  tryCatch({
-    source(here("2_Analysis", "survival.R"))
-  }, error = function(e) {
-    writeLines(as.character(e),
-               here("Results", paste0(db_name,
-                                      "/", cdmName(cdm),
-                    "_error_survival.txt")))
-  })
-}
 
 # characterisation analysis -----
 if(isTRUE(run_characterisation)){
