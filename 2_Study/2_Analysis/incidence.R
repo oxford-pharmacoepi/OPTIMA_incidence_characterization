@@ -470,7 +470,7 @@ if(isTRUE(run_incidence)){
   
   inc_crude <- inc_tidy %>% 
     filter(denominator_age_group == "18 to 150",
-           analysis_interval == "years") %>% 
+           incidence_start_date == "overall") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
