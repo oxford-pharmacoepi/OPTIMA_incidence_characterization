@@ -37,9 +37,25 @@ if(isTRUE(run_incidence)){
     outcomeWashout = Inf,
     repeatedEvents = FALSE,
     completeDatabaseIntervals = TRUE,
-    minCellCount = 0,
-    returnParticipants = FALSE
-  )
+    minCellCount = 0
+  ) 
+  
+
+  inc_tidy <- inc %>% 
+    visOmopResults::splitAdditional() %>% 
+    visOmopResults::addSettings() %>% 
+    pivot_wider(
+      names_from = estimate_name,
+      values_from = c(estimate_value, estimate_type)
+    ) %>% 
+    mutate(across(starts_with("estimate_value"), as.numeric)) %>%  # Convert estimate_value columns to numeric
+    rename_with(~ gsub("^estimate_value_", "", .), starts_with("estimate_value")) %>% 
+    select(-starts_with("estimate_type")) %>% 
+    mutate(outcome_count = as.integer(outcome_count),
+           
+           
+           )
+ 
   
   cli::cli_alert_success("- Got incidence")
   
@@ -80,14 +96,14 @@ if(isTRUE(run_incidence)){
   agestandardizedinc <- list()
   
   # filter out to only include rates
-  inc_std <- inc %>% 
+  inc_std <- inc_tidy %>% 
     filter(denominator_age_group != "18 to 150",
            denominator_sex == "Both",
            analysis_interval == "years") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
-      n_events ,                       
+      outcome_count ,                       
       person_years,                
       incidence_100000_pys ,
       incidence_100000_pys_95CI_lower,
@@ -101,14 +117,14 @@ if(isTRUE(run_incidence)){
   #create a loop for each cancer phenotype
   agestandardizedincf <- list()
   
-  inc_std_F <- inc %>% 
+  inc_std_F <- inc_tidy %>% 
     filter(denominator_age_group != "18 to 150",
            denominator_sex == "Female",
            analysis_interval == "years") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
-      n_events ,                       
+      outcome_count ,                        
       person_years,                
       incidence_100000_pys ,
       incidence_100000_pys_95CI_lower,
@@ -123,14 +139,14 @@ if(isTRUE(run_incidence)){
   #create a loop for each cancer phenotype
   agestandardizedincm <- list()
   
-  inc_std_M <- inc %>% 
+  inc_std_M <- inc_tidy %>% 
     filter(denominator_age_group != "18 to 150",
            denominator_sex == "Male",
            analysis_interval == "years") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
-      n_events ,                       
+      outcome_count ,                         
       person_years,                
       incidence_100000_pys ,
       incidence_100000_pys_95CI_lower,
@@ -149,7 +165,7 @@ if(isTRUE(run_incidence)){
     
     agestandardizedinc[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-      event = n_events,       # column containing number of deaths per stratum 
+      event = outcome_count ,       # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
       subgroup = incidence_start_date,   
       refdata = ESP13_updated, # reference population data frame, with column called pop
@@ -173,7 +189,7 @@ if(isTRUE(run_incidence)){
     
     agestandardizedincf[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-      event = n_events,       # column containing number of deaths per stratum 
+      event = outcome_count ,        # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
       subgroup = incidence_start_date,   
       refdata = ESP13_updated, # reference population data frame, with column called pop
@@ -197,7 +213,7 @@ if(isTRUE(run_incidence)){
     
     agestandardizedincm[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-      event = n_events,       # column containing number of deaths per stratum 
+      event = outcome_count ,        # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
       subgroup = incidence_start_date,   
       refdata = ESP13_updated, # reference population data frame, with column called pop
@@ -221,7 +237,7 @@ if(isTRUE(run_incidence)){
            incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
            incidence_start_date = Subgroup,
            person_years = Denominator ,
-           n_events = Numerator ) %>% 
+           outcome_count = Numerator ) %>% 
     mutate(denominator_sex = "Both",
            denominator_age_group = "18 to 150",
            cdm_name = db_name ) %>% 
@@ -240,7 +256,7 @@ if(isTRUE(run_incidence)){
            incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
            incidence_start_date = Subgroup,
            person_years = Denominator ,
-           n_events = Numerator ) %>% 
+           outcome_count = Numerator ) %>% 
     mutate(denominator_sex = "Female",
            denominator_age_group = "18 to 150",
            cdm_name = db_name ) %>% 
@@ -258,7 +274,7 @@ if(isTRUE(run_incidence)){
            incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
            incidence_start_date = Subgroup,
            person_years = Denominator ,
-           n_events = Numerator ) %>% 
+           outcome_count = Numerator ) %>% 
     mutate(denominator_sex = "Male",
            denominator_age_group = "18 to 150",
            cdm_name = db_name ) %>% 
@@ -320,7 +336,7 @@ if(isTRUE(run_incidence)){
     
     agestandardizedinc_wsp[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-      event = n_events,       # column containing number of deaths per stratum 
+      event = outcome_count ,        # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
       subgroup = incidence_start_date,   
       refdata = WSP2000_2025_updated, # reference population data frame, with column called pop
@@ -347,7 +363,7 @@ if(isTRUE(run_incidence)){
     
     agestandardizedinc_wspf[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-      event = n_events,       # column containing number of deaths per stratum 
+      event = outcome_count ,       # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
       subgroup = incidence_start_date,   
       refdata = WSP2000_2025_updated, # reference population data frame, with column called pop
@@ -373,7 +389,7 @@ if(isTRUE(run_incidence)){
     
     agestandardizedinc_wspm[[i]] <- dsr(
       data = incidence_estimates_i,  # specify object containing number of deaths per stratum
-      event = n_events,       # column containing number of deaths per stratum 
+      event = outcome_count ,      # column containing number of deaths per stratum 
       fu = person_years , # column containing number of population per stratum person years
       subgroup = incidence_start_date,   
       refdata = WSP2000_2025_updated, # reference population data frame, with column called pop
@@ -396,7 +412,7 @@ if(isTRUE(run_incidence)){
            incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
            incidence_start_date = Subgroup,
            person_years = Denominator ,
-           n_events = Numerator ) %>% 
+           outcome_count = Numerator ) %>% 
     mutate(denominator_sex = "Both",
            denominator_age_group = "18 to 150",
            cdm_name = db_name ) %>% 
@@ -413,7 +429,7 @@ if(isTRUE(run_incidence)){
            incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
            incidence_start_date = Subgroup,
            person_years = Denominator ,
-           n_events = Numerator ) %>% 
+           outcome_count = Numerator ) %>% 
     mutate(denominator_sex = "Female",
            denominator_age_group = "18 to 150",
            cdm_name = db_name ) %>% 
@@ -430,7 +446,7 @@ if(isTRUE(run_incidence)){
            incidence_100000_pys_95CI_upper = `95% UCL (Std)`,
            incidence_start_date = Subgroup,
            person_years = Denominator ,
-           n_events = Numerator ) %>% 
+           outcome_count = Numerator ) %>% 
     mutate(denominator_sex = "Male",
            denominator_age_group = "18 to 150",
            cdm_name = db_name ) %>% 
@@ -452,13 +468,13 @@ if(isTRUE(run_incidence)){
   
   # bind the results from the age standardisation together with crude estimates
   
-  inc_crude <- inc %>% 
+  inc_crude <- inc_tidy %>% 
     filter(denominator_age_group == "18 to 150",
            analysis_interval == "years") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
-      n_events ,                       
+      outcome_count ,                       
       person_years,                
       incidence_100000_pys ,
       incidence_100000_pys_95CI_lower,
@@ -482,16 +498,16 @@ if(isTRUE(run_incidence)){
   
   # Export the results -----
   cli::cli_alert_info("- Getting incidence attrition")
-  write.csv(attrition(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_attrition.csv")), row.names = FALSE)
+  write.csv(tableIncidenceAttrition(inc, type = "tibble"), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_attrition.csv")), row.names = FALSE)
   
   cli::cli_alert_info("- Getting incidence settings")
   write.csv(settings(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")), row.names = FALSE)
   
   cli::cli_alert_info("- Getting incidence results")
-  write.csv(inc, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
+  write.csv(inc_tidy, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
   
   cli::cli_alert_info("- Getting age standardized incidence results")
-  write.csv(agestandardized_results, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_age_std_incidence_estimates.csv")), row.names = FALSE)
+  write.csv(agestandardized_results, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates_age_std_.csv")), row.names = FALSE)
   
   cli::cli_alert_success("Incidence Analysis Complete")
   

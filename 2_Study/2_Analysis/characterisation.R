@@ -2,10 +2,8 @@
 if(isTRUE(run_characterisation)){
 
 # demographics ----
-cli::cli_alert_info("Summarising Demographics")
+cli::cli_alert_info("Summarising Table One Demographics")
   
-  
-  if(isFALSE(run_survival)){  
       
     # add sex and age to cohorts ----
     cli::cli_alert_info("Add demographics to cohort")
@@ -21,44 +19,9 @@ cli::cli_alert_info("Summarising Demographics")
               "80 to 89" = c(80, 89),
               "90+" = c(90, 150)
             )
-        )) %>% 
-      mutate(year = year(cohort_start_date))
+        )) 
     
-    # create diagnosis age band groups
-    cdm$outcome <- cdm$outcome %>% 
-      PatientProfiles::addCategories(
-        variable = "cohort_start_date",
-        categories = list("diag_yr_gp" = list(
-          "2003 to 2006" = as.Date(c("2003-01-01", "2006-12-31")),
-          "2007 to 2010" = as.Date(c("2007-01-01", "2010-12-31")),
-          "2011 to 2014" = as.Date(c("2011-01-01", "2014-12-31")),
-          "2015 to 2018" = as.Date(c("2015-01-01", "2018-12-31")),
-          "2019 to 2022" = as.Date(c("2019-01-01", "2023-01-01"))
-        )
-        )
-      )
-    
-    # rename categories
-    cdm$outcome <- cdm$outcome %>% 
-      mutate(diag_yr_gp = case_when(
-        grepl("^2003-01-01 to 2003-01-01$", diag_yr_gp) ~ "2003-2006",
-        grepl("^2007-01-01 to 2007-01-01$", diag_yr_gp) ~ "2007-2010",
-        grepl("^2011-01-01 to 2011-01-01$", diag_yr_gp) ~ "2011-2014",
-        grepl("^2015-01-01 to 2015-01-01$", diag_yr_gp) ~ "2015-2018",
-        grepl("^2019-01-01 to 2019-01-01$", diag_yr_gp) ~ "2019-2022",
-        TRUE ~ diag_yr_gp  # Keep the original value if it doesn't match the specific pattern
-      ))
-    
-    
-    # remove those outside the study period ------
-    cdm$outcome <- cdm$outcome %>% 
-      dplyr::filter(diag_yr_gp != "None") 
-    
-    # make outcome a perm table and update the attrition
-    cdm$outcome <- cdm$outcome %>% 
-      compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
-      recordCohortAttrition(reason="Exclude patients outside study period")
-    
+
     #exclude those under 18 years of age  -------
     cdm$outcome <- cdm$outcome %>% 
       filter(age >= 18) 
@@ -87,17 +50,12 @@ cli::cli_alert_info("Summarising Demographics")
       compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
       CDMConnector::recordCohortAttrition(reason="Excluded patients with no sex recorded" )
       
-  }
-
-
 
 suppressWarnings(
   
   summaryDemographics <- cdm$outcome %>%
     CohortCharacteristics::summariseCharacteristics(
-      strata = list(c("diag_yr_gp", "sex"),
-                    c("diag_yr_gp"),
-                    c("sex"),
+      strata = list(c("sex"),
                     c("age_group"),
                     c("age_group", "sex")),
       ageGroup = list( "18 to 49" = c(18, 49),
@@ -113,19 +71,19 @@ suppressWarnings(
   
   
   
-cli::cli_alert_info("Exporting demographics characteristics results")
+cli::cli_alert_info("Exporting demographics table one characteristics results")
 
 omopgenerics::exportSummarisedResult(summaryDemographics,
                                        minCellCount = 5,
                                        path = here("Results",db_name),
                                        fileName = paste0(cdmName(cdm),
-                                                         "_summary_demographics_analysis1.csv")
+                                                         "_summary_characteristics_demographics.csv")
   )
 
-cli::cli_alert_success("Summarising Demographics Complete")
+cli::cli_alert_success("Summarising table one Demographics Complete")
 
 # comorbidities --------
-cli::cli_alert_info("Instantiating Comorbidities")
+cli::cli_alert_info("Instantiating table one Comorbidities")
 
 codelistConditions <- CodelistGenerator::codesFromConceptSet(here("1_InstantiateCohorts", "Conditions"), cdm)
 
@@ -134,15 +92,13 @@ cdm <- CDMConnector::generateConceptCohortSet(cdm = cdm,
                                               name = "conditions",
                                               overwrite = TRUE)
 
-cli::cli_alert_info("Summarising Comorbidities")
+cli::cli_alert_info("Summarising table one Comorbidities")
   
   suppressWarnings(
     
     summaryComorbidity <- cdm$outcome %>%
       CohortCharacteristics::summariseCharacteristics(
-        strata = list(c("diag_yr_gp", "sex"),
-                      c("diag_yr_gp"),
-                      c("sex"),
+        strata = list(c("sex"),
                       c("age_group"),
                       c("age_group", "sex")),
         ageGroup = list( "18 to 49" = c(18, 49),
@@ -190,18 +146,18 @@ cli::cli_alert_info("Summarising Comorbidities")
   )
   
 
-cli::cli_alert_info("Exporting comorbidities characteristics results")
+cli::cli_alert_info("Exporting comorbidities table one characteristics results")
 omopgenerics::exportSummarisedResult(summaryComorbidity,
             minCellCount = 5,
             path = here("Results",db_name),
             fileName = paste0(cdmName(cdm),
-              "_summary_comorbidity_analysis1.csv")
+              "_summary_characteristics_comorbidity.csv")
             )
 
-cli::cli_alert_success("Summarising Comorbidities Complete")
+cli::cli_alert_success("Summarising table one Comorbidities Complete")
 
 # medications -----
-cli::cli_alert_info("Summarising Medications")
+cli::cli_alert_info("Instantiating table one Medications")
 
 # instantiate medications
 codelistMedications <- CodelistGenerator::codesFromConceptSet(here("1_InstantiateCohorts", "Medications"), cdm)
@@ -210,15 +166,13 @@ cdm <- DrugUtilisation::generateDrugUtilisationCohortSet(cdm = cdm,
                                                          conceptSet = codelistMedications, 
                                                          name = "medications")
 
-cli::cli_alert_info("Summarising Medications")
+cli::cli_alert_info("Summarising table one Medications")
   
   suppressWarnings(
     
     summaryMedications <- cdm$outcome %>%
       CohortCharacteristics::summariseCharacteristics(
-        strata = list(c("diag_yr_gp", "sex"),
-                      c("diag_yr_gp"),
-                      c("sex"),
+        strata = list(c("sex"),
                       c("age_group"),
                       c("age_group", "sex")),
         ageGroup = list( "18 to 49" = c(18, 49),
@@ -262,18 +216,32 @@ cli::cli_alert_info("Summarising Medications")
       )
   )
 
-cli::cli_alert_info("Exporting medications characteristics results")
+cli::cli_alert_info("Exporting medications table one characteristics results")
 omopgenerics::exportSummarisedResult(summaryMedications,
                                      minCellCount = 5,
                                      path = here("Results",db_name),
                                      fileName = paste0(cdmName(cdm),
-                                                       "_summary_medications_analysis1.csv")
+                                                       "_summary_characteristics_medications.csv")
 )
 
-cli::cli_alert_success("Summarising Medications Complete")
+cli::cli_alert_success("Summarising table one Medications Complete")
 
-cli::cli_alert_success("Characterisation Analysis Complete")
+cli::cli_alert_success("Table one Characterisation Analysis Complete")
 
+
+
+cli::cli_alert_info("Starting large scale matched characteristics")
+
+lsc_matched <- matchedDiagnostics(cdm$outcome, matchedSample = NULL)
+
+omopgenerics::exportSummarisedResult(lsc_matched,
+                                     minCellCount = 5,
+                                     path = here("Results",db_name),
+                                     fileName = paste0(cdmName(cdm),
+                                                       "_large_scale_characteristics.csv")
+)
+
+cli::cli_alert_success("Large scale matched characteristics complete")
 
 
 }
