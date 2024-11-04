@@ -77,21 +77,6 @@ server <- function(input, output, session) {
   )
 
   
-  # output$clip <- renderUI({
-  #   rclipButton(
-  #     inputId = "clipbtn",
-  #     label = "Copy to clipboard",
-  #     clipText = isolate(cohort_set %>%
-  #                          filter(cohort_name %in% input$cohort_set_input) %>%
-  #                          pull(json) %>%
-  #                          unlist()),
-  #     icon = icon("clipboard"),
-  #     placement = "top",
-  #     options = list(delay = list(show = 800, hide = 100), trigger = "hover")
-  #   )
-  # })
-  
-  
   #concepts_sets ----
   get_concepts_sets <- reactive({
     
@@ -468,11 +453,21 @@ server <- function(input, output, session) {
   # LSC  ----
   output$lsc_table <- renderDataTable({
 
+    DT::datatable(
+    
     filterData(data$lsc_table, "lsc", input) %>% 
       niceColumnNames() %>%
       arrange(`Cohort name`, `Cdm name`, desc(`Difference percentage`)) %>%
-      select(input$select_lsc_columns)
+      select(input$select_lsc_columns) ,
+    
+    options = list(scrollX = TRUE),
+    rownames = FALSE  
+    
+    )
+    
   })
+  
+
     
     output$lsc_plot <- renderPlotly({
      

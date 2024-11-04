@@ -449,7 +449,11 @@ ui <- dashboardPage(
               ),
               multiple = TRUE
             ),
-            DTOutput("lsc_table")
+           # DTOutput("lsc_table")
+            
+            DT::dataTableOutput('lsc_table'),
+            
+            
           ),
           # tabPanel(
           #   "Plot",
