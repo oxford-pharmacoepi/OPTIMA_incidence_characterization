@@ -39,7 +39,7 @@ ui <- dashboardPage(
       ),
      
       menuItem(
-        text = "Characteristics",
+        text = "Table One Characteristics",
         tabName = "char",
         icon = shiny::icon("hospital-user"),
         menuSubItem(
@@ -55,6 +55,25 @@ ui <- dashboardPage(
           tabName = "comorbidities"
         )
         ),
+      
+      
+      menuItem(
+        text = "Large Scale Characteristics",
+        tabName = "lsc",
+        icon = shiny::icon("scale-balanced") ,
+        
+        menuSubItem(
+          text = "Estimate",
+          tabName = "lsc_estimates"
+        ),
+        
+        menuSubItem(
+          text = "Plots",
+          tabName = "lsc_plots"
+        )
+        
+      ),
+      
 
       
       menuItem(
@@ -83,57 +102,7 @@ ui <- dashboardPage(
         )
       ),
       
-      menuItem(
-        text = "Prevalence",
-        tabName = "prevalence",
-        icon = shiny::icon("bath") ,
-        
-        menuSubItem(
-          text = "Crude Plots",
-          tabName = "prev_plots"
-        ),
-        menuSubItem(
-          text = "Standardized Plots",
-          tabName = "prev_plots_std"
-        ),
-        menuSubItem(
-          text = "Crude Estimates",
-          tabName = "prev_rates"
-        ),
-        menuSubItem(
-          text = "Age Standardized Estimates",
-          tabName = "prev_rates_std"
-        ),
-        menuSubItem(
-          text = "Attrition Table",
-          tabName = "prev_attrition"
-        )
 
-      ),
-      
-      menuItem(
-        text = "Survival",
-        tabName = "os",
-        icon = shiny::icon("life-ring") ,
-        menuSubItem(
-          text = "Survival Plots",
-          tabName = "survival_results"
-        ),
-        menuSubItem(
-          text = "Risk Table",
-          tabName = "risk_results"
-        ),
-        
-        menuSubItem(
-          text = "Survival Summary",
-          tabName = "stats_results"
-        ) ,
-      
-      menuSubItem(
-        text = "Attrition Table",
-        tabName = "cohort_attrition"
-      )
-     ),
       
     
     tags$div(
@@ -186,7 +155,7 @@ ui <- dashboardPage(
           tags$span(" Methods:", style = "font-weight: bold;"),
           "We performed a population-based cohort study using the real world databases from primary care and claims. The study period was from January 1, 2003 (or the earliest available data) until database exit, death, or the end of the study on 31st December, 2022. Participants aged 18+ years, with a diagnoses of primary lung cancer, with one-year of prior data availability, were included. We estimated overall lung cancer incidence rates (IR) and stratified by sex and age groups using the",
           tags$a(href="https://darwin-eu.github.io/IncidencePrevalence/", "IncidencePrevalence R package"),
- "Crude IRs were age standardized using European and World Standard populations."
+ "Crude IRs were age standardized using European and World Standard populations. Comorbidities and medication usage for lung cancer patients were characterised before, on and after diagnosis. Large scale characteristics of lung cancer patients was performed using age and sex matched controls."
           
           ),
         
@@ -209,9 +178,9 @@ ui <- dashboardPage(
           tags$li(strong("TBC"),"(",tags$a(href="https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology","Paper Link"),")" )),
         
         tags$h5("The analysis code used to generate these results can be found",
-                tags$a(href="https://github.com/oxford-pharmacoepi/OPTIMA_incidence_survival", "here"),
+                tags$a(href="https://github.com/oxford-pharmacoepi/OPTIMA_incidence_characterization", "here"),
                 ".The cohort diagnostics for lung cancer phenotypes can be found",
-                tags$a(href="https://github.com/oxford-pharmacoepi", "here")
+                tags$a(href="https://dpa-pde-oxford.shinyapps.io/PhenotypeR_OPTIMA_lung_cancer/", "here")
                 
         ),
         
@@ -258,8 +227,19 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_outcome_selector",
             label = "Cohort Name",
-            choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = unique(incidence_attrition$outcome_cohort_name)[1],
+            # choices = unique(incidence_attrition$outcome_cohort_name),
+            # selected = unique(incidence_attrition$outcome_cohort_name)[1],
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$outcome_cohort_name)) {
+              unique(incidence_attrition$outcome_cohort_name)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$outcome_cohort_name)) {
+              unique(incidence_attrition$outcome_cohort_name)[1]
+            } else {
+              "No data available"
+            },
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -270,8 +250,21 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_sex_selector",
             label = "Sex",
-            choices = unique(incidence_attrition$denominator_sex),
-            selected = "Both",
+            # choices = unique(incidence_attrition$denominator_sex),
+            # selected = "Both",
+            
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$denominator_sex)) {
+              unique(incidence_attrition$denominator_sex)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$denominator_sex)) {
+              "Both"
+            } else {
+              "No data available"
+            },
+            
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -283,8 +276,23 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_age_selector",
             label = "Age Group",
-            choices = unique(incidence_attrition$denominator_age_group),
-            selected = unique(incidence_attrition$denominator_age_group)[1],
+            # choices = unique(incidence_attrition$denominator_age_group),
+            # selected = unique(incidence_attrition$denominator_age_group)[1],
+            
+            
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$denominator_age_group)) {
+              unique(incidence_attrition$denominator_age_group)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$denominator_age_group)) {
+              unique(incidence_attrition$denominator_age_group)[1]
+            } else {
+              "No data available"
+            },
+            
+            
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -295,8 +303,22 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_database_name_selector",
             label = "Database",
-            choices = unique(incidence_attrition$cdm_name),
-            selected = unique(incidence_attrition$cdm_name)[1],
+            # choices = unique(incidence_attrition$cdm_name),
+            # selected = unique(incidence_attrition$cdm_name)[1],
+            
+            
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$cdm_name)) {
+              unique(incidence_attrition$cdm_name)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$cdm_name)) {
+              unique(incidence_attrition$cdm_name)[1]
+            } else {
+              "No data available"
+            },
+            
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -308,8 +330,22 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_time_selector",
             label = "Time",
-            choices = unique(incidence_attrition$analysis_interval),
-            selected = "overall",
+            # choices = unique(incidence_attrition$analysis_interval),
+            # selected = "overall",
+
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$analysis_interval)) {
+              unique(incidence_attrition$analysis_interval)
+            } else {
+              c("No data available")
+            },
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$analysis_interval)) {
+              "overall"
+            } else {
+              "No data available"
+            },
+            
+            
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -325,122 +361,6 @@ ui <- dashboardPage(
             style="display:inline-block; float:right")
         
       ),
-      
-      tabItem(
-        tabName = "prev_attrition",
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "attrition_outcome_selectorp",
-            label = "Cohort Name",
-            # choices = unique(prevalence_attrition$outcome_cohort_name),
-            # selected = unique(prevalence_attrition$outcome_cohort_name)[1],
-            choices = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$outcome_cohort_name)) {
-              unique(prevalence_attrition$outcome_cohort_name)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$outcome_cohort_name)) {
-              unique(prevalence_attrition$outcome_cohort_name)[1]
-            } else {
-              "No data available"
-            },
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        
-
-        
-        
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "attrition_sex_selectorp",
-            label = "Sex",
-            # choices = unique(prevalence_attrition$denominator_sex),
-            # selected = "Both",
-            choices = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$denominator_sex)) {
-              unique(prevalence_attrition$denominator_sex)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$denominator_sex)) {
-              "Both"
-            } else {
-              "No data available"
-            },
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "attrition_age_selectorp",
-            label = "Age Group",
-            # choices = unique(prevalence_attrition$denominator_age_group),
-            # selected = unique(prevalence_attrition$denominator_age_group)[1],
-            
-            choices = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$denominator_age_group)) {
-              unique(prevalence_attrition$denominator_age_group)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$denominator_age_group)) {
-              unique(prevalence_attrition$denominator_age_group)[1]
-            } else {
-              "No data available"
-            },
-            
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "attrition_database_name_selectorp",
-            label = "Database",
-            # choices = unique(prevalence_attrition$cdm_name),
-            # selected = unique(prevalence_attrition$cdm_name)[1],
-            choices = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$cdm_name)) {
-              unique(prevalence_attrition$cdm_name)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_attrition") && !is.null(prevalence_attrition$cdm_name)) {
-              unique(prevalence_attrition$cdm_name)[1]
-            } else {
-              "No data available"
-            },
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        
-        htmlOutput('tbl_prevalence_attrition'),
-        
-        div(style="display:inline-block",
-            downloadButton(
-              outputId = "dt_prevalence_attrition_word",
-              label = "Download table as word"
-            ), 
-            style="display:inline-block; float:right")
-        
-      ),
-      
-      
-      
       
       tabItem(
         tabName = "demographics",
@@ -507,20 +427,20 @@ ui <- dashboardPage(
           )
         ),
         
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "demo_diag_yr_selector",
-            label = "Diagnosis Year Group",
-            choices = demo_characteristics %>%
-              filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
-              distinct(strata_level) %>% 
-              pull(),
-            selected = "overall",
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
+        # div(
+        #   style = "display: inline-block;vertical-align:top; width: 150px;",
+        #   pickerInput(
+        #     inputId = "demo_diag_yr_selector",
+        #     label = "Diagnosis Year Group",
+        #     choices = demo_characteristics %>%
+        #       filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
+        #       distinct(strata_level) %>% 
+        #       pull(),
+        #     selected = "overall",
+        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+        #     multiple = TRUE
+        #   )
+        # ),
         
        # tags$hr(),
         gt_output("gt_demo_characteristics") %>% 
@@ -618,20 +538,20 @@ ui <- dashboardPage(
         ),
         
         
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "comorb_diag_yr_selector",
-            label = "Diagnosis Year Group",
-            choices = comorb_characteristics %>%
-              filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
-              distinct(strata_level) %>% 
-              pull(),
-            selected = "overall",
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
+        # div(
+        #   style = "display: inline-block;vertical-align:top; width: 150px;",
+        #   pickerInput(
+        #     inputId = "comorb_diag_yr_selector",
+        #     label = "Diagnosis Year Group",
+        #     choices = comorb_characteristics %>%
+        #       filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
+        #       distinct(strata_level) %>% 
+        #       pull(),
+        #     selected = "overall",
+        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+        #     multiple = TRUE
+        #   )
+        # ),
         
         
         # tags$hr(),
@@ -727,20 +647,20 @@ ui <- dashboardPage(
           )
         ),
         
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "med_diag_yr_selector",
-            label = "Diagnosis Year Group",
-            choices = med_characteristics %>%
-              filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
-              distinct(strata_level) %>% 
-              pull(),
-            selected = "overall",
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
+        # div(
+        #   style = "display: inline-block;vertical-align:top; width: 150px;",
+        #   pickerInput(
+        #     inputId = "med_diag_yr_selector",
+        #     label = "Diagnosis Year Group",
+        #     choices = med_characteristics %>%
+        #       filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
+        #       distinct(strata_level) %>% 
+        #       pull(),
+        #     selected = "overall",
+        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+        #     multiple = TRUE
+        #   )
+        # ),
         
         
         # tags$hr(),
@@ -926,611 +846,611 @@ ui <- dashboardPage(
       ),
  
  
- tabItem(
-   tabName = "prev_rates_std",
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "prev_estimates_cohort_selector_std",
-       label = "Cohort Name",
-       # choices = unique(prevalence_estimates_std$outcome_cohort_name),
-       # selected = unique(prevalence_estimates_std$outcome_cohort_name)[1],
-       
-       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$outcome_cohort_name)) {
-         unique(prevalence_estimates_std$outcome_cohort_name)
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$outcome_cohort_name)) {
-         unique(prevalence_estimates_std$outcome_cohort_name)[1]
-       } else {
-         "No data available"
-       },
-       
-       
-       
-       
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "prev_estimates_sex_selector_std",
-       label = "Sex",
-       # choices = unique(prevalence_estimates_std$denominator_sex),
-       # selected = "Both",
-       
-       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
-         unique(prevalence_estimates_std$denominator_sex)
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
-         "Both"
-       } else {
-         "No data available"
-       },
-       
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "prev_estimates_database_selector_std",
-       label = "Database",
-       # choices = unique(prevalence_estimates_std$cdm_name),
-       # selected = unique(prevalence_estimates_std$cdm_name)[1],
-       
-       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$cdm_name)) {
-         unique(prevalence_estimates_std$cdm_name)
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$cdm_name)) {
-         unique(prevalence_estimates_std$cdm_name)[1]
-       } else {
-         "No data available"
-       },
-       
-       
-       
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   
-   htmlOutput('dt_prev_est_table_std'),
-   
-   div(style="display:inline-block",
-       downloadButton(
-         outputId = "dt_prev_est_table_word_std",
-         label = "Download table as word"
-       ), 
-       style="display:inline-block; float:right")
-   
- ),
-    
- 
- tabItem(
-   tabName = "risk_results",
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "risk_table_cohort_name_selector",
-       label = "Cohort Name",
-       choices = if (exists("survival_events_table") && !is.null(survival_events_table$cohort)) {
-         unique(survival_events_table$cohort)
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("survival_events_table") && !is.null(survival_events_table$cohort)) {
-         unique(survival_events_table$cohort)[1]
-       } else {
-         "No data available"
-       },
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "risk_table_database_name_selector",
-       label = "Database",
-       choices = if (exists("survival_events_table") && !is.null(survival_events_table$cdm_name)) {
-         unique(survival_events_table$cdm_name)
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("survival_events_table") && !is.null(survival_events_table$cdm_name)) {
-         unique(survival_events_table$cdm_name)
-       } else {
-         "No data available"
-       },
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "risk_table_strata_selector",
-       label = "Strata",
-       choices = if (exists("survival_events_table") && !is.null(survival_events_table$strata_level)) {
-         unique(survival_events_table$strata_level)
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("survival_events_table") && !is.null(survival_events_table$strata_level)) {
-         unique(survival_events_table$strata_level)[1]
-       } else {
-         "No data available"
-       },
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
- ),
- 
-
-        htmlOutput('dt_risk_table'),
-
-        div(style="display:inline-block",
-            downloadButton(
-              outputId = "gt_risk_table_word",
-              label = "Download table as word"
-            ),
-            style="display:inline-block; float:right")
-
-      ),
-
-
-      tabItem(
-
-        tabName = "stats_results",
-
-
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "median_cohort_name_selector",
-            label = "Cohort Name",
-            choices = if (exists("survival_median_table") && !is.null(survival_median_table$Cohort)) {
-              unique(survival_median_table$Cohort)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("survival_median_table") && !is.null(survival_median_table$Cohort)) {
-              unique(survival_median_table$Cohort)[1]
-            } else {
-              "No data available"
-            },
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-
-
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "median_database_name_selector",
-            label = "Database",
-            choices = if (exists("survival_median_table") && !is.null(survival_median_table$`CDM name`)) {
-              unique(survival_median_table$`CDM name`)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("survival_median_table") && !is.null(survival_median_table$`CDM name`)) {
-              unique(survival_median_table$`CDM name`)[1]
-            } else {
-              "No data available"
-            },
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-
-
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "median_age_selector",
-            label = "Age Group",
-            choices = if (exists("survival_median_table") && !is.null(survival_median_table$`Age group`)) {
-              unique(survival_median_table$`Age group`)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("survival_median_table") && !is.null(survival_median_table$`Age group`)) {
-              unique(survival_median_table$`Age group`)[1]
-            } else {
-              "No data available"
-            },
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-
-
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "median_sex_selector",
-            label = "Sex",
-            choices = if (exists("survival_median_table") && !is.null(survival_median_table$Sex)) {
-              unique(survival_median_table$Sex)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("survival_median_table") && !is.null(survival_median_table$Sex)) {
-              unique(survival_median_table$Sex)[1]
-            } else {
-              "No data available"
-            },
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-
-
-
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "median_diagyr_selector",
-            label = "Diagnosis Year Group",
-            choices = if (exists("survival_median_table") && !is.null(survival_median_table$`Diag yr gp`)) {
-              unique(survival_median_table$`Diag yr gp`)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("survival_median_table") && !is.null(survival_median_table$`Diag yr gp`)) {
-              unique(survival_median_table$`Diag yr gp`)[1]
-            } else {
-              "No data available"
-            },
-
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-
-
-
-        htmlOutput("dt_surv_stat"),
-
-        div(style="display:inline-block",
-            downloadButton(
-              outputId = "dt_surv_stat_word",
-              label = "Download table as word"
-            ),
-            style="display:inline-block; float:right")
-
-      ),
-
-      
-      tabItem(
-        tabName = "prev_rates",
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "prev_estimates_cohort_selector",
-            label = "Cohort Name",
-            # choices = unique(prevalence_estimates$outcome_cohort_name),
-            # selected = unique(prevalence_estimates$outcome_cohort_name)[1],
-            
-            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
-              unique(prevalence_estimates$outcome_cohort_name)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
-              unique(prevalence_estimates$outcome_cohort_name)[1]
-            } else {
-              "No data available"
-            },
-            
-            
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "prev_estimates_cdm_selector",
-            label = "Database",
-            # choices = unique(prevalence_estimates$cdm_name),
-            # selected = unique(prevalence_estimates$cdm_name)[1],
-            
-            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
-              unique(prevalence_estimates$cdm_name)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
-              unique(prevalence_estimates$cdm_name)[1]
-            } else {
-              "No data available"
-            },
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "prev_estimates_sex_selector",
-            label = "Sex",
-            # choices = unique(prevalence_estimates$denominator_sex),
-            # selected = "Both",
-            
-            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
-              unique(prevalence_estimates$denominator_sex)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
-              "Both"
-            } else {
-              "No data available"
-            },
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "prev_estimates_age_selector",
-            label = "Age Group",
-            # choices = unique(prevalence_estimates$denominator_age_group),
-            # selected = "18 to 150",
-            
-            
-            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
-              unique(prevalence_estimates$denominator_age_group)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
-              "18 to 150"
-            } else {
-              "No data available"
-            },
-            
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        htmlOutput('dt_prev_est_table'),
-        
-        div(style="display:inline-block",
-            downloadButton(
-              outputId = "dt_prev_est_table_word",
-              label = "Download table as word"
-            ), 
-            style="display:inline-block; float:right")
-        
-      ),
-      
-      tabItem(
-        tabName = "prev_plots",
-        tags$h5("Below are the prevalence results for the different databases. Yearly estimates have been calculated in three different scenarios 1) Full prevalence: Those diagnosed with lung cancer are followed to the end of their observation period and remain in the numerator, 2) Partial prevalence: where patients diagnosed with lung cancer are followed until 2 or 5 years before they are then returned to the background population (denominator). ") ,
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "prevalence_database_selector",
-            label = "Database",
-            # choices = unique(prevalence_estimates$cdm_name),
-            # selected = unique(prevalence_estimates$cdm_name),
-            
-            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
-              unique(prevalence_estimates$cdm_name)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
-              unique(prevalence_estimates$cdm_name)[1]
-            } else {
-              "No data available"
-            },
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "prevalence_cohort_name_selector",
-            label = "Cohort Name",
-            # choices = unique(prevalence_estimates$outcome_cohort_name),
-            # selected = unique(prevalence_estimates$outcome_cohort_name)[1],
-            
-            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
-              unique(prevalence_estimates$outcome_cohort_name)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
-              unique(prevalence_estimates$outcome_cohort_name)[1]
-            } else {
-              "No data available"
-            },
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "prevalence_start_date_selector",
-            label = "Prevalence Start Date",
-            # choices = as.character(unique(prevalence_estimates$prevalence_start_date)),
-            # selected = as.character(unique(prevalence_estimates$prevalence_start_date)),
-            
-            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$prevalence_start_date)) {
-              as.character(unique(prevalence_estimates$prevalence_start_date))
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$prevalence_start_date)) {
-              as.character(unique(prevalence_estimates$prevalence_start_date))
-            } else {
-              "No data available"
-            },
-            
-            
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "prevalence_sex_selector",
-            label = "Sex",
-            # choices = unique(prevalence_estimates$denominator_sex),
-            # selected = "Both",
-            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
-              unique(prevalence_estimates$denominator_sex)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
-              "Both"
-            } else {
-              "No data available"
-            },
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "prevalence_age_selector",
-            label = "Age Group",
-            # choices = unique(prevalence_estimates$denominator_age_group),
-            # selected = "18 to 150",
-            
-            
-            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
-              unique(prevalence_estimates$denominator_age_group)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
-              "18 to 150"
-            } else {
-              "No data available"
-            },
-            
-            
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        
-        div(style="display: inline-block;vertical-align:top; width: 150px;",
-            pickerInput(inputId = "prevalence_plot_facet",
-                        label = "Facet by",
-                        choices = c("outcome_cohort_name", 
-                                    "denominator_sex",
-                                    "cdm_name" ,
-                                    "denominator_age_group"),
-                        selected = c("outcome_cohort_name"),
-                        options = list(
-                          `actions-box` = TRUE,
-                          size = 10,
-                          `selected-text-format` = "count > 3"),
-                        multiple = TRUE,)
-        ),
-        
-        div(style="display: inline-block;vertical-align:top; width: 150px;",
-            pickerInput(inputId = "prevalence_plot_group",
-                        label = "Colour by",
-                        choices = c("outcome_cohort_name", 
-                                    "denominator_sex",
-                                    "cdm_name" ,
-                                    "denominator_age_group"
-                        ),
-                        selected = c("cdm_name"),
-                        options = list(
-                          `actions-box` = TRUE,
-                          size = 10,
-                          `selected-text-format` = "count > 3"),
-                        multiple = TRUE,)
-            
-            
-        ),
-        
-        
-        
-        div(
-          style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
-          checkboxInput("show_error_bars", "Show Ribbons", value = TRUE)
-        ),
-        
-        div(
-          style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
-          plotOutput("prevalencePlot",
-                     height = "800px"
-          ) %>%
-            withSpinner(),
-          h4("Download Figure"),
-          div("Height:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-          div(
-            style = "display: inline-block;",
-            textInput("prevalence_download_height", "", 30, width = "50px")
-          ),
-          div("cm", style = "display: inline-block; margin-right: 25px;"),
-          div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-          div(
-            style = "display: inline-block;",
-            textInput("prevalence_download_width", "", 35, width = "50px")
-          ),
-          div("cm", style = "display: inline-block; margin-right: 25px;"),
-          div("dpi:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-          div(
-            style = "display: inline-block; margin-right:",
-            textInput("prevalence_download_dpi", "", 600, width = "50px")
-          ),
-          downloadButton("prevalence_download_plot", "Download plot")
-        )
-        
-        
-      ),
+ # tabItem(
+ #   tabName = "prev_rates_std",
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "prev_estimates_cohort_selector_std",
+ #       label = "Cohort Name",
+ #       # choices = unique(prevalence_estimates_std$outcome_cohort_name),
+ #       # selected = unique(prevalence_estimates_std$outcome_cohort_name)[1],
+ #       
+ #       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$outcome_cohort_name)) {
+ #         unique(prevalence_estimates_std$outcome_cohort_name)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$outcome_cohort_name)) {
+ #         unique(prevalence_estimates_std$outcome_cohort_name)[1]
+ #       } else {
+ #         "No data available"
+ #       },
+ #       
+ #       
+ #       
+ #       
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "prev_estimates_sex_selector_std",
+ #       label = "Sex",
+ #       # choices = unique(prevalence_estimates_std$denominator_sex),
+ #       # selected = "Both",
+ #       
+ #       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
+ #         unique(prevalence_estimates_std$denominator_sex)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
+ #         "Both"
+ #       } else {
+ #         "No data available"
+ #       },
+ #       
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "prev_estimates_database_selector_std",
+ #       label = "Database",
+ #       # choices = unique(prevalence_estimates_std$cdm_name),
+ #       # selected = unique(prevalence_estimates_std$cdm_name)[1],
+ #       
+ #       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$cdm_name)) {
+ #         unique(prevalence_estimates_std$cdm_name)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$cdm_name)) {
+ #         unique(prevalence_estimates_std$cdm_name)[1]
+ #       } else {
+ #         "No data available"
+ #       },
+ #       
+ #       
+ #       
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   
+ #   htmlOutput('dt_prev_est_table_std'),
+ #   
+ #   div(style="display:inline-block",
+ #       downloadButton(
+ #         outputId = "dt_prev_est_table_word_std",
+ #         label = "Download table as word"
+ #       ), 
+ #       style="display:inline-block; float:right")
+ #   
+ # ),
+ #    
+ # 
+ # tabItem(
+ #   tabName = "risk_results",
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "risk_table_cohort_name_selector",
+ #       label = "Cohort Name",
+ #       choices = if (exists("survival_events_table") && !is.null(survival_events_table$cohort)) {
+ #         unique(survival_events_table$cohort)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("survival_events_table") && !is.null(survival_events_table$cohort)) {
+ #         unique(survival_events_table$cohort)[1]
+ #       } else {
+ #         "No data available"
+ #       },
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "risk_table_database_name_selector",
+ #       label = "Database",
+ #       choices = if (exists("survival_events_table") && !is.null(survival_events_table$cdm_name)) {
+ #         unique(survival_events_table$cdm_name)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("survival_events_table") && !is.null(survival_events_table$cdm_name)) {
+ #         unique(survival_events_table$cdm_name)
+ #       } else {
+ #         "No data available"
+ #       },
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "risk_table_strata_selector",
+ #       label = "Strata",
+ #       choices = if (exists("survival_events_table") && !is.null(survival_events_table$strata_level)) {
+ #         unique(survival_events_table$strata_level)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("survival_events_table") && !is.null(survival_events_table$strata_level)) {
+ #         unique(survival_events_table$strata_level)[1]
+ #       } else {
+ #         "No data available"
+ #       },
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ # ),
+ # 
+ # 
+ #        htmlOutput('dt_risk_table'),
+ # 
+ #        div(style="display:inline-block",
+ #            downloadButton(
+ #              outputId = "gt_risk_table_word",
+ #              label = "Download table as word"
+ #            ),
+ #            style="display:inline-block; float:right")
+ # 
+ #      ),
+ # 
+ # 
+ #      tabItem(
+ # 
+ #        tabName = "stats_results",
+ # 
+ # 
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "median_cohort_name_selector",
+ #            label = "Cohort Name",
+ #            choices = if (exists("survival_median_table") && !is.null(survival_median_table$Cohort)) {
+ #              unique(survival_median_table$Cohort)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("survival_median_table") && !is.null(survival_median_table$Cohort)) {
+ #              unique(survival_median_table$Cohort)[1]
+ #            } else {
+ #              "No data available"
+ #            },
+ #            
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ # 
+ # 
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "median_database_name_selector",
+ #            label = "Database",
+ #            choices = if (exists("survival_median_table") && !is.null(survival_median_table$`CDM name`)) {
+ #              unique(survival_median_table$`CDM name`)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("survival_median_table") && !is.null(survival_median_table$`CDM name`)) {
+ #              unique(survival_median_table$`CDM name`)[1]
+ #            } else {
+ #              "No data available"
+ #            },
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ # 
+ # 
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "median_age_selector",
+ #            label = "Age Group",
+ #            choices = if (exists("survival_median_table") && !is.null(survival_median_table$`Age group`)) {
+ #              unique(survival_median_table$`Age group`)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("survival_median_table") && !is.null(survival_median_table$`Age group`)) {
+ #              unique(survival_median_table$`Age group`)[1]
+ #            } else {
+ #              "No data available"
+ #            },
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ # 
+ # 
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "median_sex_selector",
+ #            label = "Sex",
+ #            choices = if (exists("survival_median_table") && !is.null(survival_median_table$Sex)) {
+ #              unique(survival_median_table$Sex)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("survival_median_table") && !is.null(survival_median_table$Sex)) {
+ #              unique(survival_median_table$Sex)[1]
+ #            } else {
+ #              "No data available"
+ #            },
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ # 
+ # 
+ # 
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "median_diagyr_selector",
+ #            label = "Diagnosis Year Group",
+ #            choices = if (exists("survival_median_table") && !is.null(survival_median_table$`Diag yr gp`)) {
+ #              unique(survival_median_table$`Diag yr gp`)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("survival_median_table") && !is.null(survival_median_table$`Diag yr gp`)) {
+ #              unique(survival_median_table$`Diag yr gp`)[1]
+ #            } else {
+ #              "No data available"
+ #            },
+ # 
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ # 
+ # 
+ # 
+ #        htmlOutput("dt_surv_stat"),
+ # 
+ #        div(style="display:inline-block",
+ #            downloadButton(
+ #              outputId = "dt_surv_stat_word",
+ #              label = "Download table as word"
+ #            ),
+ #            style="display:inline-block; float:right")
+ # 
+ #      ),
+ # 
+ #      
+ #      tabItem(
+ #        tabName = "prev_rates",
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "prev_estimates_cohort_selector",
+ #            label = "Cohort Name",
+ #            # choices = unique(prevalence_estimates$outcome_cohort_name),
+ #            # selected = unique(prevalence_estimates$outcome_cohort_name)[1],
+ #            
+ #            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
+ #              unique(prevalence_estimates$outcome_cohort_name)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
+ #              unique(prevalence_estimates$outcome_cohort_name)[1]
+ #            } else {
+ #              "No data available"
+ #            },
+ #            
+ #            
+ #            
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ #        
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "prev_estimates_cdm_selector",
+ #            label = "Database",
+ #            # choices = unique(prevalence_estimates$cdm_name),
+ #            # selected = unique(prevalence_estimates$cdm_name)[1],
+ #            
+ #            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
+ #              unique(prevalence_estimates$cdm_name)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
+ #              unique(prevalence_estimates$cdm_name)[1]
+ #            } else {
+ #              "No data available"
+ #            },
+ #            
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ #        
+ #        
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "prev_estimates_sex_selector",
+ #            label = "Sex",
+ #            # choices = unique(prevalence_estimates$denominator_sex),
+ #            # selected = "Both",
+ #            
+ #            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
+ #              unique(prevalence_estimates$denominator_sex)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
+ #              "Both"
+ #            } else {
+ #              "No data available"
+ #            },
+ #            
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ #        
+ #        
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "prev_estimates_age_selector",
+ #            label = "Age Group",
+ #            # choices = unique(prevalence_estimates$denominator_age_group),
+ #            # selected = "18 to 150",
+ #            
+ #            
+ #            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
+ #              unique(prevalence_estimates$denominator_age_group)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
+ #              "18 to 150"
+ #            } else {
+ #              "No data available"
+ #            },
+ #            
+ #            
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ #        
+ #        htmlOutput('dt_prev_est_table'),
+ #        
+ #        div(style="display:inline-block",
+ #            downloadButton(
+ #              outputId = "dt_prev_est_table_word",
+ #              label = "Download table as word"
+ #            ), 
+ #            style="display:inline-block; float:right")
+ #        
+ #      ),
+ #      
+ #      tabItem(
+ #        tabName = "prev_plots",
+ #        tags$h5("Below are the prevalence results for the different databases. Yearly estimates have been calculated in three different scenarios 1) Full prevalence: Those diagnosed with lung cancer are followed to the end of their observation period and remain in the numerator, 2) Partial prevalence: where patients diagnosed with lung cancer are followed until 2 or 5 years before they are then returned to the background population (denominator). ") ,
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "prevalence_database_selector",
+ #            label = "Database",
+ #            # choices = unique(prevalence_estimates$cdm_name),
+ #            # selected = unique(prevalence_estimates$cdm_name),
+ #            
+ #            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
+ #              unique(prevalence_estimates$cdm_name)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$cdm_name)) {
+ #              unique(prevalence_estimates$cdm_name)[1]
+ #            } else {
+ #              "No data available"
+ #            },
+ #            
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "prevalence_cohort_name_selector",
+ #            label = "Cohort Name",
+ #            # choices = unique(prevalence_estimates$outcome_cohort_name),
+ #            # selected = unique(prevalence_estimates$outcome_cohort_name)[1],
+ #            
+ #            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
+ #              unique(prevalence_estimates$outcome_cohort_name)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$outcome_cohort_name)) {
+ #              unique(prevalence_estimates$outcome_cohort_name)[1]
+ #            } else {
+ #              "No data available"
+ #            },
+ #            
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ #        
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "prevalence_start_date_selector",
+ #            label = "Prevalence Start Date",
+ #            # choices = as.character(unique(prevalence_estimates$prevalence_start_date)),
+ #            # selected = as.character(unique(prevalence_estimates$prevalence_start_date)),
+ #            
+ #            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$prevalence_start_date)) {
+ #              as.character(unique(prevalence_estimates$prevalence_start_date))
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$prevalence_start_date)) {
+ #              as.character(unique(prevalence_estimates$prevalence_start_date))
+ #            } else {
+ #              "No data available"
+ #            },
+ #            
+ #            
+ #            
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ #        
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "prevalence_sex_selector",
+ #            label = "Sex",
+ #            # choices = unique(prevalence_estimates$denominator_sex),
+ #            # selected = "Both",
+ #            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
+ #              unique(prevalence_estimates$denominator_sex)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_sex)) {
+ #              "Both"
+ #            } else {
+ #              "No data available"
+ #            },
+ #            
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ #        
+ #        div(
+ #          style = "display: inline-block;vertical-align:top; width: 150px;",
+ #          pickerInput(
+ #            inputId = "prevalence_age_selector",
+ #            label = "Age Group",
+ #            # choices = unique(prevalence_estimates$denominator_age_group),
+ #            # selected = "18 to 150",
+ #            
+ #            
+ #            choices = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
+ #              unique(prevalence_estimates$denominator_age_group)
+ #            } else {
+ #              c("No data available")
+ #            },
+ #            selected = if (exists("prevalence_estimates") && !is.null(prevalence_estimates$denominator_age_group)) {
+ #              "18 to 150"
+ #            } else {
+ #              "No data available"
+ #            },
+ #            
+ #            
+ #            
+ #            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #            multiple = TRUE
+ #          )
+ #        ),
+ #        
+ #        div(style="display: inline-block;vertical-align:top; width: 150px;",
+ #            pickerInput(inputId = "prevalence_plot_facet",
+ #                        label = "Facet by",
+ #                        choices = c("outcome_cohort_name", 
+ #                                    "denominator_sex",
+ #                                    "cdm_name" ,
+ #                                    "denominator_age_group"),
+ #                        selected = c("outcome_cohort_name"),
+ #                        options = list(
+ #                          `actions-box` = TRUE,
+ #                          size = 10,
+ #                          `selected-text-format` = "count > 3"),
+ #                        multiple = TRUE,)
+ #        ),
+ #        
+ #        div(style="display: inline-block;vertical-align:top; width: 150px;",
+ #            pickerInput(inputId = "prevalence_plot_group",
+ #                        label = "Colour by",
+ #                        choices = c("outcome_cohort_name", 
+ #                                    "denominator_sex",
+ #                                    "cdm_name" ,
+ #                                    "denominator_age_group"
+ #                        ),
+ #                        selected = c("cdm_name"),
+ #                        options = list(
+ #                          `actions-box` = TRUE,
+ #                          size = 10,
+ #                          `selected-text-format` = "count > 3"),
+ #                        multiple = TRUE,)
+ #            
+ #            
+ #        ),
+ #        
+ #        
+ #        
+ #        div(
+ #          style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
+ #          checkboxInput("show_error_bars", "Show Ribbons", value = TRUE)
+ #        ),
+ #        
+ #        div(
+ #          style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
+ #          plotOutput("prevalencePlot",
+ #                     height = "800px"
+ #          ) %>%
+ #            withSpinner(),
+ #          h4("Download Figure"),
+ #          div("Height:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+ #          div(
+ #            style = "display: inline-block;",
+ #            textInput("prevalence_download_height", "", 30, width = "50px")
+ #          ),
+ #          div("cm", style = "display: inline-block; margin-right: 25px;"),
+ #          div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+ #          div(
+ #            style = "display: inline-block;",
+ #            textInput("prevalence_download_width", "", 35, width = "50px")
+ #          ),
+ #          div("cm", style = "display: inline-block; margin-right: 25px;"),
+ #          div("dpi:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+ #          div(
+ #            style = "display: inline-block; margin-right:",
+ #            textInput("prevalence_download_dpi", "", 600, width = "50px")
+ #          ),
+ #          downloadButton("prevalence_download_plot", "Download plot")
+ #        )
+ #        
+ #        
+ #      ),
  
  
       tabItem(
@@ -1575,8 +1495,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_start_date_selector",
             label = "Incidence Start Date",
-            choices = as.character(unique(incidence_estimates$incidence_start_date)),
-            selected = as.character(unique(incidence_estimates$incidence_start_date)),
+            choices = tail(as.character(unique(incidence_estimates_std$incidence_start_date)), -1) ,
+            selected = tail(as.character(unique(incidence_estimates_std$incidence_start_date)), -1) ,
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1810,204 +1730,7 @@ ui <- dashboardPage(
         
       ),
       
- 
- tabItem(
-   tabName = "prev_plots_std",
-   tags$h5("In order to compare results across different data sources with different age population structures we have age standardized prevalence rates to 1) European Standard Population 2013 and 2) World Standard Population (WHO 2000-2025).") ,
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "prevalence_database_selector_std",
-       label = "Database",
-       # choices = unique(prevalence_estimates_std$cdm_name),
-       # selected = unique(prevalence_estimates_std$cdm_name),
-       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$cdm_name)) {
-         unique(prevalence_estimates_std$cdm_name)
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$cdm_name)) {
-         unique(prevalence_estimates_std$cdm_name)[1]
-       } else {
-         "No data available"
-       },
-       
-       
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "prevalence_cohort_name_selector_std",
-       label = "Cohort Name",
-       # choices = unique(prevalence_estimates_std$outcome_cohort_name),
-       # selected = unique(prevalence_estimates_std$outcome_cohort_name)[1],
-       
-       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$outcome_cohort_name)) {
-         unique(prevalence_estimates_std$outcome_cohort_name)
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$outcome_cohort_name)) {
-         unique(prevalence_estimates_std$outcome_cohort_name)[1]
-       } else {
-         "No data available"
-       },
-       
-       
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "prevalence_start_date_selector_std",
-       label = "Prevalence Start Date",
-       # choices = as.character(unique(prevalence_estimates_std$prevalence_start_date)),
-       # selected = as.character(unique(prevalence_estimates_std$prevalence_start_date)),
-       
-       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$prevalence_start_date)) {
-         as.character(unique(prevalence_estimates_std$prevalence_start_date))
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$prevalence_start_date)) {
-         as.character(unique(prevalence_estimates_std$prevalence_start_date))
-       } else {
-         "No data available"
-       },
-       
-       
-       
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "prevalence_std_method",
-       label = "Standardization Method",
-       # choices = unique(prevalence_estimates_std$age_standard),
-       # selected = unique(prevalence_estimates_std$age_standard)[c(2,3)],
-       
-       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$age_standard)) {
-         unique(prevalence_estimates_std$age_standard)
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$age_standard)) {
-         unique(prevalence_estimates_std$age_standard)[c(2,3)]
-       } else {
-         "No data available"
-       },
-       
-       
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "prevalence_sex_selector_std",
-       label = "Sex",
-       # choices = unique(prevalence_estimates_std$denominator_sex),
-       # selected = "Both",
-       
-       choices = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
-         unique(prevalence_estimates_std$denominator_sex)
-       } else {
-         c("No data available")
-       },
-       selected = if (exists("prevalence_estimates_std") && !is.null(prevalence_estimates_std$denominator_sex)) {
-         "Both"
-       } else {
-         "No data available"
-       },
-       
-       
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   
-   div(style="display: inline-block;vertical-align:top; width: 150px;",
-       pickerInput(inputId = "prevalence_plot_facet_std",
-                   label = "Facet by",
-                   choices = c("outcome_cohort_name", 
-                               "denominator_sex",
-                               "cdm_name",
-                               "age_standard"),
-                   selected = c("outcome_cohort_name", "age_standard"),
-                   options = list(
-                     `actions-box` = TRUE,
-                     size = 10,
-                     `selected-text-format` = "count > 3"),
-                   multiple = TRUE,)
-   ),
-   
-   div(style="display: inline-block;vertical-align:top; width: 150px;",
-       pickerInput(inputId = "prevalence_plot_group_std",
-                   label = "Colour by",
-                   choices = c("outcome_cohort_name", 
-                               "denominator_sex",
-                               "cdm_name",
-                               "age_standard"
-                   ),
-                   selected = c("cdm_name"),
-                   options = list(
-                     `actions-box` = TRUE,
-                     size = 10,
-                     `selected-text-format` = "count > 3"),
-                   multiple = TRUE,)
-       
-       
-   ),
-   
-   
-   
-   div(
-     style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
-     checkboxInput("show_error_bars_std", "Show Ribbons", value = TRUE)
-   ),
-   
-   div(
-     style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
-     plotOutput("prevalencePlot_std",
-                height = "800px"
-     ) %>%
-       withSpinner(),
-     h4("Download Figure"),
-     div("Height:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-     div(
-       style = "display: inline-block;",
-       textInput("prevalence_download_heightstd", "", 30, width = "50px")
-     ),
-     div("cm", style = "display: inline-block; margin-right: 25px;"),
-     div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-     div(
-       style = "display: inline-block;",
-       textInput("prevalence_download_widthstd", "", 55, width = "50px")
-     ),
-     div("cm", style = "display: inline-block; margin-right: 25px;"),
-     div("dpi:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-     div(
-       style = "display: inline-block; margin-right:",
-       textInput("prevalence_download_dpistd", "", 600, width = "50px")
-     ),
-     downloadButton("prevalence_download_plot_std", "Download plot")
-   )
-   
-   
- ),
+
  
  
       
@@ -2091,192 +1814,7 @@ ui <- dashboardPage(
         
     #  )
         
-      ),
-      
-        
-        
-        tabItem(
-          tabName = "survival_results",
-          tags$h5("The survival results are presented below only for data partners with approval and linkage to national death registries"),
-          div(
-            style = "display: inline-block;vertical-align:top; width: 150px;",
-            pickerInput(
-              inputId = "survival_database_selector",
-              label = "Database",
-              choices = if (exists("survival_estimates") && !is.null(survival_estimates$cdm_name)) {
-                unique(survival_estimates$cdm_name)
-              } else {
-                c("No data available")
-              },
-              selected = if (exists("survival_estimates") && !is.null(survival_estimates$cdm_name)) {
-                unique(survival_estimates$cdm_name)[1]
-              } else {
-                "No data available"
-              },
-              
-                    options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-                    multiple = TRUE
-            )
-          ),
-
-
-
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "survival_cohort_name_selector",
-            label = "Cohort Name",
-            choices = if (exists("survival_estimates") && !is.null(survival_estimates$cohort)) {
-              unique(survival_estimates$cohort)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("survival_estimates") && !is.null(survival_estimates$cohort)) {
-              unique(survival_estimates$cohort)[1]
-            } else {
-              "No data available"
-            },
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-
-
-
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "survival_sex_selector",
-            label = "Sex",
-            choices = if (exists("survival_estimates") && !is.null(survival_estimates$sex)) {
-              unique(survival_estimates$sex)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("survival_estimates") && !is.null(survival_estimates$sex)) {
-              unique(survival_estimates$sex)[1]
-            } else {
-              "No data available"
-            },
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-
-
- div(
-   style = "display: inline-block;vertical-align:top; width: 150px;",
-   pickerInput(
-     inputId = "survival_age_selector",
-     label = "Age",
-     choices = if (exists("survival_estimates") && !is.null(survival_estimates$age_group)) {
-       unique(survival_estimates$age_group)
-     } else {
-       c("No data available")
-     },
-     selected = if (exists("survival_estimates") && !is.null(survival_estimates$age_group)) {
-       unique(survival_estimates$age_group)[1]
-     } else {
-       "No data available"
-     },
-     
-     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-     multiple = TRUE
-   )
- ),
-
-
-
- div(
-   style = "display: inline-block;vertical-align:top; width: 150px;",
-   pickerInput(
-     inputId = "survival_year_selector",
-     label = "Year",
-     choices = if (exists("survival_estimates") && !is.null(survival_estimates$diag_yr_gp)) {
-       unique(survival_estimates$diag_yr_gp)
-     } else {
-       c("No data available")
-     },
-     selected = if (exists("survival_estimates") && !is.null(survival_estimates$diag_yr_gp)) {
-       unique(survival_estimates$diag_yr_gp)[1]
-     } else {
-       "No data available"
-     },
-     
-     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-     multiple = TRUE
-   )
- ),
-
-        div(style="display: inline-block;vertical-align:top; width: 150px;",
-            pickerInput(inputId = "surv_plot_facet",
-                        label = "Facet by",
-                        choices = c("cohort",
-                                    "sex",
-                                    "cdm_name" ,
-                                    "diag_yr_gp",
-                                    "age_group"),
-                        selected = c("cohort"),
-                        options = list(
-                          `actions-box` = TRUE,
-                          size = 10,
-                          `selected-text-format` = "count > 3"),
-                        multiple = TRUE,)
-        ),
-
-        div(style="display: inline-block;vertical-align:top; width: 150px;",
-            pickerInput(inputId = "surv_plot_group",
-                        label = "Colour by",
-                        choices = c("cohort",
-                                    "sex",
-                                    "cdm_name" ,
-                                    "diag_yr_gp",
-                                    "age_group"),
-                        selected = c("cohort", "cdm_name"),
-                        options = list(
-                          `actions-box` = TRUE,
-                          size = 10,
-                          `selected-text-format` = "count > 3"),
-                        multiple = TRUE,)
-
-
-    ),
-    div(
-      style = "width: 80vh; height: 5vh;",  # Set width to 100% for responsive design
-      checkboxInput("show_ci", "Show Confidence Intervals", value = TRUE)
-    ),
-
-
-    div(
-      style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
-      plotOutput("survivalPlot",
-                 height = "800px"
-      ) %>%
-        withSpinner(),
-      h4("Download Figure"),
-      div("Height:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-      div(
-        style = "display: inline-block;",
-        textInput("survival_download_height", "", 30, width = "50px")
-      ),
-      div("cm", style = "display: inline-block; margin-right: 25px;"),
-      div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-      div(
-        style = "display: inline-block;",
-        textInput("survival_download_width", "", 35, width = "50px")
-      ),
-      div("cm", style = "display: inline-block; margin-right: 25px;"),
-      div("dpi:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-      div(
-        style = "display: inline-block; margin-right:",
-        textInput("survival_download_dpi", "", 600, width = "50px")
-      ),
-      downloadButton("survival_download_plot", "Download plot")
-    )
-
-)
+      )
 
       
       # more tabs here

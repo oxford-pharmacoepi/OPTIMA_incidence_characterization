@@ -26,7 +26,6 @@ library(rsvg)
 library(CirceR)
 library(rclipboard)
 library(CodelistGenerator)
-library(CohortSurvival)
 library(CohortCharacteristics)
 library(rjson)
 library(omopgenerics)
@@ -114,12 +113,6 @@ results <- list.files(
 cohort_set <- CDMConnector::read_cohort_set(here::here(
   "www", "Cohorts" , "incidence" ))
 
-cohort_set1 <- CDMConnector::read_cohort_set(here::here(
-  "www", "Cohorts" , "prevalence" ))
-
-cohort_set <- bind_rows(cohort_set,
-                        cohort_set1)
-
 cohort_set$markdown <- ""
 
 for (n in  row_number(cohort_set) ) {
@@ -186,33 +179,6 @@ if(length(json_files > 0)){
   filter(isExcluded == "FALSE")
   
   
-  concept_sets_final1 <- concept_sets_final %>% 
-    mutate(name = ifelse(name == "lung_cancer_incident_all", "all_lung_cancer_2y", name)) %>% 
-    mutate(name = ifelse(name == "lung_cancer_incident_broad", "broad_lung_cancer_2y" , name)) %>%
-    mutate(name = ifelse(name == "lung_cancer_incident_narrow", "narrow_lung_cancer_2y" , name)) %>% 
-    mutate(name = ifelse(name == "small_cell_lung_cancer", "small_cell_lung_cancer_2y" , name)) 
-  
-  concept_sets_final2 <- concept_sets_final %>% 
-    mutate(name = ifelse(name == "lung_cancer_incident_all", "all_lung_cancer_5y", name)) %>% 
-    mutate(name = ifelse(name == "lung_cancer_incident_broad", "broad_lung_cancer_5y" , name)) %>%
-    mutate(name = ifelse(name == "lung_cancer_incident_narrow", "narrow_lung_cancer_5y" , name)) %>% 
-    mutate(name = ifelse(name == "small_cell_lung_cancer", "small_cell_lung_cancer_5y" , name)) 
-  
-  concept_sets_final3 <- concept_sets_final %>% 
-    mutate(name = ifelse(name == "lung_cancer_incident_all", "all_lung_cancer_end", name)) %>% 
-    mutate(name = ifelse(name == "lung_cancer_incident_broad", "broad_lung_cancer_end" , name)) %>%
-    mutate(name = ifelse(name == "lung_cancer_incident_narrow", "narrow_lung_cancer_end" , name))  
-  
-  
-  
-    
-  concept_sets_final <- bind_rows(concept_sets_final, 
-                                  concept_sets_final1,
-                                  concept_sets_final2,
-                                  concept_sets_final3 )
-  
-
-  
 
   
 # incidence estimates -----
@@ -221,7 +187,7 @@ incidence_estimates_files <-results[stringr::str_detect(results, "incidence_esti
 
 if(length(incidence_estimates_files > 0)){
   
-incidence_estimates_files <-incidence_estimates_files[!(stringr::str_detect(incidence_estimates_files, "age_std_"))]
+incidence_estimates_files <-incidence_estimates_files[!(stringr::str_detect(incidence_estimates_files, "_age_std"))]
 
 incidence_estimates <- list()
 
@@ -235,12 +201,12 @@ for(i in seq_along(incidence_estimates_files)){
 
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))  %>% 
-  mutate(outcome_cohort_name = case_when(
-    outcome_cohort_name == "lung_cancer_incident_all" ~ "Lung Cancer All",
-    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
-    outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
-    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
-    TRUE ~ outcome_cohort_name
+  mutate(variable_level = case_when(
+    variable_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+    variable_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    variable_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    variable_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    TRUE ~ variable_level
   )) %>% 
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
@@ -256,7 +222,7 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
 # age standardized incidence estimates -----
 incidence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
 incidence_estimates_files_std<-results[stringr::str_detect(results, "incidence_estimates")]
-incidence_estimates_files_std<-incidence_estimates_files_std[(stringr::str_detect(incidence_estimates_files_std, "age_std_"))]
+incidence_estimates_files_std<-incidence_estimates_files_std[(stringr::str_detect(incidence_estimates_files_std, "_age_std"))]
 
 incidence_estimates_std <- list()
 
@@ -295,289 +261,53 @@ for(i in seq_along(incidence_attrition_files)){
 }
 
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
-  mutate(outcome_cohort_name = case_when(
-    outcome_cohort_name == "lung_cancer_incident_all" ~ "Lung Cancer All",
-    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
-    outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
-    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
-    TRUE ~ outcome_cohort_name
+  mutate(`Variable level` = case_when(
+    `Variable level` == "lung_cancer_incident_all" ~ "Lung Cancer All",
+    `Variable level` == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    `Variable level` == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    `Variable level` == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    TRUE ~ `Variable level`
   )) %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
-
-}
-
-# prevalence estimates -----
-prevalence_estimates_files <-results[stringr::str_detect(results, ".csv")]
-prevalence_estimates_files <-results[stringr::str_detect(results, "prevalence_estimates")]
-
-if(length(prevalence_estimates_files > 0)){
-  
-prevalence_estimates_files <- prevalence_estimates_files[!(stringr::str_detect(prevalence_estimates_files, "age_std_"))]
-  
-  prevalence_estimates <- list()
-  
-  for(i in seq_along(prevalence_estimates_files)){
-    prevalence_estimates[[i]]<-readr::read_csv(prevalence_estimates_files[[i]], 
-                                              show_col_types = FALSE)  
-  }
-  
-  prevalence_estimates <- dplyr::bind_rows(prevalence_estimates) %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
-  mutate(outcome_cohort_name = case_when(
-    
-    
-    outcome_cohort_name == "all_lung_cancer_2y" ~ "Lung Cancer All 2yrs",
-    outcome_cohort_name == "all_lung_cancer_5y" ~ "Lung Cancer All 5yrs",
-    outcome_cohort_name == "all_lung_cancer_end" ~ "Lung Cancer All End",
-    outcome_cohort_name == "broad_lung_cancer_2y" ~ "Lung Cancer Broad 2yrs",
-    outcome_cohort_name == "broad_lung_cancer_5y" ~ "Lung Cancer Broad 5yrs",
-    outcome_cohort_name == "broad_lung_cancer_end" ~ "Lung Cancer Broad End",
-    outcome_cohort_name == "narrow_lung_cancer_2y" ~ "Lung Cancer Narrow 2yrs",
-    outcome_cohort_name == "narrow_lung_cancer_5y" ~ "Lung Cancer Narrow 5yrs",
-    outcome_cohort_name == "narrow_lung_cancer_end" ~ "Lung Cancer Narrow End",
-    outcome_cohort_name == "small_cell_lung_cancer_2y" ~ "Small Cell Lung Cancer 2yrs",
-    outcome_cohort_name == "small_cell_lung_cancer_5y" ~ "Small Cell Lung Cancer 5yrs",
-    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer End",
-    
-    TRUE ~ outcome_cohort_name
-  ))
-  
-  
-  
-  
-  # age standardized prevalence estimates -----
-  prevalence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
-  prevalence_estimates_files_std<-results[stringr::str_detect(results, "prevalence_estimates")]
-  
-  prevalence_estimates_files_std<-prevalence_estimates_files_std[(stringr::str_detect(prevalence_estimates_files_std, "age_std_"))]
-  
-  prevalence_estimates_std <- list()
-  
-  for(i in seq_along(prevalence_estimates_files_std)){
-    prevalence_estimates_std[[i]]<-readr::read_csv(prevalence_estimates_files_std[[i]], 
-                                                  show_col_types = FALSE)  
-  }
-  
-  prevalence_estimates_std <- dplyr::bind_rows(prevalence_estimates_std) %>% 
-    mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
-
-    mutate(cdm_name = case_when(
-      cdm_name == "THIN es" ~ "THIN Spain",
-      cdm_name == "THIN be" ~ "THIN Belguim",
-      cdm_name == "THIN fr" ~ "THIN France",
-      cdm_name == "THIN it" ~ "THIN Italy",
-      cdm_name == "THIN ro" ~ "THIN Romania",
-      cdm_name == "THIN uk" ~ "THIN UK",
-      TRUE ~ cdm_name
-    )) 
-  
-  
-  # prevalence attrition -----
-  prevalence_attrition_files<-results[stringr::str_detect(results, ".csv")]
-  prevalence_attrition_files<-results[stringr::str_detect(results, "prevalence_attrition")]
-  
-  prevalence_attrition <- list()
-  for(i in seq_along(prevalence_attrition_files)){
-    prevalence_attrition[[i]]<-readr::read_csv(prevalence_attrition_files[[i]], 
-                                              show_col_types = FALSE)  
-  }
-  
-  prevalence_attrition <- dplyr::bind_rows(prevalence_attrition) %>% 
-    mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
-  
-  # prevalence settings ------
-  prevalence_settings_files<-results[stringr::str_detect(results, ".csv")]
-  prevalence_settings_files<-results[stringr::str_detect(results, "prevalence_settings")]
-  prevalence_settings <- list()
-  for(i in seq_along(prevalence_settings_files)){
-    prevalence_settings[[i]]<-readr::read_csv(prevalence_settings_files[[i]], 
-                                             show_col_types = FALSE)  
-  }
-  
-  prevalence_settings <- dplyr::bind_rows(prevalence_settings)  %>% 
-    mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
-  
-  
-
-# age standardized prev estimates -----
-prevalence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
-prevalence_estimates_files_std<-results[stringr::str_detect(results, "prevalence_estimates")]
-prevalence_estimates_files_std<-prevalence_estimates_files_std[(stringr::str_detect(prevalence_estimates_files_std, "age_std_"))]
-
-prevalence_estimates_std <- list()
-
-for(i in seq_along(prevalence_estimates_files_std)){
-  prevalence_estimates_std[[i]]<-readr::read_csv(prevalence_estimates_files_std[[i]], 
-                                                show_col_types = FALSE)  
-}
-
-prevalence_estimates_std <- dplyr::bind_rows(prevalence_estimates_std) %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
-  mutate(outcome_cohort_name = case_when(
-    outcome_cohort_name == "all_lung_cancer_2y" ~ "Lung Cancer All 2yrs",
-    outcome_cohort_name == "all_lung_cancer_5y" ~ "Lung Cancer All 5yrs",
-    outcome_cohort_name == "all_lung_cancer_end" ~ "Lung Cancer All End",
-    outcome_cohort_name == "broad_lung_cancer_2y" ~ "Lung Cancer Broad 2yrs",
-    outcome_cohort_name == "broad_lung_cancer_5y" ~ "Lung Cancer Broad 5yrs",
-    outcome_cohort_name == "broad_lung_cancer_end" ~ "Lung Cancer Broad End",
-    outcome_cohort_name == "narrow_lung_cancer_2y" ~ "Lung Cancer Narrow 2yrs",
-    outcome_cohort_name == "narrow_lung_cancer_5y" ~ "Lung Cancer Narrow 5yrs",
-    outcome_cohort_name == "narrow_lung_cancer_end" ~ "Lung Cancer Narrow End",
-    outcome_cohort_name == "small_cell_lung_cancer_2y" ~ "Small Cell Lung Cancer 2yrs",
-    outcome_cohort_name == "small_cell_lung_cancer_5y" ~ "Small Cell Lung Cancer 5yrs",
-    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer End",
-    TRUE ~ outcome_cohort_name
-  )) %>%
-  mutate(cdm_name = case_when(
-    cdm_name == "THIN es" ~ "THIN Spain",
-    cdm_name == "THIN be" ~ "THIN Belguim",
-    cdm_name == "THIN fr" ~ "THIN France",
-    cdm_name == "THIN it" ~ "THIN Italy",
-    cdm_name == "THIN ro" ~ "THIN Romania",
-    cdm_name == "THIN uk" ~ "THIN UK",
-    TRUE ~ cdm_name
-  )) 
-}
-
-# survival estimates1 -------
-survival_estimates_files <- results[stringr::str_detect(results, ".csv")]
-survival_estimates_files <- results[stringr::str_detect(results, "survival_results_analysis1")]
-
-if(length(survival_estimates_files > 0)){
-
-survival_estimates <- list()
-
-for(i in seq_along(survival_estimates_files)){
-  survival_estimates[[i]]<-readr::read_csv(survival_estimates_files[[i]],
-                                           show_col_types = FALSE) %>% 
-    omopgenerics::newSummarisedResult()
-  
-  
-}
-
-survival_estimates <- dplyr::bind_rows(survival_estimates) %>% 
-  filter(variable_name == "survival_probability") %>% 
-  visOmopResults::splitAll(
-    keep = TRUE,
-    fill = "overall") %>%
-  mutate(time = as.numeric(time) ) %>%
-  pivot_wider(names_from = estimate_name, values_from = estimate_value)
-
-
-survival_estimates <- survival_estimates %>% 
-mutate(
-estimate = as.numeric(estimate),
-estimate_95CI_lower = as.numeric(estimate_95CI_lower),
-estimate_95CI_upper = as.numeric(estimate_95CI_upper))
-
-# survival summaries ------
-survival_median_files <- results[stringr::str_detect(results, ".csv")]
-survival_median_files <- results[stringr::str_detect(results, "survival_summary_analysis1")]
-
-if(length(survival_median_files > 0)){
-  
-  survival_median_table <- list()
-  
-  for(i in seq_along(survival_median_files)){
-    survival_median_table[[i]]<-readr::read_csv(survival_median_files[[i]],
-                                                show_col_types = FALSE)
-    
-    # Convert all columns to character using dplyr
-    survival_median_table[[i]] <- survival_median_table[[i]] %>%
-      mutate(across(everything(), as.character))
-  } 
-
-  survival_median_table <- dplyr::bind_rows(survival_median_table) %>%
-    select(-matches("daysn_risk|daysn_events")) %>%  # Remove any column with "daysn_risk" or "daysn_events"
-    rename_with(~ gsub("\\[header_level\\]", "", .))  # Rename columns by removing "[header_level]
-  
-}
-
-# risk table --------
-survival_events_files <- results[stringr::str_detect(results, ".csv")]
-survival_events_files <- results[stringr::str_detect(results, "survival_events_analysis1")]
-
-if(length(survival_events_files > 0)){
-  
-  survival_events_table <- list()
-  
-  for(i in seq_along(survival_events_files)){
-    survival_events_table[[i]]<-readr::read_csv(survival_events_files[[i]],
-                                                show_col_types = FALSE)
-  }
-  
-  survival_events_table <- dplyr::bind_rows(survival_events_table) %>% 
-    mutate(strata_level = str_replace_all(strata_level, "&&&", "&")) %>% 
-    select(-c(result_id,
-              strata_name,
-              variable_level,
-              outcome,
-              eventgap,
-              result_type,
-              analysis_type
-              )) %>% 
-  
-    mutate(estimate_value = case_when(
-      is.na(estimate_value) ~ "<5",
-      estimate_value > 0 & estimate_value <= 5 ~ "<5",
-      TRUE ~ as.character(estimate_value)
-    ))
-  
-}
-
-
-}
-
-
-# survival attrition ------
-survival_attrition_files <- results[stringr::str_detect(results, ".csv")]
-survival_attrition_files <- results[stringr::str_detect(results, "survival_attrition_analysis1")]
-
-if(length(survival_attrition_files > 0)){
-survival_attrition <- list()
-for(i in seq_along(survival_attrition_files)){
-  survival_attrition[[i]]<-readr::read_csv(survival_attrition_files[[i]],
-                                           show_col_types = FALSE)
-}
-survival_attrition <- dplyr::bind_rows(survival_attrition) %>% 
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  mutate(`CDM name` = str_replace_all(`CDM name`, "_", " "))
 
 }
 
 
 # table one demographics------
   tableone_demo_files <- results[stringr::str_detect(results, ".csv")]
-  tableone_demo_files <- results[stringr::str_detect(results, "demographics_analysis1")]
+  tableone_demo_files <- results[stringr::str_detect(results, "demographics")]
   
   if(length(tableone_demo_files > 0)){
     
     tableone_demo <- list()
-    settings_demo <- list()
     
     for(i in seq_along(tableone_demo_files)){
       #read in the files
-      tableone_demo[[i]] <- readr::read_csv(tableone_demo_files[[i]],
-                                            show_col_types = FALSE)
+      # tableone_demo[[i]] <- readr::read_csv(tableone_demo_files[[i]],
+      #                                       show_col_types = FALSE)
       
       
-      settings_demo[[i]] <- tableone_demo[[i]] %>%
-        dplyr::filter(variable_name == "settings")
+      tableone_demo[[i]] <- omopgenerics::importSummarisedResult(tableone_demo_files[[i]], recursive = FALSE)
       
-      # remove from the summarised results
-      tableone_demo[[i]] <- tableone_demo[[i]] %>%
-        dplyr::filter(variable_name != "settings")
       
-      #turn back into a summarised result
-
-      tableone_demo[[i]] <- tableone_demo[[i]] %>%
-        omopgenerics::newSummarisedResult(
-          settings = tibble(
-            result_id = as.integer(1),
-            result_type = settings_demo[[i]]$estimate_value[3],
-            package_name = settings_demo[[i]]$estimate_value[1],
-            package_version = settings_demo[[i]]$estimate_value[2],
-            value = 5)
-        )
+      # settings_demo[[i]] <- tableone_demo[[i]] %>%
+      #   dplyr::filter(variable_name == "settings")
+      # 
+      # # remove from the summarised results
+      # tableone_demo[[i]] <- tableone_demo[[i]] %>%
+      #   dplyr::filter(variable_name != "settings")
+      # 
+      # #turn back into a summarised result
+      # 
+      # tableone_demo[[i]] <- tableone_demo[[i]] %>%
+      #   omopgenerics::newSummarisedResult(
+      #     settings = tibble(
+      #       result_id = as.integer(1),
+      #       result_type = settings_demo[[i]]$estimate_value[3],
+      #       package_name = settings_demo[[i]]$estimate_value[1],
+      #       package_version = settings_demo[[i]]$estimate_value[2],
+      #       value = 5)
+      #   )
       
       
     }
@@ -591,37 +321,40 @@ survival_attrition <- dplyr::bind_rows(survival_attrition) %>%
 
 # table one medications ------
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
-tableone_med_files <- results[stringr::str_detect(results, "medications_analysis1")]
+tableone_med_files <- results[stringr::str_detect(results, "medications")]
 
 if(length(tableone_med_files > 0)){
 
   tableone_med <- list()
-  settings_med <- list()
+  #settings_med <- list()
 
   for(i in seq_along(tableone_med_files)){
     #read in the files
-    tableone_med[[i]] <- readr::read_csv(tableone_med_files[[i]],
-                                          show_col_types = FALSE)
-
-
-    settings_med[[i]] <- tableone_med[[i]] %>%
-      dplyr::filter(variable_name == "settings")
-
-    # remove from the summarised results
-    tableone_med[[i]] <- tableone_med[[i]] %>%
-      dplyr::filter(variable_name != "settings")
-
-    #turn back into a summarised result
-
-    tableone_med[[i]] <- tableone_med[[i]] %>%
-      omopgenerics::newSummarisedResult(
-        settings = tibble(
-          result_id = 1L,
-          result_type = settings_demo[[i]]$estimate_value[3],
-          package_name = settings_demo[[i]]$estimate_value[1],
-          package_version = settings_demo[[i]]$estimate_value[2],
-          value = 5)
-      )
+    
+    
+    tableone_med[[i]] <- omopgenerics::importSummarisedResult(tableone_med_files[[i]], recursive = FALSE)
+    # tableone_med[[i]] <- readr::read_csv(tableone_med_files[[i]],
+    #                                       show_col_types = FALSE)
+    # 
+    # 
+    # settings_med[[i]] <- tableone_med[[i]] %>%
+    #   dplyr::filter(variable_name == "settings")
+    # 
+    # # remove from the summarised results
+    # tableone_med[[i]] <- tableone_med[[i]] %>%
+    #   dplyr::filter(variable_name != "settings")
+    # 
+    # #turn back into a summarised result
+    # 
+    # tableone_med[[i]] <- tableone_med[[i]] %>%
+    #   omopgenerics::newSummarisedResult(
+    #     settings = tibble(
+    #       result_id = 1L,
+    #       result_type = settings_demo[[i]]$estimate_value[3],
+    #       package_name = settings_demo[[i]]$estimate_value[1],
+    #       package_version = settings_demo[[i]]$estimate_value[2],
+    #       value = 5)
+    #   )
 
   }
 
@@ -634,36 +367,39 @@ rm(tableone_med)
 
 # table one comorbidities ------
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
-tableone_comorb_files <- results[stringr::str_detect(results, "comorbidity_analysis1")]
+tableone_comorb_files <- results[stringr::str_detect(results, "comorbidity")]
 
 if(length(tableone_comorb_files > 0)){
 
   tableone_comorb <- list()
-  settings_comorb <- list()
+#  settings_comorb <- list()
 
   for(i in seq_along(tableone_comorb_files)){
     #read in the files
-    tableone_comorb[[i]] <- readr::read_csv(tableone_comorb_files[[i]],
-                                         show_col_types = FALSE)
-
-
-    settings_comorb[[i]] <- tableone_comorb[[i]] %>%
-      dplyr::filter(variable_name == "settings")
-
-    # remove from the summarised results
-    tableone_comorb[[i]] <- tableone_comorb[[i]] %>%
-      dplyr::filter(variable_name != "settings")
-
-    #turn back into a summarised result
-    tableone_comorb[[i]] <- tableone_comorb[[i]] %>%
-      omopgenerics::newSummarisedResult(
-        settings = tibble(
-          result_id = 1L,
-          result_type = settings_comorb[[i]]$estimate_value[3],
-          package_name = settings_comorb[[i]]$estimate_value[1],
-          package_version = settings_comorb[[i]]$estimate_value[2],
-          value = 5)
-      )
+    
+    
+    tableone_comorb[[i]] <- omopgenerics::importSummarisedResult(tableone_comorb_files[[i]], recursive = FALSE)
+    # tableone_comorb[[i]] <- readr::read_csv(tableone_comorb_files[[i]],
+    #                                      show_col_types = FALSE)
+    # 
+    # 
+    # settings_comorb[[i]] <- tableone_comorb[[i]] %>%
+    #   dplyr::filter(variable_name == "settings")
+    # 
+    # # remove from the summarised results
+    # tableone_comorb[[i]] <- tableone_comorb[[i]] %>%
+    #   dplyr::filter(variable_name != "settings")
+    # 
+    # #turn back into a summarised result
+    # tableone_comorb[[i]] <- tableone_comorb[[i]] %>%
+    #   omopgenerics::newSummarisedResult(
+    #     settings = tibble(
+    #       result_id = 1L,
+    #       result_type = settings_comorb[[i]]$estimate_value[3],
+    #       package_name = settings_comorb[[i]]$estimate_value[1],
+    #       package_version = settings_comorb[[i]]$estimate_value[2],
+    #       value = 5)
+    #   )
 
 
   }
@@ -675,6 +411,28 @@ comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
 
 rm(tableone_comorb)
 
+
+# large scale characteristics -------
+lsc_files <- results[stringr::str_detect(results, ".csv")]
+lsc_files <- results[stringr::str_detect(results, "large_scale")]
+
+if(length(lsc_files > 0)){
+  
+  table_lsc <- list()
+  
+  for(i in seq_along(lsc_files)){
+
+    table_lsc[[i]] <- omopgenerics::importSummarisedResult(lsc_files[[i]], recursive = FALSE)
+    
+    
+  }
+  
+}
+
+lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+
+
 # cdm snapshot ------
 snapshot_files <- results[stringr::str_detect(results, ".csv")]
 snapshot_files <- results[stringr::str_detect(results, "cdm_snapshot")]
@@ -684,7 +442,7 @@ for(i in seq_along(snapshot_files)){
   snapshotcdm[[i]] <- readr::read_csv(snapshot_files[[i]],
                                       show_col_types = FALSE) %>%
     mutate_all(as.character)
-
+  
 }
 snapshotcdm <- bind_rows(snapshotcdm) %>%
   select("cdm_name", "person_count", "observation_period_count" , "start_date",
