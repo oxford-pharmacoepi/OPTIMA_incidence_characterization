@@ -1495,8 +1495,8 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_start_date_selector",
             label = "Incidence Start Date",
-            choices = tail(as.character(unique(incidence_estimates_std$incidence_start_date)), -1) ,
-            selected = tail(as.character(unique(incidence_estimates_std$incidence_start_date)), -1) ,
+            choices = as.character(unique(incidence_estimates_std$incidence_start_date)) ,
+            selected = as.character(unique(incidence_estimates_std$incidence_start_date)) ,
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -1667,7 +1667,7 @@ ui <- dashboardPage(
                                     "denominator_sex",
                                     "cdm_name",
                                     "age_standard"),
-                        selected = c("outcome_cohort_name", "age_standard"),
+                        selected = c("age_standard"),
                         options = list(
                           `actions-box` = TRUE,
                           size = 10,
