@@ -2,6 +2,7 @@
 <img src="https://img.shields.io/badge/Study%20Status-Started-blue.svg" alt="Study Status: Started">
 
 - **Study title**: The Worldwide Incidence of Lung Cancer
+- **Study contents**: Incidence, table one characterisation, large scale characterisation
 - **Study lead(s)**: Danielle Newby (danielle.newby@ndorms.ox.ac.uk) & Cheryl Tan (cheryl.tan@ndorms.ox.ac.uk)
 - **ShinyApp PhenotypeR**: https://dpa-pde-oxford.shinyapps.io/PhenotypeR_OPTIMA_lung_cancer/
 - **ShinyApp Main Study**: https://dpa-pde-oxford.shinyapps.io/OPTIMA_lung_cancer_incidence_survival/
