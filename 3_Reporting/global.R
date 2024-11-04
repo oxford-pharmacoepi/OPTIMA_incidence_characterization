@@ -179,8 +179,6 @@ if(length(json_files > 0)){
   filter(isExcluded == "FALSE")
   
   
-
-  
 # incidence estimates -----
 incidence_estimates_files <-results[stringr::str_detect(results, ".csv")]
 incidence_estimates_files <-results[stringr::str_detect(results, "incidence_estimates")]
@@ -193,8 +191,7 @@ incidence_estimates <- list()
 
 for(i in seq_along(incidence_estimates_files)){
   incidence_estimates[[i]]<-readr::read_csv(incidence_estimates_files[[i]], 
-                                            show_col_types = FALSE)  
-  
+                                            show_col_types = FALSE) 
   
 }
 
@@ -257,7 +254,8 @@ incidence_attrition <- list()
 
 for(i in seq_along(incidence_attrition_files)){
   incidence_attrition[[i]]<-readr::read_csv(incidence_attrition_files[[i]], 
-                                            show_col_types = FALSE)  
+                                            show_col_types = FALSE)
+  
 }
 
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
@@ -268,7 +266,10 @@ incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>%
     `Variable level` == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
     TRUE ~ `Variable level`
   )) %>% 
-  mutate(`CDM name` = str_replace_all(`CDM name`, "_", " "))
+  mutate(`CDM name` = str_replace_all(`CDM name`, "_", " ")) %>% 
+  rename_with(~ gsub("\\[header_name\\]Variable name\\n\\[header_level\\]", "", .)) %>%
+  rename_with(~ trimws(.)) %>% # Removes any leading or trailing whitespace
+  rename_with(~ gsub(" ", "_", .))
 
 }
 
@@ -283,31 +284,8 @@ incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>%
     
     for(i in seq_along(tableone_demo_files)){
       #read in the files
-      # tableone_demo[[i]] <- readr::read_csv(tableone_demo_files[[i]],
-      #                                       show_col_types = FALSE)
-      
-      
+
       tableone_demo[[i]] <- omopgenerics::importSummarisedResult(tableone_demo_files[[i]], recursive = FALSE)
-      
-      
-      # settings_demo[[i]] <- tableone_demo[[i]] %>%
-      #   dplyr::filter(variable_name == "settings")
-      # 
-      # # remove from the summarised results
-      # tableone_demo[[i]] <- tableone_demo[[i]] %>%
-      #   dplyr::filter(variable_name != "settings")
-      # 
-      # #turn back into a summarised result
-      # 
-      # tableone_demo[[i]] <- tableone_demo[[i]] %>%
-      #   omopgenerics::newSummarisedResult(
-      #     settings = tibble(
-      #       result_id = as.integer(1),
-      #       result_type = settings_demo[[i]]$estimate_value[3],
-      #       package_name = settings_demo[[i]]$estimate_value[1],
-      #       package_version = settings_demo[[i]]$estimate_value[2],
-      #       value = 5)
-      #   )
       
       
     }
@@ -330,31 +308,8 @@ if(length(tableone_med_files > 0)){
 
   for(i in seq_along(tableone_med_files)){
     #read in the files
-    
-    
     tableone_med[[i]] <- omopgenerics::importSummarisedResult(tableone_med_files[[i]], recursive = FALSE)
-    # tableone_med[[i]] <- readr::read_csv(tableone_med_files[[i]],
-    #                                       show_col_types = FALSE)
-    # 
-    # 
-    # settings_med[[i]] <- tableone_med[[i]] %>%
-    #   dplyr::filter(variable_name == "settings")
-    # 
-    # # remove from the summarised results
-    # tableone_med[[i]] <- tableone_med[[i]] %>%
-    #   dplyr::filter(variable_name != "settings")
-    # 
-    # #turn back into a summarised result
-    # 
-    # tableone_med[[i]] <- tableone_med[[i]] %>%
-    #   omopgenerics::newSummarisedResult(
-    #     settings = tibble(
-    #       result_id = 1L,
-    #       result_type = settings_demo[[i]]$estimate_value[3],
-    #       package_name = settings_demo[[i]]$estimate_value[1],
-    #       package_version = settings_demo[[i]]$estimate_value[2],
-    #       value = 5)
-    #   )
+
 
   }
 
@@ -372,34 +327,11 @@ tableone_comorb_files <- results[stringr::str_detect(results, "comorbidity")]
 if(length(tableone_comorb_files > 0)){
 
   tableone_comorb <- list()
-#  settings_comorb <- list()
 
   for(i in seq_along(tableone_comorb_files)){
     #read in the files
     
-    
     tableone_comorb[[i]] <- omopgenerics::importSummarisedResult(tableone_comorb_files[[i]], recursive = FALSE)
-    # tableone_comorb[[i]] <- readr::read_csv(tableone_comorb_files[[i]],
-    #                                      show_col_types = FALSE)
-    # 
-    # 
-    # settings_comorb[[i]] <- tableone_comorb[[i]] %>%
-    #   dplyr::filter(variable_name == "settings")
-    # 
-    # # remove from the summarised results
-    # tableone_comorb[[i]] <- tableone_comorb[[i]] %>%
-    #   dplyr::filter(variable_name != "settings")
-    # 
-    # #turn back into a summarised result
-    # tableone_comorb[[i]] <- tableone_comorb[[i]] %>%
-    #   omopgenerics::newSummarisedResult(
-    #     settings = tibble(
-    #       result_id = 1L,
-    #       result_type = settings_comorb[[i]]$estimate_value[3],
-    #       package_name = settings_comorb[[i]]$estimate_value[1],
-    #       package_version = settings_comorb[[i]]$estimate_value[2],
-    #       value = 5)
-    #   )
 
 
   }

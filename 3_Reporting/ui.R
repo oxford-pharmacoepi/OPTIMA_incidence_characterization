@@ -219,6 +219,9 @@ ui <- dashboardPage(
 
       ) ,
       
+ 
+ 
+ 
       tabItem(
         tabName = "inc_attrition",
         
@@ -227,15 +230,13 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_outcome_selector",
             label = "Cohort Name",
-            # choices = unique(incidence_attrition$outcome_cohort_name),
-            # selected = unique(incidence_attrition$outcome_cohort_name)[1],
-            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$outcome_cohort_name)) {
-              unique(incidence_attrition$outcome_cohort_name)
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$Variable_level)) {
+              unique(incidence_attrition$Variable_level)
             } else {
               c("No data available")
             },
-            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$outcome_cohort_name)) {
-              unique(incidence_attrition$outcome_cohort_name)[1]
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$Variable_level)) {
+              unique(incidence_attrition$Variable_level)[1]
             } else {
               "No data available"
             },
@@ -250,15 +251,13 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_sex_selector",
             label = "Sex",
-            # choices = unique(incidence_attrition$denominator_sex),
-            # selected = "Both",
             
-            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$denominator_sex)) {
-              unique(incidence_attrition$denominator_sex)
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$Denominator_sex)) {
+              unique(incidence_attrition$Denominator_sex)
             } else {
               c("No data available")
             },
-            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$denominator_sex)) {
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$Denominator_sex)) {
               "Both"
             } else {
               "No data available"
@@ -276,17 +275,14 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_age_selector",
             label = "Age Group",
-            # choices = unique(incidence_attrition$denominator_age_group),
-            # selected = unique(incidence_attrition$denominator_age_group)[1],
-            
-            
-            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$denominator_age_group)) {
-              unique(incidence_attrition$denominator_age_group)
+
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$Denominator_age_group)) {
+              unique(incidence_attrition$Denominator_age_group)
             } else {
               c("No data available")
             },
-            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$denominator_age_group)) {
-              unique(incidence_attrition$denominator_age_group)[1]
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$Denominator_age_group)) {
+              unique(incidence_attrition$Denominator_age_group)[1]
             } else {
               "No data available"
             },
@@ -303,17 +299,16 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_database_name_selector",
             label = "Database",
-            # choices = unique(incidence_attrition$cdm_name),
-            # selected = unique(incidence_attrition$cdm_name)[1],
+
             
             
-            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$cdm_name)) {
-              unique(incidence_attrition$cdm_name)
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$CDM_name)) {
+              unique(incidence_attrition$CDM_name)
             } else {
               c("No data available")
             },
-            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$cdm_name)) {
-              unique(incidence_attrition$cdm_name)[1]
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$CDM_name)) {
+              unique(incidence_attrition$CDM_name)[1]
             } else {
               "No data available"
             },
@@ -330,15 +325,12 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_time_selector",
             label = "Time",
-            # choices = unique(incidence_attrition$analysis_interval),
-            # selected = "overall",
-
-            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$analysis_interval)) {
-              unique(incidence_attrition$analysis_interval)
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$Analysis_interval)) {
+              unique(incidence_attrition$Analysis_interval)
             } else {
               c("No data available")
             },
-            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$analysis_interval)) {
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$Analysis_interval)) {
               "overall"
             } else {
               "No data available"
@@ -351,7 +343,7 @@ ui <- dashboardPage(
           )
         ),
         
-        htmlOutput('tbl_incidence_attrition'),
+        DT::dataTableOutput('tbl_incidence_attrition'),
         
         div(style="display:inline-block",
             downloadButton(
@@ -426,21 +418,7 @@ ui <- dashboardPage(
             multiple = TRUE
           )
         ),
-        
-        # div(
-        #   style = "display: inline-block;vertical-align:top; width: 150px;",
-        #   pickerInput(
-        #     inputId = "demo_diag_yr_selector",
-        #     label = "Diagnosis Year Group",
-        #     choices = demo_characteristics %>%
-        #       filter(strata_name == "diag_yr_gp" | strata_name == "overall") %>%
-        #       distinct(strata_level) %>% 
-        #       pull(),
-        #     selected = "overall",
-        #     options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-        #     multiple = TRUE
-        #   )
-        # ),
+
         
        # tags$hr(),
         gt_output("gt_demo_characteristics") %>% 
@@ -1728,93 +1706,8 @@ ui <- dashboardPage(
         )
         
         
-      ),
-      
-
- 
- 
-      
-      tabItem(
-        tabName = "cohort_attr_fig",
-        tags$h5("Attrition Diagrams for study populations:"),
-        
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "attrition_database_name_selector1",
-            label = "Database",
-            choices = unique(incidence_attrition$cdm_name),
-            selected = unique(incidence_attrition$cdm_name)[1],
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = FALSE
-          )
-        ),
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "attrition_cohort_name_selector1",
-            label = "Cohort Name",
-            choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = unique(incidence_attrition$outcome_cohort_name)[1],
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = FALSE
-          )
-        ),
-        
-        
-        div(
-          style = "width: 80%; height: 90%;",  # Set width to 100% for responsive design
-          grVizOutput("attrition_diagram", width = "400px", height = "100%") %>%
-            withSpinner(),
-          h4("Download Figure"),
-          div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-          div(
-            style = "display: inline-block;",
-            textInput("attrition_download_width", "", 600, width = "50px")
-          ),
-          div("pixels", style = "display: inline-block; margin-right: 25px;"),
-          downloadButton("cohort_attrition_download_figure", "Download plot")
-        )
-        
-      ),
-      
-      tabItem(
-        tags$h5("The cohort attrition showing how the final study populations were obtained are presented below:"),
-        tabName = "cohort_attrition",
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "attrition_database_name_selector",
-            label = "Database",
-            choices = unique(incidence_attrition$cdm_name),
-            selected = unique(incidence_attrition$cdm_name)[1],
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "attrition_cohort_name_selector",
-            label = "Cohort Name",
-            choices = unique(incidence_attrition$outcome_cohort_name),
-            selected = unique(incidence_attrition$outcome_cohort_name)[1],
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
-        htmlOutput('dt_attrition'),
-        
-        div(style="display:inline-block",
-            downloadButton(
-              outputId = "gt_attrition_word",
-              label = "Download table as word"
-            ), 
-            style="display:inline-block; float:right")
-        
-    #  )
-        
       )
+      
 
       
       # more tabs here

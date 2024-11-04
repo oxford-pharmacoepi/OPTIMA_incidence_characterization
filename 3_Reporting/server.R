@@ -56,54 +56,51 @@ server <-	function(input, output, session) {
   # incidence attrition -----
   get_table_attrition <-reactive({
     
-    validate(need(input$attrition_database_name_selector != "", "Please select a database"))
-    validate(need(input$attrition_outcome_selector != "", "Please select an outcome"))
-    validate(need(input$attrition_sex_selector != "", "Please select sex group"))
-    validate(need(input$attrition_age_selector != "", "Please select age group"))
-    validate(need(input$attrition_time_selector != "", "Please select time period"))
+    # validate(need(input$attrition_outcome_selector != "", "Please select an outcome"))
+    # validate(need(input$attrition_database_name_selector != "", "Please select a database"))
+    # validate(need(input$attrition_sex_selector != "", "Please select sex group"))
+    # validate(need(input$attrition_age_selector != "", "Please select age group"))
+    # validate(need(input$attrition_time_selector != "", "Please select time period"))
     
     
     
     table <- incidence_attrition %>% 
-      filter(cdm_name %in% input$attrition_database_name_selector) %>% 
-      filter(outcome_cohort_name %in% input$attrition_outcome_selector) %>% 
-      filter(denominator_sex %in% input$attrition_sex_selector) %>% 
-      filter(denominator_age_group %in% input$attrition_age_selector) %>% 
-      filter(analysis_interval %in% input$attrition_time_selector) %>% 
-      select(-c(analysis_id,
-                denominator_target_cohort_definition_id,
-                denominator_target_cohort_name,
-                denominator_end_date,
-                denominator_start_date,
-                outcome_cohort_id,
-                analysis_outcome_washout,
-                analysis_complete_database_intervals,
-                denominator_cohort_id,
-                analysis_min_cell_count,
-                analysis_repeated_events,
-                denominator_cohort_name,
-                denominator_days_prior_observation,
-                denominator_target_cohort_name
+      filter(Variable_level %in% input$attrition_outcome_selector) %>% 
+      filter(CDM_name %in% input$attrition_database_name_selector) %>% 
+      filter(Denominator_sex %in% input$attrition_sex_selector) %>%
+      filter(Denominator_age_group %in% input$attrition_age_selector) %>%
+      filter(Analysis_interval %in% input$attrition_time_selector)  %>%
+      select(-c(Denominator_cohort_name,
+                Result_type,
+                Package_name,
+                Package_version,
+                Analysis_outcome_washout,
+                Analysis_complete_database_intervals,
+                Analysis_repeated_events,
+                Denominator_days_prior_observation,
+                Denominator_target_cohort_name,
+                Min_cell_count,
+                Outcome_cohort_name,
+                Denominator_time_at_risk,
+                Denominator_start_date,
+                Denominator_end_date
       )) %>% 
-      rename(`Persons (n)` = number_subjects,
-             `Records (n)` = number_records,
-             Reason = reason,
-             `Reason ID` = reason_id,
-             `Excluded Persons (n)` = excluded_subjects,
-             `Excluded Records (n)` = excluded_records,
-             Age = denominator_age_group,
-             `Cohort Name` = outcome_cohort_name, 
-             Sex = denominator_sex,
-             `Time Interval`= analysis_interval,
-             Database = cdm_name) %>% 
-      relocate(`Reason ID`, Reason, .before = `Records (n)`)
+    relocate(Reason_id , Reason, Number_records, Number_subjects, Excluded_records, Excluded_subjects, .before = 1)
     
     table
     
   }) 
   
-  output$tbl_incidence_attrition <- renderText(kable(get_table_attrition()) %>%
-                                             kable_styling("striped", full_width = F) )
+  output$tbl_incidence_attrition <- DT::renderDataTable({
+    DT::datatable(get_table_attrition(), 
+                  options = list(
+                    pageLength = 25,   # Set the default number of rows to display
+                    scrollX = TRUE
+                  ),
+                  rownames = FALSE     # Remove row numbers
+    )
+  })
+  
   
   output$dt_incidence_attrition_word <- downloadHandler(
     filename = function() {
@@ -171,7 +168,6 @@ server <-	function(input, output, session) {
     
 
     demo_characteristics <- demo_characteristics %>%
-      #visOmopResults::addSettings() %>% 
       visOmopResults::splitStrata() %>%
       visOmopResults::splitGroup() %>%
       filter(sex %in% input$demographics_sex_selector) %>% 
