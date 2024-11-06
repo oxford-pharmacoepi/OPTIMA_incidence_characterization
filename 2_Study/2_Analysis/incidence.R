@@ -40,7 +40,7 @@ if(isTRUE(run_incidence)){
     minCellCount = 0
   ) 
   
-
+  
   inc_tidy <- inc %>% 
     visOmopResults::splitAdditional() %>% 
     visOmopResults::addSettings() %>% 
@@ -54,8 +54,8 @@ if(isTRUE(run_incidence)){
     mutate(outcome_count = as.integer(outcome_count),
            
            
-           )
- 
+    )
+  
   
   cli::cli_alert_success("- Got incidence")
   
@@ -99,7 +99,8 @@ if(isTRUE(run_incidence)){
   inc_std <- inc_tidy %>% 
     filter(denominator_age_group != "18 to 150",
            denominator_sex == "Both",
-           analysis_interval == "years") %>% 
+           analysis_interval == "years",
+           incidence_start_date != "overall") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
@@ -120,7 +121,8 @@ if(isTRUE(run_incidence)){
   inc_std_F <- inc_tidy %>% 
     filter(denominator_age_group != "18 to 150",
            denominator_sex == "Female",
-           analysis_interval == "years") %>% 
+           analysis_interval == "years",
+           incidence_start_date != "overall") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
@@ -142,7 +144,8 @@ if(isTRUE(run_incidence)){
   inc_std_M <- inc_tidy %>% 
     filter(denominator_age_group != "18 to 150",
            denominator_sex == "Male",
-           analysis_interval == "years") %>% 
+           analysis_interval == "years",
+           incidence_start_date != "overall") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
@@ -470,7 +473,8 @@ if(isTRUE(run_incidence)){
   
   inc_crude <- inc_tidy %>% 
     filter(denominator_age_group == "18 to 150",
-           incidence_start_date == "overall") %>% 
+           incidence_start_date != "overall" ,
+           analysis_interval == "years") %>% 
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
