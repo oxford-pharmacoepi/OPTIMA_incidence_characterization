@@ -189,10 +189,10 @@ incidence_estimates_files <-incidence_estimates_files[!(stringr::str_detect(inci
 
 incidence_estimates <- list()
 
-for(i in seq_along(incidence_estimates_files)){
-  incidence_estimates[[i]]<-readr::read_csv(incidence_estimates_files[[i]], 
-                                            show_col_types = FALSE) 
-  
+for(i in seq_along(incidence_estimates_files)) {
+  incidence_estimates[[i]] <- read_csv(incidence_estimates_files[[i]], 
+                                       show_col_types = FALSE) %>%
+    mutate(incidence_start_date = as.Date(incidence_start_date))
 }
 
 
@@ -233,7 +233,8 @@ incidence_estimates_std <- list()
 
 for(i in seq_along(incidence_estimates_files_std)){
   incidence_estimates_std[[i]]<-readr::read_csv(incidence_estimates_files_std[[i]], 
-                                            show_col_types = FALSE)  
+                                            show_col_types = FALSE) %>% 
+    mutate(incidence_start_date = as.Date(incidence_start_date))
 }
 
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
