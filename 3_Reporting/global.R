@@ -205,6 +205,14 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
     variable_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
     TRUE ~ variable_level
   )) %>% 
+  
+  mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "lung_cancer_incident_all" ~ "Lung Cancer All",
+    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    TRUE ~ outcome_cohort_name
+  )) %>% 
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
     cdm_name == "THIN be" ~ "THIN Belguim",
@@ -362,7 +370,8 @@ if(length(lsc_files > 0)){
 }
 
 lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  filter(!str_starts(group_level, "matched_to_"))
 
 
 # cdm snapshot ------
