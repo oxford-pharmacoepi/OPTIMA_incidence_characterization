@@ -56,12 +56,11 @@ server <-	function(input, output, session) {
   # incidence attrition -----
   get_table_attrition <-reactive({
     
-    # validate(need(input$attrition_outcome_selector != "", "Please select an outcome"))
-    # validate(need(input$attrition_database_name_selector != "", "Please select a database"))
-    # validate(need(input$attrition_sex_selector != "", "Please select sex group"))
-    # validate(need(input$attrition_age_selector != "", "Please select age group"))
-    # validate(need(input$attrition_time_selector != "", "Please select time period"))
-    
+    validate(need(input$attrition_outcome_selector != "", "Please select an outcome"))
+    validate(need(input$attrition_database_name_selector != "", "Please select a database"))
+    validate(need(input$attrition_sex_selector != "", "Please select sex group"))
+    validate(need(input$attrition_age_selector != "", "Please select age group"))
+    validate(need(input$attrition_time_selector != "", "Please select time period"))
     
     
     table <- incidence_attrition %>% 
@@ -1037,6 +1036,74 @@ output$incidence_download_plot_std <- downloadHandler(
 )
   
 
+#large scale characteristics ----
+get_lsc_characteristics <- reactive({
+  
+  # validate(
+  #   need(input$lsc_cohort_selector != "", "Please select a cohort")
+  # )
+  
+  validate(
+    need(input$lsc_time_selector != "", "Please select a demographic time period")
+  )
+  
+  validate(
+    need(input$lsc_database_name_selector != "", "Please select a database")
+  )
+  
+  lsc_characteristics <- lsc_characteristics %>%
+    visOmopResults::splitAll() %>% 
+    filter(cohort_name %in% input$lsc_cohort_selector) %>% 
+    filter(variable_level %in% input$lsc_time_selector) %>% 
+    filter(cdm_name %in% input$lsc_database_name_selector) %>% 
+    filter(estimate_name == "percentage") %>% 
+    mutate(estimate_value = as.integer(estimate_value)) %>% 
+    arrange(desc(estimate_value)) %>% 
+    select(-c(
+      result_id,
+      table,
+      window,
+      value,
+      estimate_type,
+      estimate_name
+    ))
+  
+  lsc_characteristics
+  
+})
+
+
+output$gt_lsc_characteristics <- DT::renderDataTable({
+  DT::datatable(get_lsc_characteristics(), 
+                options = list(scrollX = TRUE),
+                rownames = NULL)
+})
+
+# output$gt_lsc_characteristics  <- render_gt({
+#   # CohortCharacteristics::tableLargeScaleCharacteristics(get_lsc_characteristics(),
+#   #                                             header = c("group", "cdm_name","cohort_name", "variable_level"),
+#   #                                             groupColumn = c("table_name", "type", "analysis"),
+#   #                                             hide = c("result_id", "estimate_type",
+#   #                                                      "value","table")
+#   # )
+#   
+#   get_lsc_characteristics()
+# })
+
+
+output$gt_lsc_characteristics_word <- downloadHandler(
+  filename = function() {
+    "lsc_characteristics.docx"
+  },
+  content = function(file) {
+    
+    gtsave(CohortCharacteristics::tableLargeScaleCharacteristics(get_lsc_characteristics(),
+                                                       header = c("group", "cdm_name", "variable_level"),
+                                                       hide = c("result_id", "estimate_type",
+                                                                "value","table")
+    ), file)
+  }
+)
 
 
 
