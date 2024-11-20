@@ -90,7 +90,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44500629,From descendants,"Carcinoma, NOS, of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 36563697,From descendants,Carcinoma simplex of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 44502676,From descendants,"Carcinoma, NOS, of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
-42511824,From descendants,"Adenocarcinoma in situ of lung, mucinous of overlapping lesion of lung",Condition,ICDO3,S,y,y,y,n,y,y,y
+42511824,From descendants,"Adenocarcinoma in situ of lung, mucinous of overlapping lesion of lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36530344,From descendants,Mucoepidermoid carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 36564790,From descendants,"Solitary fibrous tumor, malignant of overlapping lesion of lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36521617,From descendants,"Adenocarcinoma with squamous metaplasia of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -170,7 +170,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 37116436,From descendants,Malignant epithelial neoplasm of bronchus,Condition,SNOMED,S,y,y,y,n,y,y,y
 36530722,From descendants,Schneiderian carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 44505022,From descendants,"Adenocarcinoma of lung, mucinous of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
-42511643,From descendants,"Adenocarcinoma in situ of lung, mucinous of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
+42511643,From descendants,"Adenocarcinoma in situ of lung, mucinous of upper lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 44499010,From descendants,"Squamous cell carcinoma, NOS, of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 44503152,From descendants,"Alveolar adenocarcinoma of middle lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
 42512188,From descendants,"Perivascular epithelioid tumor, malignant of middle lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
@@ -237,9 +237,9 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44502436,From descendants,Basaloid squamous cell carcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 36566204,From descendants,Basal cell adenocarcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 45768928,From descendants,Primary adenoid cystic carcinoma of lung,Condition,SNOMED,S,y,y,y,n,y,y,y
-36403149,From descendants,"Adenocarcinoma in situ of lung, non-mucinous of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
+36403149,From descendants,"Adenocarcinoma in situ of lung, non-mucinous of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36533303,From descendants,"Malignant histiocytosis of lower lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
-36403081,From descendants,"Adenocarcinoma in situ of lung, non-mucinous of upper lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
+36403081,From descendants,"Adenocarcinoma in situ of lung, non-mucinous of upper lobe, lung",Condition,ICDO3,S,n,n,n,n,n,n,n
 36546635,From descendants,"Adenocarcinoma, intestinal type of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 44499963,From descendants,"Adenocarcinoma, NOS, of trachea",Condition,ICDO3,S,y,y,n,n,y,y,n
 36520186,From descendants,"Mucinous cystadenocarcinoma, NOS, of lower lobe, lung",Condition,ICDO3,S,y,y,y,n,y,y,y
@@ -614,7 +614,7 @@ concept_id,found_from,concept_name,domain_id,vocabulary_id,standard_concept,lung
 44505008,From descendants,"Non-small cell carcinoma of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
 36521066,From descendants,Scirrhous adenocarcinoma of main bronchus,Condition,ICDO3,S,y,y,y,n,y,y,y
 36538830,From descendants,Cloacogenic carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
-42512747,From descendants,"Adenocarcinoma in situ of lung, non-mucinous of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
+42512747,From descendants,"Adenocarcinoma in situ of lung, non-mucinous of lung, NOS",Condition,ICDO3,S,n,n,n,n,n,n,n
 36536720,From descendants,Basaloid carcinoma of overlapping lesion of lung,Condition,ICDO3,S,y,y,y,n,y,y,y
 36558075,From descendants,Malignant fibrous histiocytoma of main bronchus,Condition,ICDO3,S,n,n,n,n,n,n,n
 44505018,From descendants,"Adenoid cystic carcinoma of lung, NOS",Condition,ICDO3,S,y,y,y,n,y,y,y
