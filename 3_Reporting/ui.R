@@ -123,7 +123,23 @@ ui <- dashboardPage(
       href = "https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology",
       target = "_blank"
       )
-    )
+    ),
+    
+    # Logo 
+    tags$div(
+      style = "position: relative; margin-top: -20px; text-align: center; margin-bottom: 0;",
+      a(img(
+        src = "optima.png",  # Replace with the correct file name and extension
+        height = "auto",  # Adjust the height as needed
+        width = "95%"     # Let the width adjust proportionally
+      ),
+      href = "https://www.optima-oncology.eu/",
+      target = "_blank"
+      )
+    )  
+    
+    
+    
     
     
     )
