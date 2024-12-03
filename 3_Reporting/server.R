@@ -550,7 +550,7 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                strip.text.x = element_text(face = "bold", size = 20),
+                strip.text.x = element_text(face = "bold", size = 10),
                 legend.key = element_rect(fill = "white"),
                 text = element_text(size = 20))
 
@@ -575,7 +575,7 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                strip.text.x = element_text(face = "bold", size = 20),
+                strip.text.x = element_text(face = "bold", size = 10),
                 legend.key = element_rect(fill = "white"),
                 text = element_text(size = 20))
         
@@ -598,7 +598,7 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                strip.text.x = element_text(face = "bold", size = 20),
+                strip.text.x = element_text(face = "bold", size = 10),
                 legend.key = element_rect(fill = "white"),
                 text = element_text(size = 20))
         
@@ -620,7 +620,7 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                strip.text.x = element_text(face = "bold", size = 20),
+                strip.text.x = element_text(face = "bold", size = 10),
                 legend.key = element_rect(fill = "white"),
                 text = element_text(size = 20))
         
@@ -658,7 +658,7 @@ server <-	function(input, output, session) {
                   panel.background = element_blank() ,
                   axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  strip.text.x = element_text(face = "bold", size = 20),
+                  strip.text.x = element_text(face = "bold", size = 10),
                   legend.key = element_rect(fill = "white"),
                   text = element_text(size = 20)) +
             facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
@@ -680,7 +680,7 @@ server <-	function(input, output, session) {
                   panel.background = element_blank() ,
                   axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  strip.text.x = element_text(face = "bold", size = 20),
+                  strip.text.x = element_text(face = "bold", size = 10),
                   legend.key = element_rect(fill = "white"),
                   text = element_text(size = 20))
             
@@ -702,7 +702,7 @@ server <-	function(input, output, session) {
                   panel.background = element_blank() ,
                   axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  strip.text.x = element_text(face = "bold", size = 20),
+                  strip.text.x = element_text(face = "bold", size = 10),
                   legend.key = element_rect(fill = "white"),
                   text = element_text(size = 20)) +
             facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
@@ -723,7 +723,7 @@ server <-	function(input, output, session) {
                   panel.background = element_blank() ,
                   axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  strip.text.x = element_text(face = "bold", size = 20),
+                  strip.text.x = element_text(face = "bold", size = 10),
                   legend.key = element_rect(fill = "white"),
                   text = element_text(size = 20)) +
             facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
@@ -816,7 +816,7 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 20),
+              strip.text.x = element_text(face = "bold", size = 10),
               legend.key = element_rect(fill = "white"),
               text = element_text(size = 20))
       
@@ -841,7 +841,7 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 20),
+              strip.text.x = element_text(face = "bold", size = 10),
               legend.key = element_rect(fill = "white"),
               text = element_text(size = 20))
       
@@ -866,7 +866,7 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 20),
+              strip.text.x = element_text(face = "bold", size = 10),
               legend.key = element_rect(fill = "white"),
               text = element_text(size = 20))
       
@@ -887,7 +887,7 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 20),
+              strip.text.x = element_text(face = "bold", size = 10),
               legend.key = element_rect(fill = "white"),
               text = element_text(size = 20))
       
@@ -927,7 +927,7 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 20),
+              strip.text.x = element_text(face = "bold", size = 10),
               legend.key = element_rect(fill = "white"),
               text = element_text(size = 20))
       
@@ -950,7 +950,7 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 20),
+              strip.text.x = element_text(face = "bold", size = 10),
               legend.key = element_rect(fill = "white"),
               text = element_text(size = 20))
       
@@ -972,7 +972,7 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 20),
+              strip.text.x = element_text(face = "bold", size = 10),
               legend.key = element_rect(fill = "white"),
               text = element_text(size = 20))
       
@@ -992,7 +992,7 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 20),
+              strip.text.x = element_text(face = "bold", size = 10),
               legend.key = element_rect(fill = "white"),
               text = element_text(size = 20))
       
