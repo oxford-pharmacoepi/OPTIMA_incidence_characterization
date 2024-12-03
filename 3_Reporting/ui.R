@@ -131,7 +131,7 @@ ui <- dashboardPage(
       a(img(
         src = "optima.png",  # Replace with the correct file name and extension
         height = "auto",  # Adjust the height as needed
-        width = "95%"     # Let the width adjust proportionally
+        width = "80%"     # Let the width adjust proportionally
       ),
       href = "https://www.optima-oncology.eu/",
       target = "_blank"

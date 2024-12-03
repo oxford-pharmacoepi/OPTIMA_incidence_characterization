@@ -550,9 +550,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                strip.text.x = element_text(face = "bold", size = 30),
+                strip.text.x = element_text(face = "bold", size = 20),
                 legend.key = element_rect(fill = "white"),
-                text = element_text(size = 30))
+                text = element_text(size = 20))
 
         
       } else if (!is.null(input$incidence_plot_group) && is.null(input$incidence_plot_facet)) {
@@ -575,9 +575,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                strip.text.x = element_text(face = "bold", size = 30),
+                strip.text.x = element_text(face = "bold", size = 20),
                 legend.key = element_rect(fill = "white"),
-                text = element_text(size = 30))
+                text = element_text(size = 20))
         
       } else if (is.null(input$incidence_plot_group) && !is.null(input$incidence_plot_facet)) {
         plot <- plot_data %>%
@@ -598,9 +598,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                strip.text.x = element_text(face = "bold", size = 30),
+                strip.text.x = element_text(face = "bold", size = 20),
                 legend.key = element_rect(fill = "white"),
-                text = element_text(size = 30))
+                text = element_text(size = 20))
         
       } else {
         plot <- plot_data %>%
@@ -620,9 +620,9 @@ server <-	function(input, output, session) {
                 panel.background = element_blank() ,
                 axis.line = element_line(colour = "black", size = 0.6) ,
                 panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                strip.text.x = element_text(face = "bold", size = 30),
+                strip.text.x = element_text(face = "bold", size = 20),
                 legend.key = element_rect(fill = "white"),
-                text = element_text(size = 30))
+                text = element_text(size = 20))
         
       }
       
@@ -658,9 +658,9 @@ server <-	function(input, output, session) {
                   panel.background = element_blank() ,
                   axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  strip.text.x = element_text(face = "bold", size = 30),
+                  strip.text.x = element_text(face = "bold", size = 20),
                   legend.key = element_rect(fill = "white"),
-                  text = element_text(size = 30)) +
+                  text = element_text(size = 20)) +
             facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
           
         } else if (!is.null(input$incidence_plot_group) && is.null(input$incidence_plot_facet)) {
@@ -680,9 +680,9 @@ server <-	function(input, output, session) {
                   panel.background = element_blank() ,
                   axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  strip.text.x = element_text(face = "bold", size = 30),
+                  strip.text.x = element_text(face = "bold", size = 20),
                   legend.key = element_rect(fill = "white"),
-                  text = element_text(size = 30))
+                  text = element_text(size = 20))
             
           
         } else if (is.null(input$incidence_plot_group) && !is.null(input$incidence_plot_facet)) {
@@ -702,9 +702,9 @@ server <-	function(input, output, session) {
                   panel.background = element_blank() ,
                   axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  strip.text.x = element_text(face = "bold", size = 30),
+                  strip.text.x = element_text(face = "bold", size = 20),
                   legend.key = element_rect(fill = "white"),
-                  text = element_text(size = 30)) +
+                  text = element_text(size = 20)) +
             facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
             
           
@@ -723,9 +723,9 @@ server <-	function(input, output, session) {
                   panel.background = element_blank() ,
                   axis.line = element_line(colour = "black", size = 0.6) ,
                   panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-                  strip.text.x = element_text(face = "bold", size = 30),
+                  strip.text.x = element_text(face = "bold", size = 20),
                   legend.key = element_rect(fill = "white"),
-                  text = element_text(size = 30)) +
+                  text = element_text(size = 20)) +
             facet_wrap(vars(facet_var), ncol = 3, scales = "free_y")
           
           
@@ -816,9 +816,9 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 30),
+              strip.text.x = element_text(face = "bold", size = 20),
               legend.key = element_rect(fill = "white"),
-              text = element_text(size = 30))
+              text = element_text(size = 20))
       
       
     } else if (!is.null(input$incidence_plot_group_std) && is.null(input$incidence_plot_facet_std)) {
@@ -841,9 +841,9 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 30),
+              strip.text.x = element_text(face = "bold", size = 20),
               legend.key = element_rect(fill = "white"),
-              text = element_text(size = 30))
+              text = element_text(size = 20))
       
     } else if (is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
       plot <- plot_data %>%
@@ -866,9 +866,9 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 30),
+              strip.text.x = element_text(face = "bold", size = 20),
               legend.key = element_rect(fill = "white"),
-              text = element_text(size = 30))
+              text = element_text(size = 20))
       
     } else {
       plot <- plot_data %>%
@@ -887,9 +887,9 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 30),
+              strip.text.x = element_text(face = "bold", size = 20),
               legend.key = element_rect(fill = "white"),
-              text = element_text(size = 30))
+              text = element_text(size = 20))
       
     }
     
@@ -927,9 +927,9 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 30),
+              strip.text.x = element_text(face = "bold", size = 20),
               legend.key = element_rect(fill = "white"),
-              text = element_text(size = 30))
+              text = element_text(size = 20))
       
       
     } else if (!is.null(input$incidence_plot_group_std) && is.null(input$incidence_plot_facet_std)) {
@@ -950,9 +950,9 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 30),
+              strip.text.x = element_text(face = "bold", size = 20),
               legend.key = element_rect(fill = "white"),
-              text = element_text(size = 30))
+              text = element_text(size = 20))
       
       
     } else if (is.null(input$incidence_plot_group_std) && !is.null(input$incidence_plot_facet_std)) {
@@ -972,9 +972,9 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 30),
+              strip.text.x = element_text(face = "bold", size = 20),
               legend.key = element_rect(fill = "white"),
-              text = element_text(size = 30))
+              text = element_text(size = 20))
       
       
     } else {
@@ -992,9 +992,9 @@ get_incidence_plot_std <- reactive({
               panel.background = element_blank() ,
               axis.line = element_line(colour = "black", size = 0.6) ,
               panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
-              strip.text.x = element_text(face = "bold", size = 30),
+              strip.text.x = element_text(face = "bold", size = 20),
               legend.key = element_rect(fill = "white"),
-              text = element_text(size = 30))
+              text = element_text(size = 20))
       
       
     }
