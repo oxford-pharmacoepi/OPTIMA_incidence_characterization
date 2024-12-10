@@ -36,25 +36,31 @@ if(isTRUE(run_incidence)){
     interval = c("years", "overall"),
     outcomeWashout = Inf,
     repeatedEvents = FALSE,
-    completeDatabaseIntervals = TRUE,
-    minCellCount = 0
+    completeDatabaseIntervals = TRUE
   ) 
   
   
+  # get the incidence estimates
   inc_tidy <- inc %>% 
     visOmopResults::splitAdditional() %>% 
+    visOmopResults::splitGroup() %>% 
     visOmopResults::addSettings() %>% 
-    pivot_wider(
-      names_from = estimate_name,
-      values_from = c(estimate_value, estimate_type)
-    ) %>% 
-    mutate(across(starts_with("estimate_value"), as.numeric)) %>%  # Convert estimate_value columns to numeric
-    rename_with(~ gsub("^estimate_value_", "", .), starts_with("estimate_value")) %>% 
-    select(-starts_with("estimate_type")) %>% 
-    mutate(outcome_count = as.integer(outcome_count),
-           
-           
+    filter(variable_name == "Outcome") %>% 
+    omopgenerics::pivotEstimates(pivotEstimatesBy = "estimate_name")
+  
+  
+  # get the denominator related results which contain the person years
+  inc_tidy1 <- inc %>% 
+    visOmopResults::splitAdditional() %>% 
+    visOmopResults::splitGroup() %>% 
+    visOmopResults::addSettings() %>% 
+    filter(variable_name == "Denominator") %>% 
+    omopgenerics::pivotEstimates(pivotEstimatesBy = "estimate_name") %>% 
+    select(
+      person_years
     )
+  
+  inc_tidy <- bind_cols(inc_tidy, inc_tidy1)
   
   
   cli::cli_alert_success("- Got incidence")
@@ -126,7 +132,7 @@ if(isTRUE(run_incidence)){
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
-      outcome_count ,                        
+      outcome_count ,                       
       person_years,                
       incidence_100000_pys ,
       incidence_100000_pys_95CI_lower,
@@ -149,7 +155,7 @@ if(isTRUE(run_incidence)){
     mutate(age_standard = "Crude") %>% 
     select(c(
       incidence_start_date,            
-      outcome_count ,                         
+      outcome_count ,                       
       person_years,                
       incidence_100000_pys ,
       incidence_100000_pys_95CI_lower,
