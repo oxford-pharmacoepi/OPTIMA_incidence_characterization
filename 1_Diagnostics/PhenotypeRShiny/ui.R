@@ -3,7 +3,7 @@ ui <- dashboardPage(
   dashboardHeader(
     title = tags$div(
       style = "display: flex; align-items: center;",
-      tags$a(href = "https://oxford-pharmacoepi.github.io/phenotypeR/",  # Replace with your desired URL
+      tags$a(href = "https://github.com/OHDSI/PhenotypeR",  # Replace with your desired URL
              tags$img(src = "phenotypeR.png", height = "50px", style = "margin-right: 10px;")  # Adjusted height
       ),
       tags$span("PhenotypeR", style = "margin-left: 10px; font-size: 24px;")  # Optional: Adjust title font size
@@ -108,7 +108,7 @@ ui <- dashboardPage(
       tabItem(
         tabName = "background",
         h3("PhenotypeR"),
-        h5("PhenotypeR is a package to assess feasibility of clinical phenotypes (cohorts and/or codelists) to be used for studies. The package is under developement however it relies on other publically available packages as a tool to help phenotyping. The developement version of the PhenotypeR package can be found " , a("here", href = "https://oxford-pharmacoepi.github.io/phenotypeR/")),
+        h5("PhenotypeR is a package to assess feasibility of clinical phenotypes (cohorts and/or codelists) to be used for studies. The package is under developement however it relies on other publically available packages as a tool to help phenotyping. The developement version of the PhenotypeR package can be found " , a("here", href = "https://github.com/OHDSI/PhenotypeR")),
       ),
       
       #cdm snapshot ------
