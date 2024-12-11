@@ -360,7 +360,7 @@ server <-	function(input, output, session) {
     
     
     table <- incidence_estimates %>%
-      filter(result_type == "incidence") %>% 
+      #filter(result_type == "incidence") %>% 
       filter(outcome_cohort_name %in% input$inc_estimates_cohort_selector) %>%
       filter(analysis_interval %in% input$inc_est_analysis_selector) %>% 
       filter(denominator_sex %in% input$inc_est_sex_selector) %>% 
@@ -375,21 +375,17 @@ server <-	function(input, output, session) {
                                                  incidence_100000_pys_95CI_lower," to ", 
                                                  incidence_100000_pys_95CI_upper, ")"))) %>% 
       select(-c(result_id,
-                group_name,
-                group_level,
+                reason_id,
                 strata_level,
                 strata_name,
                 variable_name,
-                result_type,
-                count,
-                package_name,
-                package_version,
+                variable_level,
+                denominator_cohort_name,
                 incidence_100000_pys_95CI_lower,
                 incidence_100000_pys_95CI_upper,
                 analysis_repeated_events,
-                min_cell_count,
+                denominator_time_at_risk,
                 denominator_target_cohort_name,
-                person_days,
                 denominator_days_prior_observation,   
                 denominator_start_date,
                 denominator_end_date,
@@ -400,7 +396,7 @@ server <-	function(input, output, session) {
                 )) %>% 
       rename(`Start Date` = incidence_start_date,
              `End Date` = incidence_end_date,
-             `Persons (n)` = denominator_count,
+            # `Persons (n)` = denominator_count,
              `Person Years`= person_years,
              `Events (n)` = outcome_count,
              `Incidence (100,000 pys)` = incidence_100000_pys,
@@ -1071,6 +1067,26 @@ get_lsc_characteristics <- reactive({
   lsc_characteristics
   
 })
+
+
+
+# lsc_data <- dataFiltered$summarise_large_scale_characteristics |>
+#   filter(!is.na(estimate_value)) |>
+#   visOmopResults::filterSettings(table_name %in% input$summarise_large_scale_characteristics_grouping_domain) |>
+#   dplyr::filter(cdm_name %in% input$lsc_database_name_selector ) |>
+#   dplyr::filter(group_level  %in% input$lsc_cohort_selector) |>
+#   dplyr::filter(variable_level  %in% input$lsc_time_selector)
+# 
+# tidy(lsc_data) |>
+#   mutate(concept = paste0(variable_name, " (",
+#                           concept_id, ")")) |>
+#   dplyr::select("cdm_name",
+#                 "concept",
+#                 "count",
+#                 "percentage")
+# 
+# })
+
 
 
 output$gt_lsc_characteristics <- DT::renderDataTable({

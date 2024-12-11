@@ -62,15 +62,20 @@ ui <- dashboardPage(
         tabName = "lsc",
         icon = shiny::icon("scale-balanced") ,
         
-        menuSubItem(
-          text = "Estimate",
-          tabName = "lsc_estimates"
-        )
         
+        menuSubItem(
+          text = "Matched Lsc",
+          tabName = "lsc_estimates"
+        ),
+
+        
+        menuSubItem(
+          text = "Lsc",
+          tabName = "lsc"
+        )
       ),
       
 
-      
       menuItem(
         text = "Incidence",
         tabName = "incidence",
@@ -754,17 +759,15 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "inc_estimates_cohort_selector",
             label = "Cohort Name",
-            # choices = unique(incidence_estimates$variable_level),
-            # selected = unique(incidence_estimates$variable_level)[1],
+
             
-            
-            choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$variable_level)) {
-              unique(incidence_estimates$variable_level)
+            choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$outcome_cohort_name)) {
+              unique(incidence_estimates$outcome_cohort_name)
             } else {
               c("No data available")
             },
-            selected = if (exists("incidence_estimates") && !is.null(incidence_estimates$variable_level)) {
-              unique(incidence_estimates$variable_level)[1]
+            selected = if (exists("incidence_estimates") && !is.null(incidence_estimates$outcome_cohort_name)) {
+              unique(incidence_estimates$outcome_cohort_name)[1]
             } else {
               "No data available"
             },
