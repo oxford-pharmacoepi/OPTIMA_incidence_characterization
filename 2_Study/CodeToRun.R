@@ -28,9 +28,10 @@ library(CodelistGenerator)
 library(DrugUtilisation)
 library(CohortCharacteristics)
 library(PhenotypeR)
+library(CohortConstructor)
 
 # database metadata and connection details -----
-# The name/ acronym for the database
+# The name/ acronym for your specific database please do not put OPTIMA or CDM
 db_name<-"..."
 
 # Specify databaseConnector connection details -----

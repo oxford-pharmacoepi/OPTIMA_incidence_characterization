@@ -51,9 +51,25 @@ cli::cli_alert_info("Summarising Table One Demographics")
       CDMConnector::recordCohortAttrition(reason="Excluded patients with no sex recorded" )
       
 
+    
+    
+cli::cli_alert_info("Creating matched cohorts for large scale characteristics")
+    
+    cdm$outcome_matched <- matchCohorts(
+      cohort = cdm$outcome,
+      matchSex = TRUE,
+      matchYearOfBirth = TRUE,
+      ratio = 1,
+      keepOriginalCohorts = TRUE,
+      name = "outcome_matched"
+    )
+    
+    
+    
+    
 suppressWarnings(
   
-  summaryDemographics <- cdm$outcome %>%
+  summaryDemographics <- cdm$outcome_matched %>%
     CohortCharacteristics::summariseCharacteristics(
       strata = list(c("sex"),
                     c("age_group"),
@@ -96,7 +112,7 @@ cli::cli_alert_info("Summarising table one Comorbidities")
   
   suppressWarnings(
     
-    summaryComorbidity <- cdm$outcome %>%
+    summaryComorbidity <- cdm$outcome_matched %>%
       CohortCharacteristics::summariseCharacteristics(
         strata = list(c("sex"),
                       c("age_group"),
@@ -170,7 +186,7 @@ cli::cli_alert_info("Summarising table one Medications")
   
   suppressWarnings(
     
-    summaryMedications <- cdm$outcome %>%
+    summaryMedications <- cdm$outcome_matched %>%
       CohortCharacteristics::summariseCharacteristics(
         strata = list(c("sex"),
                       c("age_group"),
@@ -230,18 +246,36 @@ cli::cli_alert_success("Table one Characterisation Analysis Complete")
 
 
 
-cli::cli_alert_info("Starting large scale matched characteristics")
+cli::cli_alert_info("Starting large scale characteristics")
 
-lsc_matched <- matchedDiagnostics(cdm$outcome, matchedSample = NULL)
 
-omopgenerics::exportSummarisedResult(lsc_matched,
+lsc <- cdm$outcome_matched %>% 
+  summariseLargeScaleCharacteristics(
+    strata = list(c("sex"),
+                  c("age_group"),
+                  c("age_group", "sex")),
+    window = list(c(-Inf, -1), c(-Inf, -366), c(-365, -31),
+                  c(-30, -1), c(0, 0),
+                  c(1, 30), c(31, 365),
+                  c(366, Inf), c(1, Inf)),
+    eventInWindow = c("condition_occurrence", 
+                      "visit_occurrence",
+                      "measurement", 
+                      "procedure_occurrence",
+                      "observation"),
+    episodeInWindow = c("drug_era"),
+    minimumFrequency = 0.0005,
+    includeSource = TRUE)
+    
+
+
+omopgenerics::exportSummarisedResult(lsc,
                                      minCellCount = 5,
                                      path = here("Results",db_name),
                                      fileName = paste0(cdmName(cdm),
                                                        "_large_scale_characteristics.csv")
 )
 
-cli::cli_alert_success("Large scale matched characteristics complete")
-
+cli::cli_alert_success("Large scale characteristics complete")
 
 }
