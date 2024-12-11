@@ -64,15 +64,16 @@ ui <- dashboardPage(
         
         
         menuSubItem(
-          text = "Matched Lsc",
-          tabName = "lsc_estimates"
-        ),
-
-        
-        menuSubItem(
           text = "Lsc",
           tabName = "lsc"
+        ),
+        
+        menuSubItem(
+          text = "Matched Lsc",
+          tabName = "lsc_estimates"
         )
+        
+        
       ),
       
 
@@ -246,13 +247,13 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "attrition_outcome_selector",
             label = "Cohort Name",
-            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$Variable_level)) {
-              unique(incidence_attrition$Variable_level)
+            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$Outcome_cohort_name)) {
+              unique(incidence_attrition$Outcome_cohort_name)
             } else {
               c("No data available")
             },
-            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$Variable_level)) {
-              unique(incidence_attrition$Variable_level)[1]
+            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$Outcome_cohort_name)) {
+              unique(incidence_attrition$Outcome_cohort_name)[1]
             } else {
               "No data available"
             },
@@ -335,29 +336,6 @@ ui <- dashboardPage(
           )
         ),
         
-
-        div(
-          style = "display: inline-block;vertical-align:top; width: 150px;",
-          pickerInput(
-            inputId = "attrition_time_selector",
-            label = "Time",
-            choices = if (exists("incidence_attrition") && !is.null(incidence_attrition$Analysis_interval)) {
-              unique(incidence_attrition$Analysis_interval)
-            } else {
-              c("No data available")
-            },
-            selected = if (exists("incidence_attrition") && !is.null(incidence_attrition$Analysis_interval)) {
-              "overall"
-            } else {
-              "No data available"
-            },
-            
-            
-            
-            options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-            multiple = TRUE
-          )
-        ),
         
         DT::dataTableOutput('tbl_incidence_attrition'),
         
@@ -648,13 +626,15 @@ ui <- dashboardPage(
        inputId = "lsc_cohort_selector",
        label = "Cohort Name",
        choices = lsc_characteristics %>%
-         visOmopResults::splitAll() %>% 
-         distinct(cohort_name) %>% 
-         pull(),
+         mutate(group_level = str_remove(group_level, "_matched$")) %>%
+         mutate(group_level = str_remove(group_level, "_sampled$")) %>%
+         distinct(group_level) %>%
+         pull(group_level),
        selected = lsc_characteristics %>%
-         visOmopResults::splitAll() %>% 
-         distinct(cohort_name) %>% 
-         pull() %>% 
+         mutate(group_level = str_remove(group_level, "_matched$")) %>%
+         mutate(group_level = str_remove(group_level, "_sampled$")) %>%
+         distinct(group_level) %>%
+         pull(group_level) %>% 
          first(),
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
@@ -689,6 +669,24 @@ ui <- dashboardPage(
      )
    ),
    
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsc_domain_selector",
+       label = "Domain",
+       choices = c("condition_occurrence", 
+                   "drug_exposure", 
+                   "measurement",
+                   "procedure_occurrence",
+                   "visit_occurrence",
+                   "observation"),
+       selected = "condition_occurrence",
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
 
    DT::dataTableOutput('gt_lsc_characteristics'),
    
@@ -703,6 +701,85 @@ ui <- dashboardPage(
  
  
  
+ 
+ tabItem(
+   tabName = "lsc",
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsco_cohort_selector",
+       label = "Cohort Name",
+       choices = lsc_characteristics_original %>%
+         visOmopResults::splitAll() %>% 
+         distinct(cohort_name) %>% 
+         pull(),
+       selected = lsc_characteristics_original %>%
+         visOmopResults::splitAll() %>% 
+         distinct(cohort_name) %>% 
+         pull() %>% 
+         first(),
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsco_database_name_selector",
+       label = "Database",
+       choices = unique(lsc_characteristics_original$cdm_name),
+       selected = unique(lsc_characteristics_original$cdm_name),
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsco_time_selector",
+       label = "Time",
+       choices = 
+         lsc_characteristics_original %>% 
+         filter(!(variable_level %in% c("Female", "Male", NA))) %>% 
+         pull(variable_level) %>% 
+         unique(),
+       selected = "-inf to -366",
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsco_domain_selector",
+       label = "Domain",
+       choices = c("condition_occurrence", 
+                   "drug_exposure", 
+                   "measurement",
+                   "procedure_occurrence",
+                   "visit_occurrence",
+                   "observation"),
+       selected = "condition_occurrence",
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   
+   DT::dataTableOutput('gt_lsco_characteristics'),
+   
+   div(style="display:inline-block",
+       downloadButton(
+         outputId = "gt_lsco_characteristics_word",
+         label = "Download table as word"
+       ),
+       style="display:inline-block; float:right")
+   
+ ) ,
  
  
  

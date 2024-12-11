@@ -60,25 +60,20 @@ server <-	function(input, output, session) {
     validate(need(input$attrition_database_name_selector != "", "Please select a database"))
     validate(need(input$attrition_sex_selector != "", "Please select sex group"))
     validate(need(input$attrition_age_selector != "", "Please select age group"))
-    validate(need(input$attrition_time_selector != "", "Please select time period"))
     
     
     table <- incidence_attrition %>% 
-      filter(Variable_level %in% input$attrition_outcome_selector) %>% 
+      filter(Outcome_cohort_name %in% input$attrition_outcome_selector) %>% 
       filter(CDM_name %in% input$attrition_database_name_selector) %>% 
       filter(Denominator_sex %in% input$attrition_sex_selector) %>%
       filter(Denominator_age_group %in% input$attrition_age_selector) %>%
-      filter(Analysis_interval %in% input$attrition_time_selector)  %>%
       select(-c(Denominator_cohort_name,
-                Result_type,
-                Package_name,
-                Package_version,
+                Variable_level,
                 Analysis_outcome_washout,
                 Analysis_complete_database_intervals,
                 Analysis_repeated_events,
                 Denominator_days_prior_observation,
                 Denominator_target_cohort_name,
-                Min_cell_count,
                 Outcome_cohort_name,
                 Denominator_time_at_risk,
                 Denominator_start_date,
@@ -1035,9 +1030,9 @@ output$incidence_download_plot_std <- downloadHandler(
 #large scale characteristics ----
 get_lsc_characteristics <- reactive({
   
-  # validate(
-  #   need(input$lsc_cohort_selector != "", "Please select a cohort")
-  # )
+  validate(
+    need(input$lsc_cohort_selector != "", "Please select a cohort")
+  )
   
   validate(
     need(input$lsc_time_selector != "", "Please select a demographic time period")
@@ -1046,25 +1041,54 @@ get_lsc_characteristics <- reactive({
   validate(
     need(input$lsc_database_name_selector != "", "Please select a database")
   )
+
   
-  lsc_characteristics <- lsc_characteristics %>%
-    visOmopResults::splitAll() %>% 
-    filter(cohort_name %in% input$lsc_cohort_selector) %>% 
+  lsc_data <- lsc_characteristics %>% 
+    filter(!is.na(estimate_value)) %>% 
+    filter(str_detect(group_level, paste(input$lsc_cohort_selector, collapse = "|"))) %>% 
     filter(variable_level %in% input$lsc_time_selector) %>% 
     filter(cdm_name %in% input$lsc_database_name_selector) %>% 
-    filter(estimate_name == "percentage") %>% 
-    mutate(estimate_value = as.integer(estimate_value)) %>% 
-    arrange(desc(estimate_value)) %>% 
-    select(-c(
-      result_id,
-      table,
-      window,
-      value,
-      estimate_type,
-      estimate_name
-    ))
+  visOmopResults::filterSettings(table_name == input$lsc_domain_selector) 
   
-  lsc_characteristics
+  target_cohort <- paste0(input$lsc_cohort_selector, "_sampled")
+  comparator_cohort <- paste0(input$lsc_cohort_selector, "_matched")
+  
+  
+  # check there is data for both cohorts
+  lsc_data <- lsc_data |>
+    tidy() |>
+    select(cdm_name,
+           cohort_name,
+           variable_name,
+           concept_id,
+           variable_level,
+           table_name,
+           percentage) |>
+    pivot_wider(names_from = cohort_name,
+                values_from = percentage)
+  if (nrow(lsc_data ) == 0) {
+    validate("No large scale characteristics in results")
+  }
+  
+  lsc <- lsc_data |>
+    mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)/100)) |>
+    mutate(smd = (!!sym(target_cohort) - !!sym(comparator_cohort))/sqrt((!!sym(target_cohort)*(1-!!sym(target_cohort)) + !!sym(comparator_cohort)*(1-!!sym(comparator_cohort)))/2)) |>
+    mutate(smd = round(smd, 3)) |>  # Round SMD to 3 decimal places
+    arrange(desc(smd))  |>
+    mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)*100)) |>
+    mutate(concept = paste0(variable_name, " (",concept_id, ")")) |>
+    select("Database" = cdm_name,
+           "Concept name (concept ID)" = concept,
+           "Table" = table_name,
+           "Time window" = variable_level,
+           target_cohort,
+           comparator_cohort,
+           "Standardised mean difference" = smd) 
+  
+  
+  lsc
+  
+
   
 })
 
