@@ -251,13 +251,10 @@ cli::cli_alert_info("Starting large scale characteristics")
 
 lsc <- cdm$outcome_matched %>% 
   summariseLargeScaleCharacteristics(
-    strata = list(c("sex"),
-                  c("age_group"),
-                  c("age_group", "sex")),
-    window = list(c(-Inf, -1), c(-Inf, -366), c(-365, -31),
+    window = list(c(-Inf, -366), c(-365, -31),
                   c(-30, -1), c(0, 0),
                   c(1, 30), c(31, 365),
-                  c(366, Inf), c(1, Inf)),
+                  c(366, Inf)),
     eventInWindow = c("condition_occurrence", 
                       "visit_occurrence",
                       "measurement", 
