@@ -391,7 +391,7 @@ server <-	function(input, output, session) {
                 )) %>% 
       rename(`Start Date` = incidence_start_date,
              `End Date` = incidence_end_date,
-            # `Persons (n)` = denominator_count,
+             `Persons (n)` = denominator_count,
              `Person Years`= person_years,
              `Events (n)` = outcome_count,
              `Incidence (100,000 pys)` = incidence_100000_pys,
