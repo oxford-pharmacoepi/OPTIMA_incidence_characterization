@@ -49,7 +49,7 @@ if(isTRUE(run_incidence)){
     omopgenerics::pivotEstimates(pivotEstimatesBy = "estimate_name")
   
   
-  # get the denominator related results which contain the person years
+  # get the denominator related results which contain the person years and denominator count
   inc_tidy1 <- inc %>% 
     visOmopResults::splitAdditional() %>% 
     visOmopResults::splitGroup() %>% 
@@ -57,7 +57,8 @@ if(isTRUE(run_incidence)){
     filter(variable_name == "Denominator") %>% 
     omopgenerics::pivotEstimates(pivotEstimatesBy = "estimate_name") %>% 
     select(
-      person_years
+      person_years,
+      denominator_count
     )
   
   inc_tidy <- bind_cols(inc_tidy, inc_tidy1)

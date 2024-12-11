@@ -198,13 +198,13 @@ for(i in seq_along(incidence_estimates_files)) {
 
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))  %>% 
-  mutate(variable_level = case_when(
-    variable_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
-    variable_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
-    variable_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
-    variable_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
-    TRUE ~ variable_level
-  )) %>% 
+  # mutate(variable_level = case_when(
+  #   variable_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+  #   variable_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+  #   variable_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+  #   variable_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+  #   TRUE ~ variable_level
+  # )) %>% 
   
   mutate(outcome_cohort_name = case_when(
     outcome_cohort_name == "lung_cancer_incident_all" ~ "Lung Cancer All",
@@ -353,9 +353,9 @@ comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
 rm(tableone_comorb)
 
 
-# large scale characteristics -------
+# large scale characteristics MATCHED -------
 lsc_files <- results[stringr::str_detect(results, ".csv")]
-lsc_files <- results[stringr::str_detect(results, "large_scale")]
+lsc_files <- results[stringr::str_detect(results, "matched_large_scale")]
 
 if(length(lsc_files > 0)){
   
@@ -370,9 +370,12 @@ if(length(lsc_files > 0)){
   
 }
 
+# lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
+#   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+#   filter(!str_starts(group_level, "matched_to_"))
+
 lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
-  filter(!str_starts(group_level, "matched_to_"))
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) 
 
 
 # cdm snapshot ------
