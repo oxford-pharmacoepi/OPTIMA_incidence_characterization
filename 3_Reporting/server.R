@@ -160,14 +160,27 @@ server <-	function(input, output, session) {
     )
     
     
+    
+    if(isTRUE(input$summarise_characteristics_include_matched)){
+      selectedCohorts <- c(
+        input$demographics_cohort_selector,
+        paste0(input$demographics_cohort_selector, " Sampled"),
+        paste0(input$demographics_cohort_selector, " Matched")
+      )     
+      
+      
+    } else {
+      selectedCohorts <- input$demographics_cohort_selector
+    }
+    
 
     demo_characteristics <- demo_characteristics %>%
+      filter(group_level %in% selectedCohorts) %>% 
       visOmopResults::splitStrata() %>%
       visOmopResults::splitGroup() %>%
-      filter(sex %in% input$demographics_sex_selector) %>% 
-      filter(age_group %in% input$demographics_age_selector) %>% 
-      filter(cohort_name %in% input$demographics_cohort_selector) %>% 
-      filter(cdm_name %in% input$demographics_database_name_selector) %>% 
+      filter(sex %in% input$demographics_sex_selector ,
+      age_group %in% input$demographics_age_selector ,
+      cdm_name %in% input$demographics_database_name_selector) %>% 
       visOmopResults::uniteGroup("cohort_name") %>% 
       visOmopResults::uniteStrata(c("sex", "age_group")) 
     
@@ -180,7 +193,14 @@ server <-	function(input, output, session) {
 
   output$gt_demo_characteristics  <- render_gt({
     CohortCharacteristics::tableCharacteristics(get_demo_characteristics(),
-                                          header = c("group", "cdm_name", "strata"))
+                                          header = c("group", "cdm_name", "strata")) %>% 
+      tab_header(
+        title = "Patient characteristics: Demographics",
+        subtitle = "Summary of patient characteristics relative to cohort entry"
+      ) %>%
+      tab_options(
+        heading.align = "left"  
+      )
   })
 
 
@@ -217,11 +237,25 @@ server <-	function(input, output, session) {
       need(input$comorb_database_name_selector != "", "Please select a database")
     )
     
+    
+    if(isTRUE(input$summarise_characteristics_include_matched1)){
+      selectedCohorts <- c(
+        input$comorb_cohort_selector,
+        paste0(input$comorb_cohort_selector, " Sampled"),
+        paste0(input$comorb_cohort_selector, " Matched")
+      )     
+      
+      
+    } else {
+      selectedCohorts <- input$comorb_cohort_selector
+    }
+    
+    
     comorb_characteristics <- comorb_characteristics %>%
+      filter(group_level %in% selectedCohorts) %>% 
       visOmopResults::splitAll() %>% 
       filter(sex %in% input$comorb_sex_selector) %>%
       filter(age_group %in% input$comorb_age_selector) %>%
-      filter(cohort_name %in% input$comorb_cohort_selector) %>% 
       filter(window %in% input$comorb_time_selector) %>% 
       filter(cdm_name %in% input$comorb_database_name_selector) %>% 
       visOmopResults::uniteAdditional(c("table", "window", "value")) %>% 
@@ -230,6 +264,8 @@ server <-	function(input, output, session) {
 
     
     comorb_characteristics
+    
+    
     
   })
   
@@ -240,7 +276,14 @@ server <-	function(input, output, session) {
                                           header = c("group", "cdm_name", "strata", "Window"),
                                           hide = c("result_id", "estimate_type",
                                                              "value","table", "variable_name")
-                                          )
+                                          ) %>% 
+      tab_header(
+        title = "Patient characteristics: Comorbidities",
+        subtitle = "Summary of patient characteristics relative to cohort entry"
+      ) %>%
+      tab_options(
+        heading.align = "left"  
+      )
   })
   
   
@@ -284,11 +327,26 @@ server <-	function(input, output, session) {
       need(input$med_database_name_selector != "", "Please select a database")
     )
     
+    
+    
+    if(isTRUE(input$summarise_characteristics_include_matched2)){
+      selectedCohorts <- c(
+        input$comorb_cohort_selector,
+        paste0(input$med_cohort_selector, " Sampled"),
+        paste0(input$med_cohort_selector, " Matched")
+      )     
+      
+      
+    } else {
+      selectedCohorts <- input$med_cohort_selector
+    }
+    
+    
     med_characteristics <- med_characteristics %>%
+      filter(group_level %in% selectedCohorts) %>% 
       visOmopResults::splitAll() %>% 
       filter(sex %in% input$med_sex_selector) %>%
       filter(age_group %in% input$med_age_selector) %>%
-      filter(cohort_name %in% input$med_cohort_selector) %>% 
       filter(window %in% input$med_time_selector) %>% 
       filter(cdm_name %in% input$med_database_name_selector) %>% 
       visOmopResults::uniteAdditional(c("table", "window", "value")) %>% 
@@ -296,6 +354,7 @@ server <-	function(input, output, session) {
       visOmopResults::uniteStrata(c("sex", "age_group")) 
     
     med_characteristics
+    
     
   })
   
@@ -306,7 +365,14 @@ server <-	function(input, output, session) {
                                          
                                           hide = c("result_id", "estimate_type",
                                                               "value","table", "variable_name")
-                                          )
+                                          ) %>% 
+      tab_header(
+        title = "Patient characteristics: Medications",
+        subtitle = "Summary of patient characteristics relative to cohort entry"
+      ) %>%
+      tab_options(
+        heading.align = "left"  
+      )
   })
   
   
@@ -355,7 +421,6 @@ server <-	function(input, output, session) {
     
     
     table <- incidence_estimates %>%
-      #filter(result_type == "incidence") %>% 
       filter(outcome_cohort_name %in% input$inc_estimates_cohort_selector) %>%
       filter(analysis_interval %in% input$inc_est_analysis_selector) %>% 
       filter(denominator_sex %in% input$inc_est_sex_selector) %>% 
@@ -1027,7 +1092,7 @@ output$incidence_download_plot_std <- downloadHandler(
 )
   
 
-#large scale characteristics ----
+#large scale characteristics matched ----
 get_lsc_characteristics <- reactive({
   
   validate(
@@ -1050,8 +1115,8 @@ get_lsc_characteristics <- reactive({
     filter(cdm_name %in% input$lsc_database_name_selector) %>% 
   visOmopResults::filterSettings(table_name == input$lsc_domain_selector) 
   
-  target_cohort <- paste0(input$lsc_cohort_selector, "_sampled")
-  comparator_cohort <- paste0(input$lsc_cohort_selector, "_matched")
+  target_cohort <- paste0(input$lsc_cohort_selector, " Sampled")
+  comparator_cohort <- paste0(input$lsc_cohort_selector, " Matched")
   
   
   # check there is data for both cohorts
@@ -1093,42 +1158,11 @@ get_lsc_characteristics <- reactive({
 })
 
 
-
-# lsc_data <- dataFiltered$summarise_large_scale_characteristics |>
-#   filter(!is.na(estimate_value)) |>
-#   visOmopResults::filterSettings(table_name %in% input$summarise_large_scale_characteristics_grouping_domain) |>
-#   dplyr::filter(cdm_name %in% input$lsc_database_name_selector ) |>
-#   dplyr::filter(group_level  %in% input$lsc_cohort_selector) |>
-#   dplyr::filter(variable_level  %in% input$lsc_time_selector)
-# 
-# tidy(lsc_data) |>
-#   mutate(concept = paste0(variable_name, " (",
-#                           concept_id, ")")) |>
-#   dplyr::select("cdm_name",
-#                 "concept",
-#                 "count",
-#                 "percentage")
-# 
-# })
-
-
-
 output$gt_lsc_characteristics <- DT::renderDataTable({
   DT::datatable(get_lsc_characteristics(), 
                 options = list(scrollX = TRUE),
                 rownames = NULL)
 })
-
-# output$gt_lsc_characteristics  <- render_gt({
-#   # CohortCharacteristics::tableLargeScaleCharacteristics(get_lsc_characteristics(),
-#   #                                             header = c("group", "cdm_name","cohort_name", "variable_level"),
-#   #                                             groupColumn = c("table_name", "type", "analysis"),
-#   #                                             hide = c("result_id", "estimate_type",
-#   #                                                      "value","table")
-#   # )
-#   
-#   get_lsc_characteristics()
-# })
 
 
 output$gt_lsc_characteristics_word <- downloadHandler(
@@ -1145,6 +1179,72 @@ output$gt_lsc_characteristics_word <- downloadHandler(
   }
 )
 
+
+
+
+
+#large scale characteristics matched ----
+get_lsc_characteristics1 <- reactive({
+  
+  validate(
+    need(input$lsc_cohort_selector1 != "", "Please select a cohort")
+  )
+  
+  validate(
+    need(input$lsc_time_selector1 != "", "Please select a demographic time period")
+  )
+  
+  validate(
+    need(input$lsc_database_name_selector1 != "", "Please select a database")
+  )
+  
+  
+  lsc_data1 <- lsc_characteristics %>% 
+    visOmopResults::filterSettings(table_name == input$lsc_domain_selector1) %>% 
+    #filter(!is.na(estimate_value)) %>% 
+    filter(!str_detect(group_level, "Matched|Sampled")) %>% 
+    filter(group_level %in% input$lsc_cohort_selector1) %>% 
+    filter(variable_level %in% input$lsc_time_selector1) %>% 
+    filter(cdm_name %in% input$lsc_database_name_selector1) 
+  
+  lsc_data1 <- lsc_data1 %>% 
+    tidy() %>% 
+    arrange(desc(percentage)) %>% 
+    mutate(concept = paste0(variable_name, " (",
+                            concept_id, ")")) |>
+    
+    mutate(estimate = paste0(count, " (",
+                            percentage, "%)")) |>
+    
+  
+  select("Database" = cdm_name,
+         "Concept name (concept ID)" = concept,
+         "Table" = table_name,
+         "Time window" = variable_level,
+         "Estimate" = estimate)
+           
+  
+  
+  if (nrow(lsc_data1 ) == 0) {
+    validate("No large scale characteristics in results")
+  }
+  
+  
+
+  
+  
+lsc_data1
+                                                        
+  
+  
+  
+})
+
+output$gt_lsc_characteristics1 <- DT::renderDataTable({
+  DT::datatable(get_lsc_characteristics1(), 
+                options = list(scrollX = TRUE),
+                rownames = NULL)
+})
 
 
    

@@ -464,7 +464,7 @@ ui <- dashboardPage(
           ),
           
           shinyWidgets::prettyCheckbox(
-            inputId = "summarise_characteristics_include_matched", 
+            inputId = "summarise_characteristics_include_matched1", 
             label = "Show matched cohorts", 
             value = FALSE)
           
@@ -571,7 +571,7 @@ ui <- dashboardPage(
           ),
           
           shinyWidgets::prettyCheckbox(
-            inputId = "summarise_characteristics_include_matched", 
+            inputId = "summarise_characteristics_include_matched2", 
             label = "Show matched cohorts", 
             value = FALSE)
           
@@ -660,13 +660,13 @@ ui <- dashboardPage(
        inputId = "lsc_cohort_selector",
        label = "Cohort Name",
        choices = lsc_characteristics %>%
-         mutate(group_level = str_remove(group_level, "_matched$")) %>%
-         mutate(group_level = str_remove(group_level, "_sampled$")) %>%
+         mutate(group_level = str_remove(group_level, " Matched$")) %>%
+         mutate(group_level = str_remove(group_level, " Sampled$")) %>%
          distinct(group_level) %>%
          pull(group_level),
        selected = lsc_characteristics %>%
-         mutate(group_level = str_remove(group_level, "_matched$")) %>%
-         mutate(group_level = str_remove(group_level, "_sampled$")) %>%
+         mutate(group_level = str_remove(group_level, " Matched$")) %>%
+         mutate(group_level = str_remove(group_level, " Sampled$")) %>%
          distinct(group_level) %>%
          pull(group_level) %>% 
          first(),
@@ -734,6 +734,86 @@ ui <- dashboardPage(
  ) ,
  
  
+ tabItem(
+   tabName = "lsc",
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsc_cohort_selector1",
+       label = "Cohort Name",
+       choices = lsc_characteristics %>%
+         mutate(group_level = str_remove(group_level, " Matched$")) %>%
+         mutate(group_level = str_remove(group_level, " Sampled$")) %>%
+         distinct(group_level) %>%
+         pull(group_level),
+       selected = lsc_characteristics %>%
+         mutate(group_level = str_remove(group_level, " Matched$")) %>%
+         mutate(group_level = str_remove(group_level, " Sampled$")) %>%
+         distinct(group_level) %>%
+         pull(group_level) %>% 
+         first(),
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsc_database_name_selector1",
+       label = "Database",
+       choices = unique(lsc_characteristics$cdm_name),
+       selected = unique(lsc_characteristics$cdm_name),
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsc_time_selector1",
+       label = "Time",
+       choices = 
+         lsc_characteristics %>% 
+         filter(!(variable_level %in% c("Female", "Male", NA))) %>% 
+         pull(variable_level) %>% 
+         unique(),
+       selected = "-inf to -366",
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsc_domain_selector1",
+       label = "Domain",
+       choices = c("condition_occurrence", 
+                   "drug_era", 
+                   "measurement",
+                   "procedure_occurrence",
+                   "visit_occurrence",
+                   "observation"),
+       selected = "condition_occurrence",
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+
+   DT::dataTableOutput('gt_lsc_characteristics1'),
+   
+   div(style="display:inline-block",
+       downloadButton(
+         outputId = "gt_lsc_characteristics_word1",
+         label = "Download table as word"
+       ),
+       style="display:inline-block; float:right")
+   
+ ) ,
  
  
  # tabItem(
