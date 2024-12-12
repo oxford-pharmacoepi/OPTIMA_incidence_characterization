@@ -71,13 +71,15 @@ ui <- dashboardPage(
         menuSubItem(
           text = "Matched Lsc",
           tabName = "lsc_estimates"
-        ),
-        
-        
-        menuSubItem(
-          text = "Matched Lsc plot",
-          tabName = "lsc_plot"
         )
+        
+        # ,
+        # 
+        # 
+        # menuSubItem(
+        #   text = "Matched Lsc plot",
+        #   tabName = "lsc_plot"
+        # )
         
         
         
@@ -902,9 +904,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "inc_est_analysis_selector",
             label = "Analysis Interval",
-            # choices = unique(incidence_estimates$analysis_interval),
-            # selected = "years",
-            
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$analysis_interval)) {
               unique(incidence_estimates$analysis_interval)
@@ -930,8 +929,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "inc_est_database_selector",
             label = "Database",
-            # choices = unique(incidence_estimates$cdm_name),
-            # selected = unique(incidence_estimates$cdm_name)[1],
             
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$cdm_name)) {
@@ -958,8 +955,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "inc_est_sex_selector",
             label = "Sex",
-            # choices = unique(incidence_estimates$denominator_sex),
-            # selected = "Both",
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$denominator_sex)) {
               unique(incidence_estimates$denominator_sex)
@@ -983,8 +978,7 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "inc_est_age_selector",
             label = "Age Group",
-            # choices = unique(incidence_estimates$denominator_age_group),
-            # selected = "18 to 150",
+
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$denominator_age_group)) {
               unique(incidence_estimates$denominator_age_group)
@@ -1023,8 +1017,7 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "inc_estimates_cohort_selector_std",
             label = "Cohort Name",
-            # choices = unique(incidence_estimates_std$outcome_cohort_name),
-            # selected = unique(incidence_estimates_std$outcome_cohort_name)[1],
+
             
             choices = if (exists("incidence_estimates_std") && !is.null(incidence_estimates_std$outcome_cohort_name)) {
               unique(incidence_estimates_std$outcome_cohort_name)
@@ -1048,8 +1041,7 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "inc_estimates_sex_selector_std",
             label = "Sex",
-            # choices = unique(incidence_estimates_std$denominator_sex),
-            # selected = "Both",
+
             choices = if (exists("incidence_estimates_std") && !is.null(incidence_estimates_std$denominator_sex)) {
               unique(incidence_estimates_std$denominator_sex)
             } else {
@@ -1070,8 +1062,7 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "inc_estimates_database_selector_std",
             label = "Database",
-            # choices = unique(incidence_estimates_std$cdm_name),
-            # selected = unique(incidence_estimates_std$cdm_name)[1],
+
             
             choices = if (exists("incidence_estimates_std") && !is.null(incidence_estimates_std$cdm_name)) {
               unique(incidence_estimates_std$cdm_name)
@@ -1304,6 +1295,266 @@ ui <- dashboardPage(
         
         
       ),
+ 
+ 
+ 
+ 
+ 
+ # tabItem(
+ #   tabName = "lsc_plots",
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "incidence_database_selector",
+ #       label = "Database",
+ #       
+ #       choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$cdm_name)) {
+ #         unique(incidence_estimates_std$cdm_name)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("incidence_estimates") && !is.null(incidence_estimates$cdm_name)) {
+ #         unique(incidence_estimates$cdm_name)
+ #       } else {
+ #         "No data available"
+ #       },
+ #       
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "incidence_cohort_name_selector",
+ #       label = "Cohort Name",
+ #       
+ #       choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$outcome_cohort_name)) {
+ #         unique(incidence_estimates$outcome_cohort_name)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("incidence_estimates") && !is.null(incidence_estimates$outcome_cohort_name)) {
+ #         unique(incidence_estimates$outcome_cohort_name)[1]
+ #       } else {
+ #         "No data available"
+ #       },
+ #       
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "incidence_denominator_analysis_interval_selector",
+ #       label = "Analysis Interval",
+ #       
+ #       choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$analysis_interval)) {
+ #         unique(incidence_estimates$analysis_interval)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("incidence_estimates") && !is.null(incidence_estimates$analysis_interval)) {
+ #         "years"
+ #       } else {
+ #         "No data available"
+ #       },
+ #       
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = FALSE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "incidence_start_date_selector",
+ #       label = "Incidence Start Date",
+ #       
+ #       choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$incidence_start_date)) {
+ #         as.character(unique(incidence_estimates_std$incidence_start_date))
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("incidence_estimates") && !is.null(incidence_estimates$incidence_start_date)) {
+ #         as.character(unique(incidence_estimates_std$incidence_start_date))
+ #       } else {
+ #         "No data available"
+ #       },
+ #       
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "incidence_sex_selector",
+ #       label = "Sex",
+ #       
+ #       choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$denominator_sex)) {
+ #         unique(incidence_estimates_std$denominator_sex)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("incidence_estimates") && !is.null(incidence_estimates$denominator_sex)) {
+ #         "Both"
+ #       } else {
+ #         "No data available"
+ #       },
+ #       
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "incidence_age_selector",
+ #       label = "Age Group",
+ #       
+ #       choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$denominator_age_group)) {
+ #         unique(incidence_estimates_std$denominator_age_group)
+ #       } else {
+ #         c("No data available")
+ #       },
+ #       selected = if (exists("incidence_estimates") && !is.null(incidence_estimates$denominator_age_group)) {
+ #         "18 to 150"
+ #       } else {
+ #         "No data available"
+ #       },
+ #       
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(style="display: inline-block;vertical-align:top; width: 150px;",
+ #       pickerInput(inputId = "incidence_plot_facet",
+ #                   label = "Facet by",
+ #                   choices = c("outcome_cohort_name", 
+ #                               "denominator_sex",
+ #                               "cdm_name" ,
+ #                               "denominator_age_group"),
+ #                   selected = c("outcome_cohort_name"),
+ #                   options = list(
+ #                     `actions-box` = TRUE,
+ #                     size = 10,
+ #                     `selected-text-format` = "count > 3"),
+ #                   multiple = TRUE,)
+ #   ),
+ #   
+ #   div(style="display: inline-block;vertical-align:top; width: 150px;",
+ #       pickerInput(inputId = "incidence_plot_group",
+ #                   label = "Colour by",
+ #                   choices = c("outcome_cohort_name", 
+ #                               "denominator_sex",
+ #                               "cdm_name" ,
+ #                               "denominator_age_group"
+ #                   ),
+ #                   selected = c("cdm_name"),
+ #                   options = list(
+ #                     `actions-box` = TRUE,
+ #                     size = 10,
+ #                     `selected-text-format` = "count > 3"),
+ #                   multiple = TRUE,)
+ #       
+ #       
+ #   ),
+ #   
+ #  
+ #   
+ #   div(
+ # 
+ #     plotly::plotlyOutput("plotly_compare_lsc") %>% 
+ #     withSpinner()
+ #   
+ #   
+ # ),
+ 
+ 
+ 
+ tabItem(
+   tabName = "lsc_plot",
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsc_cohort_selector2",
+       label = "Cohort Name",
+       choices = lsc_characteristics %>%
+         mutate(group_level = str_remove(group_level, " Matched$")) %>%
+         mutate(group_level = str_remove(group_level, " Sampled$")) %>%
+         distinct(group_level) %>%
+         pull(group_level),
+       selected = lsc_characteristics %>%
+         mutate(group_level = str_remove(group_level, " Matched$")) %>%
+         mutate(group_level = str_remove(group_level, " Sampled$")) %>%
+         distinct(group_level) %>%
+         pull(group_level) %>% 
+         first(),
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsc_database_name_selector2",
+       label = "Database",
+       choices = unique(lsc_characteristics$cdm_name),
+       selected = unique(lsc_characteristics$cdm_name)[1],
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsc_time_selector2",
+       label = "Time",
+       choices = 
+         lsc_characteristics %>% 
+         filter(!(variable_level %in% c("Female", "Male", NA))) %>% 
+         pull(variable_level) %>% 
+         unique(),
+       selected = "-inf to -366",
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "lsc_domain_selector2",
+       label = "Domain",
+       choices = c("condition_occurrence", 
+                   "drug_era", 
+                   "measurement",
+                   "procedure_occurrence",
+                   "visit_occurrence",
+                   "observation"),
+       selected = "condition_occurrence",
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   
+       plotly::plotlyOutput("plotly_compare_lsc") %>%
+       withSpinner()
+   
+ ) ,
+ 
+ 
+ 
       
       
       tabItem(

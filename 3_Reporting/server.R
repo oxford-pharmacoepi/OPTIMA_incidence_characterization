@@ -1183,7 +1183,7 @@ output$gt_lsc_characteristics_word <- downloadHandler(
 
 
 
-#large scale characteristics matched ----
+#large scale characteristics ----
 get_lsc_characteristics1 <- reactive({
   
   validate(
@@ -1247,33 +1247,15 @@ output$gt_lsc_characteristics1 <- DT::renderDataTable({
 })
 
 
-outputLSC <- shiny::reactive({
-  # if (is.null(dataFiltered$summarise_large_scale_characteristics)) {
-  #   validate("No large scale characteristics in results")
-  # }
-  
-  data_filtered <- lsc_characteristics |> 
-    filter(cdm_name %in% input$lsc_database_name_selector,
-           group_level %in% input$lsc_cohort_selector ,
-           variable_level %in% input$lsc_time_selector) %>% 
-    visOmopResults::filterSettings(table_name == input$lsc_domain_selector) 
-  
-  if (nrow(data_filtered) == 0) {
-    validate("No large scale characteristics in results")
-  }
-  
-  data_filtered
-  
-  
-})
+
 
 # compare lsc plot ----
 output$plotly_compare_lsc <- renderPlotly({
   
   plot_lsc <-  lsc_characteristics |> 
-    filter(cdm_name %in% input$lsc_database_name_selector,
-           group_level %in% input$lsc_cohort_selector ,
-           variable_level %in% input$lsc_time_selector) %>% 
+    filter(cdm_name %in% input$lsc_database_name_selector2,
+           group_level %in% input$lsc_cohort_selector2 ,
+           variable_level %in% input$lsc_time_selector2) %>% 
     visOmopResults::filterSettings(table_name == input$lsc_domain_selector) 
   
 
@@ -1284,20 +1266,20 @@ output$plotly_compare_lsc <- renderPlotly({
   
   if (nrow(plot_lsc |> 
            filter(group_level == 
-                  paste0(input$lsc_cohort_selector, 
+                  paste0(input$lsc_cohort_selector2, 
                          " Sampled"))) == 0) {
     validate("No results found for sample cohort")
   } 
   if (nrow(plot_lsc |> 
            filter(group_level == 
-                  paste0(input$lsc_cohort_selector, 
+                  paste0(input$lsc_cohort_selector2, 
                          " Matched"))) == 0) {
     validate("No results found for matched cohort")
   } 
   
   plotComparedLsc(lsc = plot_lsc,
-                  cohorts = c(paste0(input$lsc_cohort_selector, " Sampled"),
-                              paste0(input$lsc_cohort_selector, " Matched")))
+                  cohorts = c(paste0(input$lsc_cohort_selector2, " Sampled"),
+                              paste0(input$lsc_cohort_selector2, " Matched")))
   
 } )
 
