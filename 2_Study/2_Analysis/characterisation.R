@@ -65,8 +65,27 @@ cli::cli_alert_info("Creating matched cohorts for large scale characteristics")
     )
     
     
+# add in demographics again (generates a warning but have suppressed it)
     
+suppressWarnings(
     
+    cdm$outcome_matched <- cdm$outcome_matched %>% 
+      PatientProfiles::addDemographics(
+        ageGroup = list(
+          "age_group" =
+            list(
+              "18 to 49" = c(18, 49),
+              "50 to 59" = c(50, 59),
+              "60 to 69" = c(60, 69),
+              "70 to 79" = c(70, 79),
+              "80 to 89" = c(80, 89),
+              "90+" = c(90, 150)
+            )
+        ))  
+    
+    )
+ 
+       
 suppressWarnings(
   
   summaryDemographics <- cdm$outcome_matched %>%
@@ -84,7 +103,6 @@ suppressWarnings(
   
 )
 
-  
   
   
 cli::cli_alert_info("Exporting demographics table one characteristics results")
