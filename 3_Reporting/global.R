@@ -294,7 +294,32 @@ incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>%
   }
   
   demo_characteristics <- Reduce(omopgenerics::bind, tableone_demo) %>%
-    mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+    mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+    mutate(group_level = case_when(
+      group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+      group_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+      group_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+      group_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+      group_level == "lung_cancer_incident_all_sampled" ~ "Lung Cancer All Sampled",
+      group_level == "lung_cancer_incident_broad_sampled" ~ "Lung Cancer Broad Sampled",
+      group_level == "lung_cancer_incident_narrow_sampled" ~ "Lung Cancer Narrow Sampled",
+      group_level == "small_cell_lung_cancer_sampled" ~ "Small Cell Lung Cancer Sampled",
+      group_level == "lung_cancer_incident_all_matched" ~ "Lung Cancer All Matched",
+      group_level == "lung_cancer_incident_broad_matched" ~ "Lung Cancer Broad Matched",
+      group_level == "lung_cancer_incident_narrow_matched" ~ "Lung Cancer Narrow Matched",
+      group_level == "small_cell_lung_cancer_matched" ~ "Small Cell Lung Cancer Matched",
+      TRUE ~ group_level
+    )) %>% 
+    
+    mutate(cdm_name = case_when(
+      cdm_name == "THIN es" ~ "THIN Spain",
+      cdm_name == "THIN be" ~ "THIN Belguim",
+      cdm_name == "THIN fr" ~ "THIN France",
+      cdm_name == "THIN it" ~ "THIN Italy",
+      cdm_name == "THIN ro" ~ "THIN Romania",
+      cdm_name == "THIN uk" ~ "THIN UK",
+      TRUE ~ cdm_name
+    )) 
   
   rm(tableone_demo)
 
@@ -317,7 +342,32 @@ if(length(tableone_med_files > 0)){
 }
 
 med_characteristics <- Reduce(omopgenerics::bind, tableone_med) %>%
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  mutate(group_level = case_when(
+    group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+    group_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    group_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    group_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    group_level == "lung_cancer_incident_all_sampled" ~ "Lung Cancer All Sampled",
+    group_level == "lung_cancer_incident_broad_sampled" ~ "Lung Cancer Broad Sampled",
+    group_level == "lung_cancer_incident_narrow_sampled" ~ "Lung Cancer Narrow Sampled",
+    group_level == "small_cell_lung_cancer_sampled" ~ "Small Cell Lung Cancer Sampled",
+    group_level == "lung_cancer_incident_all_matched" ~ "Lung Cancer All Matched",
+    group_level == "lung_cancer_incident_broad_matched" ~ "Lung Cancer Broad Matched",
+    group_level == "lung_cancer_incident_narrow_matched" ~ "Lung Cancer Narrow Matched",
+    group_level == "small_cell_lung_cancer_matched" ~ "Small Cell Lung Cancer Matched",
+    TRUE ~ group_level
+  )) %>% 
+  
+  mutate(cdm_name = case_when(
+    cdm_name == "THIN es" ~ "THIN Spain",
+    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN fr" ~ "THIN France",
+    cdm_name == "THIN it" ~ "THIN Italy",
+    cdm_name == "THIN ro" ~ "THIN Romania",
+    cdm_name == "THIN uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  )) 
 
 rm(tableone_med)
 
@@ -340,7 +390,32 @@ if(length(tableone_comorb_files > 0)){
 }
 
 comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+mutate(group_level = case_when(
+  group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+  group_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+  group_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+  group_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+  group_level == "lung_cancer_incident_all_sampled" ~ "Lung Cancer All Sampled",
+  group_level == "lung_cancer_incident_broad_sampled" ~ "Lung Cancer Broad Sampled",
+  group_level == "lung_cancer_incident_narrow_sampled" ~ "Lung Cancer Narrow Sampled",
+  group_level == "small_cell_lung_cancer_sampled" ~ "Small Cell Lung Cancer Sampled",
+  group_level == "lung_cancer_incident_all_matched" ~ "Lung Cancer All Matched",
+  group_level == "lung_cancer_incident_broad_matched" ~ "Lung Cancer Broad Matched",
+  group_level == "lung_cancer_incident_narrow_matched" ~ "Lung Cancer Narrow Matched",
+  group_level == "small_cell_lung_cancer_matched" ~ "Small Cell Lung Cancer Matched",
+  TRUE ~ group_level
+)) %>% 
+  
+  mutate(cdm_name = case_when(
+    cdm_name == "THIN es" ~ "THIN Spain",
+    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN fr" ~ "THIN France",
+    cdm_name == "THIN it" ~ "THIN Italy",
+    cdm_name == "THIN ro" ~ "THIN Romania",
+    cdm_name == "THIN uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  )) 
 
 rm(tableone_comorb)
 
