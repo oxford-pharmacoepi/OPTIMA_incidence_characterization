@@ -702,84 +702,84 @@ ui <- dashboardPage(
  
  
  
- tabItem(
-   tabName = "lsc",
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "lsco_cohort_selector",
-       label = "Cohort Name",
-       choices = lsc_characteristics_original %>%
-         visOmopResults::splitAll() %>% 
-         distinct(cohort_name) %>% 
-         pull(),
-       selected = lsc_characteristics_original %>%
-         visOmopResults::splitAll() %>% 
-         distinct(cohort_name) %>% 
-         pull() %>% 
-         first(),
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "lsco_database_name_selector",
-       label = "Database",
-       choices = unique(lsc_characteristics_original$cdm_name),
-       selected = unique(lsc_characteristics_original$cdm_name),
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "lsco_time_selector",
-       label = "Time",
-       choices = 
-         lsc_characteristics_original %>% 
-         filter(!(variable_level %in% c("Female", "Male", NA))) %>% 
-         pull(variable_level) %>% 
-         unique(),
-       selected = "-inf to -366",
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "lsco_domain_selector",
-       label = "Domain",
-       choices = c("condition_occurrence", 
-                   "drug_exposure", 
-                   "measurement",
-                   "procedure_occurrence",
-                   "visit_occurrence",
-                   "observation"),
-       selected = "condition_occurrence",
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   
-   DT::dataTableOutput('gt_lsco_characteristics'),
-   
-   div(style="display:inline-block",
-       downloadButton(
-         outputId = "gt_lsco_characteristics_word",
-         label = "Download table as word"
-       ),
-       style="display:inline-block; float:right")
-   
- ) ,
+ # tabItem(
+ #   tabName = "lsc",
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "lsco_cohort_selector",
+ #       label = "Cohort Name",
+ #       choices = lsc_characteristics_original %>%
+ #         visOmopResults::splitAll() %>% 
+ #         distinct(cohort_name) %>% 
+ #         pull(),
+ #       selected = lsc_characteristics_original %>%
+ #         visOmopResults::splitAll() %>% 
+ #         distinct(cohort_name) %>% 
+ #         pull() %>% 
+ #         first(),
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "lsco_database_name_selector",
+ #       label = "Database",
+ #       choices = unique(lsc_characteristics_original$cdm_name),
+ #       selected = unique(lsc_characteristics_original$cdm_name),
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "lsco_time_selector",
+ #       label = "Time",
+ #       choices = 
+ #         lsc_characteristics_original %>% 
+ #         filter(!(variable_level %in% c("Female", "Male", NA))) %>% 
+ #         pull(variable_level) %>% 
+ #         unique(),
+ #       selected = "-inf to -366",
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "lsco_domain_selector",
+ #       label = "Domain",
+ #       choices = c("condition_occurrence", 
+ #                   "drug_exposure", 
+ #                   "measurement",
+ #                   "procedure_occurrence",
+ #                   "visit_occurrence",
+ #                   "observation"),
+ #       selected = "condition_occurrence",
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   
+ #   DT::dataTableOutput('gt_lsco_characteristics'),
+ #   
+ #   div(style="display:inline-block",
+ #       downloadButton(
+ #         outputId = "gt_lsco_characteristics_word",
+ #         label = "Download table as word"
+ #       ),
+ #       style="display:inline-block; float:right")
+ #   
+ # ) ,
  
  
  

@@ -345,39 +345,16 @@ comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
 rm(tableone_comorb)
 
 
-# large scale characteristics MATCHED -------
-mlsc_files <- results[stringr::str_detect(results, ".csv")]
-mlsc_files <- results[stringr::str_detect(results, "matched_large_scale")]
-
-if(length(mlsc_files > 0)){
-  
-  table_mlsc <- list()
-  
-  for(i in seq_along(mlsc_files)){
-
-    table_mlsc[[i]] <- omopgenerics::importSummarisedResult(mlsc_files[[i]], recursive = FALSE)
-    
-    
-  }
-  
-}
-
-lsc_characteristics <- Reduce(omopgenerics::bind, table_mlsc) %>%
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) 
-
-
-
-# large scale characteristics ORIGINAL no matching -------
+# large scale characteristics -------
 lsc_files <- results[stringr::str_detect(results, ".csv")]
-lsc_files <- results[stringr::str_detect(results, "_large_scale") & 
-                       !stringr::str_detect(results, "matched_large_scale")]
+lsc_files <- results[stringr::str_detect(results, "_large_scale")]
 
 if(length(lsc_files > 0)){
   
   table_lsc <- list()
   
   for(i in seq_along(lsc_files)){
-    
+
     table_lsc[[i]] <- omopgenerics::importSummarisedResult(lsc_files[[i]], recursive = FALSE)
     
     
@@ -385,11 +362,8 @@ if(length(lsc_files > 0)){
   
 }
 
-lsc_characteristics_original <- Reduce(omopgenerics::bind, table_lsc) %>%
+lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) 
-
-
-
 
 
 # cdm snapshot ------
