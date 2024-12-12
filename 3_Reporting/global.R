@@ -294,7 +294,32 @@ incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>%
   }
   
   demo_characteristics <- Reduce(omopgenerics::bind, tableone_demo) %>%
-    mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+    mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+    mutate(group_level = case_when(
+      group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+      group_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+      group_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+      group_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+      group_level == "lung_cancer_incident_all_sampled" ~ "Lung Cancer All Sampled",
+      group_level == "lung_cancer_incident_broad_sampled" ~ "Lung Cancer Broad Sampled",
+      group_level == "lung_cancer_incident_narrow_sampled" ~ "Lung Cancer Narrow Sampled",
+      group_level == "small_cell_lung_cancer_sampled" ~ "Small Cell Lung Cancer Sampled",
+      group_level == "lung_cancer_incident_all_matched" ~ "Lung Cancer All Matched",
+      group_level == "lung_cancer_incident_broad_matched" ~ "Lung Cancer Broad Matched",
+      group_level == "lung_cancer_incident_narrow_matched" ~ "Lung Cancer Narrow Matched",
+      group_level == "small_cell_lung_cancer_matched" ~ "Small Cell Lung Cancer Matched",
+      TRUE ~ group_level
+    )) %>% 
+    
+    mutate(cdm_name = case_when(
+      cdm_name == "THIN es" ~ "THIN Spain",
+      cdm_name == "THIN be" ~ "THIN Belguim",
+      cdm_name == "THIN fr" ~ "THIN France",
+      cdm_name == "THIN it" ~ "THIN Italy",
+      cdm_name == "THIN ro" ~ "THIN Romania",
+      cdm_name == "THIN uk" ~ "THIN UK",
+      TRUE ~ cdm_name
+    )) 
   
   rm(tableone_demo)
 
@@ -317,7 +342,32 @@ if(length(tableone_med_files > 0)){
 }
 
 med_characteristics <- Reduce(omopgenerics::bind, tableone_med) %>%
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  mutate(group_level = case_when(
+    group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+    group_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    group_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    group_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    group_level == "lung_cancer_incident_all_sampled" ~ "Lung Cancer All Sampled",
+    group_level == "lung_cancer_incident_broad_sampled" ~ "Lung Cancer Broad Sampled",
+    group_level == "lung_cancer_incident_narrow_sampled" ~ "Lung Cancer Narrow Sampled",
+    group_level == "small_cell_lung_cancer_sampled" ~ "Small Cell Lung Cancer Sampled",
+    group_level == "lung_cancer_incident_all_matched" ~ "Lung Cancer All Matched",
+    group_level == "lung_cancer_incident_broad_matched" ~ "Lung Cancer Broad Matched",
+    group_level == "lung_cancer_incident_narrow_matched" ~ "Lung Cancer Narrow Matched",
+    group_level == "small_cell_lung_cancer_matched" ~ "Small Cell Lung Cancer Matched",
+    TRUE ~ group_level
+  )) %>% 
+  
+  mutate(cdm_name = case_when(
+    cdm_name == "THIN es" ~ "THIN Spain",
+    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN fr" ~ "THIN France",
+    cdm_name == "THIN it" ~ "THIN Italy",
+    cdm_name == "THIN ro" ~ "THIN Romania",
+    cdm_name == "THIN uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  )) 
 
 rm(tableone_med)
 
@@ -340,44 +390,46 @@ if(length(tableone_comorb_files > 0)){
 }
 
 comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " "))
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+mutate(group_level = case_when(
+  group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+  group_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+  group_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+  group_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+  group_level == "lung_cancer_incident_all_sampled" ~ "Lung Cancer All Sampled",
+  group_level == "lung_cancer_incident_broad_sampled" ~ "Lung Cancer Broad Sampled",
+  group_level == "lung_cancer_incident_narrow_sampled" ~ "Lung Cancer Narrow Sampled",
+  group_level == "small_cell_lung_cancer_sampled" ~ "Small Cell Lung Cancer Sampled",
+  group_level == "lung_cancer_incident_all_matched" ~ "Lung Cancer All Matched",
+  group_level == "lung_cancer_incident_broad_matched" ~ "Lung Cancer Broad Matched",
+  group_level == "lung_cancer_incident_narrow_matched" ~ "Lung Cancer Narrow Matched",
+  group_level == "small_cell_lung_cancer_matched" ~ "Small Cell Lung Cancer Matched",
+  TRUE ~ group_level
+)) %>% 
+  
+  mutate(cdm_name = case_when(
+    cdm_name == "THIN es" ~ "THIN Spain",
+    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN fr" ~ "THIN France",
+    cdm_name == "THIN it" ~ "THIN Italy",
+    cdm_name == "THIN ro" ~ "THIN Romania",
+    cdm_name == "THIN uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  )) 
 
 rm(tableone_comorb)
 
 
-# large scale characteristics MATCHED -------
-mlsc_files <- results[stringr::str_detect(results, ".csv")]
-mlsc_files <- results[stringr::str_detect(results, "matched_large_scale")]
-
-if(length(mlsc_files > 0)){
-  
-  table_mlsc <- list()
-  
-  for(i in seq_along(mlsc_files)){
-
-    table_mlsc[[i]] <- omopgenerics::importSummarisedResult(mlsc_files[[i]], recursive = FALSE)
-    
-    
-  }
-  
-}
-
-lsc_characteristics <- Reduce(omopgenerics::bind, table_mlsc) %>%
-  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) 
-
-
-
-# large scale characteristics ORIGINAL no matching -------
+# large scale characteristics -------
 lsc_files <- results[stringr::str_detect(results, ".csv")]
-lsc_files <- results[stringr::str_detect(results, "_large_scale") & 
-                       !stringr::str_detect(results, "matched_large_scale")]
+lsc_files <- results[stringr::str_detect(results, "_large_scale")]
 
 if(length(lsc_files > 0)){
   
   table_lsc <- list()
   
   for(i in seq_along(lsc_files)){
-    
+
     table_lsc[[i]] <- omopgenerics::importSummarisedResult(lsc_files[[i]], recursive = FALSE)
     
     
@@ -385,11 +437,8 @@ if(length(lsc_files > 0)){
   
 }
 
-lsc_characteristics_original <- Reduce(omopgenerics::bind, table_lsc) %>%
+lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) 
-
-
-
 
 
 # cdm snapshot ------

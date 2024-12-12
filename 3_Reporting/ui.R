@@ -196,7 +196,7 @@ ui <- dashboardPage(
         
         tags$h5("The analysis code used to generate these results can be found",
                 tags$a(href="https://github.com/oxford-pharmacoepi/OPTIMA_incidence_characterization", "here"),
-                ".The cohort diagnostics for lung cancer phenotypes can be found",
+                ". The cohort diagnostics for lung cancer phenotypes can be found",
                 tags$a(href="https://dpa-pde-oxford.shinyapps.io/PhenotypeR_OPTIMA_lung_cancer/", "here")
                 
         ),
@@ -356,17 +356,27 @@ ui <- dashboardPage(
             inputId = "demographics_cohort_selector",
             label = "Cohort Name",
             choices = demo_characteristics %>%
-              visOmopResults::splitAll() %>% 
-              distinct(cohort_name) %>% 
-              pull(),
+              mutate(group_level = str_remove(group_level, " Matched$")) %>%
+              mutate(group_level = str_remove(group_level, " Sampled$")) %>%
+              distinct(group_level) %>%
+              pull(group_level),
             selected = demo_characteristics %>%
-              visOmopResults::splitAll() %>% 
-              distinct(cohort_name) %>% 
-              pull()%>%
+              mutate(group_level = str_remove(group_level, " Matched$")) %>%
+              mutate(group_level = str_remove(group_level, " Sampled$")) %>%
+              distinct(group_level) %>%
+              pull(group_level) %>% 
               first(),
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
-          )
+          ),
+    
+          shinyWidgets::prettyCheckbox(
+            inputId = "summarise_characteristics_include_matched", 
+            label = "Show matched cohorts", 
+            value = FALSE)
+          
+          
         ),
         
         div(
@@ -435,18 +445,30 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "comorb_cohort_selector",
             label = "Cohort Name",
+
             choices = comorb_characteristics %>%
-              visOmopResults::splitAll() %>% 
-              distinct(cohort_name) %>% 
-              pull(),
+              mutate(group_level = str_remove(group_level, " Matched$")) %>%
+              mutate(group_level = str_remove(group_level, " Sampled$")) %>%
+              distinct(group_level) %>%
+              pull(group_level),
             selected = comorb_characteristics %>%
-              visOmopResults::splitAll() %>% 
-              distinct(cohort_name) %>% 
-              pull() %>% 
+              mutate(group_level = str_remove(group_level, " Matched$")) %>%
+              mutate(group_level = str_remove(group_level, " Sampled$")) %>%
+              distinct(group_level) %>%
+              pull(group_level) %>% 
               first(),
+            
+            
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
-          )
+          ),
+          
+          shinyWidgets::prettyCheckbox(
+            inputId = "summarise_characteristics_include_matched", 
+            label = "Show matched cohorts", 
+            value = FALSE)
+          
+          
         ),
         
         div(
@@ -507,7 +529,8 @@ ui <- dashboardPage(
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
-        ),
+          
+          ),
         
         
         # tags$hr(),
@@ -532,17 +555,27 @@ ui <- dashboardPage(
             inputId = "med_cohort_selector",
             label = "Cohort Name",
             choices = med_characteristics %>%
-              visOmopResults::splitAll() %>% 
-              distinct(cohort_name) %>% 
-              pull(),
-            selected = demo_characteristics %>%
-              visOmopResults::splitAll() %>% 
-              distinct(cohort_name) %>% 
-              pull() %>% 
+              mutate(group_level = str_remove(group_level, " Matched$")) %>%
+              mutate(group_level = str_remove(group_level, " Sampled$")) %>%
+              distinct(group_level) %>%
+              pull(group_level),
+            selected = med_characteristics %>%
+              mutate(group_level = str_remove(group_level, " Matched$")) %>%
+              mutate(group_level = str_remove(group_level, " Sampled$")) %>%
+              distinct(group_level) %>%
+              pull(group_level) %>% 
               first(),
+
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
-          )
+          ),
+          
+          shinyWidgets::prettyCheckbox(
+            inputId = "summarise_characteristics_include_matched", 
+            label = "Show matched cohorts", 
+            value = FALSE)
+          
+          
         ),
         
         div(
@@ -601,6 +634,7 @@ ui <- dashboardPage(
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
+          
         ),
         
         gt_output("gt_med_characteristics") %>% 
@@ -676,7 +710,7 @@ ui <- dashboardPage(
        inputId = "lsc_domain_selector",
        label = "Domain",
        choices = c("condition_occurrence", 
-                   "drug_exposure", 
+                   "drug_era", 
                    "measurement",
                    "procedure_occurrence",
                    "visit_occurrence",
@@ -702,84 +736,84 @@ ui <- dashboardPage(
  
  
  
- tabItem(
-   tabName = "lsc",
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "lsco_cohort_selector",
-       label = "Cohort Name",
-       choices = lsc_characteristics_original %>%
-         visOmopResults::splitAll() %>% 
-         distinct(cohort_name) %>% 
-         pull(),
-       selected = lsc_characteristics_original %>%
-         visOmopResults::splitAll() %>% 
-         distinct(cohort_name) %>% 
-         pull() %>% 
-         first(),
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "lsco_database_name_selector",
-       label = "Database",
-       choices = unique(lsc_characteristics_original$cdm_name),
-       selected = unique(lsc_characteristics_original$cdm_name),
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "lsco_time_selector",
-       label = "Time",
-       choices = 
-         lsc_characteristics_original %>% 
-         filter(!(variable_level %in% c("Female", "Male", NA))) %>% 
-         pull(variable_level) %>% 
-         unique(),
-       selected = "-inf to -366",
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   
-   div(
-     style = "display: inline-block;vertical-align:top; width: 150px;",
-     pickerInput(
-       inputId = "lsco_domain_selector",
-       label = "Domain",
-       choices = c("condition_occurrence", 
-                   "drug_exposure", 
-                   "measurement",
-                   "procedure_occurrence",
-                   "visit_occurrence",
-                   "observation"),
-       selected = "condition_occurrence",
-       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
-       multiple = TRUE
-     )
-   ),
-   
-   
-   DT::dataTableOutput('gt_lsco_characteristics'),
-   
-   div(style="display:inline-block",
-       downloadButton(
-         outputId = "gt_lsco_characteristics_word",
-         label = "Download table as word"
-       ),
-       style="display:inline-block; float:right")
-   
- ) ,
+ # tabItem(
+ #   tabName = "lsc",
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "lsco_cohort_selector",
+ #       label = "Cohort Name",
+ #       choices = lsc_characteristics_original %>%
+ #         visOmopResults::splitAll() %>% 
+ #         distinct(cohort_name) %>% 
+ #         pull(),
+ #       selected = lsc_characteristics_original %>%
+ #         visOmopResults::splitAll() %>% 
+ #         distinct(cohort_name) %>% 
+ #         pull() %>% 
+ #         first(),
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "lsco_database_name_selector",
+ #       label = "Database",
+ #       choices = unique(lsc_characteristics_original$cdm_name),
+ #       selected = unique(lsc_characteristics_original$cdm_name),
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "lsco_time_selector",
+ #       label = "Time",
+ #       choices = 
+ #         lsc_characteristics_original %>% 
+ #         filter(!(variable_level %in% c("Female", "Male", NA))) %>% 
+ #         pull(variable_level) %>% 
+ #         unique(),
+ #       selected = "-inf to -366",
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   
+ #   div(
+ #     style = "display: inline-block;vertical-align:top; width: 150px;",
+ #     pickerInput(
+ #       inputId = "lsco_domain_selector",
+ #       label = "Domain",
+ #       choices = c("condition_occurrence", 
+ #                   "drug_exposure", 
+ #                   "measurement",
+ #                   "procedure_occurrence",
+ #                   "visit_occurrence",
+ #                   "observation"),
+ #       selected = "condition_occurrence",
+ #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+ #       multiple = TRUE
+ #     )
+ #   ),
+ #   
+ #   
+ #   DT::dataTableOutput('gt_lsco_characteristics'),
+ #   
+ #   div(style="display:inline-block",
+ #       downloadButton(
+ #         outputId = "gt_lsco_characteristics_word",
+ #         label = "Download table as word"
+ #       ),
+ #       style="display:inline-block; float:right")
+ #   
+ # ) ,
  
  
  
