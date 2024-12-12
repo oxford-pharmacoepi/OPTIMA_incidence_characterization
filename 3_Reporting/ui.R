@@ -71,7 +71,15 @@ ui <- dashboardPage(
         menuSubItem(
           text = "Matched Lsc",
           tabName = "lsc_estimates"
+        ),
+        
+        
+        menuSubItem(
+          text = "Matched Lsc plot",
+          tabName = "lsc_plot"
         )
+        
+        
         
         
       ),
@@ -681,7 +689,7 @@ ui <- dashboardPage(
        inputId = "lsc_database_name_selector",
        label = "Database",
        choices = unique(lsc_characteristics$cdm_name),
-       selected = unique(lsc_characteristics$cdm_name),
+       selected = unique(lsc_characteristics$cdm_name)[1],
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
      )
@@ -763,7 +771,7 @@ ui <- dashboardPage(
        inputId = "lsc_database_name_selector1",
        label = "Database",
        choices = unique(lsc_characteristics$cdm_name),
-       selected = unique(lsc_characteristics$cdm_name),
+       selected = unique(lsc_characteristics$cdm_name)[1],
        options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
        multiple = TRUE
      )
@@ -815,91 +823,8 @@ ui <- dashboardPage(
    
  ) ,
  
- 
- # tabItem(
- #   tabName = "lsc",
- #   div(
- #     style = "display: inline-block;vertical-align:top; width: 150px;",
- #     pickerInput(
- #       inputId = "lsco_cohort_selector",
- #       label = "Cohort Name",
- #       choices = lsc_characteristics_original %>%
- #         visOmopResults::splitAll() %>% 
- #         distinct(cohort_name) %>% 
- #         pull(),
- #       selected = lsc_characteristics_original %>%
- #         visOmopResults::splitAll() %>% 
- #         distinct(cohort_name) %>% 
- #         pull() %>% 
- #         first(),
- #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
- #       multiple = TRUE
- #     )
- #   ),
- #   
- #   div(
- #     style = "display: inline-block;vertical-align:top; width: 150px;",
- #     pickerInput(
- #       inputId = "lsco_database_name_selector",
- #       label = "Database",
- #       choices = unique(lsc_characteristics_original$cdm_name),
- #       selected = unique(lsc_characteristics_original$cdm_name),
- #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
- #       multiple = TRUE
- #     )
- #   ),
- #   
- #   div(
- #     style = "display: inline-block;vertical-align:top; width: 150px;",
- #     pickerInput(
- #       inputId = "lsco_time_selector",
- #       label = "Time",
- #       choices = 
- #         lsc_characteristics_original %>% 
- #         filter(!(variable_level %in% c("Female", "Male", NA))) %>% 
- #         pull(variable_level) %>% 
- #         unique(),
- #       selected = "-inf to -366",
- #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
- #       multiple = TRUE
- #     )
- #   ),
- #   
- #   
- #   div(
- #     style = "display: inline-block;vertical-align:top; width: 150px;",
- #     pickerInput(
- #       inputId = "lsco_domain_selector",
- #       label = "Domain",
- #       choices = c("condition_occurrence", 
- #                   "drug_exposure", 
- #                   "measurement",
- #                   "procedure_occurrence",
- #                   "visit_occurrence",
- #                   "observation"),
- #       selected = "condition_occurrence",
- #       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
- #       multiple = TRUE
- #     )
- #   ),
- #   
- #   
- #   DT::dataTableOutput('gt_lsco_characteristics'),
- #   
- #   div(style="display:inline-block",
- #       downloadButton(
- #         outputId = "gt_lsco_characteristics_word",
- #         label = "Download table as word"
- #       ),
- #       style="display:inline-block; float:right")
- #   
- # ) ,
- 
- 
- 
- 
- 
- 
+
+
  
         
         # cohort definition ------
@@ -1184,8 +1109,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_database_selector",
             label = "Database",
-            # choices = unique(incidence_estimates$cdm_name),
-            # selected = unique(incidence_estimates$cdm_name),
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$cdm_name)) {
               unique(incidence_estimates_std$cdm_name)
@@ -1193,7 +1116,7 @@ ui <- dashboardPage(
               c("No data available")
             },
             selected = if (exists("incidence_estimates") && !is.null(incidence_estimates$cdm_name)) {
-              unique(incidence_estimates$cdm_name)[1]
+              unique(incidence_estimates$cdm_name)
             } else {
               "No data available"
             },
@@ -1207,8 +1130,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_cohort_name_selector",
             label = "Cohort Name",
-            # choices = unique(incidence_estimates$outcome_cohort_name),
-            # selected = unique(incidence_estimates$outcome_cohort_name)[1],
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$outcome_cohort_name)) {
               unique(incidence_estimates$outcome_cohort_name)
@@ -1231,8 +1152,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_denominator_analysis_interval_selector",
             label = "Analysis Interval",
-            # choices = unique(incidence_estimates$analysis_interval),
-            # selected = "years",
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$analysis_interval)) {
               unique(incidence_estimates$analysis_interval)
@@ -1255,8 +1174,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_start_date_selector",
             label = "Incidence Start Date",
-            # choices = as.character(unique(incidence_estimates_std$incidence_start_date)) ,
-            # selected = as.character(unique(incidence_estimates_std$incidence_start_date)) ,
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$incidence_start_date)) {
               as.character(unique(incidence_estimates_std$incidence_start_date))
@@ -1279,8 +1196,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_sex_selector",
             label = "Sex",
-            # choices = unique(incidence_estimates$denominator_sex),
-            # selected = "Both",
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$denominator_sex)) {
               unique(incidence_estimates_std$denominator_sex)
@@ -1303,8 +1218,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_age_selector",
             label = "Age Group",
-            # choices = unique(incidence_estimates$denominator_age_group),
-            # selected = "18 to 150",
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$denominator_age_group)) {
               unique(incidence_estimates_std$denominator_age_group)
@@ -1401,9 +1314,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_database_selector_std",
             label = "Database",
-            # choices = unique(incidence_estimates_std$cdm_name),
-            # selected = unique(incidence_estimates_std$cdm_name),
-            
             
             choices = if (exists("incidence_estimates_std") && !is.null(incidence_estimates_std$cdm_name)) {
               unique(incidence_estimates_std$cdm_name)
@@ -1411,7 +1321,7 @@ ui <- dashboardPage(
               c("No data available")
             },
             selected = if (exists("incidence_estimates_std") && !is.null(incidence_estimates_std$cdm_name)) {
-              unique(incidence_estimates_std$cdm_name)[1]
+              unique(incidence_estimates_std$cdm_name)
             } else {
               "No data available"
             },
@@ -1424,8 +1334,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_cohort_name_selector_std",
             label = "Cohort Name",
-            # choices = unique(incidence_estimates_std$outcome_cohort_name),
-            # selected = unique(incidence_estimates_std$outcome_cohort_name)[1],
             
             choices = if (exists("incidence_estimates_std") && !is.null(incidence_estimates_std$outcome_cohort_name)) {
               unique(incidence_estimates_std$outcome_cohort_name)
@@ -1449,8 +1357,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_start_date_selector_std",
             label = "Incidence Start Date",
-            # choices = as.character(unique(incidence_estimates_std$incidence_start_date)),
-            # selected = as.character(unique(incidence_estimates_std$incidence_start_date)),
             
             choices = if (exists("incidence_estimates_std") && !is.null(incidence_estimates_std$incidence_start_date)) {
               as.character(unique(incidence_estimates_std$incidence_start_date))
@@ -1474,8 +1380,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_std_method",
             label = "Standardization Method",
-            # choices = unique(incidence_estimates_std$age_standard),
-            # selected = unique(incidence_estimates_std$age_standard)[c(2,3)],
             
             choices = if (exists("incidence_estimates_std") && !is.null(incidence_estimates_std$age_standard)) {
               unique(incidence_estimates_std$age_standard)
@@ -1499,8 +1403,6 @@ ui <- dashboardPage(
           pickerInput(
             inputId = "incidence_sex_selector_std",
             label = "Sex",
-            # choices = unique(incidence_estimates_std$denominator_sex),
-            # selected = "Both",
             
             choices = if (exists("incidence_estimates_std") && !is.null(incidence_estimates_std$denominator_sex)) {
               unique(incidence_estimates_std$denominator_sex)
