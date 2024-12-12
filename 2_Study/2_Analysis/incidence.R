@@ -39,7 +39,7 @@ if(isTRUE(run_incidence)){
     completeDatabaseIntervals = TRUE
   ) 
   
-  
+
   # get the incidence estimates
   inc_tidy <- inc %>% 
     visOmopResults::splitAdditional() %>% 
