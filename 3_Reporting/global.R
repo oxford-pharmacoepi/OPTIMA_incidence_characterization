@@ -207,7 +207,7 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
   )) %>% 
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
-    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN be" ~ "THIN Belgium",
     cdm_name == "THIN fr" ~ "THIN France",
     cdm_name == "THIN it" ~ "THIN Italy",
     cdm_name == "THIN ro" ~ "THIN Romania",
@@ -240,7 +240,7 @@ incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>%
   )) %>% 
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
-    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN be" ~ "THIN Belgium",
     cdm_name == "THIN fr" ~ "THIN France",
     cdm_name == "THIN it" ~ "THIN Italy",
     cdm_name == "THIN ro" ~ "THIN Romania",
@@ -313,7 +313,7 @@ incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>%
     
     mutate(cdm_name = case_when(
       cdm_name == "THIN es" ~ "THIN Spain",
-      cdm_name == "THIN be" ~ "THIN Belguim",
+      cdm_name == "THIN be" ~ "THIN Belgium",
       cdm_name == "THIN fr" ~ "THIN France",
       cdm_name == "THIN it" ~ "THIN Italy",
       cdm_name == "THIN ro" ~ "THIN Romania",
@@ -361,7 +361,7 @@ med_characteristics <- Reduce(omopgenerics::bind, tableone_med) %>%
   
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
-    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN be" ~ "THIN Belgium",
     cdm_name == "THIN fr" ~ "THIN France",
     cdm_name == "THIN it" ~ "THIN Italy",
     cdm_name == "THIN ro" ~ "THIN Romania",
@@ -409,7 +409,7 @@ mutate(group_level = case_when(
   
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
-    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN be" ~ "THIN Belgium",
     cdm_name == "THIN fr" ~ "THIN France",
     cdm_name == "THIN it" ~ "THIN Italy",
     cdm_name == "THIN ro" ~ "THIN Romania",
@@ -457,7 +457,7 @@ lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
   
   mutate(cdm_name = case_when(
     cdm_name == "THIN es" ~ "THIN Spain",
-    cdm_name == "THIN be" ~ "THIN Belguim",
+    cdm_name == "THIN be" ~ "THIN Belgium",
     cdm_name == "THIN fr" ~ "THIN France",
     cdm_name == "THIN it" ~ "THIN Italy",
     cdm_name == "THIN ro" ~ "THIN Romania",
