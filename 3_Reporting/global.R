@@ -213,7 +213,16 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
     cdm_name == "THIN ro" ~ "THIN Romania",
     cdm_name == "THIN uk" ~ "THIN UK",
     TRUE ~ cdm_name
-  )) 
+  )) %>% 
+  # Filter out rows where cdm_name starts with "THIN " and incidence_start_date == "2022-01-01" due to end of database cut affecting the denominator
+  filter(!(str_starts(cdm_name, "THIN ") & incidence_start_date == "2022-01-01")) %>% 
+# filter out rows where incidence is 0 i.e. for small cell lung cancer 
+# Filter out rows for "Small Cell Lung Cancer" where all rows for the same incidence_start_date have events == 0
+group_by(incidence_start_date, outcome_cohort_name) %>% 
+  filter(!(outcome_cohort_name == "Small Cell Lung Cancer" & all(outcome_count == 0))) %>% 
+  ungroup()
+
+
 
 
 # age standardized incidence estimates -----
@@ -246,7 +255,12 @@ incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>%
     cdm_name == "THIN ro" ~ "THIN Romania",
     cdm_name == "THIN uk" ~ "THIN UK",
     TRUE ~ cdm_name
-  )) 
+  )) %>% 
+  # Filter out rows where cdm_name starts with "THIN " and incidence_start_date == "2022-01-01" due to end of database cut affecting the denominator
+  filter(!(str_starts(cdm_name, "THIN ") & incidence_start_date == "2022-01-01")) %>% 
+  group_by(incidence_start_date, outcome_cohort_name) %>% 
+  filter(!(outcome_cohort_name == "Small Cell Lung Cancer" & all(outcome_count == 0))) %>% 
+  ungroup()
 
 # incidence attrition -----
 incidence_attrition_files<-results[stringr::str_detect(results, ".csv")]
