@@ -1,3 +1,4 @@
+set.seed(1234)
 
 if(isTRUE(run_characterisation)){
 
