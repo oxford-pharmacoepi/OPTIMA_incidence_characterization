@@ -114,23 +114,23 @@ ui <- dashboardPage(
       ),
       
 
-      
-    
-    tags$div(
-      style = "position: relative; margin-top: 20px; text-align: center; margin-bottom: 0;",
-      a(img(
-        src = "Logo_HDS.png",  # Replace with the correct file name and extension
-        height = "150px",  # Adjust the height as needed
-        width = "auto"     # Let the width adjust proportionally
+      # Logo 
+      tags$div(
+        style = "position: relative; margin-top: 20px; text-align: center; margin-bottom: 0;",
+        a(img(
+          src = "optima.png",  # Replace with the correct file name and extension
+          height = "auto",  # Adjust the height as needed
+          width = "80%"     # Let the width adjust proportionally
+        ),
+        href = "https://www.optima-oncology.eu/",
+        target = "_blank"
+        )
       ),
-      href = "https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology",
-      target = "_blank"
-      )
-    ) ,
+    
     
     # Logo 
     tags$div(
-      style = "position: relative; margin-top: -20px; text-align: center; margin-bottom: 0;",
+      style = "position: relative; margin-top: -15px; text-align: center; margin-bottom: 0;",
       a(img(
         src = "logoOxford.png",  # Replace with the correct file name and extension
         height = "150px",  # Adjust the height as needed
@@ -141,18 +141,19 @@ ui <- dashboardPage(
       )
     ),
     
-    # Logo 
     tags$div(
-      style = "position: relative; margin-top: -20px; text-align: center; margin-bottom: 0;",
+      style = "position: relative; margin-top: -15px; text-align: center; margin-bottom: 0;",
       a(img(
-        src = "optima.png",  # Replace with the correct file name and extension
-        height = "auto",  # Adjust the height as needed
-        width = "80%"     # Let the width adjust proportionally
+        src = "Logo_HDS.png",  # Replace with the correct file name and extension
+        height = "100px",  # Adjust the height as needed
+        width = "auto"     # Let the width adjust proportionally
       ),
-      href = "https://www.optima-oncology.eu/",
+      href = "https://www.ndorms.ox.ac.uk/research/research-groups/Musculoskeletal-Pharmacoepidemiology",
       target = "_blank"
       )
-    )  
+    ) 
+    
+
     
     
     
