@@ -108,12 +108,25 @@ suppressWarnings(
   
 cli::cli_alert_info("Exporting demographics table one characteristics results")
 
+if (grepl("THIN", db_name, ignore.case = TRUE)) {
+  
 omopgenerics::exportSummarisedResult(summaryDemographics,
+                                       minCellCount = 30,
+                                       path = here("Results",db_name),
+                                       fileName = paste0(cdmName(cdm),
+                                                         "_summary_characteristics_demographics.csv")
+  )
+  
+} else {
+
+  omopgenerics::exportSummarisedResult(summaryDemographics,
                                        minCellCount = 5,
                                        path = here("Results",db_name),
                                        fileName = paste0(cdmName(cdm),
                                                          "_summary_characteristics_demographics.csv")
   )
+  
+}
 
 cli::cli_alert_success("Summarising table one Demographics Complete")
 
@@ -182,12 +195,27 @@ cli::cli_alert_info("Summarising table one Comorbidities")
   
 
 cli::cli_alert_info("Exporting comorbidities table one characteristics results")
+
+if (grepl("THIN", db_name, ignore.case = TRUE)) {
+  
 omopgenerics::exportSummarisedResult(summaryComorbidity,
-            minCellCount = 5,
+            minCellCount = 30,
             path = here("Results",db_name),
             fileName = paste0(cdmName(cdm),
               "_summary_characteristics_comorbidity.csv")
             )
+} else {
+
+  omopgenerics::exportSummarisedResult(summaryComorbidity,
+                                       minCellCount = 5,
+                                       path = here("Results",db_name),
+                                       fileName = paste0(cdmName(cdm),
+                                                         "_summary_characteristics_comorbidity.csv")
+  )
+  
+}
+
+
 
 cli::cli_alert_success("Summarising table one Comorbidities Complete")
 
@@ -252,12 +280,25 @@ cli::cli_alert_info("Summarising table one Medications")
   )
 
 cli::cli_alert_info("Exporting medications table one characteristics results")
+
+if (grepl("THIN", db_name, ignore.case = TRUE)) {
 omopgenerics::exportSummarisedResult(summaryMedications,
-                                     minCellCount = 5,
+                                     minCellCount = 30,
                                      path = here("Results",db_name),
                                      fileName = paste0(cdmName(cdm),
                                                        "_summary_characteristics_medications.csv")
 )
+  
+} else {
+  
+  omopgenerics::exportSummarisedResult(summaryMedications,
+                                       minCellCount = 5,
+                                       path = here("Results",db_name),
+                                       fileName = paste0(cdmName(cdm),
+                                                         "_summary_characteristics_medications.csv")
+  )
+  
+}
 
 cli::cli_alert_success("Summarising table one Medications Complete")
 
@@ -284,13 +325,25 @@ lsc <- cdm$outcome_matched %>%
     includeSource = TRUE)
     
 
-
+if (grepl("THIN", db_name, ignore.case = TRUE)) {
+  
 omopgenerics::exportSummarisedResult(lsc,
-                                     minCellCount = 5,
+                                     minCellCount = 30,
                                      path = here("Results",db_name),
                                      fileName = paste0(cdmName(cdm),
                                                        "_large_scale_characteristics.csv")
 )
+  
+} else {
+  
+  omopgenerics::exportSummarisedResult(lsc,
+                                       minCellCount = 5,
+                                       path = here("Results",db_name),
+                                       fileName = paste0(cdmName(cdm),
+                                                         "_large_scale_characteristics.csv")
+  )
+  
+}
 
 cli::cli_alert_success("Large scale characteristics complete")
 
