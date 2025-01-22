@@ -197,6 +197,10 @@ for(i in seq_along(incidence_estimates_files)) {
 
 
 incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>% 
+  mutate(cdm_name = case_when(
+    cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    TRUE ~ cdm_name
+  )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " "))  %>% 
   mutate(outcome_cohort_name = case_when(
     outcome_cohort_name == "lung_cancer_incident_all" ~ "Lung Cancer All",
@@ -239,6 +243,10 @@ for(i in seq_along(incidence_estimates_files_std)){
 }
 
 incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
+  mutate(cdm_name = case_when(
+    cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    TRUE ~ cdm_name
+  )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
   mutate(outcome_cohort_name = case_when(
     outcome_cohort_name == "lung_cancer_incident_all" ~ "Lung Cancer All",
@@ -274,6 +282,10 @@ for(i in seq_along(incidence_attrition_files)){
 }
 
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
+  mutate(`CDM name` = case_when(
+    `CDM name` == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    TRUE ~ `CDM name`
+  )) %>% 
   mutate(`Outcome cohort name` = case_when(
     `Outcome cohort name` == "lung_cancer_incident_all" ~ "Lung Cancer All",
     `Outcome cohort name` == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
@@ -308,6 +320,10 @@ incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>%
   }
   
   demo_characteristics <- Reduce(omopgenerics::bind, tableone_demo) %>%
+    mutate(cdm_name = case_when(
+      cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+      TRUE ~ cdm_name
+    )) %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
     mutate(group_level = case_when(
       group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
@@ -356,6 +372,10 @@ if(length(tableone_med_files > 0)){
 }
 
 med_characteristics <- Reduce(omopgenerics::bind, tableone_med) %>%
+  mutate(cdm_name = case_when(
+    cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    TRUE ~ cdm_name
+  )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
   mutate(group_level = case_when(
     group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
@@ -404,6 +424,10 @@ if(length(tableone_comorb_files > 0)){
 }
 
 comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
+  mutate(cdm_name = case_when(
+    cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    TRUE ~ cdm_name
+  )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
 mutate(group_level = case_when(
   group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
@@ -452,6 +476,10 @@ if(length(lsc_files > 0)){
 }
 
 lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
+  mutate(cdm_name = case_when(
+    cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    TRUE ~ cdm_name
+  )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
   mutate(group_level = case_when(
     group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
@@ -497,6 +525,10 @@ snapshotcdm <- bind_rows(snapshotcdm) %>%
          "vocabulary_version", "cdm_version", "cdm_description",) %>%
   mutate(person_count = nice.num.count(person_count),
          observation_period_count = nice.num.count(observation_period_count)) %>%
+  mutate(cdm_name = case_when(
+    cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    TRUE ~ cdm_name
+  )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>%
   rename("Database name" = "cdm_name",
          "Study Start Date" = "start_date",
