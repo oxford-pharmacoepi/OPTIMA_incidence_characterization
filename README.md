@@ -4,8 +4,8 @@
 - **Study title**: The Worldwide Incidence of Lung Cancer
 - **Study contents**: Incidence, table one characterisation, large scale characterisation
 - **Study lead(s)**: Danielle Newby (danielle.newby@ndorms.ox.ac.uk) & Cheryl Tan (cheryl.tan@ndorms.ox.ac.uk)
-- **ShinyApp PhenotypeR**: https://dpa-pde-oxford.shinyapps.io/PhenotypeR_OPTIMA_lung_cancer/
-- **ShinyApp Main Study**: https://dpa-pde-oxford.shinyapps.io/OPTIMA_lung_cancer_incidence_study/
+- **ShinyApp PhenotypeR (restricted access email for credentials)**: https://dpa-pde-oxford.shinyapps.io/PhenotypeR_OPTIMA_lung_cancer/
+- **ShinyApp Main Study (restricted access email for credentials)**: [https://dpa-pde-oxford.shinyapps.io/OPTIMA_lung_cancer_incidence_study/](https://dpa-pde-oxford.shinyapps.io/OPTIMA_lung_cancer_study/)
 - **Publications**:
 
 ---
