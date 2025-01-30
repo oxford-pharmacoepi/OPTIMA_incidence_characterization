@@ -276,9 +276,18 @@ incidence_attrition_files<-results[stringr::str_detect(results, "incidence_attri
 incidence_attrition <- list()
 
 for(i in seq_along(incidence_attrition_files)){
-  incidence_attrition[[i]]<-readr::read_csv(incidence_attrition_files[[i]], 
-                                            show_col_types = FALSE)
-  
+  # incidence_attrition[[i]]<-readr::read_csv(incidence_attrition_files[[i]],
+  #                                           show_col_types = FALSE)
+
+    df <- readr::read_csv(incidence_attrition_files[[i]], show_col_types = FALSE)
+
+    df <- df %>%
+      rename_with(~ gsub("\\[header_name\\]Variable name\\n\\[header_level\\]", "", .)) %>%
+      rename_with(~ gsub("\\[header_name\\]Variable name\\r\\n\\[header_level\\]", "", .))
+
+    incidence_attrition[[i]] <- df
+    
+    
 }
 
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
@@ -294,7 +303,6 @@ incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>%
     TRUE ~ `Outcome cohort name`
   )) %>% 
   mutate(`CDM name` = str_replace_all(`CDM name`, "_", " ")) %>% 
-  rename_with(~ gsub("\\[header_name\\]Variable name\\n\\[header_level\\]", "", .)) %>%
   rename_with(~ trimws(.)) %>% # Removes any leading or trailing whitespace
   rename_with(~ gsub(" ", "_", .))
 
@@ -507,7 +515,7 @@ lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
     TRUE ~ cdm_name
   )) 
 
-
+rm(table_lsc)
 
 # cdm snapshot ------
 snapshot_files <- results[stringr::str_detect(results, ".csv")]

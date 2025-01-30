@@ -714,7 +714,6 @@ ui <- dashboardPage(
      )
    ),
    
-   
    div(
      style = "display: inline-block;vertical-align:top; width: 150px;",
      pickerInput(

@@ -1113,7 +1113,8 @@ get_lsc_characteristics <- reactive({
     filter(str_detect(group_level, paste(input$lsc_cohort_selector, collapse = "|"))) %>% 
     filter(variable_level %in% input$lsc_time_selector) %>% 
     filter(cdm_name %in% input$lsc_database_name_selector) %>% 
-  visOmopResults::filterSettings(table_name == input$lsc_domain_selector) 
+  visOmopResults::filterSettings(table_name == input$lsc_domain_selector) %>% 
+  visOmopResults::filterSettings(analysis == "standard")  
   
   target_cohort <- paste0(input$lsc_cohort_selector, " Sampled")
   comparator_cohort <- paste0(input$lsc_cohort_selector, " Matched")
@@ -1131,6 +1132,7 @@ get_lsc_characteristics <- reactive({
            percentage) |>
     pivot_wider(names_from = cohort_name,
                 values_from = percentage)
+  
   if (nrow(lsc_data ) == 0) {
     validate("No large scale characteristics in results")
   }
