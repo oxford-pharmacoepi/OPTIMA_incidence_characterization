@@ -1113,7 +1113,7 @@ get_lsc_characteristics <- reactive({
     filter(str_detect(group_level, paste(input$lsc_cohort_selector, collapse = "|"))) %>% 
     filter(variable_level %in% input$lsc_time_selector) %>% 
     filter(cdm_name %in% input$lsc_database_name_selector) %>% 
-  visOmopResults::filterSettings(table_name == input$lsc_domain_selector) %>% 
+  visOmopResults::filterSettings(table_name %in% input$lsc_domain_selector) %>% 
   visOmopResults::filterSettings(analysis == "standard")  
   
   target_cohort <- paste0(input$lsc_cohort_selector, " Sampled")
@@ -1197,7 +1197,7 @@ get_lsc_characteristics1 <- reactive({
   
   
   lsc_data1 <- lsc_characteristics %>% 
-    visOmopResults::filterSettings(table_name == input$lsc_domain_selector1) %>% 
+    visOmopResults::filterSettings(table_name %in% input$lsc_domain_selector1) %>% 
     visOmopResults::filterSettings(analysis == "standard") %>%
     #filter(!is.na(estimate_value)) %>% 
     filter(!str_detect(group_level, "Matched|Sampled")) %>% 
@@ -1263,7 +1263,7 @@ output$plotly_compare_lsc <- renderPlotly({
     filter(cdm_name %in% input$lsc_database_name_selector2,
            group_level %in% input$lsc_cohort_selector2 ,
            variable_level %in% input$lsc_time_selector2) %>% 
-    visOmopResults::filterSettings(table_name == input$lsc_domain_selector) 
+    visOmopResults::filterSettings(table_name %in% input$lsc_domain_selector) 
   
 
   
