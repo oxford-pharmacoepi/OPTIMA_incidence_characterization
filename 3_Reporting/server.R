@@ -1169,18 +1169,13 @@ output$gt_lsc_characteristics <- DT::renderDataTable({
 
 output$gt_lsc_characteristics_word <- downloadHandler(
   filename = function() {
-    "lsc_characteristics.docx"
+    "lsc_matched_characteristics.docx"
   },
   content = function(file) {
-    
-    gtsave(CohortCharacteristics::tableLargeScaleCharacteristics(get_lsc_characteristics(),
-                                                       header = c("group", "cdm_name", "variable_level"),
-                                                       hide = c("result_id", "estimate_type",
-                                                                "value","table")
-    ), file)
+    x <- gt(get_lsc_characteristics())
+    gtsave(x, file)
   }
 )
-
 
 
 
@@ -1203,6 +1198,7 @@ get_lsc_characteristics1 <- reactive({
   
   lsc_data1 <- lsc_characteristics %>% 
     visOmopResults::filterSettings(table_name == input$lsc_domain_selector1) %>% 
+    visOmopResults::filterSettings(analysis == "standard") %>%
     #filter(!is.na(estimate_value)) %>% 
     filter(!str_detect(group_level, "Matched|Sampled")) %>% 
     filter(group_level %in% input$lsc_cohort_selector1) %>% 
@@ -1249,6 +1245,15 @@ output$gt_lsc_characteristics1 <- DT::renderDataTable({
 })
 
 
+output$gt_lsc_characteristics_word1 <- downloadHandler(
+  filename = function() {
+    "lsc_characteristics.docx"
+  },
+  content = function(file) {
+    x <- gt(get_lsc_characteristics1())
+    gtsave(x, file)
+  }
+)
 
 
 # compare lsc plot ----
