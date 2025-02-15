@@ -32,6 +32,7 @@ library(CohortConstructor)
 
 # database metadata and connection details -----
 # The name/ acronym for your specific database please do not put OPTIMA or CDM
+# if running THIN databases please make sure to put "THIN" in db_name.
 db_name<-"..."
 
 # Specify databaseConnector connection details -----

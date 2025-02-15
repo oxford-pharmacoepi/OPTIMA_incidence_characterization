@@ -509,23 +509,23 @@ if(isTRUE(run_incidence)){
   
   if (grepl("THIN", db_name, ignore.case = TRUE)) {
   
-  # incidence results suppress less than 30 but keep 0
+  # incidence results suppress less than 10 but keep 0
   inc_tidy <- inc_tidy %>%
     mutate(
-      outcome_count = if_else(outcome_count <= 30 & outcome_count != 0, NA_integer_, outcome_count),
+      outcome_count = if_else(outcome_count <= 10 & outcome_count != 0, NA_integer_, outcome_count),
       across(
         c(incidence_100000_pys, incidence_100000_pys_95CI_lower, incidence_100000_pys_95CI_upper), 
-        ~ if_else(outcome_count <= 30 & outcome_count != 0, NA_real_, .)
+        ~ if_else(outcome_count <= 10 & outcome_count != 0, NA_real_, .)
       )
     )
   
   # age standardized results
   agestandardized_results <- agestandardized_results %>% 
     mutate(
-      outcome_count = if_else(outcome_count <= 30 & outcome_count != 0, NA_integer_, outcome_count),
+      outcome_count = if_else(outcome_count <= 10 & outcome_count != 0, NA_integer_, outcome_count),
       across(
         c(incidence_100000_pys, incidence_100000_pys_95CI_lower, incidence_100000_pys_95CI_upper), 
-        ~ if_else(outcome_count <= 30 & outcome_count != 0, NA_real_, .)
+        ~ if_else(outcome_count <= 10 & outcome_count != 0, NA_real_, .)
       )
     )
     

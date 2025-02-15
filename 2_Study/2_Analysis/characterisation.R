@@ -51,7 +51,14 @@ cli::cli_alert_info("Summarising Table One Demographics")
       compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
       CDMConnector::recordCohortAttrition(reason="Excluded patients with no sex recorded" )
       
-
+    # keep those only in study period TESTING
+    cdm$outcome <- cdm$outcome %>% 
+    filter(cohort_start_date >= as.Date(study_start) & 
+             cohort_start_date <= as.Date("2022-12-31"))
+    
+    cdm$outcome <- cdm$outcome %>% 
+      compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
+      CDMConnector::recordCohortAttrition(reason="Excluded patients outside study period" )
     
     
 cli::cli_alert_info("Creating matched cohorts for large scale characteristics")
@@ -111,7 +118,7 @@ cli::cli_alert_info("Exporting demographics table one characteristics results")
 if (grepl("THIN", db_name, ignore.case = TRUE)) {
   
 omopgenerics::exportSummarisedResult(summaryDemographics,
-                                       minCellCount = 30,
+                                       minCellCount = 10,
                                        path = here("Results",db_name),
                                        fileName = paste0(cdmName(cdm),
                                                          "_summary_characteristics_demographics.csv")
@@ -199,7 +206,7 @@ cli::cli_alert_info("Exporting comorbidities table one characteristics results")
 if (grepl("THIN", db_name, ignore.case = TRUE)) {
   
 omopgenerics::exportSummarisedResult(summaryComorbidity,
-            minCellCount = 30,
+            minCellCount = 10,
             path = here("Results",db_name),
             fileName = paste0(cdmName(cdm),
               "_summary_characteristics_comorbidity.csv")
@@ -283,7 +290,7 @@ cli::cli_alert_info("Exporting medications table one characteristics results")
 
 if (grepl("THIN", db_name, ignore.case = TRUE)) {
 omopgenerics::exportSummarisedResult(summaryMedications,
-                                     minCellCount = 30,
+                                     minCellCount = 10,
                                      path = here("Results",db_name),
                                      fileName = paste0(cdmName(cdm),
                                                        "_summary_characteristics_medications.csv")
@@ -328,7 +335,7 @@ lsc <- cdm$outcome_matched %>%
 if (grepl("THIN", db_name, ignore.case = TRUE)) {
   
 omopgenerics::exportSummarisedResult(lsc,
-                                     minCellCount = 30,
+                                     minCellCount = 10,
                                      path = here("Results",db_name),
                                      fileName = paste0(cdmName(cdm),
                                                        "_large_scale_characteristics.csv")
