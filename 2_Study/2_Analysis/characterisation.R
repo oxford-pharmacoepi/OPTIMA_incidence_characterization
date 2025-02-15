@@ -73,7 +73,7 @@ cli::cli_alert_info("Creating matched cohorts for large scale characteristics")
  
     
 # get attrition for outcome and matched outcome   
-write_csv(attrition(cdm$outcome_matched), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_outcome_attrition.csv")), row.names = FALSE)
+write_csv(attrition(cdm$outcome_matched), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_outcome_attrition.csv")))
     
 # add in demographics again (generates a warning but have suppressed it)
     

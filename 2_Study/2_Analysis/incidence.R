@@ -557,16 +557,16 @@ if(isTRUE(run_incidence)){
   
   # Export the results -----
   cli::cli_alert_info("- Getting incidence attrition")
-  write_csv(tableIncidenceAttrition(inc, type = "tibble"), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_attrition.csv")), row.names = FALSE)
+  write_csv(tableIncidenceAttrition(inc, type = "tibble"), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_attrition.csv")))
   
   cli::cli_alert_info("- Getting incidence settings")
-  write_csv(settings(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")), row.names = FALSE)
+  write_csv(settings(inc), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_settings.csv")))
   
   cli::cli_alert_info("- Getting incidence results")
-  write_csv(inc_tidy, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")), row.names = FALSE)
+  write_csv(inc_tidy, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates.csv")))
   
   cli::cli_alert_info("- Getting age standardized incidence results")
-  write_csv(agestandardized_results, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates_age_std_.csv")), row.names = FALSE)
+  write_csv(agestandardized_results, here::here("Results", paste0(db_name, "/", cdmName(cdm), "_incidence_estimates_age_std_.csv")))
   
   cli::cli_alert_success("Incidence Analysis Complete")
   
