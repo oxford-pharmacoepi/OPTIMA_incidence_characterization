@@ -41,7 +41,6 @@ cli::cli_alert_info("Summarising Table One Demographics")
       compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
       CDMConnector::recordCohortAttrition(reason="Excluded patients with less than 365 prior history" )
     
-    
     #only keeping those with sex recorded
     cdm$outcome <- cdm$outcome %>% 
       filter(sex %in% c("Male", "Female"))
@@ -51,7 +50,7 @@ cli::cli_alert_info("Summarising Table One Demographics")
       compute(name = "outcome", temporary = FALSE, overwrite = TRUE) %>% 
       CDMConnector::recordCohortAttrition(reason="Excluded patients with no sex recorded" )
       
-    # keep those only in study period TESTING
+    # keep those only in study period
     cdm$outcome <- cdm$outcome %>% 
     filter(cohort_start_date >= as.Date(study_start) & 
              cohort_start_date <= as.Date("2022-12-31"))
@@ -71,7 +70,10 @@ cli::cli_alert_info("Creating matched cohorts for large scale characteristics")
       keepOriginalCohorts = TRUE,
       name = "outcome_matched"
     )
+ 
     
+# get attrition for outcome and matched outcome   
+write_csv(attrition(cdm$outcome_matched), here::here("Results", paste0(db_name, "/", cdmName(cdm), "_outcome_attrition.csv")), row.names = FALSE)
     
 # add in demographics again (generates a warning but have suppressed it)
     
