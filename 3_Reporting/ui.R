@@ -1214,7 +1214,7 @@ ui <- dashboardPage(
             label = "Age Group",
             
             choices = if (exists("incidence_estimates") && !is.null(incidence_estimates$denominator_age_group)) {
-              unique(incidence_estimates_std$denominator_age_group)
+              unique(incidence_estimates$denominator_age_group)
             } else {
               c("No data available")
             },
