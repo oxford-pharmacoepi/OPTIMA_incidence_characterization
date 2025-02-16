@@ -48,6 +48,15 @@ if(isTRUE(run_incidence)){
     filter(variable_name == "Outcome") %>% 
     omopgenerics::pivotEstimates(pivotEstimatesBy = "estimate_name")
   
+  # if count = 0 and incidence = make upper confidence interval = 0
+  inc_tidy <- inc_tidy %>%
+    mutate(incidence_100000_pys_95CI_upper = if_else(
+      outcome_count == 0 & incidence_100000_pys == 0 & incidence_100000_pys_95CI_lower == 0,
+      0,
+      incidence_100000_pys_95CI_upper
+    ))
+  
+  
   
   # get the denominator related results which contain the person years and denominator count
   inc_tidy1 <- inc %>% 
