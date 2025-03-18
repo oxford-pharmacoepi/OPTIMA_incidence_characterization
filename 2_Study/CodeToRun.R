@@ -86,8 +86,9 @@ cdm$person %>%
   tally()
 
 # Study start date -----
-# please put the study start date if you do not have usable data before "2003-01-01" 
-# for example if you have usable data from 2010 you would put 2011-01-01 (to allow for 1 year prior history)
+# please put the study start date as "2003-01-01"if you have data before "2003-01-01". 
+# If you do not have usable data at 2003 please put the date of when you have useable data e.g.
+# dp only has useable data from 2010 you would put 2011-01-01 (to allow for 1 year prior history)
 study_start <- "..."
 
 # Run the study ------
