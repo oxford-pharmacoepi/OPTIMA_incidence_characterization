@@ -216,9 +216,9 @@ incidence_estimates <- dplyr::bind_rows(incidence_estimates) %>%
     cdm_name == "THIN it" ~ "THIN Italy",
     cdm_name == "THIN ro" ~ "THIN Romania",
     cdm_name == "THIN uk" ~ "THIN UK",
-    cdm_name == "German Disease Analyzer M202403" ~ "DA Germany",
+    cdm_name == "German DA M202403" ~ "DA Germany",
     cdm_name == "GERMANY DA" ~ "DA Germany",
-    cdm_name == "full_202112_source_data" ~ "OncoEMR",
+    cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
     TRUE ~ cdm_name
   )) %>% 
   # # Filter out rows where cdm_name starts with "THIN " and incidence_start_date == "2022-01-01" due to end of database cut affecting the denominator
@@ -267,9 +267,9 @@ incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>%
     cdm_name == "THIN it" ~ "THIN Italy",
     cdm_name == "THIN ro" ~ "THIN Romania",
     cdm_name == "THIN uk" ~ "THIN UK",
-    cdm_name == "German Disease Analyzer M202403" ~ "DA Germany",
+    cdm_name == "German DA M202403" ~ "DA Germany",
     cdm_name == "GERMANY DA" ~ "DA Germany",
-    cdm_name == "full_202112_source_data" ~ "OncoEMR",
+    cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
     TRUE ~ cdm_name
   )) %>% 
   # Filter out rows where cdm_name starts with "THIN " and incidence_start_date == "2022-01-01" due to end of database cut affecting the denominator
@@ -303,9 +303,9 @@ for(i in seq_along(incidence_attrition_files)){
 incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>% 
   mutate(`CDM name` = case_when(
     `CDM name` == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
-    `CDM name` == "German Disease Analyzer M202403" ~ "DA Germany",
+    `CDM name` == "German DA M202403" ~ "DA Germany",
     `CDM name` == "GERMANY DA" ~ "DA Germany",
-    `CDM name` == "full_202112_source_data" ~ "OncoEMR",
+    `CDM name` == "USONCEMR202112SRC" ~ "OncoEMR",
     TRUE ~ `CDM name`
   )) %>% 
   mutate(`Outcome cohort name` = case_when(
@@ -343,9 +343,9 @@ incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>%
   demo_characteristics <- Reduce(omopgenerics::bind, tableone_demo) %>%
     mutate(cdm_name = case_when(
       cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
-      cdm_name == "German Disease Analyzer M202403" ~ "DA Germany",
+      cdm_name == "German DA M202403" ~ "DA Germany",
       cdm_name == "GERMANY DA" ~ "DA Germany",
-      cdm_name == "full_202112_source_data" ~ "OncoEMR",
+      cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
       TRUE ~ cdm_name
     )) %>% 
     mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
@@ -397,9 +397,9 @@ if(length(tableone_med_files > 0)){
 med_characteristics <- Reduce(omopgenerics::bind, tableone_med) %>%
   mutate(cdm_name = case_when(
     cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
-    cdm_name == "German Disease Analyzer M202403" ~ "DA Germany",
+    cdm_name == "German DA M202403" ~ "DA Germany",
     cdm_name == "GERMANY DA" ~ "DA Germany",
-    cdm_name == "full_202112_source_data" ~ "OncoEMR",
+    cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
     TRUE ~ cdm_name
   )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
@@ -452,9 +452,9 @@ if(length(tableone_comorb_files > 0)){
 comorb_characteristics <- Reduce(omopgenerics::bind, tableone_comorb) %>%
   mutate(cdm_name = case_when(
     cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
-    cdm_name == "German Disease Analyzer M202403" ~ "DA Germany",
+    cdm_name == "German DA M202403" ~ "DA Germany",
     cdm_name == "GERMANY DA" ~ "DA Germany",
-    cdm_name == "full_202112_source_data" ~ "OncoEMR",
+    cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
     TRUE ~ cdm_name
   )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
@@ -507,9 +507,9 @@ if(length(lsc_files > 0)){
 lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
   mutate(cdm_name = case_when(
     cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
-    cdm_name == "German Disease Analyzer M202403" ~ "DA Germany",
+    cdm_name == "German DA M202403" ~ "DA Germany",
     cdm_name == "GERMANY DA" ~ "DA Germany",
-    cdm_name == "full_202112_source_data" ~ "OncoEMR",
+    cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
     TRUE ~ cdm_name
   )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
@@ -559,9 +559,9 @@ snapshotcdm <- bind_rows(snapshotcdm) %>%
          observation_period_count = nice.num.count(observation_period_count)) %>%
   mutate(cdm_name = case_when(
     cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
-    cdm_name == "German Disease Analyzer M202403" ~ "DA Germany",
+    cdm_name == "German DA M202403" ~ "DA Germany",
     cdm_name == "GERMANY DA" ~ "DA Germany",
-    cdm_name == "full_202112_source_data" ~ "OncoEMR",
+    cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
     TRUE ~ cdm_name
   )) %>% 
   mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>%
