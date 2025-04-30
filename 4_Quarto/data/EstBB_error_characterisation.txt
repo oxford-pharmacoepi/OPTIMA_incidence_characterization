@@ -1,2 +1,0 @@
-Error: 'tbl_group' is not an exported object from 'namespace:CDMConnector'
-
