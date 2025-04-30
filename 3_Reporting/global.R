@@ -795,7 +795,7 @@ outcome_attrition_combined <- bind(outcome_attrition) %>% filter(
     TRUE ~ group_level
   )) %>% 
   mutate(cdm_name = case_when(
-    cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    cdm_name == "CPRD_GOLD" ~ "CPRD GOLD",
     cdm_name == "German DA M202403" ~ "DA Germany",
     cdm_name == "GERMANY DA" ~ "DA Germany",
     cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
