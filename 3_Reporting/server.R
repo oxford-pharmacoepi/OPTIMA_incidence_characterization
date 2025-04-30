@@ -1102,7 +1102,7 @@ get_outcome_attrition <- reactive({
     filter(group_level %in% input$attrition_outcome_selector) %>% 
     filter(cdm_name %in% input$outcome_database_name_selector)  
 
-  CohortCharacteristics::plotCohortAttrition(
+ CohortCharacteristics::plotCohortAttrition(
     plot_data ,
     show = c("subjects")
   )
@@ -1110,23 +1110,30 @@ get_outcome_attrition <- reactive({
   
 })
 
+# output$attritionPlot <- DiagrammeR::renderGrViz({
+#   get_outcome_attrition()
+# })
+
+
 output$attritionPlot <- DiagrammeR::renderGrViz({
-  get_outcome_attrition()
+  htmlwidgets::onRender(get_outcome_attrition(), "
+    function(el, x) {
+      el.style.height = '100%';
+      el.style.width = '100%';
+    }
+  ")
 })
 
 
-
 output$outcome_attrition_download_plot <- shiny::downloadHandler(
-  filename = "outcome_attrition.png",
+  filename = "summarise_cohort_attrition_diagram.png",
   content = function(file) {
-    obj <- get_outcome_attrition()
-    DiagrammeR::export_graph(
-      graph = obj,
-      file_name = file,
-      fily_type = "png",
-      width = as.numeric(input$outcome_attrition_download_width),
-      height = as.numeric(input$outcome_attrition_download_height)
-    )
+    get_outcome_attrition() |>
+      DiagrammeRsvg::export_svg() |>
+      charToRaw() |>
+      rsvg::rsvg_png(file,
+                     width = as.numeric(input$outcome_attrition_download_width),
+                     height = as.numeric(input$outcome_attrition_download_height))
   }
 )
 
@@ -1295,39 +1302,39 @@ output$gt_lsc_characteristics_word1 <- downloadHandler(
 )
 
 
-# compare lsc plot ----
-output$plotly_compare_lsc <- renderPlotly({
-  
-  plot_lsc <-  lsc_characteristics |> 
-    filter(cdm_name %in% input$lsc_database_name_selector2,
-           group_level %in% input$lsc_cohort_selector2 ,
-           variable_level %in% input$lsc_time_selector2) %>% 
-    visOmopResults::filterSettings(table_name %in% input$lsc_domain_selector) 
-  
-
-  
-  if (nrow(plot_lsc) == 0) {
-    validate("No results found")
-  } 
-  
-  if (nrow(plot_lsc |> 
-           filter(group_level == 
-                  paste0(input$lsc_cohort_selector2, 
-                         " Sampled"))) == 0) {
-    validate("No results found for sample cohort")
-  } 
-  if (nrow(plot_lsc |> 
-           filter(group_level == 
-                  paste0(input$lsc_cohort_selector2, 
-                         " Matched"))) == 0) {
-    validate("No results found for matched cohort")
-  } 
-  
-  plotComparedLsc(lsc = plot_lsc,
-                  cohorts = c(paste0(input$lsc_cohort_selector2, " Sampled"),
-                              paste0(input$lsc_cohort_selector2, " Matched")))
-  
-} )
+# # compare lsc plot ----
+# output$plotly_compare_lsc <- renderPlotly({
+#   
+#   plot_lsc <-  lsc_characteristics |> 
+#     filter(cdm_name %in% input$lsc_database_name_selector2,
+#            group_level %in% input$lsc_cohort_selector2 ,
+#            variable_level %in% input$lsc_time_selector2) %>% 
+#     visOmopResults::filterSettings(table_name %in% input$lsc_domain_selector) 
+#   
+# 
+#   
+#   if (nrow(plot_lsc) == 0) {
+#     validate("No results found")
+#   } 
+#   
+#   if (nrow(plot_lsc |> 
+#            filter(group_level == 
+#                   paste0(input$lsc_cohort_selector2, 
+#                          " Sampled"))) == 0) {
+#     validate("No results found for sample cohort")
+#   } 
+#   if (nrow(plot_lsc |> 
+#            filter(group_level == 
+#                   paste0(input$lsc_cohort_selector2, 
+#                          " Matched"))) == 0) {
+#     validate("No results found for matched cohort")
+#   } 
+#   
+#   plotComparedLsc(lsc = plot_lsc,
+#                   cohorts = c(paste0(input$lsc_cohort_selector2, " Sampled"),
+#                               paste0(input$lsc_cohort_selector2, " Matched")))
+#   
+# } )
 
 
 

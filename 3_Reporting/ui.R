@@ -701,25 +701,37 @@ ui <- dashboardPage(
        multiple = TRUE
      ),
      
+       
+     #  div(style = "height: 800px;", DiagrammeR::grVizOutput("attritionPlot", width = "100%", height = "100%")
      
+
+           
+  div( 
+    
+    style = "width: 100%; height: 100%;",  # Set width to 100% for responsive design   
+    
+    DiagrammeR::grVizOutput("attritionPlot") %>% withSpinner()
+       
+       ,
+       
+         h4("Download Figure"),
+        div("Height:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+        
      div(
+          style = "display: inline-block;",
+          textInput("outcome_attrition_download_height", "", 1000, width = "80px")
+         ),
+    
+        # div(style = "display: inline-block; margin-right: 25px;"),
+    
+        div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+          div(
+          style = "display: inline-block;",
+            textInput("outcome_attrition_download_width", "", 1200, width = "80px")
+          ),
+         downloadButton("outcome_attrition_download_plot", "Download plot")
+       )
        
-       shiny::plotOutput("attritionPlot" , height = "800px") ,
-       
-       h4("Download Figure"),
-       div("Height:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-       div(
-         style = "display: inline-block;",
-         textInput("outcome_attrition_download_height", "", 30, width = "50px")
-       ),
-       div("cm", style = "display: inline-block; margin-right: 25px;"),
-       div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
-       div(
-         style = "display: inline-block;",
-         textInput("outcome_attrition_download_width", "", 35, width = "50px")
-       ),
-       downloadButton("outcome_attrition_download_plot", "Download plot")
-     )
      
    ),
    
