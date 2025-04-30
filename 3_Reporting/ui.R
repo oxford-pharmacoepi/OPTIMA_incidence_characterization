@@ -53,7 +53,11 @@ ui <- dashboardPage(
         menuSubItem(
           text = "Comorbidities",
           tabName = "comorbidities"
-        )
+        ),
+        menuSubItem(
+          text = "Outcome Attrition",
+          tabName = "attrition"
+        ) 
         ),
       
       
@@ -72,17 +76,6 @@ ui <- dashboardPage(
           text = "Matched Lsc",
           tabName = "lsc_estimates"
         )
-        
-        # ,
-        # 
-        # 
-        # menuSubItem(
-        #   text = "Matched Lsc plot",
-        #   tabName = "lsc_plot"
-        # )
-        
-        
-        
         
       ),
       
@@ -108,7 +101,7 @@ ui <- dashboardPage(
           tabName = "inc_rates_std"
         ),
         menuSubItem(
-          text = "Attrition Table",
+          text = "Incidence Attrition",
           tabName = "inc_attrition"
         )
       ),
@@ -660,6 +653,88 @@ ui <- dashboardPage(
             style="display:inline-block; float:right")
         
       ) ,
+ 
+ 
+ tabItem(
+   tabName = "attrition",
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "attrition_outcome_selector",
+       label = "Cohort Name",
+       choices = if (exists("outcome_attrition_combined") && !is.null(outcome_attrition_combined$group_level)) {
+         unique(outcome_attrition_combined$group_level)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("outcome_attrition_combined") && !is.null(outcome_attrition_combined$group_level)) {
+         unique(outcome_attrition_combined$group_level)[1]
+       } else {
+         "No data available"
+       },
+       
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     )
+   ),
+   
+   div(
+     style = "display: inline-block;vertical-align:top; width: 150px;",
+     pickerInput(
+       inputId = "outcome_database_name_selector",
+       label = "Database",
+
+       choices = if (exists("outcome_attrition_combined") && !is.null(outcome_attrition_combined$cdm_name)) {
+         unique(outcome_attrition_combined$cdm_name)
+       } else {
+         c("No data available")
+       },
+       selected = if (exists("outcome_attrition_combined") && !is.null(outcome_attrition_combined$cdm_name)) {
+         unique(outcome_attrition_combined$cdm_name)[1]
+       } else {
+         "No data available"
+       },
+       
+       
+       options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
+       multiple = TRUE
+     ),
+     
+     
+     div(
+       
+       shiny::plotOutput("attritionPlot" , height = "800px") ,
+       
+       h4("Download Figure"),
+       div("Height:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+       div(
+         style = "display: inline-block;",
+         textInput("outcome_attrition_download_height", "", 30, width = "50px")
+       ),
+       div("cm", style = "display: inline-block; margin-right: 25px;"),
+       div("Width:", style = "display: inline-block; font-weight: bold; margin-right: 5px;"),
+       div(
+         style = "display: inline-block;",
+         textInput("outcome_attrition_download_width", "", 35, width = "50px")
+       ),
+       downloadButton("outcome_attrition_download_plot", "Download plot")
+     )
+     
+   ),
+   
+   
+   # DT::dataTableOutput('tbl_outcome_attrition'),
+   # 
+   # div(style="display:inline-block",
+   #     downloadButton(
+   #       outputId = "dt_outcome_attrition_word",
+   #       label = "Download table as word"
+   #     ), 
+   #     style="display:inline-block; float:right")
+   
+ ),
+ 
  
  
  
