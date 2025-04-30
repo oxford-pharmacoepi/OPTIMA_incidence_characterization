@@ -1095,15 +1095,17 @@ output$incidence_download_plot_std <- downloadHandler(
 # get outcome attrition plots
 get_outcome_attrition <- reactive({
   
-  validate(need(input$attrition_outcome_selector != "", "Please select a cohort"))
+  validate(need(input$attrition_outcome_selector_1 != "", "Please select a cohort"))
   validate(need(input$outcome_database_name_selector != "", "Please select a database"))
   
+  print(input$attrition_outcome_selector_1)
+  
   plot_data <- outcome_attrition_combined %>%
-    filter(group_level %in% input$attrition_outcome_selector) %>% 
+    filter(group_level %in% input$attrition_outcome_selector_1) %>% 
     filter(cdm_name %in% input$outcome_database_name_selector)  
 
  CohortCharacteristics::plotCohortAttrition(
-    plot_data ,
+    plot_data,
     show = c("subjects")
   )
   
@@ -1116,12 +1118,13 @@ get_outcome_attrition <- reactive({
 
 
 output$attritionPlot <- DiagrammeR::renderGrViz({
-  htmlwidgets::onRender(get_outcome_attrition(), "
-    function(el, x) {
-      el.style.height = '100%';
-      el.style.width = '100%';
-    }
-  ")
+  get_outcome_attrition()
+  # htmlwidgets::onRender(, "
+  #   function(el, x) {
+  #     el.style.height = '100%';
+  #     el.style.width = '100%';
+  #   }
+  # ")
 })
 
 
