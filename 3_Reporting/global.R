@@ -807,18 +807,3 @@ outcome_attrition_combined <- bind(outcome_attrition) %>% filter(
     cdm_name == "THIN_uk" ~ "THIN UK",
     TRUE ~ cdm_name
   ))
-
-
-# # # plot the attrition
-# plotCohortAttrition(
-#   outcome_attrition_combined %>%
-#     filter(group_level == "Lung Cancer Broad", str_detect(cdm_name, "THIN")),
-#   show = c("subjects")
-# )
-# 
-# plotCohortAttrition(
-#   outcome_attrition_combined %>%
-#     filter(group_level == "Lung Cancer Broad"),
-#   show = c("subjects")
-# )
-
