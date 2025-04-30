@@ -1,0 +1,517 @@
+---
+title: "OPTIMA Lung Cancer Results"
+format: html
+editor: visual
+---
+
+## Results
+
+```{r loading results, echo=FALSE, warning=FALSE, message=FALSE}
+library(dplyr)
+library(omopgenerics)
+library(stringr)
+
+results <-list.files("data", full.names = TRUE,
+                     recursive = TRUE,
+                     include.dirs = TRUE,
+                     pattern = ".zip")
+
+#unzip data
+for (i in (1:length(results))) {
+  utils::unzip(zipfile = results[[i]],
+               exdir = "data")
+}
+
+results <- list.files(
+  path = "data",
+  pattern = ".csv",
+  full.names = TRUE,
+  recursive = TRUE,
+  include.dirs = TRUE
+)
+
+incidence_estimates_files_std<-results[stringr::str_detect(results, ".csv")]
+incidence_estimates_files_std<-results[stringr::str_detect(results, "incidence_estimates")]
+incidence_estimates_files_std<-incidence_estimates_files_std[(stringr::str_detect(incidence_estimates_files_std, "_age_std"))]
+
+incidence_estimates_std <- list()
+
+for(i in seq_along(incidence_estimates_files_std)){
+  incidence_estimates_std[[i]]<-readr::read_csv(incidence_estimates_files_std[[i]], 
+                                            show_col_types = FALSE) %>% 
+    mutate(incidence_start_date = as.Date(incidence_start_date))
+}
+
+incidence_estimates_std <- dplyr::bind_rows(incidence_estimates_std) %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  mutate(outcome_cohort_name = case_when(
+    outcome_cohort_name == "lung_cancer_incident_all" ~ "Lung Cancer All",
+    outcome_cohort_name == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    outcome_cohort_name == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    outcome_cohort_name == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    TRUE ~ outcome_cohort_name
+  )) %>% 
+  mutate(cdm_name = case_when(
+    cdm_name == "THIN es" ~ "THIN Spain",
+    cdm_name == "THIN be" ~ "THIN Belgium",
+    cdm_name == "THIN fr" ~ "THIN France",
+    cdm_name == "THIN it" ~ "THIN Italy",
+    cdm_name == "THIN ro" ~ "THIN Romania",
+    cdm_name == "THIN uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  )) %>% 
+  # Filter out rows where cdm_name starts with "THIN " and incidence_start_date == "2022-01-01" due to end of database cut affecting the denominator
+  filter(!(str_starts(cdm_name, "THIN ") & incidence_start_date == "2022-01-01")) %>% 
+  group_by(incidence_start_date, outcome_cohort_name) %>% 
+  filter(!(outcome_cohort_name == "Small Cell Lung Cancer" & all(outcome_count == 0))) %>% 
+  ungroup()
+
+####
+tableone_demo_files <- results[stringr::str_detect(results, ".csv")]
+tableone_demo_files <- results[stringr::str_detect(results, "demographics")]
+  
+  if(length(tableone_demo_files > 0)){
+    
+    tableone_demo <- list()
+    
+    for(i in seq_along(tableone_demo_files)){
+      #read in the files
+
+      tableone_demo[[i]] <- omopgenerics::importSummarisedResult(tableone_demo_files[[i]], recursive = FALSE)
+      
+      
+    }
+    
+  }
+  
+  demo_characteristics <- Reduce(omopgenerics::bind, tableone_demo) %>%
+    mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+    mutate(group_level = case_when(
+      group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+      group_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+      group_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+      group_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+      group_level == "lung_cancer_incident_all_sampled" ~ "Lung Cancer All Sampled",
+      group_level == "lung_cancer_incident_broad_sampled" ~ "Lung Cancer Broad Sampled",
+      group_level == "lung_cancer_incident_narrow_sampled" ~ "Lung Cancer Narrow Sampled",
+      group_level == "small_cell_lung_cancer_sampled" ~ "Small Cell Lung Cancer Sampled",
+      group_level == "lung_cancer_incident_all_matched" ~ "Lung Cancer All Matched",
+      group_level == "lung_cancer_incident_broad_matched" ~ "Lung Cancer Broad Matched",
+      group_level == "lung_cancer_incident_narrow_matched" ~ "Lung Cancer Narrow Matched",
+      group_level == "small_cell_lung_cancer_matched" ~ "Small Cell Lung Cancer Matched",
+      TRUE ~ group_level
+    )) %>% 
+    
+    mutate(cdm_name = case_when(
+      cdm_name == "THIN es" ~ "THIN Spain",
+      cdm_name == "THIN be" ~ "THIN Belgium",
+      cdm_name == "THIN fr" ~ "THIN France",
+      cdm_name == "THIN it" ~ "THIN Italy",
+      cdm_name == "THIN ro" ~ "THIN Romania",
+      cdm_name == "THIN uk" ~ "THIN UK",
+      cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
+      cdm_name == "German DA M202403" ~ "German DA",
+      TRUE ~ cdm_name
+    )) 
+```
+
+## Summary
+
+239,480 adults with at least one year of prior history were identified as having lung cancer. Median age of diagnosis
+
+```{r table one, warning=FALSE, echo=FALSE, message=FALSE}
+characteristics <- demo_characteristics %>%
+  filter(group_level == "Lung Cancer All",
+         strata_name == "overall")
+CohortCharacteristics::tableCharacteristics(characteristics, header = c("cdm_name"))
+```
+
+### Standardised Incidence Rates
+
+```{r incidence, echo = FALSE, warning = FALSE}
+library(ggplot2)
+incidence_estimates_std |>
+  filter(outcome_cohort_name == "Lung Cancer Broad",
+         age_standard == "European Standard Population",
+         denominator_sex == "Both") |>
+          ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
+                            ymin = "incidence_100000_pys_95CI_lower",
+                            ymax = "incidence_100000_pys_95CI_upper",
+                            colour = "cdm_name", fill = "cdm_name")) +
+          geom_line(size = 0.5, colour = "black") +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+          geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
+                      alpha = 0.1,colour = NA) + 
+          labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
+          facet_wrap(~denominator_sex,ncol = 3, scales = "free_y")+
+          scale_y_continuous(limits = c(0, NA)) +
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                strip.text.x = element_text(face = "bold", size = 10),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 20))
+
+
+```
+
+```{r incidence 2, echo = FALSE, warning = FALSE}
+library(ggplot2)
+incidence_estimates_std |>
+  filter(outcome_cohort_name == "Lung Cancer Broad",
+         age_standard == "European Standard Population",
+         denominator_sex == "Male") |>
+          ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
+                            ymin = "incidence_100000_pys_95CI_lower",
+                            ymax = "incidence_100000_pys_95CI_upper",
+                            colour = "cdm_name", fill = "cdm_name")) +
+          geom_line(size = 0.5, colour = "black") +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+          geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
+                      alpha = 0.1,colour = NA) + 
+          labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
+          facet_wrap(~denominator_sex,ncol = 3, scales = "free_y")+
+          scale_y_continuous(limits = c(0, NA)) +
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                strip.text.x = element_text(face = "bold", size = 10),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 20))
+
+
+```
+
+```{r incidence 3, echo = FALSE, warning = FALSE}
+library(ggplot2)
+incidence_estimates_std |>
+  filter(outcome_cohort_name == "Lung Cancer Broad",
+         age_standard == "European Standard Population",
+         denominator_sex == "Female") |>
+          ggplot(aes_string(x="incidence_start_date", y="incidence_100000_pys",
+                            ymin = "incidence_100000_pys_95CI_lower",
+                            ymax = "incidence_100000_pys_95CI_upper",
+                            colour = "cdm_name", fill = "cdm_name")) +
+          geom_line(size = 0.5, colour = "black") +
+          geom_point(shape = 21, colour = "black", position=position_dodge(width=1), size = 7) +
+          geom_ribbon(aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), 
+                      alpha = 0.1,colour = NA) + 
+          labs(x = "Calendar Year", y = "Incidence Rate per 100,000 person-years") +
+          facet_wrap(~denominator_sex,ncol = 3, scales = "free_y")+
+          scale_y_continuous(limits = c(0, NA)) +
+          theme(axis.text.x = element_text(angle = 45, hjust=1),
+                panel.border = element_rect(color = "black", fill = NA, size = 0.6), 
+                strip.background = element_rect(color = "black", size = 0.6) ,
+                panel.background = element_blank() ,
+                axis.line = element_line(colour = "black", size = 0.6) ,
+                panel.grid.major = element_line(color = "grey", size = 0.2, linetype = "dashed"),
+                strip.text.x = element_text(face = "bold", size = 10),
+                legend.key = element_rect(fill = "white"),
+                text = element_text(size = 20))
+
+
+```
+
+## Matched Large Scale Characteristics
+
+```{r lsc matched, warning=FALSE, echo=FALSE, message=FALSE}
+lsc_files <- results[stringr::str_detect(results, ".csv")]
+lsc_files <- results[stringr::str_detect(results, "_large_scale")]
+
+if(length(lsc_files > 0)){
+  
+  table_lsc <- list()
+  
+  for(i in seq_along(lsc_files)){
+
+    table_lsc[[i]] <- omopgenerics::importSummarisedResult(lsc_files[[i]], recursive = FALSE)
+    
+    
+  }
+  
+}
+
+lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
+  mutate(cdm_name = case_when(
+    cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    cdm_name == "German DA M202403" ~ "DA Germany",
+    cdm_name == "GERMANY DA" ~ "DA Germany",
+    cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
+    TRUE ~ cdm_name
+  )) %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  mutate(group_level = case_when(
+    group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+    group_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    group_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    group_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    group_level == "lung_cancer_incident_all_sampled" ~ "Lung Cancer All Sampled",
+    group_level == "lung_cancer_incident_broad_sampled" ~ "Lung Cancer Broad Sampled",
+    group_level == "lung_cancer_incident_narrow_sampled" ~ "Lung Cancer Narrow Sampled",
+    group_level == "small_cell_lung_cancer_sampled" ~ "Small Cell Lung Cancer Sampled",
+    group_level == "lung_cancer_incident_all_matched" ~ "Lung Cancer All Matched",
+    group_level == "lung_cancer_incident_broad_matched" ~ "Lung Cancer Broad Matched",
+    group_level == "lung_cancer_incident_narrow_matched" ~ "Lung Cancer Narrow Matched",
+    group_level == "small_cell_lung_cancer_matched" ~ "Small Cell Lung Cancer Matched",
+    TRUE ~ group_level
+  )) %>% 
+  
+  mutate(cdm_name = case_when(
+    cdm_name == "THIN es" ~ "THIN Spain",
+    cdm_name == "THIN be" ~ "THIN Belgium",
+    cdm_name == "THIN fr" ~ "THIN France",
+    cdm_name == "THIN it" ~ "THIN Italy",
+    cdm_name == "THIN ro" ~ "THIN Romania",
+    cdm_name == "THIN uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  )) 
+
+rm(table_lsc)
+
+lsc_data <- lsc_characteristics %>% 
+    filter(!is.na(estimate_value)) %>%
+  filter(str_detect(group_level, paste("Lung Cancer All", collapse = "|"))) %>%
+  visOmopResults::filterSettings(analysis == "standard")  
+  
+target_cohort <-  "Lung Cancer All Sampled"
+comparator_cohort <- "Lung Cancer All Matched"
+
+lsc_data <- lsc_data |>
+    tidy() |>
+    select(cdm_name,
+           cohort_name,
+           variable_name,
+           concept_id,
+           variable_level,
+           table_name,
+           percentage) |>
+    tidyr::pivot_wider(names_from = cohort_name,
+                values_from = percentage)
+
+lsc <- lsc_data |>
+    mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)/100)) |>
+    mutate(smd = (!!sym(target_cohort) - !!sym(comparator_cohort))/sqrt((!!sym(target_cohort)*(1-!!sym(target_cohort)) + !!sym(comparator_cohort)*(1-!!sym(comparator_cohort)))/2)) |>
+    mutate(smd = round(smd, 3)) |>  # Round SMD to 3 decimal places
+    arrange(desc(smd))  |>
+    mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)*100)) |>
+    mutate(concept = paste0(variable_name, " (",concept_id, ")")) |>
+    select("Database" = cdm_name,
+           "Concept name (concept ID)" = concept,
+           "Table" = table_name,
+           "Time window" = variable_level,
+           target_cohort,
+           comparator_cohort,
+           "Standardised mean difference" = smd) 
+
+lsc <- lsc %>%
+  filter(Table == "condition_occurrence") %>% 
+mutate(`Concept name (concept ID)` = str_remove(`Concept name (concept ID)`, "\\s*\\(\\d+\\)")) %>% 
+
+  mutate(`Concept name (concept ID)` = case_when(
+    `Concept name (concept ID)` == "Acute exacerbation of chronic obstructive airways disease" ~ "COPD",
+    `Concept name (concept ID)` == "Acute lower respiratory tract infection" ~ "Respiratory infection",
+    `Concept name (concept ID)` == "Lower respiratory tract infection" ~ "Respiratory infection1",
+    `Concept name (concept ID)` == "Chronic obstructive lung disease" ~ "COPD1",
+    `Concept name (concept ID)` == "Disorders of initiating and maintaining sleep" ~ "Sleep disorders",
+    `Concept name (concept ID)` == "Acute upper respiratory infection" ~ "Respiratory infection2",
+    `Concept name (concept ID)` == "Gastroesophageal reflux disease" ~ "GERD",
+    `Concept name (concept ID)` == "Depressive disorder" ~ "Depression",
+    `Concept name (concept ID)` == "Inflammatory disorder of digestive tract" ~ "IBS",
+    `Concept name (concept ID)` == "Type 2 diabetes mellitus without complication" ~ "T2D",
+    `Concept name (concept ID)` == "Chronic obstructive pulmonary disease with acute lower respiratory infection" ~ "COPD + RTI",
+    `Concept name (concept ID)` == "Acute exacerbation of chronic obstructive bronchitis" ~ "COPD2",
+    `Concept name (concept ID)` == "Disorder of respiratory system" ~ "Respiratory disease",
+    `Concept name (concept ID)` == "Medical Research Council Dyspnoea scale grade 4" ~ "Dyspnoea grade 4",
+    `Concept name (concept ID)` == "Medical Research Council Dyspnoea scale grade 2" ~ "Dyspnoea grade 2",
+    `Concept name (concept ID)` == "Medical Research Council Dyspnoea scale grade 3" ~ "Dyspnoea grade 3",
+    `Concept name (concept ID)` == "General finding of observation of patient" ~ "Patient observation finding",
+    `Concept name (concept ID)` == "Arteriosclerotic vascular disease" ~ "Vascular disease",
+    
+    
+
+    TRUE ~ `Concept name (concept ID)`  # Keep other values unchanged
+  )) %>% 
+  mutate(`Concept name (concept ID)` = str_remove_all(`Concept name (concept ID)`, regex("disorders?|Disorders?", ignore_case = TRUE)))
+
+# Merge back to tag conditions with their appearance count per DB
+lsc <- lsc %>% 
+  group_by(Database, `Time window`) %>%
+  arrange(Database, `Time window`, desc(`Standardised mean difference`)) %>%
+  slice_head(n = 10)
+
+
+ggplot(lsc %>% filter(`Time window` == "-365 to -31"), aes(x = `Concept name (concept ID)`, y = `Standardised mean difference`)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) +  
+  labs(
+    title = "Top Conditions For Lung Cancer Patients Before and After Diagnosis\nCompared to Matched Controls",
+    y = "Standardized Mean Difference (SMD)",
+    fill = "Time Point"
+  ) +
+  theme_minimal(base_size = 12) +
+#  scale_fill_manual(values = c("-365 to -31" = "orange", "31 to 365" = "skyblue", "-30 to -1" = "lavender"),
+#                    breaks = c("-365 to -31", "31 to 365", "-30 to -1")) +  
+  scale_y_continuous(expand = c(0, 0)) +  # Remove gap between bars and axis
+  theme(
+    axis.text.y = element_text(size = 10, hjust = 1),  
+    axis.text.x = element_text(size = 10),  
+    axis.ticks.y = element_blank(),
+    axis.ticks.length = unit(0, "pt"),
+    axis.title.y = element_blank(),
+    panel.grid.major.y = element_blank(),  # Remove major grid lines on y-axis
+    panel.grid.major.x = element_blank(),  # Remove major grid lines on x-axis
+    panel.grid.minor.y = element_blank(),  # Remove major grid lines on y-axis
+    panel.grid.minor.x = element_blank(),  # Remove major grid lines on x-axis
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    axis.line = element_line(colour = "black", size = 1),  # Add black axis lines
+    strip.text = element_text(face = "bold", size = 12)  # Make facet labels bold
+  ) +   
+  coord_flip() +  
+  facet_wrap(~ Database, scales = "free", drop = TRUE)
+
+```
+
+```{r lsc matched vs case, warning=FALSE, echo=FALSE, message=FALSE}
+library(ggplot2)
+lsc_files <- results[stringr::str_detect(results, ".csv")]
+lsc_files <- results[stringr::str_detect(results, "_large_scale")]
+
+if(length(lsc_files > 0)){
+  
+  table_lsc <- list()
+  
+  for(i in seq_along(lsc_files)){
+
+    table_lsc[[i]] <- omopgenerics::importSummarisedResult(lsc_files[[i]], recursive = FALSE)
+    
+    
+  }
+  
+}
+
+lsc_characteristics <- Reduce(omopgenerics::bind, table_lsc) %>%
+  mutate(cdm_name = case_when(
+    cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    cdm_name == "German DA M202403" ~ "DA Germany",
+    cdm_name == "GERMANY DA" ~ "DA Germany",
+    cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
+    TRUE ~ cdm_name
+  )) %>% 
+  mutate(cdm_name = str_replace_all(cdm_name, "_", " ")) %>% 
+  mutate(group_level = case_when(
+    group_level == "lung_cancer_incident_all" ~ "Lung Cancer All",
+    group_level == "lung_cancer_incident_broad" ~ "Lung Cancer Broad",
+    group_level == "lung_cancer_incident_narrow" ~ "Lung Cancer Narrow",
+    group_level == "small_cell_lung_cancer" ~ "Small Cell Lung Cancer",
+    group_level == "lung_cancer_incident_all_sampled" ~ "Lung Cancer All Sampled",
+    group_level == "lung_cancer_incident_broad_sampled" ~ "Lung Cancer Broad Sampled",
+    group_level == "lung_cancer_incident_narrow_sampled" ~ "Lung Cancer Narrow Sampled",
+    group_level == "small_cell_lung_cancer_sampled" ~ "Small Cell Lung Cancer Sampled",
+    group_level == "lung_cancer_incident_all_matched" ~ "Lung Cancer All Matched",
+    group_level == "lung_cancer_incident_broad_matched" ~ "Lung Cancer Broad Matched",
+    group_level == "lung_cancer_incident_narrow_matched" ~ "Lung Cancer Narrow Matched",
+    group_level == "small_cell_lung_cancer_matched" ~ "Small Cell Lung Cancer Matched",
+    TRUE ~ group_level
+  )) %>% 
+  
+  mutate(cdm_name = case_when(
+    cdm_name == "THIN es" ~ "THIN Spain",
+    cdm_name == "THIN be" ~ "THIN Belgium",
+    cdm_name == "THIN fr" ~ "THIN France",
+    cdm_name == "THIN it" ~ "THIN Italy",
+    cdm_name == "THIN ro" ~ "THIN Romania",
+    cdm_name == "THIN uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  )) 
+
+rm(table_lsc)
+
+lsc_data <- lsc_characteristics %>% 
+    filter(!is.na(estimate_value)) %>%
+  filter(str_detect(group_level, paste("Lung Cancer All", collapse = "|"))) %>%
+  visOmopResults::filterSettings(analysis == "standard")  
+  
+target_cohort <-  "Lung Cancer All Sampled"
+comparator_cohort <- "Lung Cancer All Matched"
+
+lsc_data <- lsc_data |>
+    tidy() |>
+    select(cdm_name,
+           cohort_name,
+           variable_name,
+           concept_id,
+           variable_level,
+           table_name,
+           percentage) |>
+    tidyr::pivot_wider(names_from = cohort_name,
+                values_from = percentage)
+
+lsc <- lsc_data |>
+    mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)/100)) |>
+    mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)*100)) |>
+    mutate(concept = paste0(variable_name, " (",concept_id, ")")) |>
+    filter(variable_level %in% c("-365 to -31")) |>
+    filter(table_name == "condition_occurrence") |>
+    select("Database" = cdm_name,
+           "Concept name (concept ID)" = concept,
+           "Table" = table_name,
+           "Time window" = variable_level,
+           target_cohort,
+           comparator_cohort) |>
+mutate(`Concept name (concept ID)` = str_remove(`Concept name (concept ID)`, "\\s*\\(\\d+\\)")) |>
+  mutate(`Concept name (concept ID)` = case_when(
+    `Concept name (concept ID)` == "Acute exacerbation of chronic obstructive airways disease" ~ "COPD",
+    `Concept name (concept ID)` == "Acute lower respiratory tract infection" ~ "Respiratory infection",
+    `Concept name (concept ID)` == "Lower respiratory tract infection" ~ "Respiratory infection1",
+    `Concept name (concept ID)` == "Chronic obstructive lung disease" ~ "COPD1",
+    `Concept name (concept ID)` == "Disorders of initiating and maintaining sleep" ~ "Sleep disorders",
+    `Concept name (concept ID)` == "Acute upper respiratory infection" ~ "Respiratory infection2",
+    `Concept name (concept ID)` == "Gastroesophageal reflux disease" ~ "GERD",
+    `Concept name (concept ID)` == "Depressive disorder" ~ "Depression",
+    `Concept name (concept ID)` == "Inflammatory disorder of digestive tract" ~ "IBS",
+    `Concept name (concept ID)` == "Type 2 diabetes mellitus without complication" ~ "T2D",
+    `Concept name (concept ID)` == "Chronic obstructive pulmonary disease with acute lower respiratory infection" ~ "COPD + RTI",
+    `Concept name (concept ID)` == "Acute exacerbation of chronic obstructive bronchitis" ~ "COPD2",
+    `Concept name (concept ID)` == "Disorder of respiratory system" ~ "Respiratory disease",
+    `Concept name (concept ID)` == "Medical Research Council Dyspnoea scale grade 4" ~ "Dyspnoea grade 4",
+    `Concept name (concept ID)` == "Medical Research Council Dyspnoea scale grade 2" ~ "Dyspnoea grade 2",
+    `Concept name (concept ID)` == "Medical Research Council Dyspnoea scale grade 3" ~ "Dyspnoea grade 3",
+    `Concept name (concept ID)` == "General finding of observation of patient" ~ "Patient observation finding",
+    `Concept name (concept ID)` == "Arteriosclerotic vascular disease" ~ "Vascular disease",
+    TRUE ~ `Concept name (concept ID)`  # Keep other values unchanged
+  )) %>% 
+  mutate(`Concept name (concept ID)` = str_remove_all(`Concept name (concept ID)`, regex("disorders?|Disorders?", ignore_case = TRUE)))
+
+ggplot(lsc, aes(x = `Lung Cancer All Sampled`, y = `Lung Cancer All Matched`, color = Database)) +
+  geom_point() +
+  geom_label(data = subset(lsc %>% mutate(diff = abs(`Lung Cancer All Sampled` - `Lung Cancer All Matched`)), diff >= 10),
+            aes(label = `Concept name (concept ID)`),
+            vjust = -0.5, size = 3) +
+  labs(
+    title = "Prevelance of conditions in Lung Cancer Cohort and Matched Cohort",
+    y = "Matched",
+    x = "Sampled"
+  ) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dotted", color = "black") +
+  theme_minimal(base_size = 12)
+
+ggplot(lsc, aes(x = `Lung Cancer All Sampled`, y = `Lung Cancer All Matched`, color = Database)) +
+  geom_point() +
+  geom_label(data = subset(lsc %>% mutate(diff = abs(`Lung Cancer All Sampled` - `Lung Cancer All Matched`)), diff >= 5),
+            aes(label = `Concept name (concept ID)`),
+            vjust = -0.5, size = 3) +
+  labs(
+    title = "Prevelance of conditions in Lung Cancer Cohort and Matched Cohort (-365 to -31)",
+    y = "Matched",
+    x = "Sampled"
+  ) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dotted", color = "black") +
+  theme_minimal(base_size = 12) +
+  facet_wrap(~ Database)
+```
