@@ -1,2 +1,4 @@
 /.quarto/
-data/
+data/*csv
+data/*zip
+data/*txt
