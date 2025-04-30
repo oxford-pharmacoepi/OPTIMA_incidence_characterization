@@ -110,7 +110,7 @@ results <- list.files(
 )
 
 # cohort concept code lists -----
-cohort_set <- CDMConnector::read_cohort_set(here::here(
+cohort_set <- CDMConnector::readCohortSet(here::here(
   "www", "Cohorts" , "incidence" ))
 
 cohort_set$markdown <- ""
@@ -286,8 +286,6 @@ incidence_attrition_files<-results[stringr::str_detect(results, "incidence_attri
 incidence_attrition <- list()
 
 for(i in seq_along(incidence_attrition_files)){
-  # incidence_attrition[[i]]<-readr::read_csv(incidence_attrition_files[[i]],
-  #                                           show_col_types = FALSE)
 
     df <- readr::read_csv(incidence_attrition_files[[i]], show_col_types = FALSE)
 
@@ -574,6 +572,7 @@ snapshotcdm <- bind_rows(snapshotcdm) %>%
          "Database Description" = "cdm_description" )
 
 
+
 # attrition functions ----
 attritionChart <- function(x) {
   formatNum <- function(col) {
@@ -683,3 +682,143 @@ attritionChart <- function(x) {
   
   return(xg)
 }
+
+
+orderSummaryAttrition <- function(x) {
+  vars <- c(
+    "number_records", "number_subjects", "excluded_records", "excluded_subjects"
+  )
+  x |>
+    dplyr::mutate(additional_level = as.numeric(.data$additional_level)) |>
+    dplyr::inner_join(
+      dplyr::tibble(variable_name = vars, var_id = seq_along(vars)),
+      by = "variable_name"
+    ) |>
+    dplyr::arrange(.data$result_id, .data$additional_level, .data$var_id) |>
+    dplyr::select(!"var_id") |>
+    dplyr::mutate(additional_level = as.character(.data$additional_level))
+}
+
+summariseAttrition <- function(att,
+                               set = NULL,
+                               tname = "unknown",
+                               cname = "unknown") {
+  if (is.null(set)) {
+    set <- att |>
+      dplyr::select("cohort_definition_id") |>
+      dplyr::distinct() |>
+      dplyr::mutate(
+        "result_id" = .data$cohort_definition_id,
+        "cohort_name" = paste0("unknown_", .data$cohort_definition_id)
+      )
+  }
+  att |>
+    dplyr::inner_join(
+      set |>
+        dplyr::select("cohort_definition_id", "result_id", "cohort_name"),
+      by = "cohort_definition_id"
+    ) |>
+    dplyr::select(-"cohort_definition_id") |>
+    dplyr::mutate(dplyr::across(!"result_id", as.character)) |>
+    tidyr::pivot_longer(
+      cols = c(
+        "number_records", "number_subjects", "excluded_records",
+        "excluded_subjects"
+      ),
+      names_to = "variable_name",
+      values_to = "estimate_value"
+    ) |>
+    dplyr::mutate(
+      "estimate_name" = "count",
+      "variable_level" = NA_character_,
+      "estimate_type" = "integer",
+      "cdm_name" = cname
+    ) |>
+    visOmopResults::uniteGroup("cohort_name") |>
+    visOmopResults::uniteStrata("reason") |>
+    visOmopResults::uniteAdditional("reason_id") |>
+    orderSummaryAttrition() |>
+    omopgenerics::newSummarisedResult(
+      settings = set |>
+        dplyr::select(!"cohort_name") |>
+        dplyr::mutate(
+          "result_type" = "summarise_cohort_attrition",
+          "package_name" = "CohortCharacteristics",
+          "package_version" = "0.5.1",
+          "table_name" = tname
+        ) |>
+        dplyr::relocate(dplyr::all_of(c(
+          "result_id", "result_type", "package_name", "package_version"
+        ))) |>
+        dplyr::mutate(
+          cohort_definition_id = as.character(.data$cohort_definition_id)
+        )
+    )
+}
+
+# outcome attrition ------
+outcome_attrition_files<-results[stringr::str_detect(results, ".csv")]
+outcome_attrition_files<-results[stringr::str_detect(results, "outcome_attrition")]
+outcome_attrition_temp <- list()
+outcome_attrition <- list()
+
+for(i in seq_along(outcome_attrition_files)){
+  
+  
+  outcome_attrition_temp[[i]]<-readr::read_csv(outcome_attrition_files[[i]],
+                                            show_col_types = FALSE)
+  
+  db_names <- str_extract(outcome_attrition_files[[i]], "(?<=data/)(.*?)(?=_outcome_attrition\\.csv)")
+  
+  
+  outcome_attrition[[i]] <- summariseAttrition(outcome_attrition_temp[[i]],
+                                               cname = db_names                 
+                                               )
+  
+  
+  
+}
+
+# bind the attrition cohorts and only keep main cohorts not matched ones
+outcome_attrition_combined <- bind(outcome_attrition) %>% filter(
+  group_level == "unknown_1" |
+    group_level == "unknown_2" |
+    group_level == "unknown_3" |
+    group_level == "unknown_4" 
+) %>% 
+  filter(strata_level != "Cohort records collapsed") %>% 
+  mutate(group_level = case_when(
+    group_level == "unknown_1" ~ "Lung Cancer All",
+    group_level == "unknown_2" ~ "Lung Cancer Broad",
+    group_level == "unknown_3" ~ "Lung Cancer Narrow",
+    group_level == "unknown_4" ~ "Small Cell Lung Cancer",
+    TRUE ~ group_level
+  )) %>% 
+  mutate(cdm_name = case_when(
+    cdm_name == "CPRD_GOLD_100k" ~ "CPRD_GOLD",
+    cdm_name == "German DA M202403" ~ "DA Germany",
+    cdm_name == "GERMANY DA" ~ "DA Germany",
+    cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
+    cdm_name == "THIN_es" ~ "THIN Spain",
+    cdm_name == "THIN_be" ~ "THIN Belgium",
+    cdm_name == "THIN_fr" ~ "THIN France",
+    cdm_name == "THIN_it" ~ "THIN Italy",
+    cdm_name == "THIN_ro" ~ "THIN Romania",
+    cdm_name == "THIN_uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  ))
+
+
+# # # plot the attrition
+# plotCohortAttrition(
+#   outcome_attrition_combined %>%
+#     filter(group_level == "Lung Cancer Broad", str_detect(cdm_name, "THIN")),
+#   show = c("subjects")
+# )
+# 
+# plotCohortAttrition(
+#   outcome_attrition_combined %>%
+#     filter(group_level == "Lung Cancer Broad"),
+#   show = c("subjects")
+# )
+

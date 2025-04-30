@@ -1092,6 +1092,45 @@ output$incidence_download_plot_std <- downloadHandler(
 )
   
 
+# get outcome attrition plots
+get_outcome_attrition <- reactive({
+  
+  validate(need(input$attrition_outcome_selector != "", "Please select a cohort"))
+  validate(need(input$outcome_database_name_selector != "", "Please select a database"))
+  
+  plot_data <- outcome_attrition_combined %>%
+    filter(group_level %in% input$attrition_outcome_selector) %>% 
+    filter(cdm_name %in% input$outcome_database_name_selector)  
+
+  CohortCharacteristics::plotCohortAttrition(
+    plot_data ,
+    show = c("subjects")
+  )
+  
+  
+})
+
+output$attritionPlot <- DiagrammeR::renderGrViz({
+  get_outcome_attrition()
+})
+
+
+
+output$outcome_attrition_download_plot <- shiny::downloadHandler(
+  filename = "outcome_attrition.png",
+  content = function(file) {
+    obj <- get_outcome_attrition()
+    DiagrammeR::export_graph(
+      graph = obj,
+      file_name = file,
+      fily_type = "png",
+      width = as.numeric(input$outcome_attrition_download_width),
+      height = as.numeric(input$outcome_attrition_download_height)
+    )
+  }
+)
+
+
 #large scale characteristics matched ----
 get_lsc_characteristics <- reactive({
   
