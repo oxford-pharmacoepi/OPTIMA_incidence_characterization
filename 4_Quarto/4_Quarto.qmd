@@ -10,6 +10,7 @@ editor: visual
 library(dplyr)
 library(omopgenerics)
 library(stringr)
+library(CohortCharacteristics)
 
 results <-list.files("data", full.names = TRUE,
                      recursive = TRUE,
@@ -515,3 +516,188 @@ ggplot(lsc, aes(x = `Lung Cancer All Sampled`, y = `Lung Cancer All Matched`, co
   theme_minimal(base_size = 12) +
   facet_wrap(~ Database)
 ```
+
+## Outcome Attrition
+
+```{r outcome_attrition, warning=FALSE, echo=FALSE, message=FALSE, eval=TRUE, results='hide', fig.keep='none'}
+
+# if you update the figure you will need to rerun it by setting eval to TRUE
+
+orderSummaryAttrition <- function(x) {
+  vars <- c(
+    "number_records", "number_subjects", "excluded_records", "excluded_subjects"
+  )
+  x |>
+    dplyr::mutate(additional_level = as.numeric(.data$additional_level)) |>
+    dplyr::inner_join(
+      dplyr::tibble(variable_name = vars, var_id = seq_along(vars)),
+      by = "variable_name"
+    ) |>
+    dplyr::arrange(.data$result_id, .data$additional_level, .data$var_id) |>
+    dplyr::select(!"var_id") |>
+    dplyr::mutate(additional_level = as.character(.data$additional_level))
+}
+
+summariseAttrition <- function(att,
+                               set = NULL,
+                               tname = "unknown",
+                               cname = "unknown") {
+  if (is.null(set)) {
+    set <- att |>
+      dplyr::select("cohort_definition_id") |>
+      dplyr::distinct() |>
+      dplyr::mutate(
+        "result_id" = .data$cohort_definition_id,
+        "cohort_name" = paste0("unknown_", .data$cohort_definition_id)
+      )
+  }
+  att |>
+    dplyr::inner_join(
+      set |>
+        dplyr::select("cohort_definition_id", "result_id", "cohort_name"),
+      by = "cohort_definition_id"
+    ) |>
+    dplyr::select(-"cohort_definition_id") |>
+    dplyr::mutate(dplyr::across(!"result_id", as.character)) |>
+    tidyr::pivot_longer(
+      cols = c(
+        "number_records", "number_subjects", "excluded_records",
+        "excluded_subjects"
+      ),
+      names_to = "variable_name",
+      values_to = "estimate_value"
+    ) |>
+    dplyr::mutate(
+      "estimate_name" = "count",
+      "variable_level" = NA_character_,
+      "estimate_type" = "integer",
+      "cdm_name" = cname
+    ) |>
+    visOmopResults::uniteGroup("cohort_name") |>
+    visOmopResults::uniteStrata("reason") |>
+    visOmopResults::uniteAdditional("reason_id") |>
+    orderSummaryAttrition() |>
+    omopgenerics::newSummarisedResult(
+      settings = set |>
+        dplyr::select(!"cohort_name") |>
+        dplyr::mutate(
+          "result_type" = "summarise_cohort_attrition",
+          "package_name" = "CohortCharacteristics",
+          "package_version" = "0.5.1",
+          "table_name" = tname
+        ) |>
+        dplyr::relocate(dplyr::all_of(c(
+          "result_id", "result_type", "package_name", "package_version"
+        ))) |>
+        dplyr::mutate(
+          cohort_definition_id = as.character(.data$cohort_definition_id)
+        )
+    )
+}
+
+
+outcome_attrition_files<-results[stringr::str_detect(results, ".csv")]
+outcome_attrition_files<-results[stringr::str_detect(results, "outcome_attrition")]
+outcome_attrition_temp <- list()
+outcome_attrition <- list()
+
+for(i in seq_along(outcome_attrition_files)){
+  
+  
+  outcome_attrition_temp[[i]]<-readr::read_csv(outcome_attrition_files[[i]],
+                                            show_col_types = FALSE)
+  
+  db_names <- str_extract(outcome_attrition_files[[i]], "(?<=data/)(.*?)(?=_outcome_attrition\\.csv)")
+  
+  
+  outcome_attrition[[i]] <- summariseAttrition(outcome_attrition_temp[[i]],
+                                               cname = db_names                 
+                                               )
+  
+  
+  
+}
+
+# bind the attrition cohorts and only keep main cohorts not matched ones
+outcome_attrition_combined <- bind(outcome_attrition) %>% filter(
+  group_level == "unknown_1" |
+    group_level == "unknown_2" |
+    group_level == "unknown_3" |
+    group_level == "unknown_4" 
+) %>% 
+  filter(strata_level != "Cohort records collapsed") %>% 
+  mutate(group_level = case_when(
+    group_level == "unknown_1" ~ "Lung Cancer All",
+    group_level == "unknown_2" ~ "Lung Cancer Broad",
+    group_level == "unknown_3" ~ "Lung Cancer Narrow",
+    group_level == "unknown_4" ~ "Small Cell Lung Cancer",
+    TRUE ~ group_level
+  )) %>% 
+  mutate(cdm_name = case_when(
+    cdm_name == "CPRD_GOLD" ~ "CPRD GOLD",
+    cdm_name == "German DA M202403" ~ "DA Germany",
+    cdm_name == "GERMANY DA" ~ "DA Germany",
+    cdm_name == "USONCEMR202112SRC" ~ "OncoEMR",
+    cdm_name == "THIN_es" ~ "THIN Spain",
+    cdm_name == "THIN_be" ~ "THIN Belgium",
+    cdm_name == "THIN_fr" ~ "THIN France",
+    cdm_name == "THIN_it" ~ "THIN Italy",
+    cdm_name == "THIN_ro" ~ "THIN Romania",
+    cdm_name == "THIN_uk" ~ "THIN UK",
+    TRUE ~ cdm_name
+  ))
+
+# filter n subject < 5 when n excluded < 5
+
+# split results
+plot_data <- outcome_attrition_combined %>% filter(group_level == "Lung Cancer Broad" )
+
+databases_names <- plot_data %>% distinct(cdm_name) %>% pull()
+
+# split results into 3
+plot_data1 <- plot_data %>% filter(cdm_name %in% databases_names[1:3])
+
+plot_data2 <- plot_data %>% filter(cdm_name %in% databases_names[4:6])
+
+plot_data3 <- plot_data %>% filter(cdm_name %in% databases_names[7:9])
+
+
+#create png images for each subset of cohort attrition
+img1 <- CohortCharacteristics::plotCohortAttrition( plot_data1, 
+                                            type = "png",
+                                            show = c("subjects") )
+img2 <- CohortCharacteristics::plotCohortAttrition( plot_data2, 
+                                            type = "png",
+                                            show = c("subjects") )
+img3 <- CohortCharacteristics::plotCohortAttrition( plot_data3, 
+                                            type = "png",
+                                            show = c("subjects") )
+
+g1 <- grid::rasterGrob(img1, interpolate = TRUE)
+g2 <- grid::rasterGrob(img2, interpolate = TRUE)
+g3 <- grid::rasterGrob(img3, interpolate = TRUE)
+
+# Open a PNG device to save the output
+png("combined_attrition.png", width = 3000, height = 4000, res = 400) # Adjust dimensions if needed
+
+# Set up layout: 1 row, 3 columns
+grid::grid.newpage()
+layout <- grid::grid.layout(nrow = 3, ncol = 1)
+grid::pushViewport(grid::viewport(layout = layout))
+
+# Draw each image in its cell
+for (i in 1:3) {
+    grid::pushViewport(grid::viewport(layout.pos.row = i, layout.pos.col = 1))
+    grid::grid.draw(get(paste0("g", i)))  # dynamically access g1, g2, g3
+    grid::upViewport()
+}
+
+# Finish and save the file
+dev.off()
+
+
+```
+
+![](combined_attrition.png)
+
+
