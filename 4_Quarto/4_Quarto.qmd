@@ -521,8 +521,6 @@ ggplot(lsc, aes(x = `Lung Cancer All Sampled`, y = `Lung Cancer All Matched`, co
 
 ```{r outcome_attrition, warning=FALSE, echo=FALSE, message=FALSE, eval=TRUE, results='hide', fig.keep='none'}
 
-# if you update the figure you will need to rerun it by setting eval to TRUE
-
 orderSummaryAttrition <- function(x) {
   vars <- c(
     "number_records", "number_subjects", "excluded_records", "excluded_subjects"
@@ -612,8 +610,8 @@ for(i in seq_along(outcome_attrition_files)){
   
   outcome_attrition[[i]] <- summariseAttrition(outcome_attrition_temp[[i]],
                                                cname = db_names                 
-                                               )
-  
+                                               ) %>% 
+    omopgenerics::suppress(minCellCount = 5)
   
   
 }
@@ -647,7 +645,6 @@ outcome_attrition_combined <- bind(outcome_attrition) %>% filter(
     TRUE ~ cdm_name
   ))
 
-# filter n subject < 5 when n excluded < 5
 
 # split results
 plot_data <- outcome_attrition_combined %>% filter(group_level == "Lung Cancer Broad" )
