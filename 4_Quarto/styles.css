@@ -1,0 +1,17 @@
+/* Force full width on all major containers */
+main.content,
+.page-columns,
+.page,
+body,
+html {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Optional: tweak content padding so it's not flush against the edge */
+main.content {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}

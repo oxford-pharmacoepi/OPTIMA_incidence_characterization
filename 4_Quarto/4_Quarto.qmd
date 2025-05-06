@@ -1,10 +1,14 @@
 ---
 title: "OPTIMA Lung Cancer Results"
-format: html
+format:
+  html:
+    page-layout: full
+    css: styles.css
 editor: visual
+fig-width: 12  
 ---
 
-## Results
+# Results
 
 ```{r loading results, echo=FALSE, warning=FALSE, message=FALSE}
 library(dplyr)
@@ -696,5 +700,3 @@ dev.off()
 ```
 
 ![](combined_attrition.png)
-
-
