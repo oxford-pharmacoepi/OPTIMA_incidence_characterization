@@ -574,116 +574,6 @@ snapshotcdm <- bind_rows(snapshotcdm) %>%
 
 
 # attrition functions ----
-attritionChart <- function(x) {
-  formatNum <- function(col) {
-    col <- round(as.numeric(col))
-    if_else(
-      !is.na(col),
-      gsub(" ", "", format(as.integer(col), big.mark=",")),
-      as.character(col)
-    )
-  }
-  
-  xn <- x %>%
-    arrange(reason_id) %>%
-    mutate(
-      number_subjects = formatNum(number_subjects),
-      number_records = formatNum(number_records),
-      excluded_subjects = formatNum(excluded_subjects),
-      excluded_records = formatNum(excluded_records),
-      label = paste0(
-        "N subjects = ", number_subjects, "\nN records = ", number_records
-      )
-    )
-  if (nrow(xn) == 1) {
-    xn <- xn %>%
-      mutate(label = paste0("Qualifying events", "\n", label)) %>%
-      select(label)
-  } else {
-    att <- xn %>%
-      filter(reason_id > min(reason_id)) %>%
-      mutate(
-        label = paste0(
-          "N subjects = ", excluded_subjects, "\nN records = ", excluded_records
-        )
-      ) %>%
-      select(reason, label)
-    xn <- xn %>%
-      mutate(
-        label = if_else(
-          reason_id == min(reason_id),
-          paste0("Initial events", "\n", label),
-          if_else(
-            reason_id == max(reason_id),
-            paste0("Final events", "\n", label),
-            label
-          )
-        )
-      ) %>%
-      select(label)
-  }
-  n <- nrow(x)
-  xg <- create_graph()
-  
-  for (k in seq_len(n)) {
-    xg <- xg %>%
-      add_node(
-        label = xn$label[k],
-        node_aes = node_aes(
-          shape = "box",
-          x = 1,
-          width = 1.4,
-          y = n + 1 - k + ifelse(k == 1, 0.1, 0) + ifelse(k == n, -0.1, 0),
-          height = ifelse(k == 1 | k == n, 0.6, 0.4),
-          fontsize = 10, fontcolor = "black", penwidth = ifelse(k == 1 | k == n, 2, 1), color = "black"
-        )
-      )
-    if (k > 1) {
-      xg <- xg %>%
-        add_edge(from = k - 1, to = k, edge_aes = edge_aes(color = "black"))
-    }
-  }
-  salt <- function(x) {
-    s <- 50
-    x <- strsplit(x = x, split = " ") |> unlist()
-    nn <- (nchar(x) + c(0, rep(1, length(x)-1))) |> cumsum()
-    id <- which(nn > s)
-    if (length(id) > 0) {
-      id <- id[1] - 1
-      x <- paste0(paste0(x[1:id], collapse = " "), "\n", paste0(x[-(1:id)], collapse = " "))
-    } else {
-      x <- paste0(x, collapse = " ")
-    }
-    return(x)
-  }
-  if (n > 1) {
-    for (k in seq_len(nrow(att))) {
-      res <- att$reason[k]
-      res <- salt(res)
-      xg <- xg %>%
-        add_node(
-          label = att$label[k],
-          node_aes = node_aes(
-            shape = "box", x = 3.5, width = 1.2, y = n + 0.5 - k, height = 0.4,
-            fontsize = 8, fillcolor = "grey", fontcolor = "black", color = "black"
-          )
-        ) %>%
-        add_node(
-          label = res,
-          node_aes = node_aes(
-            shape = "box", x = 1, width = 3.2, y = n + 0.5 - k, height = 0.35, fillcolor = "white", color = "black", fontcolor = "back"
-          )
-        ) %>%
-        add_edge(
-          from = 2*k + n, to = 2*k + n -1, edge_aes = edge_aes(color = "black")
-        )
-    }
-  }
-  
-  return(xg)
-}
-
-
 orderSummaryAttrition <- function(x) {
   vars <- c(
     "number_records", "number_subjects", "excluded_records", "excluded_subjects"
@@ -771,13 +661,17 @@ for(i in seq_along(outcome_attrition_files)){
   db_names <- str_extract(outcome_attrition_files[[i]], "(?<=data/)(.*?)(?=_outcome_attrition\\.csv)")
   
   
+  # NEED TO ADD IN HERE IF THIN DATABASES SUPPRESS 10 OTHERS 5
   outcome_attrition[[i]] <- summariseAttrition(outcome_attrition_temp[[i]],
                                                cname = db_names                 
-                                               )
+                                               ) 
+  # %>% 
+  #   omopgenerics::suppress(minCellCount = 5)
   
   
   
 }
+
 
 # bind the attrition cohorts and only keep main cohorts not matched ones
 outcome_attrition_combined <- bind(outcome_attrition) %>% filter(
@@ -807,3 +701,100 @@ outcome_attrition_combined <- bind(outcome_attrition) %>% filter(
     cdm_name == "THIN_uk" ~ "THIN UK",
     TRUE ~ cdm_name
   ))
+
+
+
+
+process_exclusion_summary <- function(df, group_level_value) {
+  
+  df_group <- df %>% filter(group_level == group_level_value)
+  
+  # Filtered data
+  filtered_df <- subset(df_group, strata_level %in% c("Qualifying initial records", "Excluded patients outside study period"))
+  exclusions_df <- subset(df_group, !(strata_level %in% c("Qualifying initial records", "Excluded patients outside study period")))
+  
+  # Sum exclusions
+  excluded_records_sum <- sum(as.numeric(exclusions_df$estimate_value[exclusions_df$variable_name == "excluded_records"]), na.rm = TRUE)
+  excluded_subjects_sum <- sum(as.numeric(exclusions_df$estimate_value[exclusions_df$variable_name == "excluded_subjects"]), na.rm = TRUE)
+  
+  # Template for exclusion summary rows
+  template_row <- exclusions_df[1, ]
+  
+  # Create summary rows for exclusions
+  summary_row_records <- template_row
+  summary_row_records$strata_level <- "Excluded patients < 18 years or no sex recorded or < 1 year prior history"
+  summary_row_records$variable_name <- "excluded_records"
+  summary_row_records$estimate_value <- excluded_records_sum
+  
+  summary_row_subjects <- template_row
+  summary_row_subjects$strata_level <- "Excluded patients < 18 years or no sex recorded or < 1 year prior history"
+  summary_row_subjects$variable_name <- "excluded_subjects"
+  summary_row_subjects$estimate_value <- excluded_subjects_sum
+  
+  # Combine summary rows into exclusions_df
+  summary_rows <- bind_rows(summary_row_records, summary_row_subjects) %>%
+    mutate(estimate_value = as.character(estimate_value))
+  
+  exclusions_df <- bind_rows(exclusions_df, summary_rows) %>%
+    mutate(estimate_value = as.character(estimate_value))
+  
+  # Add summary rows to filtered_df
+  filtered_df_add <- bind_rows(filtered_df, summary_rows)
+  
+  # Compute collapsed 'number_records'
+  qualifying_nr <- as.numeric(filtered_df$estimate_value[filtered_df$strata_level == "Qualifying initial records" & filtered_df$variable_name == "number_records"])
+  collapsed_nr <- qualifying_nr - excluded_records_sum
+  
+  # Summary row for collapsed 'number_records'
+  template_row_nr <- filtered_df[filtered_df$strata_level == "Qualifying initial records" & filtered_df$variable_name == "number_records", ][1, ]
+  summary_row_nr <- template_row_nr
+  summary_row_nr$strata_level <- "Excluded patients < 18 years or no sex recorded or < 1 year prior history"
+  summary_row_nr$estimate_value <- as.character(collapsed_nr)
+  summary_row_nr$additional_level <- "3"
+  
+  # Add summary row to summary_rows and filtered_df
+  summary_rows <- bind_rows(summary_rows, summary_row_nr)
+  filtered_df_add <- bind_rows(filtered_df_add, summary_row_nr)
+  
+  # Compute collapsed 'number_subjects'
+  qualifying_ns <- as.numeric(filtered_df$estimate_value[filtered_df$strata_level == "Qualifying initial records" & filtered_df$variable_name == "number_subjects"])
+  collapsed_ns <- qualifying_ns - excluded_subjects_sum
+  
+  # Summary row for collapsed 'number_subjects'
+  template_row_ns <- filtered_df[filtered_df$strata_level == "Qualifying initial records" & filtered_df$variable_name == "number_subjects", ][1, ]
+  summary_row_ns <- template_row_ns
+  summary_row_ns$strata_level <- "Excluded patients < 18 years or no sex recorded or < 1 year prior history"
+  summary_row_ns$estimate_value <- as.character(collapsed_ns)
+  summary_row_ns$additional_level <- "3"
+  
+  # Final merge
+  summary_rows <- bind_rows(summary_rows, summary_row_ns)
+  filtered_df_add <- bind_rows(filtered_df_add, summary_row_ns) %>% 
+    mutate(
+      additional_level = ifelse(
+        strata_level == "Excluded patients < 18 years or no sex recorded or < 1 year prior history",
+        "3",
+        additional_level
+      )
+    ) %>%
+    arrange(additional_level)
+  
+  return(filtered_df_add)
+  
+} 
+
+
+final_result <- outcome_attrition_combined %>%
+  split(.$cdm_name) %>%                 # Split by database
+  lapply(function(db_df) {
+    group_results <- lapply(unique(db_df$group_level), function(g) {
+      process_exclusion_summary(db_df, g)
+    })
+    bind_rows(group_results)           # Combine all group_level results for one database
+  }) %>%
+  bind_rows()
+
+
+outcome_attrition_combined <- final_result
+
+
