@@ -650,6 +650,85 @@ outcome_attrition_combined <- bind(outcome_attrition) %>% filter(
   ))
 
 
+process_exclusion_summary <- function(df, group_level_value) {
+  df_group <- df %>% filter(group_level == group_level_value)
+  # Filtered data
+  filtered_df <- subset(df_group, strata_level %in% c("Qualifying initial records", "Excluded patients outside study period"))
+  exclusions_df <- subset(df_group, !(strata_level %in% c("Qualifying initial records", "Excluded patients outside study period")))
+  # Sum exclusions
+  excluded_records_sum <- sum(as.numeric(exclusions_df$estimate_value[exclusions_df$variable_name == "excluded_records"]), na.rm = TRUE)
+  excluded_subjects_sum <- sum(as.numeric(exclusions_df$estimate_value[exclusions_df$variable_name == "excluded_subjects"]), na.rm = TRUE)
+  # Template for exclusion summary rows
+  template_row <- exclusions_df[1, ]
+  # Create summary rows for exclusions
+  summary_row_records <- template_row
+  summary_row_records$strata_level <- "Excluded patients < 18 years or no sex recorded or < 1 year prior history"
+  summary_row_records$variable_name <- "excluded_records"
+  summary_row_records$estimate_value <- excluded_records_sum
+  summary_row_subjects <- template_row
+  summary_row_subjects$strata_level <- "Excluded patients < 18 years or no sex recorded or < 1 year prior history"
+  summary_row_subjects$variable_name <- "excluded_subjects"
+  summary_row_subjects$estimate_value <- excluded_subjects_sum
+  # Combine summary rows into exclusions_df
+  summary_rows <- bind_rows(summary_row_records, summary_row_subjects) %>%
+    mutate(estimate_value = as.character(estimate_value))
+  exclusions_df <- bind_rows(exclusions_df, summary_rows) %>%
+    mutate(estimate_value = as.character(estimate_value))
+  # Add summary rows to filtered_df
+  filtered_df_add <- bind_rows(filtered_df, summary_rows)
+  # Compute collapsed 'number_records'
+  qualifying_nr <- as.numeric(filtered_df$estimate_value[filtered_df$strata_level == "Qualifying initial records" & filtered_df$variable_name == "number_records"])
+  collapsed_nr <- qualifying_nr - excluded_records_sum
+  # Summary row for collapsed 'number_records'
+  template_row_nr <- filtered_df[filtered_df$strata_level == "Qualifying initial records" & filtered_df$variable_name == "number_records", ][1, ]
+  summary_row_nr <- template_row_nr
+  summary_row_nr$strata_level <- "Excluded patients < 18 years or no sex recorded or < 1 year prior history"
+  summary_row_nr$estimate_value <- as.character(collapsed_nr)
+  summary_row_nr$additional_level <- "3"
+  # Add summary row to summary_rows and filtered_df
+  summary_rows <- bind_rows(summary_rows, summary_row_nr)
+  filtered_df_add <- bind_rows(filtered_df_add, summary_row_nr)
+  # Compute collapsed 'number_subjects'
+  qualifying_ns <- as.numeric(filtered_df$estimate_value[filtered_df$strata_level == "Qualifying initial records" & filtered_df$variable_name == "number_subjects"])
+  collapsed_ns <- qualifying_ns - excluded_subjects_sum
+  # Summary row for collapsed 'number_subjects'
+  template_row_ns <- filtered_df[filtered_df$strata_level == "Qualifying initial records" & filtered_df$variable_name == "number_subjects", ][1, ]
+  summary_row_ns <- template_row_ns
+  summary_row_ns$strata_level <- "Excluded patients < 18 years or no sex recorded or < 1 year prior history"
+  summary_row_ns$estimate_value <- as.character(collapsed_ns)
+  summary_row_ns$additional_level <- "3"
+  # Final merge
+  summary_rows <- bind_rows(summary_rows, summary_row_ns)
+  filtered_df_add <- bind_rows(filtered_df_add, summary_row_ns) %>% 
+    mutate(
+      additional_level = ifelse(
+        strata_level == "Excluded patients < 18 years or no sex recorded or < 1 year prior history",
+        "3",
+        additional_level
+      )
+    ) %>%
+    arrange(additional_level)
+  return(filtered_df_add)
+}
+
+
+final_result <- outcome_attrition_combined %>%
+  split(.$cdm_name) %>%                 # Split by database
+  lapply(function(db_df) {
+    group_results <- lapply(unique(db_df$group_level), function(g) {
+      process_exclusion_summary(db_df, g)
+    })
+    bind_rows(group_results)           # Combine all group_level results for one database
+  }) %>%
+  bind_rows()
+
+
+outcome_attrition_combined <- final_result
+
+
+
+
+
 # split results
 plot_data <- outcome_attrition_combined %>% filter(group_level == "Lung Cancer Broad" )
 
