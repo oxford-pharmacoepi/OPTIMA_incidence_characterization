@@ -15,6 +15,7 @@ library(dplyr)
 library(omopgenerics)
 library(stringr)
 library(CohortCharacteristics)
+library(ggplot2)
 
 results <-list.files("data", full.names = TRUE,
                      recursive = TRUE,
