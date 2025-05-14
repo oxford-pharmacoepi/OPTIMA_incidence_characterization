@@ -481,9 +481,7 @@ ggplot(lsc_met, aes(x = `Lung Cancer All Sampled`, y = `Lung Cancer All Matched`
     x = "Sampled"
   ) +
   geom_abline(intercept = 0, slope = 1, linetype = "dotted", color = "black") +
-  theme_minimal(base_size = 12) +
-  xlim(0,10) +
-  ylim(0,10)
+  theme_minimal(base_size = 12)
 ```
 
 ## Outcome Attrition
