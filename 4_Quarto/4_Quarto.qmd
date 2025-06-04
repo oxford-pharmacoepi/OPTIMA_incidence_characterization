@@ -234,6 +234,8 @@ rm(tableone_comorb)
 ## Table 1
 
 ```{r table one, warning=FALSE, echo=FALSE, message=FALSE}
+#antihypertensives
+
 char_1 <- demo_characteristics %>%
   filter(group_level == "Lung Cancer All",
          variable_name == "Age",
@@ -261,7 +263,7 @@ char_4 <- comorb_characteristics %>%
          variable_name == "Conditions prior to index date",
          estimate_name %in% c("count", "percentage"),
          strata_name == "overall",
-         variable_level %in% c("Venous thromboembolism", "Asthma", "Heart failure", "Copd",
+         variable_level %in% c("Asthma", "Copd",
                                "Depressive disorder", "Cerebrovascular disease", "Hypertension",
                                "Hyperlipidemia", "T 2 d", "Anemia", "Ischemic heart disease",
                                "Chronic kidney disease")
@@ -272,19 +274,23 @@ char_5 <- med_characteristics %>%
          variable_name == "Medications 365 days prior to index date",
          estimate_name %in% c("count", "percentage"),
          strata_name == "overall",
-         variable_level %in% c("Drugs acid related disorder", "Lipid modifying agents", "Drugs used in diabetes", "Immunosupressants",
+         variable_level %in% c("Lipid modifying agents", "Drugs used in diabetes", "Immunosupressants",
                                "Drugs obstructive airway dis", "Antithrombotics", "Antidepressants",
-                               "Antibacterials systemic", "Antiinflammatory antirheumatic")
-  )
+                               "Antibacterials systemic", "Antiinflammatory antirheumatic",
+                               "Diuretics", "Agents renin ang sys")) %>%
+  mutate(variable_level = case_when(
+    variable_level == "Agents renin ang sys" ~ "RAS-Acting Agents",
+    TRUE ~ variable_level
+  ))
 
-table_one <- rbind(char_3, char_1, char_2, char_4, char_5)
+table_one <- rbind(char_3, char_1, char_2, char_4, char_5) %>%
+  filter(!cdm_name %in% c("OptimaEstonia", "OncoEMR", "THIN UK"))
 
 tableCharacteristics(table_one,
                      type = "flextable",
                      header = c("cohort_name", "cdm_name"),
                      hide = c("additional_name", "additional_level", "strata_name", "strata_level", "table_name", "sex", "age_group"))
 ```
-
 
 ## Matched Large Scale Characteristics
 
@@ -378,41 +384,46 @@ lsc <- lsc_data |>
            "Standardised mean difference" = smd) 
 ```
 
+
 ```{r lsc cats, echo=FALSE, warning=FALSE, message=FALSE}
-cats <- readxl::read_excel("categories/SMDimbalance.xlsx",                        , 
+cats <- readxl::read_excel("categories/SMDimbalance.xlsx",                         
     sheet = "SIGNS_SYMP_Presentation_-1to-12") %>%
   select(c(`Concept name (concept ID)`, PHENOTYPE)) %>%
   rename(`Signs and Symptoms` = PHENOTYPE) %>%
   distinct()
 
-lsc_cats <- merge(lsc, cats, by = "Concept name (concept ID)", all = TRUE )
-# Merge back to tag conditions with their appearance count per DB
-lsc_cats <- lsc_cats %>% 
-    mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)/100)) |>
-    mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)*100)) |>
-    filter(`Time window` %in% c("-365 to -31")) |>
+risks <- readxl::read_excel("categories/SMDimbalance.xlsx",                         
+    sheet = "RISK FACTORS_-12to-inf") %>%
+  select(c(`Concept name (concept ID)`, `Risk Factors`)) %>%
+  distinct()
+
+met <- readxl::read_excel("categories/SMDimbalance.xlsx",                         
+    sheet = "RISK FACTORS_-12to-inf") %>%
+  select(c(`Concept name (concept ID)`, `Metabolic Syndrome`)) %>%
+  distinct()
+
+lsc_cats <- merge(lsc, cats, by = "Concept name (concept ID)", all = TRUE) |>
+  dplyr::filter(!`Concept name (concept ID)` %in% c(risks$`Concept name (concept ID)`, met$`Concept name (concept ID)`)) %>%
+    filter(`Time window` %in% c("-365 to -31"))|>
   filter(Table == "condition_occurrence",
          !Database %in% c("OncoEMR", "OptimaEstonia"))
 
-lsc_cats <- subset(lsc_cats, !is.na(`Lung Cancer All Sampled`) & !is.na(`Lung Cancer All Matched`)) %>%
-  filter(`Standardised mean difference` >= 0.15 | `Standardised mean difference` <= -0.15) %>%
-  na.omit()
+lsc_cats <- subset(lsc_cats %>% filter(!Database %in% c("THIN UK")), !is.na(`Lung Cancer All Sampled`) & !is.na(`Lung Cancer All Matched`)) %>% na.omit()
 
-ggplot(lsc_cats, aes(x = `Lung Cancer All Sampled`, y = `Lung Cancer All Matched`, color = Database)) +
-  geom_point(aes(shape = `Signs and Symptoms`)) +
-  scale_shape_manual(values = 0:25) +
-  geom_label(data = subset(lsc_cats, `Standardised mean difference` >= 0.4 | `Standardised mean difference` <= -0.4 | `Lung Cancer All Sampled` >= 50 | `Lung Cancer All Matched` >= 50),
-            aes(label = `Concept name (concept ID)`),
-            vjust = -0.5, size = 3) +
+ggplot(lsc_cats, aes(x = `Signs and Symptoms`, y = `Standardised mean difference`)) +
+  geom_point(aes(fill = `Signs and Symptoms`, size = `Lung Cancer All Sampled`),
+             colour = "black", shape = 21) +
   labs(
-    title = "Prevelance of signs and symptoms in Lung Cancer Cohort and Matched Cohort (-365 to -31)",
-    y = "Matched",
-    x = "Sampled"
+    title = "SMD of signs and symptoms (-365 to -31)",
+    y = "SMD",
+    x = " "
   ) +
-  geom_abline(intercept = 0, slope = 1, linetype = "dotted", color = "black") +
-  theme_minimal(base_size = 12) +
-  xlim(0,25) +
-  ylim(0,25)
+  geom_abline(intercept = -0.1, slope = 0, linetype = "dotted", color = "black") +
+  geom_abline(intercept = 0.1, slope = 0, linetype = "dotted", color = "black") +
+  facet_wrap(~Database) +
+  ggplot2::theme(axis.text.x = ggplot2::element_blank()) +
+  guides(size = "none")
+
 ```
 
 ```{r lsc cats 2, echo=FALSE, warning=FALSE, message=FALSE}
@@ -431,25 +442,23 @@ lsc_risks <- lsc_risks %>%
          !Database %in% c("OncoEMR", "OptimaEstonia"))
 
 lsc_risks <- subset(lsc_risks, !is.na(`Lung Cancer All Sampled`) & !is.na(`Lung Cancer All Matched`)) %>%
-  #filter(`Standardised mean difference` >= 0.15 | `Standardised mean difference` <= -0.15) %>%
   na.omit()
 
-ggplot(lsc_risks, aes(x = `Lung Cancer All Sampled`, y = `Lung Cancer All Matched`, color = Database)) +
-  geom_point(aes(shape = `Risk Factors`)) +
-  scale_shape_manual(values = 0:25) +
-  geom_label(data = subset(lsc_risks, `Standardised mean difference` >= 0.4 | `Standardised mean difference` <= -0.4 | `Lung Cancer All Sampled` >= 50 | `Lung Cancer All Matched` >= 50),
-            aes(label = `Concept name (concept ID)`),
-            vjust = -0.5, size = 3) +
+ggplot(lsc_risks, aes(x = `Risk Factors`, y = `Standardised mean difference`)) +
+  geom_point(aes(fill = `Risk Factors`, size = `Lung Cancer All Sampled`),
+             colour = "black", shape = 21) +
   labs(
-    title = "Prevelance of risk factors in Lung Cancer Cohort and Matched Cohort (-365 to -31)",
-    y = "Matched",
-    x = "Sampled"
+    title = "SMD of risk factors (-365 to -31)",
+    y = "SMD",
+    x = " "
   ) +
-  geom_abline(intercept = 0, slope = 1, linetype = "dotted", color = "black") +
-  theme_minimal(base_size = 12) +
-  xlim(0,25) +
-  ylim(0,25)
+  geom_abline(intercept = -0.1, slope = 0, linetype = "dotted", color = "black") +
+  geom_abline(intercept = 0.1, slope = 0, linetype = "dotted", color = "black") +
+  facet_wrap(~Database) +
+  ggplot2::theme(axis.text.x = ggplot2::element_blank()) +
+  guides(size = "none")
 ```
+
 ```{r lsc cats 3, echo=FALSE, warning=FALSE, message=FALSE}
 met <- readxl::read_excel("categories/SMDimbalance.xlsx",                        , 
     sheet = "RISK FACTORS_-12to-inf") %>%
@@ -463,25 +472,24 @@ lsc_met <- lsc_met %>%
     mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)*100)) |>
     filter(`Time window` %in% c("-365 to -31")) |>
   filter(Table == "condition_occurrence",
-         !Database %in% c("OncoEMR", "OptimaEstonia"))
+         !Database %in% c("OncoEMR", "OptimaEstonia", "THIN UK"))
 
 lsc_met <- subset(lsc_met, !is.na(`Lung Cancer All Sampled`) & !is.na(`Lung Cancer All Matched`)) %>%
-  #filter(`Standardised mean difference` >= 0.15 | `Standardised mean difference` <= -0.15) %>%
   na.omit()
 
-ggplot(lsc_met, aes(x = `Lung Cancer All Sampled`, y = `Lung Cancer All Matched`, color = Database)) +
-  geom_point(aes(shape = `Metabolic Syndrome`)) +
-  scale_shape_manual(values = 0:25) +
-  geom_label(data = subset(lsc_met, `Standardised mean difference` >= 0.4 | `Standardised mean difference` <= -0.4 | `Lung Cancer All Sampled` >= 25 | `Lung Cancer All Matched` >= 25),
-            aes(label = `Concept name (concept ID)`),
-            vjust = -0.5, size = 3) +
+ggplot(lsc_met, aes(x = `Metabolic Syndrome`, y = `Standardised mean difference`)) +
+  geom_point(aes(fill = `Metabolic Syndrome`, size = `Lung Cancer All Sampled`),
+             colour = "black", shape = 21) +
   labs(
-    title = "Prevelance of metabolic syndromes in Lung Cancer Cohort and Matched Cohort (-365 to -31)",
-    y = "Matched",
-    x = "Sampled"
+    title = "SMD of metabolic syndromes (-365 to -31)",
+    y = "SMD",
+    x = " "
   ) +
-  geom_abline(intercept = 0, slope = 1, linetype = "dotted", color = "black") +
-  theme_minimal(base_size = 12)
+  geom_abline(intercept = -0.1, slope = 0, linetype = "dotted", color = "black") +
+  geom_abline(intercept = 0.1, slope = 0, linetype = "dotted", color = "black") +
+  facet_wrap(~Database) +
+  ggplot2::theme(axis.text.x = ggplot2::element_blank()) +
+  guides(size = "none")
 ```
 
 ## Outcome Attrition
@@ -610,7 +618,8 @@ outcome_attrition_combined <- bind(outcome_attrition) %>% filter(
     cdm_name == "THIN_ro" ~ "THIN Romania",
     cdm_name == "THIN_uk" ~ "THIN UK",
     TRUE ~ cdm_name
-  ))
+  )) %>%
+  filter(!cdm_name %in% c("OncoEMR", "THIN UK", "OptimaEstonia"))
 
 
 process_exclusion_summary <- function(df, group_level_value) {
@@ -698,11 +707,13 @@ plot_data <- outcome_attrition_combined %>% filter(group_level == "Lung Cancer B
 databases_names <- plot_data %>% distinct(cdm_name) %>% pull()
 
 # split results into 3
-plot_data1 <- plot_data %>% filter(cdm_name %in% databases_names[1:3])
+plot_data1 <- plot_data %>% filter(cdm_name %in% databases_names[1:2])
 
-plot_data2 <- plot_data %>% filter(cdm_name %in% databases_names[4:6])
+plot_data2 <- plot_data %>% filter(cdm_name %in% databases_names[3:4])
 
-plot_data3 <- plot_data %>% filter(cdm_name %in% databases_names[7:9])
+plot_data3 <- plot_data %>% filter(cdm_name %in% databases_names[5:6])
+
+plot_data4 <- plot_data %>% filter(cdm_name %in% databases_names[7:8])
 
 
 #create png images for each subset of cohort attrition
@@ -715,21 +726,25 @@ img2 <- CohortCharacteristics::plotCohortAttrition( plot_data2,
 img3 <- CohortCharacteristics::plotCohortAttrition( plot_data3, 
                                             type = "png",
                                             show = c("subjects") )
+img4 <- CohortCharacteristics::plotCohortAttrition( plot_data4, 
+                                            type = "png",
+                                            show = c("subjects") )
 
 g1 <- grid::rasterGrob(img1, interpolate = TRUE)
 g2 <- grid::rasterGrob(img2, interpolate = TRUE)
 g3 <- grid::rasterGrob(img3, interpolate = TRUE)
+g4 <- grid::rasterGrob(img4, interpolate = TRUE)
 
 # Open a PNG device to save the output
 png("combined_attrition.png", width = 3000, height = 4000, res = 400) # Adjust dimensions if needed
 
 # Set up layout: 1 row, 3 columns
 grid::grid.newpage()
-layout <- grid::grid.layout(nrow = 3, ncol = 1)
+layout <- grid::grid.layout(nrow = 4, ncol = 1)
 grid::pushViewport(grid::viewport(layout = layout))
 
 # Draw each image in its cell
-for (i in 1:3) {
+for (i in 1:4) {
     grid::pushViewport(grid::viewport(layout.pos.row = i, layout.pos.col = 1))
     grid::grid.draw(get(paste0("g", i)))  # dynamically access g1, g2, g3
     grid::upViewport()
