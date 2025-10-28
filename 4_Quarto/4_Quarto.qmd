@@ -286,10 +286,18 @@ char_5 <- med_characteristics %>%
 table_one <- rbind(char_3, char_1, char_2, char_4, char_5) %>%
   filter(!cdm_name %in% c("OptimaEstonia", "OncoEMR", "THIN UK"))
 
-tableCharacteristics(table_one,
+char_table <- tableCharacteristics(table_one,
                      type = "flextable",
                      header = c("cohort_name", "cdm_name"),
                      hide = c("additional_name", "additional_level", "strata_name", "strata_level", "table_name", "sex", "age_group"))
+
+doc <- officer::read_docx()
+
+# 2. Add the flextable to the document
+doc <- flextable::body_add_flextable(doc, value = char_table)
+
+# 3. Print the document to a file
+print(doc, target = "my_table.docx")
 ```
 
 ## Matched Large Scale Characteristics
@@ -384,7 +392,6 @@ lsc <- lsc_data |>
            "Standardised mean difference" = smd) 
 ```
 
-
 ```{r lsc cats, echo=FALSE, warning=FALSE, message=FALSE}
 cats <- readxl::read_excel("categories/SMDimbalance.xlsx",                         
     sheet = "SIGNS_SYMP_Presentation_-1to-12") %>%
@@ -410,21 +417,70 @@ lsc_cats <- merge(lsc, cats, by = "Concept name (concept ID)", all = TRUE) |>
 
 lsc_cats <- subset(lsc_cats %>% filter(!Database %in% c("THIN UK")), !is.na(`Lung Cancer All Sampled`) & !is.na(`Lung Cancer All Matched`)) %>% na.omit()
 
-ggplot(lsc_cats, aes(x = `Signs and Symptoms`, y = `Standardised mean difference`)) +
+lsc_filt <- lsc_cats |>
+  group_by(`Signs and Symptoms`) |>
+  summarise(n = length(unique(Database))) |>
+  filter(n > 1) |>
+  pull(`Signs and Symptoms`)
+
+lsc_cats <- lsc_cats |>
+  filter(`Signs and Symptoms` %in% lsc_filt) |>
+  mutate(`Concept name (concept ID)` = sub(" \\(.*\\)$", "",`Concept name (concept ID)`)) |>
+  mutate(`Concept name (concept ID)` = case_when(
+    `Concept name (concept ID)` == "Urinary tract infectious disease" ~ "UTI",
+    `Concept name (concept ID)` == "Medical Research Council Dyspnoea scale grade 2" ~ "MRC Dyspnoea (grade 2)",
+    `Concept name (concept ID)` == "Medical Research Council Dyspnoea scale grade 3" ~ "MRC Dyspnoea (grade 3)",
+    `Concept name (concept ID)` == "Medical Research Council Dyspnoea scale grade 4" ~ "MRC Dyspnoea (grade 4)",
+    `Concept name (concept ID)` == "Medical Research Council Dyspnoea scale grade 5" ~ "MRC Dyspnoea (grade 5)",
+    TRUE ~ `Concept name (concept ID)`
+  )) |>
+  mutate(`Signs and Symptoms` = case_when(
+    `Signs and Symptoms` == "Pain (generally)" ~ "Pain",
+    TRUE ~ `Signs and Symptoms`
+  ))
+
+lsc_labs <- lsc_cats |> 
+  filter(`Standardised mean difference` > 0.15 | `Standardised mean difference` < -0.15 ) |>
+  group_by(Database,`Signs and Symptoms`) |>
+  slice_max(order_by = `Standardised mean difference`, n = 1, with_ties = FALSE)
+
+lsc_plot <- ggplot(lsc_cats, aes(x = `Signs and Symptoms`, y = `Standardised mean difference`)) +
   geom_point(aes(fill = `Signs and Symptoms`, size = `Lung Cancer All Sampled`),
              colour = "black", shape = 21) +
-  labs(
-    title = "SMD of signs and symptoms (-365 to -31)",
-    y = "SMD",
-    x = " "
+  ggrepel::geom_text_repel(
+    data = lsc_labs,
+    aes(label = `Concept name (concept ID)`),
+    size = 4,
+    nudge_y = 0.1,
+    direction = "y"
   ) +
-  geom_abline(intercept = -0.1, slope = 0, linetype = "dotted", color = "black") +
-  geom_abline(intercept = 0.1, slope = 0, linetype = "dotted", color = "black") +
-  facet_wrap(~Database) +
+  labs(
+    title = "",
+    y = "Standardised mean difference (SMD)",
+    x = ""
+  ) +
+  geom_abline(intercept = -0.1, slope = 0, linetype = "dotted", color = "darkred") +
+  geom_abline(intercept = 0.1, slope = 0, linetype = "dotted", color = "darkred") +
+  facet_wrap(~Database, ncol= 2) +
+  theme_bw() +
   ggplot2::theme(axis.text.x = ggplot2::element_blank()) +
-  guides(size = "none")
+  guides(size = "none") + 
+  theme(
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 14),
+    legend.title = element_text(size = 14, face = "bold"),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)) +
+  guides(fill = ggplot2::guide_legend(nrow = 4,
+                                      override.aes = list(size = 6)))
+lsc_plot
 
+ggsave("lsc_plot.png",
+    width = 15, height = 17, 
+    bg = "white")
 ```
+
 
 ```{r lsc cats 2, echo=FALSE, warning=FALSE, message=FALSE}
 risks <- readxl::read_excel("categories/SMDimbalance.xlsx",                        , 
@@ -437,26 +493,48 @@ lsc_risks <- merge(lsc, risks, by = "Concept name (concept ID)", all = TRUE )
 lsc_risks <- lsc_risks %>% 
     mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)/100)) |>
     mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)*100)) |>
-    filter(`Time window` %in% c("-365 to -31")) |>
+    filter(`Time window` %in% c("-inf to -366")) |>
   filter(Table == "condition_occurrence",
-         !Database %in% c("OncoEMR", "OptimaEstonia"))
+         !Database %in% c("OncoEMR", "OptimaEstonia", "THIN UK"))
 
 lsc_risks <- subset(lsc_risks, !is.na(`Lung Cancer All Sampled`) & !is.na(`Lung Cancer All Matched`)) %>%
   na.omit()
 
+lsc_labs <- lsc_risks |> 
+  filter(`Standardised mean difference` > 0.15 | `Standardised mean difference` < -0.15 ) |>
+  group_by(Database, `Risk Factors`) |>
+  slice_max(order_by = `Standardised mean difference`, n = 1, with_ties = FALSE)
+
 ggplot(lsc_risks, aes(x = `Risk Factors`, y = `Standardised mean difference`)) +
   geom_point(aes(fill = `Risk Factors`, size = `Lung Cancer All Sampled`),
              colour = "black", shape = 21) +
-  labs(
-    title = "SMD of risk factors (-365 to -31)",
-    y = "SMD",
-    x = " "
+  ggrepel::geom_text_repel(
+    data = lsc_labs,
+    aes(label = `Concept name (concept ID)`),
+    size = 4,
+    nudge_y = 0.1,
+    direction = "y"
   ) +
-  geom_abline(intercept = -0.1, slope = 0, linetype = "dotted", color = "black") +
-  geom_abline(intercept = 0.1, slope = 0, linetype = "dotted", color = "black") +
-  facet_wrap(~Database) +
+  labs(
+    title = "",
+    y = "Standardised mean difference (SMD)",
+    x = ""
+  ) +
+  geom_abline(intercept = -0.1, slope = 0, linetype = "dotted", color = "darkred") +
+  geom_abline(intercept = 0.1, slope = 0, linetype = "dotted", color = "darkred") +
+  facet_wrap(~Database, ncol= 2) +
+  theme_bw() +
   ggplot2::theme(axis.text.x = ggplot2::element_blank()) +
-  guides(size = "none")
+  guides(size = "none") + 
+  theme(
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 14),
+    legend.title = element_text(size = 14, face = "bold"),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)) +
+  guides(fill = ggplot2::guide_legend(nrow = 4,
+                                      override.aes = list(size = 6)))
 ```
 
 ```{r lsc cats 3, echo=FALSE, warning=FALSE, message=FALSE}
@@ -470,26 +548,53 @@ lsc_met <- merge(lsc, met, by = "Concept name (concept ID)", all = TRUE)
 lsc_met <- lsc_met %>% 
     mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)/100)) |>
     mutate(across(c(target_cohort, comparator_cohort), ~ as.numeric(.x)*100)) |>
-    filter(`Time window` %in% c("-365 to -31")) |>
+    filter(`Time window` %in% c("-inf to -366")) |>
   filter(Table == "condition_occurrence",
          !Database %in% c("OncoEMR", "OptimaEstonia", "THIN UK"))
 
-lsc_met <- subset(lsc_met, !is.na(`Lung Cancer All Sampled`) & !is.na(`Lung Cancer All Matched`)) %>%
-  na.omit()
+lsc_met <- subset(lsc_met, !is.na(`Lung Cancer All Sampled`) & !is.na(`Lung Cancer All Matched`)) |>
+  na.omit() |>
+  mutate(`Concept name (concept ID)` = sub(" \\(.*\\)$", "",`Concept name (concept ID)`))
 
-ggplot(lsc_met, aes(x = `Metabolic Syndrome`, y = `Standardised mean difference`)) +
+lsc_labs <- lsc_met |> 
+  filter(`Standardised mean difference` > 0.15 | `Standardised mean difference` < -0.15 ) |>
+  group_by(Database, `Metabolic Syndrome`) |>
+  slice_max(order_by = `Standardised mean difference`, n = 1, with_ties = FALSE)
+
+lsc_plot_met <- ggplot(lsc_met, aes(x = `Metabolic Syndrome`, y = `Standardised mean difference`)) +
   geom_point(aes(fill = `Metabolic Syndrome`, size = `Lung Cancer All Sampled`),
              colour = "black", shape = 21) +
-  labs(
-    title = "SMD of metabolic syndromes (-365 to -31)",
-    y = "SMD",
-    x = " "
+  ggrepel::geom_text_repel(
+    data = lsc_labs,
+    aes(label = `Concept name (concept ID)`),
+    size = 4,
+    nudge_y = 0.1,
+    direction = "y"
   ) +
-  geom_abline(intercept = -0.1, slope = 0, linetype = "dotted", color = "black") +
-  geom_abline(intercept = 0.1, slope = 0, linetype = "dotted", color = "black") +
-  facet_wrap(~Database) +
+  labs(
+    title = "",
+    y = "Standardised mean difference (SMD)",
+    x = ""
+  ) +
+  geom_abline(intercept = -0.1, slope = 0, linetype = "dotted", color = "darkred") +
+  geom_abline(intercept = 0.1, slope = 0, linetype = "dotted", color = "darkred") +
+  facet_wrap(~Database, ncol= 2) +
+  theme_bw() +
   ggplot2::theme(axis.text.x = ggplot2::element_blank()) +
-  guides(size = "none")
+  guides(size = "none") + 
+  theme(
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 14, face = "bold"),
+    legend.position = "bottom",
+    legend.text = element_text(size = 14),
+    legend.title = element_text(size = 14, face = "bold"),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)) +
+  guides(fill = ggplot2::guide_legend(nrow = 4,
+                                      override.aes = list(size = 6)))
+
+ggsave("lsc_plot_met.png",
+    width = 15, height = 17, 
+    bg = "white")
 ```
 
 ## Outcome Attrition
@@ -757,3 +862,41 @@ dev.off()
 ```
 
 ![](combined_attrition.png)
+
+```{r, incidence, warning=FALSE, echo=FALSE, message=FALSE, eval=TRUE, results='hide', fig.keep='none'}
+inc_data <- incidence_estimates_std |>
+  filter(age_standard == "European Standard Population",
+         outcome_cohort_name == "Lung Cancer All",
+         !cdm_name %in% c("THIN UK"))
+
+inc_plot_poster <- ggplot(inc_data, aes(x = incidence_start_date, y = incidence_100000_pys,
+                                 fill = denominator_sex)) +
+  geom_line() +
+  geom_point(colour = "black", shape = 21, size = 4) +
+  geom_ribbon(ggplot2::aes(ymin = incidence_100000_pys_95CI_lower, ymax = incidence_100000_pys_95CI_upper), alpha = 0.2) +
+  theme_bw()+
+  labs(
+    title = "",
+    y = "IRs per 100,000 person-years",
+    x = " "
+  ) +
+  facet_wrap(~ cdm_name, nrow = 2) +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = 16),
+    legend.title = element_blank(),
+    strip.text = element_text(face = "bold", size = 16),
+    axis.text = ggplot2::element_text(size = 16),
+    axis.title = ggplot2::element_text(size = 16),
+    plot.title = ggplot2::element_text(size = 22, face = "bold")
+  ) +
+    ggplot2::guides(
+    fill = ggplot2::guide_legend(
+      override.aes = list(size = 4)  # Adjust this size as needed
+    ))
+
+inc_plot_poster
+
+ggsave("inc_plot_poster.png",
+       width = 18, height = 12)
+```
