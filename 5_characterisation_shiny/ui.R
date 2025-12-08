@@ -757,7 +757,7 @@ ui <- dashboardPage(
               filter(!(variable_level %in% c("Female", "Male", NA))) %>% 
               pull(variable_level) %>% 
               unique(),
-            selected = "-inf to -366",
+            selected = "-365 to -31",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
@@ -838,7 +838,7 @@ ui <- dashboardPage(
               filter(!(variable_level %in% c("Female", "Male", NA))) %>% 
               pull(variable_level) %>% 
               unique(),
-            selected = "-inf to -366",
+            selected = "-365 to -31",
             options = list(`actions-box` = TRUE, size = 10, `selected-text-format` = "count > 3"),
             multiple = TRUE
           )
