@@ -1,0 +1,9 @@
+.RData
+.Rhistory
+.Rprofile
+renv\*
+.Rproj*
+rsconnect*
+data/*.csv
+data/*.zip
+data/*.txt
