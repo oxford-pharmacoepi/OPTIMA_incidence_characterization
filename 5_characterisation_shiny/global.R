@@ -324,7 +324,7 @@ incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>%
   tableone_demo_files <- results[stringr::str_detect(results, ".csv")]
   tableone_demo_files <- results[stringr::str_detect(results, "demographics")]
   
-  if(length(tableone_demo_files > 0)){
+  if(length(tableone_demo_files) > 0){
     
     tableone_demo <- list()
     
@@ -379,7 +379,7 @@ incidence_attrition <- dplyr::bind_rows(incidence_attrition) %>%
 tableone_med_files <- results[stringr::str_detect(results, ".csv")]
 tableone_med_files <- results[stringr::str_detect(results, "medications")]
 
-if(length(tableone_med_files > 0)){
+if(length(tableone_med_files) > 0){
 
   tableone_med <- list()
 
@@ -433,7 +433,7 @@ rm(tableone_med)
 tableone_comorb_files <- results[stringr::str_detect(results, ".csv")]
 tableone_comorb_files <- results[stringr::str_detect(results, "comorbidity")]
 
-if(length(tableone_comorb_files > 0)){
+if(length(tableone_comorb_files) > 0){
 
   tableone_comorb <- list()
 
@@ -489,7 +489,7 @@ rm(tableone_comorb)
 lsc_files <- results[stringr::str_detect(results, ".csv")]
 lsc_files <- results[stringr::str_detect(results, "_large_scale")]
 
-if(length(lsc_files > 0)){
+if(length(lsc_files) > 0){
   
   table_lsc <- list()
   
